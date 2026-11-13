@@ -1,0 +1,42 @@
+{
+  "organization": "nirmalhk7",
+  "team": "personal",
+  "scope": "local running-app verification",
+  "backend": {
+    "project": "sueperman-server",
+    "issue_id": "7846942072",
+    "short_id": "SUEPERMAN-SERVER-1",
+    "title": "RuntimeError: Sueperman Sentry verification 1794596496 backend",
+    "url": "https://nirmalhk7.sentry.io/issues/7846942072/",
+    "trace_id": "65d94c9ccc014552a0352fd216b9ecd7",
+    "source_context_verified": true,
+    "log_received": true
+  },
+  "frontend": {
+    "project": "sueperman-frontend",
+    "issue_id": "7846950178",
+    "short_id": "SUEPERMAN-FRONTEND-2",
+    "title": "Error: Sueperman Sentry verification 1794596496 frontend",
+    "url": "https://nirmalhk7.sentry.io/issues/7846950178/",
+    "trace_id": "46165d64055a4f339c9862803ac6f533",
+    "application_source_context_verified": true,
+    "source_map_files_uploaded": 1,
+    "log_received": true
+  },
+  "replay": {
+    "id": "948d15a1001f44e49bbd6eeac7c44e34",
+    "segments": 2,
+    "events": 63,
+    "visible_text_masked_verified": true,
+    "user_identity_fields_null": true
+  },
+  "temporary_triggers_removed": true,
+  "removed_trigger_http_status": 404,
+  "production_deployed": false,
+  "production_source_map_upload_verified": false,
+  "openai": {
+    "model": "gpt-6-luna",
+    "live_verified": false,
+    "reason": "API key not configured; transport and guardrail tests passed"
+  }
+}

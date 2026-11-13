@@ -22,7 +22,7 @@ from app.telemetry import initialize_telemetry
 
 def create_app(database_url=None):
     settings = Settings()
-    initialize_telemetry(settings.sentry_dsn)
+    initialize_telemetry(settings.sentry_dsn, settings.sentry_environment)
     engine, factory = database(database_url or settings.database_url)
 
     @asynccontextmanager

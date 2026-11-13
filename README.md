@@ -4,7 +4,7 @@ Fixture-first consumer remedy discovery. Import purchases, compare exact product
 
 ## Run locally
 
-Prerequisites: Node.js 20.9+ (verified with 24.1.0), pnpm (verified with 11.25.0), uv, and network access for first dependency/runtime installation. Python 3.12 is installed automatically by uv when needed. On macOS, prerequisites can be installed with `brew install node pnpm uv`.
+Prerequisites: Node.js 20.19+ (verified with 24.1.0), pnpm (verified with 11.25.0), uv, and network access for first dependency/runtime installation. Python 3.12 is installed automatically by uv when needed. On macOS, prerequisites can be installed with `brew install node pnpm uv`.
 
 From repository root:
 
@@ -51,8 +51,8 @@ All provider flags default off. Offline CSV/rules/recorded CPSC require no paid 
 - CPSC: set `CPSC_LIVE_ENABLED=true` in `.env`, restart backend, choose **Live APIs with labeled fallback** under demo controls. The production adapter has a recorded live proof in `docs/evidence/live-cpsc.json`. Run `PYTHONPATH=services/api services/api/.venv/bin/python scripts/live_cpsc_check.py` for a fresh public read. The normalizer supports notice 26-792 explicitly; changed or unsupported notices require manual review.
 - Bright Data: set `BRIGHTDATA_ENABLED=true` and server-only `BRIGHTDATA_API_TOKEN`. Uses Python MCP stdio with `npx @brightdata/mcp`, exposing only `search_engine` and `scrape_as_markdown`. First npx startup may exceed the bounded timeout; preinstall/warm the official package if needed. Only supported CPSC-linked public manufacturer pages are researched. Failure retains CPSC facts and marks partial.
 - Gemini: set `GEMINI_ENABLED=true` and server-only `GEMINI_API_KEY`. Upload PNG/JPEG/PDF; SDK model defaults to `gemini-2.5-flash-lite`. Scanned identifiers remain unverified suggestions, never eligibility evidence. Supply a user-confirmed CSV to use identifiers in matching. Malformed extraction is rejected; CSV remains available.
-- System One: set `SYSTEM_ONE_ENABLED=true` and server-only `SYSTEM_ONE_API_KEY`. Validates configured `decisions` ID and Choice capability against the live catalog, then posts a bounded sanitized state. Unknown choices or failures fall back to rules; model output cannot override hard gates.
-- Sentry: setting server-only `SENTRY_DSN` enables explicit sanitized run-failure events. Raw requests, receipts, exceptions, user fields and breadcrumbs are discarded. No live event or tracing proof has been recorded without a DSN.
+- OpenAI decision role (System 1): set `OPENAI_ENABLED=true` and server-only `OPENAI_API_KEY`. `OPENAI_DECISION_MODEL` defaults to `gpt-6-luna` and is configurable. Responses API receives only sanitized hard-gate status/missing-condition names, uses a strict four-choice JSON schema and `store:false`, and exposes no tools. Refusals, malformed output and failures fall back to rules; model output cannot override hard gates. No live OpenAI request has been made without its key.
+- Sentry: backend `SENTRY_DSN` and frontend `apps/web/.env.local` configure separate projects. Real backend/browser errors, traces, logs and masked replay were received; application source frames were verified readable. See `docs/sentry-setup.md` for evidence, strict privacy filters and production/source-map requirements.
 
 See `docs/SPONSORS.md`: transport contract tests are **not** live sponsor proof. No live settlement, deployment, video-generation sponsor or analytics database is claimed.
 

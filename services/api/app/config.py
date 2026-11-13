@@ -20,4 +20,8 @@ class Settings(BaseSettings):
     system_one_api_key: str = ""
     gemini_model: str = "gemini-2.5-flash-lite"
     system_one_model: str = "decisions"
+    openai_enabled: bool = False
+    openai_api_key: str = ""
+    openai_decision_model: str = "gpt-6-luna"
     sentry_dsn: str = ""
+    sentry_environment: str = "development"

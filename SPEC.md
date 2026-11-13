@@ -1,5 +1,8 @@
 # Sueperman — SPEC.md (Codex implementation contract)
 
+> **User override — 2026-11-13:** “System One” denotes the System 1 decision role for this implementation; the chosen provider is **OpenAI**. This supersedes every System One vendor/endpoint/key/model requirement below. Use OpenAI Responses API, server-only `OPENAI_API_KEY`, `OPENAI_ENABLED`, configurable `OPENAI_DECISION_MODEL` (default `gpt-6-luna`), strict four-choice structured output, sanitized state, `store:false`, no model tools, deterministic fallback and unchanged hard eligibility gates. Original 1.1 source text remains below for provenance; legacy vendor references do not control current orchestration. Sentry server/frontend project creation was separately approved and its local setup is documented in docs/sentry-setup.md.
+
+
 **Version:** 1.1 (implementation decisions locked) · **Event:** AIE × MLH Hackathon @ Code Summit · **Date:** 2026-11-13 · **Owner:** Hackathon team
 
 > **Copy into Codex:** “Implement Sueperman per this SPEC.md in the current repository. Follow the locked choices in §0; treat P0 as the non-negotiable goal and use fixture mode first. Implement in vertical slices, run tests at every checkpoint, then add *working* integrations in priority order. Do not pause for architectural preferences—choose the defaults below. No real claim submissions, fabricated facts, secrets in source, or unverified success claims.”

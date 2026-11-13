@@ -7,26 +7,27 @@
     "dev": "next dev --hostname 127.0.0.1",
     "build": "next build",
     "start": "next start --hostname 127.0.0.1",
-    "test": "node --import tsx --test tests/unit.test.ts",
+    "test": "node --import tsx --test tests/*.test.ts",
     "e2e": "playwright test",
     "lint": "eslint app lib tests",
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
+    "@sentry/nextjs": "11.12.0",
+    "@tailwindcss/postcss": "^4.1.0",
     "next": "^16.3.3",
     "react": "^19.2.0",
     "react-dom": "^19.2.0",
-    "tailwindcss": "^4.1.0",
-    "@tailwindcss/postcss": "^4.1.0"
+    "tailwindcss": "^4.1.0"
   },
   "devDependencies": {
     "@playwright/test": "^1.58.0",
     "@types/node": "^24",
     "@types/react": "^19",
     "@types/react-dom": "^19",
-    "typescript": "^5.9",
-    "tsx": "^4.20",
     "eslint": "^9",
-    "eslint-config-next": "^16.3.3"
+    "eslint-config-next": "^16.3.3",
+    "tsx": "^4.20",
+    "typescript": "^5.9"
   }
 }

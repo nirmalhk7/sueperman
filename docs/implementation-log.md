@@ -57,3 +57,27 @@
 - PASS clean clone: local source checkpoint `a0751b4` cloned to `/tmp/sueperman-clean-01a1d604`; optional keys explicitly empty and flags disabled. `make setup test lint typecheck build` exit 0; 41 backend + 1 frontend unit test, lint/type/build green. `make dev WEB_PORT=3001` booted both clean-clone apps. `make smoke demo e2e WEB_PORT=3001` exit 0; offline facts repeated twice and both browser tests passed. Actual output: `docs/evidence/clean-clone.log`.
 - PASS staged review: code/docs whitespace check excludes byte-preserved official HTML and raw console logs; raw HTML has original whitespace. Independently hashed staged HTML bytes and matched `demo/PROVENANCE.md`. Reviewed source policy, workflow, claim gates, route contracts and full staged file list; no real credential values or external filing path introduced.
 - PASS delivery: source checkpoint `a0751b4` on local branch `codex/sueperman`; subsequent checkpoint records clean-clone evidence only. P0 accepted. Paid integrations/cloud remain explicitly unproven; no P2 implementation or external publication.
+
+## Sentry handoff and OpenAI provider update — 2026-11-13
+
+User approved two Sentry projects under `nirmalhk7/personal`: `sueperman-server` (FastAPI) and `sueperman-frontend` (Next.js). Installed/authenticated CLI using the handoff flow and checksum-verified installer. Credentials/DSNs remain in CLI-managed storage or ignored owner-only environment files, never source/evidence files.
+
+User clarified System 1 is the decision role and selected OpenAI as provider. Added Responses API structured four-choice routing, configurable `OPENAI_DECISION_MODEL=gpt-6-luna`, `OPENAI_API_KEY` and `OPENAI_ENABLED`. No model tools; `store:false`; sanitized status/condition names only. Existing deterministic guards/fallback remain binding. Legacy vendor adapter is not selected by orchestration. OpenAI key is empty, so no live OpenAI success is claimed.
+
+TDD evidence:
+
+- OpenAI adapter RED: six expected missing-feature failures. GREEN: six transport/strict-choice/refusal/outage/override tests passed.
+- OpenAI orchestration RED: decision mode `rules` vs expected `openai`. GREEN: configured request reached OpenAI transport and authoritative match/rejection/review counts stayed unchanged; guard override persisted.
+- Python telemetry RED: real exceptions were discarded and trace scrubber missing. GREEN privacy tests passed. Actual SDK transport then caught literal private values copied through source context; source literals now redacted while retaining frame locations and code structure. Real SDK exception/trace/log envelope check passed.
+- Browser telemetry RED: event/trace data leaked through identity stubs. GREEN sanitized outputs passed. Live checks revealed required source-map debug metadata and Replay correlation were being discarded; separate RED/GREEN regressions repaired both. Added JavaScript v11 streamed-span filtering after inspecting its installed contract.
+- Temporary verification acceptance RED: backend 404 vs expected 500 and frontend verification button absent. GREEN: genuine running-app backend and browser errors delivered. Follow-up browser run verified replay delivery after correlation repair.
+- Actual Sentry issues, traces, logs, replay and readable application frames verified via CLI. Initial browser frame lacked source context; uploaded temporary page's source-map pair and verified a new event mapped to original source. Proof: `docs/evidence/sentry-proof.json`, details/limits: `docs/sentry-setup.md`.
+- Temporary trigger source and temporary browser checks removed. Fresh running-app checks confirmed both former URLs return 404.
+
+Final checks after repairs/removal:
+
+- `make test lint typecheck build`: exit 0; **54 backend tests**, **6 frontend unit tests**, Ruff/ESLint, MyPy (33 source files), TypeScript and Next.js production build passed. Output: `docs/evidence/monitoring-openai-checks.log`. Existing upstream TestClient deprecation warning remains visible.
+- `make e2e smoke WEB_PORT=3001`: exit 0; **2 browser workflows** passed and offline demo retained all five expected outcomes and exactly one recall packet. Output: `docs/evidence/monitoring-browser-smoke.log`.
+- No real claim submission or deployment occurred. Test issues remain open; no issue comments, reviewer requests or notifications were posted. Production environment/CI source-map upload remains a documented next step; local monitoring proof does not imply production verification.
+
+Final review added three malformed OpenAI response-shape cases (top-level list, non-object output item, non-object message content). All three reproduced escaping AttributeError before repair; explicit shape validation now returns deterministic fallback. Nine decision adapter cases pass. Final full regression after this repair: 54 backend tests and 6 frontend unit tests, lint/type/build passed; current logs retain actual output. SDK configuration files additionally passed explicit ESLint.

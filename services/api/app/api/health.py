@@ -25,9 +25,9 @@ def register(app, factory, settings):
                     "configured": bool(settings.gemini_api_key),
                 },
                 {
-                    "name": "system_one",
-                    "enabled": settings.system_one_enabled,
-                    "configured": bool(settings.system_one_api_key),
+                    "name": "openai",
+                    "enabled": settings.openai_enabled,
+                    "configured": bool(settings.openai_api_key),
                 },
             ],
         }

@@ -26,7 +26,8 @@ from app.models import (
 from app.providers.brightdata import BrightDataResearcher, ResearchEvidence
 from app.providers.cpsc import CPSCRecallSource, FixtureRecallSource
 from app.providers.errors import ProviderUnavailable
-from app.providers.systemone import RulesRouter, SystemOneRouter
+from app.providers.openai import OpenAIDecisionRouter
+from app.providers.systemone import RulesRouter
 from app.schemas import ProductInput, SettlementRecord
 from app.telemetry import record_failure
 
@@ -134,7 +135,7 @@ def persist_recall(session, entity, product, recall, result, decision, research)
         "hard_conditions": [c.model_dump(mode="json") for c in result.conditions],
         "missing_fields": [c.name for c in result.conditions if c.status == "unknown"],
         "reasons": result.reasons,
-        "performed_by": "system_one_assisted" if decision.mode == "system_one" else "deterministic",
+        "performed_by": "openai_assisted" if decision.mode == "openai" else "deterministic",
         "decision_raw_summary": decision.model_dump(),
         "evaluated_at": now(),
     }
@@ -235,8 +236,8 @@ async def execute(factory, run_id, settings):
         source: FixtureRecallSource | CPSCRecallSource = FixtureRecallSource()
         research_cache: dict[str, ResearchEvidence | None] = {}
         router = (
-            SystemOneRouter(settings.system_one_api_key, settings.system_one_model)
-            if live and settings.system_one_enabled
+            OpenAIDecisionRouter(settings.openai_api_key, settings.openai_decision_model)
+            if live and settings.openai_enabled
             else RulesRouter()
         )
         try:
@@ -290,7 +291,9 @@ async def execute(factory, run_id, settings):
                         decision = await router.route(result)
                         modes["decision"] = decision.mode
                         if decision.mode == "rules_fallback":
-                            warnings.append("System One unavailable — deterministic rules retained")
+                            warnings.append(
+                                "OpenAI decision model unavailable — deterministic rules retained"
+                            )
                         research = None
                         if live and settings.brightdata_enabled and result.status == "verified_match":
                             if recall.reference not in research_cache:

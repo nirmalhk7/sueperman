@@ -1,0 +1,53 @@
+WEB_URL=http://localhost:3001 pnpm --dir apps/web e2e
+$ playwright test
+
+Running 2 tests using 1 worker
+
+(node:54694) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✓  1 tests/workflow.e2e.ts:4:1 › five purchases produce evidence-backed recall, safe export and visible negative cases (12.5s)
+  ✓  2 tests/workflow.e2e.ts:108:1 › demo selection stays five purchases after CSV import without deleting imported history (4.4s)
+
+  2 passed (19.9s)
+API_URL=http://localhost:8000 WEB_URL=http://localhost:3001 bash scripts/smoke_test.sh
+{"db":"ok","providers":[{"name":"csv","configured":true,"enabled":true,"healthy":true},{"name":"cpsc","configured":true,"enabled":true,"healthy":null},{"name":"brightdata","configured":true,"enabled":true,"healthy":null},{"name":"gemini","configured":false,"enabled":true,"healthy":null},{"name":"openai","configured":false,"enabled":false,"healthy":null}],"demo_ready":true}{
+  "id": "a7f477df-2822-416b-8fc9-23490be9c78f",
+  "created_at": "2026-11-13T19:35:39.463824Z",
+  "updated_at": "2026-11-13T19:35:39.514090Z",
+  "demo": true,
+  "run_id": "a7f477df-2822-416b-8fc9-23490be9c78f",
+  "mode": "demo",
+  "status": "completed",
+  "summary": {
+    "products_scanned": 5,
+    "candidates": 4,
+    "verified_matches": 1,
+    "rejected": 1,
+    "needs_review": 1,
+    "simulated_settlements": 1,
+    "prepared_packets": 1
+  },
+  "provider_modes": {
+    "receipt": "csv",
+    "recall": "replay",
+    "research": "disabled",
+    "decision": "rules"
+  },
+  "warnings": [],
+  "opportunities": [
+    "65961786-a3e5-48a3-8b54-b7a013b6c4e8",
+    "7a484923-13fd-430f-a1b3-e1fa18d1ea1b",
+    "f927de73-9ffb-476a-afb5-4e72921d2220",
+    "d0f48e70-2a56-456b-8677-79cbec7ea490"
+  ],
+  "events_url": "/api/runs/a7f477df-2822-416b-8fc9-23490be9c78f/events",
+  "purchase_ids": [
+    "8bc9149b-e950-4a58-8b92-ec92363b17eb",
+    "a8cbc737-348c-403e-ab0a-f02a8eb43568",
+    "c57c0c1a-fbfc-44a4-8f8e-f51d29c5bae8",
+    "f3b01e7a-8fd2-49aa-8f98-c0c009a64639",
+    "cbfd8d73-d52d-4dec-ac85-85e45a19a6c4"
+  ],
+  "started_at": "2026-11-13T19:35:39.463442+00:00",
+  "completed_at": "2026-11-13T19:35:39.513503+00:00"
+}
