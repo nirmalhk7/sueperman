@@ -12,3 +12,5 @@ This describes work actually performed in this repository. It is not proof of Wh
 8. **Final checks:** `docs/evidence/final-checks.log`, `browser-checks.log`, `offline-smoke.log`, and screenshots/recording in `output/playwright/`. Current local checkpoint is available through `git log -1`; no PR or external publication was requested.
 
 See `implementation-log.md` for commands, observed red/green evidence, scope and limits. Source, tests, docs and recorded evidence are included in the same repository checkpoint.
+
+Implementation checkpoint: `a0751b4` (`codex/sueperman`). Clean-clone verification at that exact source revision passed setup, 41 backend tests, frontend unit test, lint/type/build, repeated offline smoke and both Playwright flows with keys empty and providers disabled. Actual output: `docs/evidence/clean-clone.log`. Later evidence-only commit does not change application code.

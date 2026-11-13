@@ -1,0 +1,250 @@
+command -v uv
+/opt/homebrew/bin/uv
+command -v pnpm
+/Users/nirmalhk7/.cache/codex-runtimes/codex-primary-runtime/dependencies/bin/fallback/pnpm
+uv sync --project services/api --python 3.12
+Using CPython 3.12.13
+Creating virtual environment at: services/api/.venv
+Resolved 61 packages in 10ms
+Installed 58 packages in 186ms
+ + annotated-doc==0.0.6
+ + annotated-types==0.8.0
+ + anyio==4.16.0
+ + ast-serialize==0.13.1
+ + attrs==26.1.0
+ + certifi==2026.10.23
+ + cffi==2.1.1
+ + charset-normalizer==3.5.2
+ + click==8.5.1
+ + cryptography==50.0.2
+ + distro==1.9.0
+ + fastapi==0.162.7
+ + google-auth==2.62.2
+ + google-genai==2.34.0
+ + h11==0.16.0
+ + httpcore==1.0.9
+ + httpx==0.28.1
+ + httpx-sse==0.4.3
+ + idna==3.20
+ + iniconfig==2.3.1
+ + jsonschema==4.26.0
+ + jsonschema-specifications==2025.9.1
+ + librt==0.16.0
+ + mcp==1.30.0
+ + mypy==2.4.1
+ + mypy-extensions==1.2.0
+ + opentelemetry-api==1.45.2
+ + packaging==26.3
+ + pathspec==1.1.1
+ + pluggy==1.7.0
+ + pyasn1==0.6.5
+ + pyasn1-modules==0.4.2
+ + pycparser==3.12
+ + pydantic==2.14.3
+ + pydantic-core==2.50.4
+ + pydantic-settings==2.16.3
+ + pygments==2.21.0
+ + pyjwt==2.15.1
+ + pytest==9.2.0
+ + pytest-asyncio==1.5.0
+ + python-dotenv==1.2.4
+ + python-multipart==0.0.33
+ + referencing==0.37.0
+ + requests==2.34.2
+ + respx==0.23.1
+ + rpds-py==2026.9.1
+ + ruff==0.17.5
+ + sentry-sdk==2.75.0
+ + sniffio==1.3.1
+ + sqlalchemy==2.1.8
+ + sse-starlette==3.7.0
+ + starlette==1.10.0
+ + tenacity==9.1.4
+ + typing-extensions==4.16.0
+ + typing-inspection==0.4.5
+ + urllib3==2.8.0
+ + uvicorn==0.54.0
+ + websockets==17.4
+pnpm --dir apps/web install --frozen-lockfile
+✓ Lockfile passes supply-chain policies (verified 31m ago)
+Lockfile is up to date, resolution step is skipped
+Progress: resolved 1, reused 0, downloaded 0, added 0
+Packages: +362
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Packages are cloned from the content-addressable store to the virtual store.
+  Content-addressable store is at: /Users/nirmalhk7/Library/pnpm/store/v11
+  Virtual store is at:             node_modules/.pnpm
+Progress: resolved 362, reused 362, downloaded 0, added 166
+Progress: resolved 362, reused 362, downloaded 0, added 360
+Progress: resolved 362, reused 362, downloaded 0, added 361
+Progress: resolved 362, reused 362, downloaded 0, added 362, done
+.../esbuild@0.28.2/node_modules/esbuild postinstall$ node install.js
+.../esbuild@0.28.2/node_modules/esbuild postinstall: Done
+
+dependencies:
++ @tailwindcss/postcss 4.3.5
++ next 16.4.6
++ react 19.3.1
++ react-dom 19.3.1
++ tailwindcss 4.3.5
+
+devDependencies:
++ @playwright/test 1.65.0
++ @types/node 24.19.2
++ @types/react 19.3.0
++ @types/react-dom 19.3.0
++ eslint 9.39.5
++ eslint-config-next 16.4.6
++ tsx 4.23.15
++ typescript 5.9.3
+
+Done in 5.6s using pnpm v11.25.0
+pnpm --dir apps/web exec playwright install chromium
+services/api/.venv/bin/pytest services/api/tests -q
+.........................................                                [100%]
+=============================== warnings summary ===============================
+services/api/.venv/lib/python3.12/site-packages/fastapi/testclient.py:1
+  /private/tmp/sueperman-clean-01a1d604/services/api/.venv/lib/python3.12/site-packages/fastapi/testclient.py:1: StarletteDeprecationWarning: Using `httpx` with `starlette.testclient` is deprecated; install `httpx2` instead.
+    from starlette.testclient import TestClient as TestClient  # noqa
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+41 passed, 1 warning in 4.45s
+pnpm --dir apps/web test
+$ node --import tsx --test tests/unit.test.ts
+✔ simulation label takes priority over candidate status (0.475375ms)
+ℹ tests 1
+ℹ suites 0
+ℹ pass 1
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 212.495
+services/api/.venv/bin/ruff check services/api/app services/api/tests scripts
+All checks passed!
+pnpm --dir apps/web lint
+$ eslint app lib tests
+services/api/.venv/bin/mypy --config-file services/api/pyproject.toml services/api/app
+Success: no issues found in 32 source files
+pnpm --dir apps/web typecheck
+$ tsc --noEmit
+pnpm --dir apps/web build
+$ next build
+▲ Next.js 16.4.6 (Turbopack)
+✓ Running next.config took 43ms
+
+  Creating an optimized production build ...
+✓ Compiled successfully in 2.7s
+  Running TypeScript ...
+  Finished TypeScript in 3.9s ...
+  Collecting page data using 7 workers ...
+  Generating static pages using 7 workers (0/3) ...
+✓ Generating static pages using 7 workers (3/3) in 643ms
+  Finalizing page optimization ...
+
+Route (app)
+┌ ○ /
+├ ○ /_not-found
+├ ƒ /claims/[id]
+├ ƒ /opportunities/[id]
+└ ƒ /runs/[id]
+
+
+○  (Static)   prerendered as static content
+ƒ  (Dynamic)  server-rendered on demand
+
+API_URL=http://localhost:8000 WEB_URL=http://localhost:3001 bash scripts/smoke_test.sh
+{"db":"ok","providers":[{"name":"csv","configured":true,"enabled":true,"healthy":true},{"name":"cpsc","configured":true,"enabled":false,"healthy":null},{"name":"brightdata","configured":false,"enabled":false,"healthy":null},{"name":"gemini","configured":false,"enabled":false,"healthy":null},{"name":"system_one","configured":false,"enabled":false,"healthy":null}],"demo_ready":true}{
+  "id": "17b4892c-9443-4772-a0c5-a6bb176ea169",
+  "created_at": "2026-11-13T18:28:31.281398Z",
+  "updated_at": "2026-11-13T18:28:31.316252Z",
+  "demo": true,
+  "run_id": "17b4892c-9443-4772-a0c5-a6bb176ea169",
+  "mode": "demo",
+  "status": "completed",
+  "summary": {
+    "products_scanned": 5,
+    "candidates": 4,
+    "verified_matches": 1,
+    "rejected": 1,
+    "needs_review": 1,
+    "simulated_settlements": 1,
+    "prepared_packets": 1
+  },
+  "provider_modes": {
+    "receipt": "csv",
+    "recall": "replay",
+    "research": "disabled",
+    "decision": "rules"
+  },
+  "warnings": [],
+  "opportunities": [
+    "59fa3a2e-92b5-46ab-8048-262c9529c544",
+    "5d6835bf-35e9-4f17-b6b0-21964f3af3f5",
+    "12d40c0d-29d9-4e40-bd25-7508938fc610",
+    "5287eea9-7e01-426b-b4d0-48db0e393ad4"
+  ],
+  "events_url": "/api/runs/17b4892c-9443-4772-a0c5-a6bb176ea169/events",
+  "purchase_ids": [
+    "6c14e833-60b7-40f9-a344-4fa47a47e256",
+    "09c6bf2a-a373-48b3-8f20-ebf023301697",
+    "c82c91c5-e7fc-4545-8e9f-de885cee4374",
+    "f5b90b44-63cc-4124-86f3-4a51d465f214",
+    "7ecdd711-a246-4813-8a6a-b1b762e17abd"
+  ],
+  "started_at": "2026-11-13T18:28:31.278591+00:00",
+  "completed_at": "2026-11-13T18:28:31.315914+00:00"
+}
+services/api/.venv/bin/python scripts/seed_demo.py --api http://localhost:8000
+{
+  "id": "24d1d959-db6c-4502-a13c-d3886a0b0b47",
+  "created_at": "2026-11-13T18:28:31.456914Z",
+  "updated_at": "2026-11-13T18:28:31.477922Z",
+  "demo": true,
+  "run_id": "24d1d959-db6c-4502-a13c-d3886a0b0b47",
+  "mode": "demo",
+  "status": "completed",
+  "summary": {
+    "products_scanned": 5,
+    "candidates": 4,
+    "verified_matches": 1,
+    "rejected": 1,
+    "needs_review": 1,
+    "simulated_settlements": 1,
+    "prepared_packets": 1
+  },
+  "provider_modes": {
+    "receipt": "csv",
+    "recall": "replay",
+    "research": "disabled",
+    "decision": "rules"
+  },
+  "warnings": [],
+  "opportunities": [
+    "82c755e1-13ba-4e48-aad7-3b0748fea3e7",
+    "657be492-79fa-4eb1-a24f-bb7814aed85e",
+    "b818911e-6a87-4e46-b586-d61a902d810f",
+    "547452c1-c396-4c0c-8800-d517301ea960"
+  ],
+  "events_url": "/api/runs/24d1d959-db6c-4502-a13c-d3886a0b0b47/events",
+  "purchase_ids": [
+    "f59734a4-c494-409f-b8ab-07a00afc582e",
+    "e579766b-f434-4741-b0e6-1b6c8460b107",
+    "110cd131-248a-4fe1-a09f-7d14be2294a9",
+    "e79f9b89-6958-4e53-adaa-d73684d02bd1",
+    "d6f8f0bc-9ef5-4f35-b824-97fc07d3e4ef"
+  ],
+  "started_at": "2026-11-13T18:28:31.456739+00:00",
+  "completed_at": "2026-11-13T18:28:31.477825+00:00"
+}
+WEB_URL=http://localhost:3001 pnpm --dir apps/web e2e
+$ playwright test
+
+Running 2 tests using 1 worker
+
+(node:92862) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✓  1 tests/workflow.e2e.ts:4:1 › five purchases produce evidence-backed recall, safe export and visible negative cases (10.0s)
+  ✓  2 tests/workflow.e2e.ts:108:1 › demo selection stays five purchases after CSV import without deleting imported history (766ms)
+
+  2 passed (12.9s)
