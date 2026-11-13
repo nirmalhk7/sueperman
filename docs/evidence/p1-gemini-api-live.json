@@ -1,0 +1,53 @@
+{
+  "observed_at": "2026-11-13T20:08:52.339164+00:00",
+  "mode": "live",
+  "provider": "gemini",
+  "model": "gemini-3.5-flash-lite",
+  "input": "synthetic test receipts only",
+  "products": [
+    {
+      "id": "5a012a07-c0fe-49ec-94de-3bdec912d20b",
+      "purchase_id": "f4b09dc2-a112-4cf3-bab6-1678c89d3bca",
+      "source_type": "image",
+      "product": {
+        "product_name": "Portable Power Bank",
+        "brand": "NEWDERY",
+        "model_number": "ZHX-PB22",
+        "upc": null,
+        "serial_prefix": null,
+        "batch": null,
+        "region": null,
+        "date_purchased": "2024-06-12",
+        "merchant": "Demo Store",
+        "order_reference_redacted": null,
+        "extraction_confidence": 0.5,
+        "user_confirmed_identifiers": true,
+        "suggested_identifiers": {
+          "model_number": "ZHX-PB22"
+        }
+      }
+    },
+    {
+      "id": "ae4af57b-53ec-413a-ab9d-458fc25890a3",
+      "purchase_id": "2c56a236-d9f1-445f-8f66-f5794f135b3f",
+      "source_type": "pdf",
+      "product": {
+        "product_name": "Portable Power Bank",
+        "brand": "NEWDERY",
+        "model_number": null,
+        "upc": null,
+        "serial_prefix": null,
+        "batch": null,
+        "region": null,
+        "date_purchased": "2024-06-12",
+        "merchant": "Demo Store",
+        "order_reference_redacted": null,
+        "extraction_confidence": 0.5,
+        "user_confirmed_identifiers": false,
+        "suggested_identifiers": {
+          "model_number": "ZHX-PB22"
+        }
+      }
+    }
+  ]
+}

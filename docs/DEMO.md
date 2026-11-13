@@ -11,3 +11,13 @@ Run `make setup`, then `make dev`. If another app owns 3000, use `make dev WEB_P
 7. 85–90s: Show activity and provider modes. Claims prepared, never fabricated.
 
 Use CPSC source for current manufacturer instructions; do not claim Bright Data ran unless sponsor evidence records an actual invocation. No refund or external submission is demonstrated.
+
+## P1 live extension (separate from fixed five-row replay)
+
+Start with `BRIGHTDATA_ENABLED=false OPENAI_ENABLED=false make dev WEB_PORT=3001` while Bright Data activation is pending. Keep configured keys in ignored `.env`. For this account set `GEMINI_MODEL=gemini-3.5-flash-lite` because 2.5 returns 404 for new users.
+
+Upload `demo/receipt-synthetic.png` or `.pdf` (visibly synthetic test receipts). Review the suggested model, check the confirmation box, and confirm identifiers. Choose Live APIs, run the imported receipt, review live CPSC evidence and selected action, then locally approve/export a packet. Duplicate uploads reuse existing extraction.
+
+A separate synthetic Kroger transaction exercises the verified case in the opt-in live browser suite. Show LIVE verified settlement sources, December 21, 2026 deadline, primary administrator/court citations, and Personal eligibility unconfirmed. Prepare only an information draft; review missing insurance, geography, exclusions and proof. Local approval/export sends nothing.
+
+`P1_LIVE_E2E=1 WEB_URL=http://localhost:3001 pnpm --dir apps/web exec playwright test tests/p1-live.e2e.ts` is opt-in because a fresh database can invoke Gemini twice (1,024 output tokens per call, no retries). Ordinary `make e2e` skips these paid/live checks. Live evidence and screenshots: `docs/evidence/p1-*.json`, `output/playwright/p1-live/`.

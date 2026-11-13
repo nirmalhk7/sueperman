@@ -38,3 +38,45 @@ def compose(product: ProductInput, recall: RecallRecord) -> dict:
         "reviewed_at": None,
         "mode": recall.mode,
     }
+
+
+def compose_settlement(product, rules, result):
+    fields = {
+        k: v
+        for k, v in product.model_dump(mode="json").items()
+        if k in {"product_name", "merchant", "date_purchased"} and v is not None
+    }
+    missing = [f"{c.name}: {c.expected}" for c in result.conditions if c.status == "unknown"] + rules.proof
+    lines = [
+        "# Settlement information draft",
+        "Local draft only; not an external submission.",
+        "Potential opportunity only. Personal eligibility is unconfirmed. No payment is guaranteed.",
+        f"Case: {rules.title}, {rules.case_number}",
+        f"Court: {rules.court}",
+        f"Official claim deadline: {rules.deadline.strftime('%B %d, %Y')}",
+        f"Class period: {rules.start} through {rules.end} inclusive",
+        f"Known user-provided purchase facts: {fields}",
+        rules.instructions,
+        "## Missing information and proof",
+        *[f"- [ ] {item}" for item in missing],
+        "No signature, payment amount, insurance status, exclusion status or sworn declaration has been supplied.",
+        "## Sources",
+        *[f"{e.url} — observed {e.fetched_at.isoformat()}" for e in rules.evidence],
+        "Mode: LIVE verified public sources",
+    ]
+    return {
+        "kind": "settlement",
+        "version": 1,
+        "status": "ready_for_review",
+        "contact_or_portal_url": rules.official_url,
+        "instructions": rules.instructions,
+        "completed_fields": fields,
+        "required_documents": rules.proof,
+        "missing_documents": missing,
+        "user_declaration_required": True,
+        "markdown": "\n\n".join(lines),
+        "generated_at": None,
+        "approved_at": None,
+        "reviewed_at": None,
+        "mode": "live",
+    }

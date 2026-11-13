@@ -8,11 +8,11 @@ from urllib.parse import urlsplit
 from sqlalchemy import delete, select
 
 from app.agent.states import Stage
-from app.claims.compose import compose
+from app.claims.compose import compose, compose_settlement
 from app.config import ROOT
 from app.db import view
 from app.matching.recall import match_recall
-from app.matching.settlement import match_settlement
+from app.matching.settlement import match_settlement, match_verified_settlement
 from app.models import (
     AgentRun,
     AuditEvent,
@@ -27,6 +27,7 @@ from app.providers.brightdata import BrightDataResearcher, ResearchEvidence
 from app.providers.cpsc import CPSCRecallSource, FixtureRecallSource
 from app.providers.errors import ProviderUnavailable
 from app.providers.openai import OpenAIDecisionRouter
+from app.providers.settlement import VerifiedSettlementSource
 from app.providers.systemone import RulesRouter
 from app.schemas import ProductInput, SettlementRecord
 from app.telemetry import record_failure
@@ -219,6 +220,80 @@ def persist_settlement(session, entity, product):
     return opp
 
 
+def persist_verified_settlement(session, entity, product, rules):
+    result = match_verified_settlement(product, rules, date.today())
+    opp = session.scalar(
+        select(Opportunity).where(
+            Opportunity.product_id == entity.id,
+            Opportunity.kind == "settlement",
+            Opportunity.source_id == rules.case_number,
+        )
+    )
+    if opp is None:
+        opp = Opportunity(
+            product_id=entity.id,
+            kind="settlement",
+            source_id=rules.case_number,
+            official_url=rules.official_url,
+            demo=entity.demo,
+            payload={},
+        )
+        session.add(opp)
+        session.flush()
+    opp.payload = {
+        "product_id": entity.id,
+        "kind": "settlement",
+        "title": rules.title,
+        "status": result.status,
+        "source_id": rules.case_number,
+        "official_url": rules.official_url,
+        "matching_reasons": result.reasons,
+        "simulated": False,
+        "mode": "live",
+        "source_observed_at": rules.fetched_at.isoformat(),
+        "deadline_at": rules.deadline.isoformat(),
+        "remedy_kind": "unknown",
+        "preparation_only": True,
+        "sources_verified": True,
+        "settlement": rules.model_dump(mode="json"),
+    }
+    session.execute(delete(SourceEvidence).where(SourceEvidence.opportunity_id == opp.id))
+    for evidence in rules.evidence:
+        session.add(
+            SourceEvidence(
+                opportunity_id=opp.id,
+                url=evidence.url,
+                demo=entity.demo,
+                payload=evidence.model_dump(mode="json"),
+            )
+        )
+    assessment = session.scalar(
+        select(EligibilityAssessment).where(EligibilityAssessment.opportunity_id == opp.id)
+    )
+    if assessment is None:
+        assessment = EligibilityAssessment(opportunity_id=opp.id, demo=entity.demo)
+        session.add(assessment)
+    assessment.payload = {
+        "outcome": "ineligible" if result.status in {"expired", "ineligible"} else "uncertain",
+        "hard_conditions": [c.model_dump(mode="json") for c in result.conditions],
+        "missing_fields": [c.name for c in result.conditions if c.status == "unknown"],
+        "reasons": result.reasons,
+        "performed_by": "deterministic",
+        "evaluated_at": now(),
+    }
+    packet = session.scalar(select(ClaimPacket).where(ClaimPacket.opportunity_id == opp.id))
+    if result.status == "uncertain":
+        composed = compose_settlement(product, rules, result) | {"generated_at": now()}
+        if packet is None:
+            session.add(ClaimPacket(opportunity_id=opp.id, demo=entity.demo, payload=composed))
+        else:
+            packet.payload = composed
+    elif packet is not None:
+        packet.payload = packet.payload | {"status": "needs_evidence", "approved_at": None}
+    session.commit()
+    return opp
+
+
 async def execute(factory, run_id, settings):
     with factory() as session:
         run = session.get(AgentRun, run_id)
@@ -235,6 +310,8 @@ async def execute(factory, run_id, settings):
         live = run.payload["mode"] == "live"
         source: FixtureRecallSource | CPSCRecallSource = FixtureRecallSource()
         research_cache: dict[str, ResearchEvidence | None] = {}
+        settlements = VerifiedSettlementSource()
+        model_calls = 0
         router = (
             OpenAIDecisionRouter(settings.openai_api_key, settings.openai_decision_model)
             if live and settings.openai_enabled
@@ -288,14 +365,49 @@ async def execute(factory, run_id, settings):
                             provider=source.provider_name,
                             entity_id=entity.id,
                         )
-                        decision = await router.route(result)
+                        if (
+                            isinstance(router, OpenAIDecisionRouter)
+                            and model_calls >= settings.openai_max_calls_per_run
+                        ):
+                            decision = (await RulesRouter().route(result)).model_copy(
+                                update={"mode": "rules_budget_fallback"}
+                            )
+                            warnings.append(
+                                "OpenAI per-run call budget reached — deterministic rules retained"
+                            )
+                        else:
+                            if isinstance(router, OpenAIDecisionRouter):
+                                model_calls += 1
+                            decision = await router.route(result)
                         modes["decision"] = decision.mode
                         if decision.mode == "rules_fallback":
                             warnings.append(
                                 "OpenAI decision model unavailable — deterministic rules retained"
                             )
+                        event(
+                            session,
+                            run,
+                            Stage.INVESTIGATION_ROUTED,
+                            outcome=decision.choice,
+                            provider=decision.mode,
+                            entity_id=entity.id,
+                            refs=[recall.official_url],
+                        )
+                        if decision.choice == "request_user_info":
+                            event(
+                                session,
+                                run,
+                                Stage.NEEDS_INFO,
+                                outcome="user_information_required",
+                                provider=decision.mode,
+                                entity_id=entity.id,
+                            )
                         research = None
-                        if live and settings.brightdata_enabled and result.status == "verified_match":
+                        if (
+                            live
+                            and settings.brightdata_enabled
+                            and (result.status == "verified_match" or decision.choice == "inspect_more")
+                        ):
                             if recall.reference not in research_cache:
                                 try:
                                     research_cache[recall.reference] = await BrightDataResearcher(
@@ -338,6 +450,25 @@ async def execute(factory, run_id, settings):
                             entity_id=opp.id,
                             refs=["demo/settlement_fixture.json"],
                         )
+                    if live and settings.settlement_live_enabled:
+                        try:
+                            cases = await settlements.search(product)
+                            for case in cases:
+                                opp = persist_verified_settlement(session, entity, product, case)
+                                ids.append(opp.id)
+                                modes["settlement"] = "verified_public_sources"
+                                event(
+                                    session,
+                                    run,
+                                    Stage.ELIGIBILITY_EVALUATED,
+                                    outcome=opp.payload["status"],
+                                    provider=settlements.provider_name,
+                                    entity_id=opp.id,
+                                    refs=[e.url for e in case.evidence],
+                                )
+                        except ProviderUnavailable:
+                            modes["settlement"] = "unavailable"
+                            warnings.append("Settlement primary sources unavailable; no real case shown")
                 event(session, run, Stage.AWAITING_USER_REVIEW)
         except TimeoutError:
             warnings.append("Run reached 90-second limit; review partial results")

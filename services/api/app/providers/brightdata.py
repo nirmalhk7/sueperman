@@ -37,7 +37,7 @@ class BrightDataResearcher:
         ):
             raise ProviderUnavailable("Bright Data requires a supported CPSC-linked manufacturer page")
         try:
-            async with asyncio.timeout(10):
+            async with asyncio.timeout(45):
                 url = await self.validate(recall.contact_url)
                 if self.session is not None:
                     text = await self._read(self.session, url)
@@ -69,7 +69,11 @@ class BrightDataResearcher:
                 url=url,
                 publisher="NEWDERY",
                 fetched_at=datetime.now(UTC),
-                quoted_excerpt=text[:1000],
+                quoted_excerpt="\n".join(
+                    line[:1000]
+                    for line in text.splitlines()
+                    if "ZHX-PB22" in line or "refund" in line.casefold()
+                )[:3000],
                 content_sha256=hashlib.sha256(text.encode()).hexdigest(),
             )
         except Exception as exc:

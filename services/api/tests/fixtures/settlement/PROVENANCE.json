@@ -1,0 +1,26 @@
+{
+  "mode": "OFFLINE REPLAY of real primary documents, never live proof",
+  "recorded_on": "2026-11-13",
+  "sources": [
+    {
+      "file": "home.html",
+      "url": "https://www.krogersavingsclubsettlement.com/",
+      "content_sha256": "c7e4483e08d7f49da6e2289fa754f25f6dcd2134a5fb621b1e90fccf7c718501"
+    },
+    {
+      "file": "documents.html",
+      "url": "https://www.krogersavingsclubsettlement.com/important-documents",
+      "content_sha256": "b9478781a8be2d9ea06a836ff2f14c93fcb400515bdabdba53c944b98996a7ee"
+    },
+    {
+      "file": "notice.pdf",
+      "url": "https://angeion-public.s3.amazonaws.com/www.krogersavingsclubsettlement.com/docs/Kirkbride%20v%20Kroger%20-%20Long-Form%20Notice_Final.pdf",
+      "content_sha256": "c55ef0ea67c0d6f0276d6a28a77a138288fc5a14ed11c600c1a2431b4e823b5b"
+    },
+    {
+      "file": "order.pdf",
+      "url": "https://angeion-public.s3.amazonaws.com/www.krogersavingsclubsettlement.com/docs/2026.06.25%20DE%20165%20AMENDED%20OPINION%20AND%20ORDER%20-%20Part%201.pdf",
+      "content_sha256": "da184d89c8edc12c5238db4a0dba431a39cae46d74e78345c2c37f5fdf8b5dbb"
+    }
+  ]
+}

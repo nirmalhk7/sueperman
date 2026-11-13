@@ -5,10 +5,10 @@ Status vocabulary: **PROVEN** requires observed execution and a retrievable loca
 | Category | Status | Evidence and limit |
 |---|---|---|
 | Best Overall Hack | PROVEN | Local recall discovery, exact-model match, visible excluded near-match, missing-model review, approved-local Markdown download. `docs/evidence/browser-checks.log`, `output/playwright/`. Judge pitch: one purchase history becomes a source-backed remedy checklist. No prize outcome implied. |
-| Gemini API | PARTIAL | Official google-genai SDK wired for PNG/JPEG/PDF; real SDK HTTP boundary tested in `test_optional_providers.py`, upload integration in `test_workflow.py`. No live key or authenticated invocation. Identifiers remain unverified suggestions. |
-| Bright Data | PARTIAL | MCP stdio adapter calls `search_engine` then `scrape_as_markdown` only for supported official manufacturer page. Source/redirect/injection/error tests pass. Token is now configured; no actual Bright Data request is claimed in this change. |
-| System One Models | NOT IMPLEMENTED | Current user choice implements the System 1 decision role using OpenAI, not the System One vendor. Legacy contract tests/catalog remain historical evidence only. OpenAI adapter is tested; live OpenAI proof awaits its key. No System One sponsor claim. |
-| DigitalOcean | NOT IMPLEMENTED | No token or doctl available. No deployed service or public deployment health check exists. |
+| Gemini API | PROVEN | PROVEN live PNG and PDF imports using google-genai with gemini-3.5-flash-lite; `docs/evidence/p1-gemini-api-live.json`, opt-in browser tests `p1-live.e2e.ts`. Identifiers remain suggestions until explicit review. No eligibility or payouts inferred. |
+| Bright Data | PARTIAL | Real official MCP initialized with only search_engine and scrape_as_markdown. Search succeeded; manufacturer scrape returned Customer is not active. `docs/evidence/p1-brightdata-status.json`. User will resolve activation; further calls stopped. Manufacturer extraction criterion remains BLOCKED. |
+| System One Models | NOT IMPLEMENTED | Current user choice implements the System 1 decision role using OpenAI, not the System One vendor. Legacy contract tests/catalog remain historical evidence only. OpenAI System 1 role made a real request and selected request_user_info; `docs/evidence/p1-model-live.json`. Three-call default budget, four choices, sanitized state and hard-gate override are tested. No System One sponsor claim. |
+| DigitalOcean | NOT IMPLEMENTED | No DigitalOcean credential available. Local app verified; public deployment and deployed health criterion remain BLOCKED. |
 | Sentry Raffle | PROVEN | Real running-app backend and browser errors received: SUEPERMAN-SERVER-1 and SUEPERMAN-FRONTEND-2. Traces, logs, stored masked replay and readable application frames verified. Evidence and URLs: docs/sentry-setup.md. Local proof; production not deployed. |
 | HyperFrames | NOT IMPLEMENTED | P2 deferred. Browser test recording is ordinary Playwright output, not HyperFrames output. |
 | Cleanest Software Factory | PARTIAL | SPEC, test-first components, observed red/green checkpoints, review fixes, final test logs and local commit described in `FACTORY_EVIDENCE.md`. No Whirlwind integration or external judging result. |
@@ -27,3 +27,9 @@ Status vocabulary: **PROVEN** requires observed execution and a retrievable loca
 - System One catalog guidance: https://docs.system-one.dev/en/docs/models
 
 No claims were submitted, messages sent, sponsor accounts created, or external content published.
+
+## Verified settlement branch
+
+**PROVEN locally with live primary reads:** Kirkbride et al. v. The Kroger Co., case 2:21-cv-00022. Administrator homepage and document index link the long notice and amended court order. `docs/evidence/p1-settlement-live.json` records all four URLs, timestamps, hashes and passages. Live browser verifies deadline/uncertainty/local approval/export. Preparation-only: insurance, geography, qualifying transaction, exclusions and proof remain unconfirmed; no real claim or payment asserted.
+
+**P1 remains incomplete:** Bright Data scrape and DigitalOcean deployment are blocked. No P2 work started.

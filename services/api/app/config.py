@@ -1,5 +1,6 @@
 from pathlib import Path
 
+from pydantic import Field
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
 ROOT = Path(__file__).resolve().parents[3]
@@ -23,5 +24,6 @@ class Settings(BaseSettings):
     openai_enabled: bool = False
     openai_api_key: str = ""
     openai_decision_model: str = "gpt-6-luna"
+    openai_max_calls_per_run: int = Field(default=3, ge=0, le=10)
     sentry_dsn: str = ""
     sentry_environment: str = "development"

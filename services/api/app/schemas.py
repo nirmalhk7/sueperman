@@ -82,6 +82,14 @@ class Approval(BaseModel):
     confirmed: Literal[True]
 
 
+class IdentifierConfirmation(BaseModel):
+    model_config = ConfigDict(extra="forbid")
+    confirmed: Literal[True]
+    brand: str | None = Field(default=None, max_length=100)
+    model_number: str = Field(min_length=1, max_length=100, pattern=r"^[^\x00-\x1f\x7f]+$")
+    upc: str | None = Field(default=None, pattern=r"^[0-9]{8,14}$")
+
+
 class EntityResponse(BaseModel):
     model_config = ConfigDict(extra="allow")
     id: str

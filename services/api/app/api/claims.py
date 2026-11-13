@@ -1,3 +1,5 @@
+from datetime import date
+
 from fastapi import HTTPException
 from fastapi.responses import Response
 from sqlalchemy import select
@@ -11,12 +13,25 @@ from app.models import (
 from app.schemas import Approval, PacketResponse
 
 
+def draft_allowed(opportunity):
+    data = opportunity.payload
+    if opportunity.kind == "recall":
+        return data["status"] == "verified_match"
+    return (
+        not data.get("simulated", True)
+        and data.get("preparation_only") is True
+        and data.get("sources_verified") is True
+        and data["status"] in {"uncertain", "eligible_candidate"}
+        and date.today() <= date.fromisoformat(data["deadline_at"])
+    )
+
+
 def register(app, factory, get):
     @app.post("/api/opportunities/{identifier}/claim-packet", response_model=PacketResponse)
     def prepare(identifier: str):
         with factory() as s:
             o = get(s, Opportunity, identifier)
-            if o.kind != "recall" or o.payload["status"] != "verified_match":
+            if not draft_allowed(o):
                 raise HTTPException(409, "Hard gates have not passed; no real remedy packet available")
             packet = s.scalar(select(ClaimPacket).where(ClaimPacket.opportunity_id == identifier))
             if packet is None:
@@ -34,7 +49,7 @@ def register(app, factory, get):
             packet = get(s, ClaimPacket, identifier)
             opportunity = get(s, Opportunity, packet.opportunity_id)
             if (
-                opportunity.payload["status"] != "verified_match"
+                not draft_allowed(opportunity)
                 or packet.payload["status"] == "needs_evidence"
             ):
                 raise HTTPException(409, "Current official evidence requires a new review")
@@ -52,7 +67,7 @@ def register(app, factory, get):
             packet = get(s, ClaimPacket, identifier)
             opportunity = get(s, Opportunity, packet.opportunity_id)
             if (
-                opportunity.payload["status"] != "verified_match"
+                not draft_allowed(opportunity)
                 or packet.payload["status"] == "needs_evidence"
             ):
                 raise HTTPException(409, "Current official evidence requires a new review")

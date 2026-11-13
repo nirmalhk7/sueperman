@@ -1,0 +1,29 @@
+{
+  "observed_at": "2026-11-13T19:48:47.418729+00:00",
+  "mode": "live",
+  "input": "synthetic test receipt, not a real purchase",
+  "calls": [
+    {
+      "provider": "gemini",
+      "mime": "image/png",
+      "status": "failed",
+      "error_type": "ClientError"
+    },
+    {
+      "provider": "gemini",
+      "mime": "application/pdf",
+      "status": "failed",
+      "error_type": "ClientError"
+    },
+    {
+      "provider": "openai",
+      "model": "gpt-6-luna",
+      "result": {
+        "choice": "request_user_info",
+        "mode": "openai",
+        "overridden": false,
+        "proposed_choice": "request_user_info"
+      }
+    }
+  ]
+}

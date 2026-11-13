@@ -12,7 +12,7 @@ import {
   type Product,
   type Run,
 } from "@/lib/api";
-import { opportunityLabel } from "@/lib/labels";
+import { opportunityLabel, sourceLabel } from "@/lib/labels";
 
 export function Opportunities({ items }: { items: Opportunity[] }) {
   return (
@@ -33,11 +33,7 @@ export function Opportunities({ items }: { items: Opportunity[] }) {
                 Your model: {o.purchase_model || "not provided"}
               </span>
               <span className="small mono">
-                {o.simulated
-                  ? "SIMULATED CASE — NO REAL CLAIM AVAILABLE"
-                  : o.mode === "replay"
-                    ? "OFFLINE REPLAY of a real published recall"
-                    : "LIVE CPSC lookup"}
+                {sourceLabel(o.kind, o.mode, o.simulated)}
               </span>
               <span className="small">
                 Observed {new Date(o.source_observed_at).toLocaleString()}
@@ -166,6 +162,48 @@ export function RunResults({ id }: { id: string }) {
       )}
       {!run && !error && <p role="status">Loading run and audit trail…</p>}
     </>
+  );
+}
+
+function IdentifierReview({ product, onConfirmed }: { product: Product; onConfirmed: () => Promise<void> }) {
+  const [checked, setChecked] = useState(false);
+  const [busy, setBusy] = useState(false);
+  const [error, setError] = useState("");
+  async function confirm(form: FormData) {
+    if (!checked || busy) return;
+    setBusy(true);
+    try {
+      await post(`/products/${product.id}/confirm-identifiers`, {
+        confirmed: true,
+        brand: String(form.get("brand") || "").trim() || null,
+        model_number: String(form.get("model_number") || "").trim(),
+        upc: String(form.get("upc") || "").trim() || null,
+      });
+      await onConfirmed();
+    } catch (e) {
+      setError((e as Error).message);
+    } finally {
+      setBusy(false);
+    }
+  }
+  return (
+    <form action={confirm}>
+      <label>Brand (verify)
+        <input name="brand" maxLength={100} defaultValue={product.product.brand || ""} />
+      </label>
+      <label>Model number
+        <input name="model_number" required maxLength={100} defaultValue={product.product.suggested_identifiers?.model_number || ""} />
+      </label>
+      <label>UPC (optional)
+        <input name="upc" pattern="[0-9]{8,14}" defaultValue={product.product.suggested_identifiers?.upc || ""} />
+      </label>
+      <label className="check">
+        <input type="checkbox" checked={checked} onChange={e => setChecked(e.target.checked)} />
+        I checked these identifiers against my receipt or product.
+      </label>
+      <button disabled={!checked || busy}>Confirm identifiers</button>
+      {error && <p role="alert">{error}</p>}
+    </form>
   );
 }
 
@@ -322,7 +360,7 @@ export function Dashboard() {
               </thead>
               <tbody>
                 {products.map((p) => (
-                  <tr data-testid="purchase-row" key={p.id}>
+                  <tr data-testid="purchase-row" data-product-id={p.id} key={p.id}>
                     <td>
                       <strong>{p.product.product_name}</strong>
                       <span className="small">
@@ -331,17 +369,22 @@ export function Dashboard() {
                     </td>
                     <td className="mono">
                       {p.product.model_number || "Missing model number"}
-                      {p.product.suggested_identifiers?.model_number && (
+                      {p.product.suggested_identifiers?.model_number && !p.product.user_confirmed_identifiers && (
                         <div className="small">
                           Unverified scan:{" "}
                           {p.product.suggested_identifiers.model_number}
                         </div>
                       )}
+                      {p.product.user_confirmed_identifiers ? (
+                        <p className="small">Identifiers confirmed by you</p>
+                      ) : ["image", "pdf"].includes(p.source_type || "") ? (
+                        <IdentifierReview product={p} onConfirmed={refresh} />
+                      ) : null}
                     </td>
                     <td>{p.product.date_purchased || "Unknown"}</td>
                     <td>
                       <span className="pill">
-                        {p.demo ? "Synthetic demo" : "CSV upload"}
+                        {p.demo ? "Synthetic demo" : ["image", "pdf"].includes(p.source_type || "") ? "Receipt extraction" : "CSV upload"}
                       </span>
                     </td>
                   </tr>

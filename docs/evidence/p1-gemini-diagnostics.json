@@ -1,0 +1,88 @@
+{
+  "purpose": "Observed failed requests and provider contract diagnosis; not extraction success proof. Successful app imports are in p1-gemini-api-live.json.",
+  "attempts": [
+    {
+      "artifact": "p1-gemini-diagnostic.json",
+      "observed": {
+        "observed_at": "2026-11-13T19:56:37.194740+00:00",
+        "provider": "gemini",
+        "model": "gemini-2.5-flash-lite",
+        "mime": "image/png",
+        "max_output_tokens": 1024,
+        "attempts": 1,
+        "status": "failed",
+        "error_type": "ClientError",
+        "code": 400,
+        "message": "Invalid JSON payload received. Unknown name \"additional_properties\" at 'generation_config.response_schema': Cannot find field.\nInvalid JSON payload received. Unknown name \"additional_properties\" at 'generation_config.response_schema.properties[2].value.items': Cannot find field."
+      }
+    },
+    {
+      "artifact": "p1-gemini-fixed-live.json",
+      "observed": {
+        "observed_at": "2026-11-13T19:57:30.035329+00:00",
+        "provider": "gemini",
+        "model": "gemini-2.5-flash-lite",
+        "input": "synthetic test receipt; no real purchase",
+        "max_output_tokens_per_request": 1024,
+        "attempts_per_request": 1,
+        "calls": [
+          {
+            "mime": "image/png",
+            "status": "failed",
+            "code": 404,
+            "type": "ClientError",
+            "message": "This model models/gemini-2.5-flash-lite is no longer available to new users. Please update your code to use models/gemini-3.5-flash-lite for the latest features and improvements. We recommend you to use the Interactions API (https://aistudio.google.com/docs/get-started)."
+          }
+        ]
+      }
+    },
+    {
+      "artifact": "p1-gemini-pdf-live.json",
+      "observed": {
+        "model": "gemini-3.5-flash-lite",
+        "status": "failed",
+        "type": "ClientError",
+        "code": 400,
+        "message": "Manually set deadline 8s is too short. Minimum allowed deadline is 10s."
+      }
+    },
+    {
+      "artifact": "p1-gemini-final-live.json",
+      "observed": {
+        "observed_at": "2026-11-13T20:01:30.089791+00:00",
+        "provider": "gemini",
+        "model": "gemini-3.5-flash-lite",
+        "max_output_tokens_per_request": 1024,
+        "attempts_per_request": 1,
+        "calls": [
+          {
+            "mime": "image/png",
+            "status": "failed",
+            "type": "ClientError",
+            "code": 400,
+            "message": "Request contains an invalid argument."
+          }
+        ]
+      }
+    },
+    {
+      "artifact": "p1-gemini-current-live.json",
+      "observed": {
+        "observed_at": "2026-11-13T20:03:29.501192+00:00",
+        "model": "gemini-3.5-flash-lite",
+        "max_output_tokens": 1024,
+        "attempts": 1,
+        "status": "failed",
+        "type": "ClientError",
+        "code": 400,
+        "details": {
+          "error": {
+            "code": 400,
+            "message": "Request contains an invalid argument.",
+            "status": "INVALID_ARGUMENT"
+          }
+        }
+      }
+    }
+  ]
+}

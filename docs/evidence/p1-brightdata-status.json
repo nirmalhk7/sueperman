@@ -1,0 +1,22 @@
+{
+  "provider": "brightdata",
+  "transport": "official @brightdata/mcp via Python MCP stdio",
+  "mode": "live",
+  "tools_exposed": [
+    "search_engine",
+    "scrape_as_markdown"
+  ],
+  "search_engine": {
+    "is_error": false,
+    "response_characters": 3473
+  },
+  "scrape_as_markdown": {
+    "is_error": true,
+    "url": "https://www.newdery.com/pages/newdery-power-bank-recalls",
+    "reason": "Customer is not active"
+  },
+  "status": "blocked",
+  "follow_up": "User will resolve account activation; further Bright Data requests stopped.",
+  "observed_on": "2026-11-13",
+  "recorded_at": "2026-11-13T20:11:49.603058+00:00"
+}

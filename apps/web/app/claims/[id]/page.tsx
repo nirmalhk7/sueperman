@@ -60,7 +60,7 @@ export default function Page() {
       <p className="mono small">
         {p.mode === "replay"
           ? "OFFLINE REPLAY of a real published recall"
-          : "LIVE CPSC source"}
+          : p.kind === "settlement" ? "LIVE verified settlement sources" : "LIVE CPSC source"}
       </p>
       <div className="notice">
         <strong>Local draft only</strong>
@@ -82,7 +82,7 @@ export default function Page() {
         </ul>
         {p.contact_or_portal_url && (
           <a href={p.contact_or_portal_url} target="_blank" rel="noreferrer">
-            Official manufacturer remedy page — review independently
+            Official program page — review independently
           </a>
         )}
         <label className="check">

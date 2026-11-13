@@ -30,12 +30,14 @@ export interface ProductFacts {
   date_purchased: string | null;
   order_reference_redacted: string | null;
   suggested_identifiers?: Record<string, string>;
+  user_confirmed_identifiers?: boolean;
 }
 export interface Product {
   id: string;
   purchase_id: string;
   product: ProductFacts;
   demo: boolean;
+  source_type?: string;
 }
 export interface Opportunity {
   id: string;
@@ -51,6 +53,13 @@ export interface Opportunity {
   mode: string;
   matching_reasons: string[];
   deadline_at?: string;
+  preparation_only?: boolean;
+  sources_verified?: boolean;
+  settlement?: {
+    case_number: string;
+    court: string;
+    qualifying_transaction: string;
+  };
   recall?: {
     models: string[];
     safety_instructions: string;
@@ -80,6 +89,12 @@ export interface Detail extends Opportunity {
     outcome: string;
     hard_conditions: Condition[];
     missing_fields: string[];
+    decision_raw_summary?: {
+      choice: string;
+      mode: string;
+      proposed_choice: string | null;
+      overridden: boolean;
+    };
   };
 }
 export interface Run {
@@ -100,6 +115,7 @@ export interface Audit {
   source_refs: string[];
 }
 export interface Packet {
+  kind?: string;
   id: string;
   status: string;
   markdown: string;

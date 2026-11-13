@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { useParams, useRouter } from "next/navigation";
 import Link from "next/link";
 import { api, post, type Detail, type Packet } from "@/lib/api";
-import { opportunityLabel } from "@/lib/labels";
+import { opportunityLabel, sourceLabel } from "@/lib/labels";
 export default function Page() {
   const { id } = useParams<{ id: string }>();
   const router = useRouter();
@@ -53,13 +53,18 @@ export default function Page() {
           </div>
         ) : (
           <p className="mono small">
-            {d.mode === "replay"
-              ? "OFFLINE REPLAY of a real published recall"
-              : "LIVE CPSC lookup"}{" "}
+            {sourceLabel(d.kind, d.mode, d.simulated)}{" "}
             · Observed {new Date(d.source_observed_at).toLocaleString()}
           </p>
         )}
         <h2>{d.title}</h2>
+        {d.kind === "settlement" && !d.simulated && (
+          <aside className="notice">
+            <strong>Personal eligibility unconfirmed — preparation only</strong>
+            <p>{d.settlement?.court}</p>
+            <p>Review official class terms, proof, exclusions and releases. No declarations are inferred and no claim is submitted.</p>
+          </aside>
+        )}
         {d.status === "rejected" && (
           <div className="error">
             {d.matching_reasons.includes("REJECTED — MODEL MISMATCH")
@@ -88,15 +93,15 @@ export default function Page() {
             <h3>
               {d.simulated
                 ? "Fictional class definition"
-                : "CPSC recall " + d.source_id}
+                : d.kind === "settlement" ? "Case " + d.source_id : "CPSC recall " + d.source_id}
             </h3>
             <strong className="mono">
-              {d.recall?.models.join(", ") || "DC-EARBUDS-1 — SIMULATION"}
+              {d.settlement?.qualifying_transaction || d.recall?.models.join(", ") || "DC-EARBUDS-1 — SIMULATION"}
             </strong>
             <p>
               {d.simulated
                 ? "Fictional deadline: " + d.deadline_at
-                : "Exact model required. Similar names do not establish a match."}
+                : d.kind === "settlement" ? "Official claim deadline: " + d.deadline_at : "Exact model required. Similar names do not establish a match."}
             </p>
           </section>
         </div>
@@ -145,6 +150,21 @@ export default function Page() {
             </table>
           </div>
         </section>
+        {d.assessment.decision_raw_summary && (
+          <section className="section panel">
+            <h2>Investigation decision</h2>
+            <p>Selected action: {d.assessment.decision_raw_summary.choice}</p>
+            <p>Decision provider: {d.assessment.decision_raw_summary.mode}</p>
+            <p>Hard-gate status: {d.status}</p>
+            <p>Missing conditions: {d.assessment.missing_fields.join(", ") || "None"}</p>
+            {d.assessment.decision_raw_summary.proposed_choice && (
+              <p>Model proposed: {d.assessment.decision_raw_summary.proposed_choice}</p>
+            )}
+            <p>{d.assessment.decision_raw_summary.overridden
+              ? "Guardrail override: model proposal contradicted hard eligibility gates."
+              : "Hard eligibility gates remain authoritative."}</p>
+          </section>
+        )}
         <section className="section">
           <h2>Source evidence</h2>
           <div className="panel">
@@ -173,7 +193,7 @@ export default function Page() {
             {error}
           </div>
         )}
-        {d.status === "verified_match" && !d.simulated && (
+        {(d.status === "verified_match" || (d.kind === "settlement" && d.status === "uncertain" && d.sources_verified && d.preparation_only)) && !d.simulated && (
           <div className="actions">
             <button disabled={busy} onClick={prepare}>
               Prepare claim packet
