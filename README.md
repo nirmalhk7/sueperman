@@ -56,7 +56,7 @@ All provider flags default off. Offline CSV/rules/recorded CPSC require no paid 
 
 - Settlements: `SETTLEMENT_LIVE_ENABLED=true` enables a source-reviewed Kroger case for exact Kroger merchant records. Four live primary-source reads verify case identity, court-linked documents, period and deadline. Changed PDF hashes require manual source/rule review. Insurance, geography, exclusions and proof stay unknown; packets are information drafts only. See `docs/evidence/p1-settlement-live.json`.
 
-See `docs/SPONSORS.md`: Bright Data search, manufacturer scraping and local evidence/export workflow are proven after activation. DigitalOcean public deployment is proven; video-generation sponsor and analytics databases remain P2 and unimplemented. Paid browser checks are opt-in: `P1_LIVE_E2E=1 WEB_URL=http://localhost:3001 pnpm --dir apps/web exec playwright test tests/p1-live.e2e.ts`. They may make two capped receipt calls on a fresh database. Start with `BRIGHTDATA_ENABLED=false OPENAI_ENABLED=false make dev WEB_PORT=3001` to avoid additional research/routing charges.
+See `docs/SPONSORS.md`: Bright Data search, manufacturer scraping and local evidence/export workflow are proven after activation. DigitalOcean public deployment is proven. The editable HyperFrames commercial and final MP4 are in [output/sueperman-film](output/sueperman-film/README.md); analytics databases remain unimplemented. Paid browser checks are opt-in: `P1_LIVE_E2E=1 WEB_URL=http://localhost:3001 pnpm --dir apps/web exec playwright test tests/p1-live.e2e.ts`. They may make two capped receipt calls on a fresh database. Start with `BRIGHTDATA_ENABLED=false OPENAI_ENABLED=false make dev WEB_PORT=3001` to avoid additional research/routing charges.
 
 ## Evidence and privacy
 

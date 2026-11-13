@@ -1,0 +1,25 @@
+{
+  "observed_at": "2026-11-13T22:43:00.231Z",
+  "url": "https://sueperman-6t4xk.ondigitalocean.app",
+  "asset_sha256": "30b3b03b4406e39d89d8e398b21ef209a55fce1e8ee42ffd2b4ca265f2212fbd",
+  "views": [
+    {
+      "name": "desktop",
+      "loaded": true,
+      "exact_asset": true,
+      "favicon": true,
+      "home_link": true,
+      "no_overflow": true
+    },
+    {
+      "name": "mobile",
+      "loaded": true,
+      "exact_asset": true,
+      "favicon": true,
+      "home_link": true,
+      "no_overflow": true
+    }
+  ],
+  "health_status": 200,
+  "receipt_ocr_configuration_preserved": true
+}

@@ -1,0 +1,37 @@
+◆  Capturing 5 frames at [43s, 46s, 50s, 56s, 65s] from sueperman-film
+[HyperFrames] Not inlining "assets/hopeful.png" (3.4 MB exceeds the 2 MB inline limit). The bundle may not be self-contained.
+[HyperFrames] Not inlining "assets/defeated.png" (3.2 MB exceeds the 2 MB inline limit). The bundle may not be self-contained.
+[HyperFrames] Not inlining "assets/defeated.png" (3.2 MB exceeds the 2 MB inline limit). The bundle may not be self-contained.
+[HyperFrames] Not inlining "assets/storyboard.png" (3.6 MB exceeds the 2 MB inline limit). The bundle may not be self-contained.
+[HyperFrames] Not inlining "assets/storyboard.png" (3.6 MB exceeds the 2 MB inline limit). The bundle may not be self-contained.
+[HyperFrames] Not inlining "assets/storyboard.png" (3.6 MB exceeds the 2 MB inline limit). The bundle may not be self-contained.
+[HyperFrames] Not inlining "assets/storyboard.png" (3.6 MB exceeds the 2 MB inline limit). The bundle may not be self-contained.
+[HyperFrames] Not inlining "assets/storyboard.png" (3.6 MB exceeds the 2 MB inline limit). The bundle may not be self-contained.
+[HyperFrames] Not inlining "assets/storyboard.png" (3.6 MB exceeds the 2 MB inline limit). The bundle may not be self-contained.
+[HyperFrames] Not inlining "assets/storyboard.png" (3.6 MB exceeds the 2 MB inline limit). The bundle may not be self-contained.
+[INFO] [Compiler] Fetched 11 font face(s) for "Inter" from Google Fonts (cached to /Users/nirmalhk7/.cache/hyperframes/fonts/inter)
+[INFO] [Compiler] Fetched 6 font face(s) for "Oswald" from Google Fonts (cached to /Users/nirmalhk7/.cache/hyperframes/fonts/oswald)
+[INFO] [Compiler] Fetched 1 font face(s) for "Archivo Black" from Google Fonts (cached to /Users/nirmalhk7/.cache/hyperframes/fonts/archivo-black)
+[INFO] [Compiler] Fetched 4 font face(s) for "Space Mono" from Google Fonts (cached to /Users/nirmalhk7/.cache/hyperframes/fonts/space-mono)
+[INFO] [Compiler] Injected deterministic @font-face rules for 4 requested font families
+[hyperframes] browserGpuMode probe → hardware (WebGL renderer vendor="Google Inc. (Apple)" renderer="ANGLE (Apple, ANGLE Metal Renderer: Apple M3 Pro, Unspecified Version)")
+
+   Fonts: 21 loaded
+   Note: added an end-of-timeline frame at 89.75s. Short beats between your --at times may still be skipped — pass them explicitly.
+[hyperframes] snapshot: frame 1/6 at 43s
+[hyperframes] snapshot: frame 2/6 at 46s
+[hyperframes] snapshot: frame 3/6 at 50s
+[hyperframes] snapshot: frame 4/6 at 56s
+[hyperframes] snapshot: frame 5/6 at 65s
+[hyperframes] snapshot: frame 6/6 at 89.75s
+   Revision: none (inputs-changed)
+   State: /Users/nirmalhk7/Documents/DevWorld/sueperman/output/sueperman-film/.hyperframes/video-state.json
+
+◇  6 snapshots saved to /Users/nirmalhk7/Documents/DevWorld/sueperman/output/sueperman-film/.hyperframes/artifacts/snapshots/1b620a74-96c6-4adf-9f03-c24387104971
+   /Users/nirmalhk7/Documents/DevWorld/sueperman/output/sueperman-film/.hyperframes/artifacts/snapshots/1b620a74-96c6-4adf-9f03-c24387104971/frame-00-at-43s.png
+   /Users/nirmalhk7/Documents/DevWorld/sueperman/output/sueperman-film/.hyperframes/artifacts/snapshots/1b620a74-96c6-4adf-9f03-c24387104971/frame-01-at-46s.png
+   /Users/nirmalhk7/Documents/DevWorld/sueperman/output/sueperman-film/.hyperframes/artifacts/snapshots/1b620a74-96c6-4adf-9f03-c24387104971/frame-02-at-50s.png
+   /Users/nirmalhk7/Documents/DevWorld/sueperman/output/sueperman-film/.hyperframes/artifacts/snapshots/1b620a74-96c6-4adf-9f03-c24387104971/frame-03-at-56s.png
+   /Users/nirmalhk7/Documents/DevWorld/sueperman/output/sueperman-film/.hyperframes/artifacts/snapshots/1b620a74-96c6-4adf-9f03-c24387104971/frame-04-at-65s.png
+   /Users/nirmalhk7/Documents/DevWorld/sueperman/output/sueperman-film/.hyperframes/artifacts/snapshots/1b620a74-96c6-4adf-9f03-c24387104971/frame-05-at-89.75s.png
+   /Users/nirmalhk7/Documents/DevWorld/sueperman/output/sueperman-film/.hyperframes/artifacts/snapshots/1b620a74-96c6-4adf-9f03-c24387104971/contact-sheet.jpg (grid view for AI review)

@@ -1,0 +1,142 @@
+[
+  {
+    "id": "n1",
+    "start": 0.65,
+    "duration": 3.544542,
+    "text": "With great purchases come great responsibilities.",
+    "path": "assets/n1.wav"
+  },
+  {
+    "id": "n2",
+    "start": 5.05,
+    "duration": 1.9105,
+    "text": "Mostly keeping receipts.",
+    "path": "assets/n2.wav"
+  },
+  {
+    "id": "m1",
+    "start": 10.5,
+    "duration": 0.94075,
+    "text": "Cycle complete!",
+    "path": "assets/m1.wav"
+  },
+  {
+    "id": "l1",
+    "start": 11.9,
+    "duration": 0.562792,
+    "text": "What?",
+    "path": "assets/l1.wav"
+  },
+  {
+    "id": "m2",
+    "start": 13.0,
+    "duration": 0.900125,
+    "text": "Cycle complete!",
+    "path": "assets/m2.wav"
+  },
+  {
+    "id": "m3",
+    "start": 14.2,
+    "duration": 1.808542,
+    "text": "For best results, download the LexCorp app.",
+    "path": "assets/m3.wav"
+  },
+  {
+    "id": "l2",
+    "start": 16.15,
+    "duration": 1.001542,
+    "text": "Are you kidding me?",
+    "path": "assets/l2.wav"
+  },
+  {
+    "id": "m4",
+    "start": 17.3,
+    "duration": 1.490667,
+    "text": "Thank you for choosing LexCorp!",
+    "path": "assets/m4.wav"
+  },
+  {
+    "id": "h1",
+    "start": 21.2,
+    "duration": 3.179333,
+    "text": "Whoa, Lois. Step away from the spin cycle.",
+    "path": "assets/h1.wav"
+  },
+  {
+    "id": "h2",
+    "start": 24.65,
+    "duration": 4.979625,
+    "text": "If you've got the receipt, Sueperman can check whether LexCorp owes you a remedy.",
+    "path": "assets/h2.wav"
+  },
+  {
+    "id": "n3",
+    "start": 30.65,
+    "duration": 6.066,
+    "text": "People miss recalls. They miss settlements. Sometimes they don't even know there's anything to claim.",
+    "path": "assets/n3.wav"
+  },
+  {
+    "id": "n4",
+    "start": 42.4,
+    "duration": 2.949458,
+    "text": "Meet Sueperman. Your consumer-rights agent.",
+    "path": "assets/n4.wav"
+  },
+  {
+    "id": "n5",
+    "start": 47.0,
+    "duration": 3.665458,
+    "text": "It checks your purchases against official recall notices.",
+    "path": "assets/n5.wav"
+  },
+  {
+    "id": "n6",
+    "start": 53.8,
+    "duration": 3.420125,
+    "text": "Checks the details, and rejects false matches.",
+    "path": "assets/n6.wav"
+  },
+  {
+    "id": "n7",
+    "start": 60.0,
+    "duration": 3.753958,
+    "text": "And helps prepare the paperwork, with the evidence to back it up.",
+    "path": "assets/n7.wav"
+  },
+  {
+    "id": "l3",
+    "start": 69.65,
+    "duration": 1.896542,
+    "text": "Wait. Are you Superman?",
+    "path": "assets/l3.wav"
+  },
+  {
+    "id": "h3",
+    "start": 72.1,
+    "duration": 0.469708,
+    "text": "No.",
+    "path": "assets/h3.wav"
+  },
+  {
+    "id": "l4",
+    "start": 74.0,
+    "duration": 2.01175,
+    "text": "Can you fix my washing machine?",
+    "path": "assets/l4.wav"
+  },
+  {
+    "id": "h4",
+    "start": 76.45,
+    "duration": 0.469708,
+    "text": "No.",
+    "path": "assets/h4.wav"
+  },
+  {
+    "id": "h5",
+    "start": 79.25,
+    "duration": 3.338708,
+    "text": "But I know how to get the paperwork started.",
+    "path": "assets/h5.wav"
+  }
+]

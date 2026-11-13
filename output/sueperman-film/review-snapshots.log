@@ -1,0 +1,126 @@
+◆  Capturing review frames (beats, seams, phone) from sueperman-film
+[HyperFrames] Not inlining "assets/hopeful.png" (3.4 MB exceeds the 2 MB inline limit). The bundle may not be self-contained.
+[HyperFrames] Not inlining "assets/defeated.png" (3.2 MB exceeds the 2 MB inline limit). The bundle may not be self-contained.
+[HyperFrames] Not inlining "assets/storyboard.png" (3.6 MB exceeds the 2 MB inline limit). The bundle may not be self-contained.
+[HyperFrames] Not inlining "assets/storyboard.png" (3.6 MB exceeds the 2 MB inline limit). The bundle may not be self-contained.
+[HyperFrames] Not inlining "assets/storyboard.png" (3.6 MB exceeds the 2 MB inline limit). The bundle may not be self-contained.
+[HyperFrames] Not inlining "assets/storyboard.png" (3.6 MB exceeds the 2 MB inline limit). The bundle may not be self-contained.
+[HyperFrames] Not inlining "assets/storyboard.png" (3.6 MB exceeds the 2 MB inline limit). The bundle may not be self-contained.
+[HyperFrames] Not inlining "assets/storyboard.png" (3.6 MB exceeds the 2 MB inline limit). The bundle may not be self-contained.
+[HyperFrames] Not inlining "assets/storyboard.png" (3.6 MB exceeds the 2 MB inline limit). The bundle may not be self-contained.
+[INFO] [Compiler] Fetched 11 font face(s) for "Inter" from Google Fonts (cached to /Users/nirmalhk7/.cache/hyperframes/fonts/inter)
+[INFO] [Compiler] Fetched 6 font face(s) for "Oswald" from Google Fonts (cached to /Users/nirmalhk7/.cache/hyperframes/fonts/oswald)
+[INFO] [Compiler] Fetched 1 font face(s) for "Archivo Black" from Google Fonts (cached to /Users/nirmalhk7/.cache/hyperframes/fonts/archivo-black)
+[INFO] [Compiler] Fetched 4 font face(s) for "Space Mono" from Google Fonts (cached to /Users/nirmalhk7/.cache/hyperframes/fonts/space-mono)
+[INFO] [Compiler] Injected deterministic @font-face rules for 4 requested font families
+[hyperframes] browserGpuMode probe → hardware (WebGL renderer vendor="Google Inc. (Apple)" renderer="ANGLE (Apple, ANGLE Metal Renderer: Apple M3 Pro, Unspecified Version)")
+
+   Fonts: 21 loaded
+   Review: 14 beat(s) and 6 seam(s) within 0–90s
+[hyperframes] snapshot: frame 1/44 at 0.3s
+[hyperframes] snapshot: frame 2/44 at 4s
+[hyperframes] snapshot: frame 3/44 at 8.3s
+[hyperframes] snapshot: frame 4/44 at 13.5s
+[hyperframes] snapshot: frame 5/44 at 19.3s
+[hyperframes] snapshot: frame 6/44 at 24.5s
+[hyperframes] snapshot: frame 7/44 at 30.3s
+[hyperframes] snapshot: frame 8/44 at 36s
+[hyperframes] snapshot: frame 9/44 at 42.3s
+[hyperframes] snapshot: frame 10/44 at 55.5s
+[hyperframes] snapshot: frame 11/44 at 69.3s
+[hyperframes] snapshot: frame 12/44 at 76.5s
+[hyperframes] snapshot: frame 13/44 at 84.3s
+[hyperframes] snapshot: frame 14/44 at 87s
+[hyperframes] snapshot: frame 15/44 at 7.8s
+[hyperframes] snapshot: frame 16/44 at 7.9s
+[hyperframes] snapshot: frame 17/44 at 8s
+[hyperframes] snapshot: frame 18/44 at 8.1s
+[hyperframes] snapshot: frame 19/44 at 8.2s
+[hyperframes] snapshot: frame 20/44 at 18.8s
+[hyperframes] snapshot: frame 21/44 at 18.9s
+[hyperframes] snapshot: frame 22/44 at 19s
+[hyperframes] snapshot: frame 23/44 at 19.1s
+[hyperframes] snapshot: frame 24/44 at 19.2s
+[hyperframes] snapshot: frame 25/44 at 29.8s
+[hyperframes] snapshot: frame 26/44 at 29.9s
+[hyperframes] snapshot: frame 27/44 at 30s
+[hyperframes] snapshot: frame 28/44 at 30.1s
+[hyperframes] snapshot: frame 29/44 at 30.2s
+[hyperframes] snapshot: frame 30/44 at 41.8s
+[hyperframes] snapshot: frame 31/44 at 41.9s
+[hyperframes] snapshot: frame 32/44 at 42s
+[hyperframes] snapshot: frame 33/44 at 42.1s
+[hyperframes] snapshot: frame 34/44 at 42.2s
+[hyperframes] snapshot: frame 35/44 at 68.8s
+[hyperframes] snapshot: frame 36/44 at 68.9s
+[hyperframes] snapshot: frame 37/44 at 69s
+[hyperframes] snapshot: frame 38/44 at 69.1s
+[hyperframes] snapshot: frame 39/44 at 69.2s
+[hyperframes] snapshot: frame 40/44 at 83.8s
+[hyperframes] snapshot: frame 41/44 at 83.9s
+[hyperframes] snapshot: frame 42/44 at 84s
+[hyperframes] snapshot: frame 43/44 at 84.1s
+[hyperframes] snapshot: frame 44/44 at 84.2s
+   Revision: none (inputs-changed)
+   State: /Users/nirmalhk7/Documents/DevWorld/sueperman/output/sueperman-film/.hyperframes/video-state.json
+
+◇  44 snapshots saved to /Users/nirmalhk7/Documents/DevWorld/sueperman/output/sueperman-film/.hyperframes/artifacts/snapshots/6d879531-071a-4a53-9629-89bd296ac8c4
+   /Users/nirmalhk7/Documents/DevWorld/sueperman/output/sueperman-film/.hyperframes/artifacts/snapshots/6d879531-071a-4a53-9629-89bd296ac8c4/beat-01-at-0.3s.png
+   /Users/nirmalhk7/Documents/DevWorld/sueperman/output/sueperman-film/.hyperframes/artifacts/snapshots/6d879531-071a-4a53-9629-89bd296ac8c4/beat-02-at-4s.png
+   /Users/nirmalhk7/Documents/DevWorld/sueperman/output/sueperman-film/.hyperframes/artifacts/snapshots/6d879531-071a-4a53-9629-89bd296ac8c4/beat-03-at-8.3s.png
+   /Users/nirmalhk7/Documents/DevWorld/sueperman/output/sueperman-film/.hyperframes/artifacts/snapshots/6d879531-071a-4a53-9629-89bd296ac8c4/beat-04-at-13.5s.png
+   /Users/nirmalhk7/Documents/DevWorld/sueperman/output/sueperman-film/.hyperframes/artifacts/snapshots/6d879531-071a-4a53-9629-89bd296ac8c4/beat-05-at-19.3s.png
+   /Users/nirmalhk7/Documents/DevWorld/sueperman/output/sueperman-film/.hyperframes/artifacts/snapshots/6d879531-071a-4a53-9629-89bd296ac8c4/beat-06-at-24.5s.png
+   /Users/nirmalhk7/Documents/DevWorld/sueperman/output/sueperman-film/.hyperframes/artifacts/snapshots/6d879531-071a-4a53-9629-89bd296ac8c4/beat-07-at-30.3s.png
+   /Users/nirmalhk7/Documents/DevWorld/sueperman/output/sueperman-film/.hyperframes/artifacts/snapshots/6d879531-071a-4a53-9629-89bd296ac8c4/beat-08-at-36s.png
+   /Users/nirmalhk7/Documents/DevWorld/sueperman/output/sueperman-film/.hyperframes/artifacts/snapshots/6d879531-071a-4a53-9629-89bd296ac8c4/beat-09-at-42.3s.png
+   /Users/nirmalhk7/Documents/DevWorld/sueperman/output/sueperman-film/.hyperframes/artifacts/snapshots/6d879531-071a-4a53-9629-89bd296ac8c4/beat-10-at-55.5s.png
+   /Users/nirmalhk7/Documents/DevWorld/sueperman/output/sueperman-film/.hyperframes/artifacts/snapshots/6d879531-071a-4a53-9629-89bd296ac8c4/beat-11-at-69.3s.png
+   /Users/nirmalhk7/Documents/DevWorld/sueperman/output/sueperman-film/.hyperframes/artifacts/snapshots/6d879531-071a-4a53-9629-89bd296ac8c4/beat-12-at-76.5s.png
+   /Users/nirmalhk7/Documents/DevWorld/sueperman/output/sueperman-film/.hyperframes/artifacts/snapshots/6d879531-071a-4a53-9629-89bd296ac8c4/beat-13-at-84.3s.png
+   /Users/nirmalhk7/Documents/DevWorld/sueperman/output/sueperman-film/.hyperframes/artifacts/snapshots/6d879531-071a-4a53-9629-89bd296ac8c4/beat-14-at-87s.png
+   /Users/nirmalhk7/Documents/DevWorld/sueperman/output/sueperman-film/.hyperframes/artifacts/snapshots/6d879531-071a-4a53-9629-89bd296ac8c4/seam-01-1-at-7.8s.png
+   /Users/nirmalhk7/Documents/DevWorld/sueperman/output/sueperman-film/.hyperframes/artifacts/snapshots/6d879531-071a-4a53-9629-89bd296ac8c4/seam-01-2-at-7.9s.png
+   /Users/nirmalhk7/Documents/DevWorld/sueperman/output/sueperman-film/.hyperframes/artifacts/snapshots/6d879531-071a-4a53-9629-89bd296ac8c4/seam-01-3-at-8s.png
+   /Users/nirmalhk7/Documents/DevWorld/sueperman/output/sueperman-film/.hyperframes/artifacts/snapshots/6d879531-071a-4a53-9629-89bd296ac8c4/seam-01-4-at-8.1s.png
+   /Users/nirmalhk7/Documents/DevWorld/sueperman/output/sueperman-film/.hyperframes/artifacts/snapshots/6d879531-071a-4a53-9629-89bd296ac8c4/seam-01-5-at-8.2s.png
+   /Users/nirmalhk7/Documents/DevWorld/sueperman/output/sueperman-film/.hyperframes/artifacts/snapshots/6d879531-071a-4a53-9629-89bd296ac8c4/seam-02-1-at-18.8s.png
+   /Users/nirmalhk7/Documents/DevWorld/sueperman/output/sueperman-film/.hyperframes/artifacts/snapshots/6d879531-071a-4a53-9629-89bd296ac8c4/seam-02-2-at-18.9s.png
+   /Users/nirmalhk7/Documents/DevWorld/sueperman/output/sueperman-film/.hyperframes/artifacts/snapshots/6d879531-071a-4a53-9629-89bd296ac8c4/seam-02-3-at-19s.png
+   /Users/nirmalhk7/Documents/DevWorld/sueperman/output/sueperman-film/.hyperframes/artifacts/snapshots/6d879531-071a-4a53-9629-89bd296ac8c4/seam-02-4-at-19.1s.png
+   /Users/nirmalhk7/Documents/DevWorld/sueperman/output/sueperman-film/.hyperframes/artifacts/snapshots/6d879531-071a-4a53-9629-89bd296ac8c4/seam-02-5-at-19.2s.png
+   /Users/nirmalhk7/Documents/DevWorld/sueperman/output/sueperman-film/.hyperframes/artifacts/snapshots/6d879531-071a-4a53-9629-89bd296ac8c4/seam-03-1-at-29.8s.png
+   /Users/nirmalhk7/Documents/DevWorld/sueperman/output/sueperman-film/.hyperframes/artifacts/snapshots/6d879531-071a-4a53-9629-89bd296ac8c4/seam-03-2-at-29.9s.png
+   /Users/nirmalhk7/Documents/DevWorld/sueperman/output/sueperman-film/.hyperframes/artifacts/snapshots/6d879531-071a-4a53-9629-89bd296ac8c4/seam-03-3-at-30s.png
+   /Users/nirmalhk7/Documents/DevWorld/sueperman/output/sueperman-film/.hyperframes/artifacts/snapshots/6d879531-071a-4a53-9629-89bd296ac8c4/seam-03-4-at-30.1s.png
+   /Users/nirmalhk7/Documents/DevWorld/sueperman/output/sueperman-film/.hyperframes/artifacts/snapshots/6d879531-071a-4a53-9629-89bd296ac8c4/seam-03-5-at-30.2s.png
+   /Users/nirmalhk7/Documents/DevWorld/sueperman/output/sueperman-film/.hyperframes/artifacts/snapshots/6d879531-071a-4a53-9629-89bd296ac8c4/seam-04-1-at-41.8s.png
+   /Users/nirmalhk7/Documents/DevWorld/sueperman/output/sueperman-film/.hyperframes/artifacts/snapshots/6d879531-071a-4a53-9629-89bd296ac8c4/seam-04-2-at-41.9s.png
+   /Users/nirmalhk7/Documents/DevWorld/sueperman/output/sueperman-film/.hyperframes/artifacts/snapshots/6d879531-071a-4a53-9629-89bd296ac8c4/seam-04-3-at-42s.png
+   /Users/nirmalhk7/Documents/DevWorld/sueperman/output/sueperman-film/.hyperframes/artifacts/snapshots/6d879531-071a-4a53-9629-89bd296ac8c4/seam-04-4-at-42.1s.png
+   /Users/nirmalhk7/Documents/DevWorld/sueperman/output/sueperman-film/.hyperframes/artifacts/snapshots/6d879531-071a-4a53-9629-89bd296ac8c4/seam-04-5-at-42.2s.png
+   /Users/nirmalhk7/Documents/DevWorld/sueperman/output/sueperman-film/.hyperframes/artifacts/snapshots/6d879531-071a-4a53-9629-89bd296ac8c4/seam-05-1-at-68.8s.png
+   /Users/nirmalhk7/Documents/DevWorld/sueperman/output/sueperman-film/.hyperframes/artifacts/snapshots/6d879531-071a-4a53-9629-89bd296ac8c4/seam-05-2-at-68.9s.png
+   /Users/nirmalhk7/Documents/DevWorld/sueperman/output/sueperman-film/.hyperframes/artifacts/snapshots/6d879531-071a-4a53-9629-89bd296ac8c4/seam-05-3-at-69s.png
+   /Users/nirmalhk7/Documents/DevWorld/sueperman/output/sueperman-film/.hyperframes/artifacts/snapshots/6d879531-071a-4a53-9629-89bd296ac8c4/seam-05-4-at-69.1s.png
+   /Users/nirmalhk7/Documents/DevWorld/sueperman/output/sueperman-film/.hyperframes/artifacts/snapshots/6d879531-071a-4a53-9629-89bd296ac8c4/seam-05-5-at-69.2s.png
+   /Users/nirmalhk7/Documents/DevWorld/sueperman/output/sueperman-film/.hyperframes/artifacts/snapshots/6d879531-071a-4a53-9629-89bd296ac8c4/seam-06-1-at-83.8s.png
+   /Users/nirmalhk7/Documents/DevWorld/sueperman/output/sueperman-film/.hyperframes/artifacts/snapshots/6d879531-071a-4a53-9629-89bd296ac8c4/seam-06-2-at-83.9s.png
+   /Users/nirmalhk7/Documents/DevWorld/sueperman/output/sueperman-film/.hyperframes/artifacts/snapshots/6d879531-071a-4a53-9629-89bd296ac8c4/seam-06-3-at-84s.png
+   /Users/nirmalhk7/Documents/DevWorld/sueperman/output/sueperman-film/.hyperframes/artifacts/snapshots/6d879531-071a-4a53-9629-89bd296ac8c4/seam-06-4-at-84.1s.png
+   /Users/nirmalhk7/Documents/DevWorld/sueperman/output/sueperman-film/.hyperframes/artifacts/snapshots/6d879531-071a-4a53-9629-89bd296ac8c4/seam-06-5-at-84.2s.png
+   Beat sheet (settled frame per scene): /Users/nirmalhk7/Documents/DevWorld/sueperman/output/sueperman-film/.hyperframes/artifacts/snapshots/6d879531-071a-4a53-9629-89bd296ac8c4/review-beats.jpg
+     0.3s metropolis · 4s metropolis mid · 8.3s washer · 13.5s washer mid · 19.3s hero · 24.5s hero mid · 30.3s missing · 36s missing mid · 42.3s product · 55.5s product mid · 69.3s payoff · 76.5s payoff mid · 84.3s logo · 87s logo mid
+   Seam 1 at 8s (metropolis -> washer): /Users/nirmalhk7/Documents/DevWorld/sueperman/output/sueperman-film/.hyperframes/artifacts/snapshots/6d879531-071a-4a53-9629-89bd296ac8c4/review-seam-01.jpg
+   Seam 2 at 19s (washer -> hero): /Users/nirmalhk7/Documents/DevWorld/sueperman/output/sueperman-film/.hyperframes/artifacts/snapshots/6d879531-071a-4a53-9629-89bd296ac8c4/review-seam-02.jpg
+   Seam 3 at 30s (hero -> missing): /Users/nirmalhk7/Documents/DevWorld/sueperman/output/sueperman-film/.hyperframes/artifacts/snapshots/6d879531-071a-4a53-9629-89bd296ac8c4/review-seam-03.jpg
+   Seam 4 at 42s (missing -> product): /Users/nirmalhk7/Documents/DevWorld/sueperman/output/sueperman-film/.hyperframes/artifacts/snapshots/6d879531-071a-4a53-9629-89bd296ac8c4/review-seam-04.jpg
+   Seam 5 at 69s (product -> payoff): /Users/nirmalhk7/Documents/DevWorld/sueperman/output/sueperman-film/.hyperframes/artifacts/snapshots/6d879531-071a-4a53-9629-89bd296ac8c4/review-seam-05.jpg
+   Seam 6 at 84s (payoff -> logo): /Users/nirmalhk7/Documents/DevWorld/sueperman/output/sueperman-film/.hyperframes/artifacts/snapshots/6d879531-071a-4a53-9629-89bd296ac8c4/review-seam-06.jpg
+   Phone sheet (beats at 360 px wide): /Users/nirmalhk7/Documents/DevWorld/sueperman/output/sueperman-film/.hyperframes/artifacts/snapshots/6d879531-071a-4a53-9629-89bd296ac8c4/review-phone.jpg
+   metropolis holds several timed clips; run --review --composition metropolis to review its cuts.
+   washer holds several timed clips; run --review --composition washer to review its cuts.
+   hero holds several timed clips; run --review --composition hero to review its cuts.
+   missing holds several timed clips; run --review --composition missing to review its cuts.
+   product holds several timed clips; run --review --composition product to review its cuts.
+   payoff holds several timed clips; run --review --composition payoff to review its cuts.

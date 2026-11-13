@@ -1,0 +1,642 @@
+{
+  "ok": false,
+  "strict": false,
+  "browserSkipped": false,
+  "lint": {
+    "ok": false,
+    "errorCount": 1,
+    "warningCount": 3,
+    "infoCount": 0,
+    "findings": [
+      {
+        "code": "timeline_track_too_dense",
+        "severity": "warning",
+        "message": "Track 2 has 7 timed elements in this HTML file. Smaller sub-compositions keep timelines easier to read, iterate on, and diff.",
+        "selector": "[data-composition-id]",
+        "dataAttributes": {},
+        "sourceFile": "/Users/nirmalhk7/Documents/DevWorld/sueperman/output/sueperman-film/compositions/payoff.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0
+        },
+        "time": 0,
+        "fixHint": "Move coherent scene groups into smaller .html files and mount them from the parent with data-composition-src so the timeline stays easier to inspect, revise, and validate."
+      },
+      {
+        "code": "missing_local_asset",
+        "severity": "error",
+        "message": "<img> element references local file(s) not found in the project: assets/defeated.png. The renderer will silently skip these and produce a video with missing visuals.",
+        "selector": "[data-composition-id]",
+        "dataAttributes": {},
+        "sourceFile": "/Users/nirmalhk7/Documents/DevWorld/sueperman/output/sueperman-film/compositions/payoff.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0
+        },
+        "time": 0,
+        "fixHint": "Add \"assets/defeated.png\" to the project directory, or update the src attribute to point to an existing file. Common cause: captured asset filenames are unreliable (heygen-logo.svg often contains Google, nvidia-logo.svg may contain Autodesk, etc.). Open the contact sheets and verify the file actually exists at this path before referencing it."
+      },
+      {
+        "code": "timeline_track_too_dense",
+        "severity": "warning",
+        "message": "Track 2 has 5 timed elements in this HTML file. Smaller sub-compositions keep timelines easier to read, iterate on, and diff.",
+        "selector": "[data-composition-id]",
+        "dataAttributes": {},
+        "sourceFile": "/Users/nirmalhk7/Documents/DevWorld/sueperman/output/sueperman-film/compositions/product.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0
+        },
+        "time": 0,
+        "fixHint": "Move coherent scene groups into smaller .html files and mount them from the parent with data-composition-src so the timeline stays easier to inspect, revise, and validate."
+      },
+      {
+        "code": "timeline_track_too_dense",
+        "severity": "warning",
+        "message": "Track 2 has 7 timed elements in this HTML file. Smaller sub-compositions keep timelines easier to read, iterate on, and diff.",
+        "selector": "[data-composition-id]",
+        "dataAttributes": {},
+        "sourceFile": "/Users/nirmalhk7/Documents/DevWorld/sueperman/output/sueperman-film/compositions/washer.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0
+        },
+        "time": 0,
+        "fixHint": "Move coherent scene groups into smaller .html files and mount them from the parent with data-composition-src so the timeline stays easier to inspect, revise, and validate."
+      }
+    ],
+    "filesScanned": 8
+  },
+  "runtime": {
+    "ok": false,
+    "errorCount": 1,
+    "warningCount": 0,
+    "infoCount": 0,
+    "findings": [
+      {
+        "code": "http_error",
+        "severity": "error",
+        "message": "404 loading assets/defeated.png",
+        "selector": "[data-composition-id]",
+        "dataAttributes": {
+          "data-composition-id": "main",
+          "data-start": "0",
+          "data-duration": "90",
+          "data-fps": "30",
+          "data-width": "1920",
+          "data-height": "1080"
+        },
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 1920,
+          "height": 1080
+        },
+        "time": 0,
+        "url": "http://127.0.0.1:54263/assets/defeated.png"
+      }
+    ]
+  },
+  "layout": {
+    "ok": true,
+    "errorCount": 0,
+    "warningCount": 0,
+    "infoCount": 3,
+    "findings": [
+      {
+        "code": "canvas_overflow",
+        "severity": "info",
+        "time": 5,
+        "selector": "#receipt-in",
+        "message": "Text extends outside the composition canvas.",
+        "rect": {
+          "left": 1387.55,
+          "top": 1043.02,
+          "right": 1509.4,
+          "bottom": 1167.67,
+          "width": 121.85,
+          "height": 124.65
+        },
+        "containerSelector": "#root",
+        "text": "WASHING MACHINEPAID IN FULLKEEP THIS.",
+        "fixHint": "Move the text inward, reduce its size, or mark intentional off-canvas animation with data-layout-allow-overflow.",
+        "containerRect": {
+          "left": 0,
+          "top": 0,
+          "right": 1920,
+          "bottom": 1080,
+          "width": 1920,
+          "height": 1080
+        },
+        "overflow": {
+          "bottom": 87.67
+        },
+        "dataAttributes": {},
+        "sourceFile": "compositions/metropolis.html",
+        "bbox": {
+          "x": 1387.55,
+          "y": 1043.02,
+          "width": 121.85,
+          "height": 124.65
+        },
+        "firstSeen": 5,
+        "lastSeen": 5,
+        "occurrences": 1,
+        "heldMs": 0,
+        "times": [
+          5
+        ]
+      },
+      {
+        "code": "container_overflow",
+        "severity": "info",
+        "time": 55,
+        "selector": "#rejection-image",
+        "message": "Element extends outside a clipping layout container.",
+        "rect": {
+          "left": 488,
+          "top": -70.69,
+          "right": 1802,
+          "bottom": 1914.67,
+          "width": 1314,
+          "height": 1985.36
+        },
+        "containerSelector": "#product-reject > div:nth-of-type(2)",
+        "fixHint": "Resize/reposition the child or container, or mark intentional overflow with data-layout-allow-overflow.",
+        "containerRect": {
+          "left": 480,
+          "top": 162,
+          "right": 1810,
+          "bottom": 972,
+          "width": 1330,
+          "height": 810
+        },
+        "overflow": {
+          "top": 232.69,
+          "bottom": 942.67
+        },
+        "dataAttributes": {
+          "data-hf-render-id": "rejection-image",
+          "data-hf-authored-opacity": ""
+        },
+        "sourceFile": "compositions/product.html",
+        "bbox": {
+          "x": 488,
+          "y": -70.69,
+          "width": 1314,
+          "height": 1985.36
+        },
+        "firstSeen": 55,
+        "lastSeen": 55,
+        "occurrences": 1,
+        "heldMs": 0,
+        "times": [
+          55
+        ]
+      },
+      {
+        "code": "container_overflow",
+        "severity": "info",
+        "time": 65,
+        "selector": "#packet-image",
+        "message": "Element extends outside a clipping layout container.",
+        "rect": {
+          "left": 488,
+          "top": -962.56,
+          "right": 1802,
+          "bottom": 883.19,
+          "width": 1314,
+          "height": 1845.75
+        },
+        "containerSelector": "#product-packet > div:nth-of-type(2)",
+        "fixHint": "Resize/reposition the child or container, or mark intentional overflow with data-layout-allow-overflow.",
+        "containerRect": {
+          "left": 480,
+          "top": 162,
+          "right": 1810,
+          "bottom": 972,
+          "width": 1330,
+          "height": 810
+        },
+        "overflow": {
+          "top": 1124.56
+        },
+        "dataAttributes": {
+          "data-hf-render-id": "packet-image",
+          "data-hf-authored-opacity": ""
+        },
+        "sourceFile": "compositions/product.html",
+        "bbox": {
+          "x": 488,
+          "y": -962.56,
+          "width": 1314,
+          "height": 1845.75
+        },
+        "firstSeen": 65,
+        "lastSeen": 65,
+        "occurrences": 1,
+        "heldMs": 0,
+        "times": [
+          65
+        ]
+      }
+    ],
+    "duration": 90,
+    "samples": [
+      5,
+      15,
+      25,
+      35,
+      45,
+      55,
+      65,
+      75,
+      85
+    ],
+    "transitionSamples": [],
+    "transitionSamplesDropped": 0,
+    "tolerance": 2,
+    "totalIssueCount": 3,
+    "truncated": false
+  },
+  "motion": {
+    "ok": true,
+    "errorCount": 0,
+    "warningCount": 0,
+    "infoCount": 0,
+    "findings": [],
+    "enabled": false,
+    "samples": 0
+  },
+  "contrast": {
+    "ok": true,
+    "errorCount": 0,
+    "warningCount": 0,
+    "infoCount": 0,
+    "findings": [],
+    "enabled": true,
+    "samples": [
+      5,
+      25,
+      45,
+      65,
+      85
+    ],
+    "checked": 15,
+    "passed": 15
+  },
+  "craft": {
+    "ok": true,
+    "errorCount": 0,
+    "warningCount": 9,
+    "infoCount": 0,
+    "findings": [
+      {
+        "code": "dead_stretch",
+        "severity": "warning",
+        "message": "Nothing on screen changes for 4.36 s (0.00–4.36 s): start the next move within 3 s, or put data-hold on the element whose stillness is deliberate; see references/motion.md.",
+        "selector": "[data-composition-id]",
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0
+        },
+        "time": 0,
+        "seconds": 4.357,
+        "floorSeconds": 3,
+        "until": 4.357
+      },
+      {
+        "code": "text_below_floor",
+        "severity": "warning",
+        "message": "Type floor is 28 px (2.6% of the 1080 px short side, what a phone can read) and 2 text elements stay under it for 0.5 s or more, the smallest \"WASHING MACHINEPAID IN FULLKEEP THIS.\" at 21 px: set reading text to at least 28 px, or put data-layout-ignore on text that is texture rather than reading; see references/look.md.",
+        "text": "WASHING MACHINEPAID IN FULLKEEP THIS.",
+        "selector": "#receipt-in",
+        "dataAttributes": {},
+        "sourceFile": "compositions/metropolis.html",
+        "bbox": {
+          "x": 1350.34,
+          "y": 823.34,
+          "width": 197.86,
+          "height": 175.98
+        },
+        "time": 5.109,
+        "times": [
+          5.109,
+          5.109
+        ],
+        "fontPx": 21.47,
+        "floorPx": 28,
+        "seconds": 3.004,
+        "elements": [
+          {
+            "selector": "#receipt-in",
+            "text": "WASHING MACHINEPAID IN FULLKEEP THIS.",
+            "fontPx": 21.47,
+            "time": 5.109,
+            "seconds": 3.004
+          },
+          {
+            "selector": "#receipt-in > b:nth-of-type(1)",
+            "text": "LEXCORP",
+            "fontPx": 21.47,
+            "time": 5.109,
+            "seconds": 3.004
+          }
+        ]
+      },
+      {
+        "code": "line_unread",
+        "severity": "warning",
+        "message": "\"ARE YOU KIDDING ME?!\" (4 words) is on screen 1.10 s (±0.01 s), under its 1.27 s floor: hold it about 0.5 s + 0.3 s a word (1.70 s here) before it leaves or changes; see references/motion.md.",
+        "text": "ARE YOU KIDDING ME?!",
+        "selector": "#wash-furious-line-ink",
+        "dataAttributes": {},
+        "sourceFile": "compositions/washer.html",
+        "bbox": {
+          "x": 1162.64,
+          "y": 700.08,
+          "width": 264.39999999999986,
+          "height": 90.85000000000002
+        },
+        "time": 16.171,
+        "words": 4,
+        "seconds": 1.099,
+        "floorSeconds": 1.275,
+        "measured": [
+          {
+            "time": 15.776,
+            "opacity": null,
+            "heightPx": null
+          },
+          {
+            "time": 15.927,
+            "opacity": null,
+            "heightPx": null
+          },
+          {
+            "time": 16.077,
+            "opacity": null,
+            "heightPx": null
+          },
+          {
+            "time": 16.227,
+            "opacity": 1,
+            "heightPx": 91
+          },
+          {
+            "time": 16.377,
+            "opacity": 1,
+            "heightPx": 93
+          },
+          {
+            "time": 16.528,
+            "opacity": 1,
+            "heightPx": 93
+          },
+          {
+            "time": 16.678,
+            "opacity": 1,
+            "heightPx": 93
+          },
+          {
+            "time": 16.828,
+            "opacity": 1,
+            "heightPx": 93
+          },
+          {
+            "time": 16.978,
+            "opacity": 1,
+            "heightPx": 93
+          },
+          {
+            "time": 17.129,
+            "opacity": 1,
+            "heightPx": 93
+          },
+          {
+            "time": 17.279,
+            "opacity": null,
+            "heightPx": null
+          },
+          {
+            "time": 17.429,
+            "opacity": null,
+            "heightPx": null
+          },
+          {
+            "time": 17.579,
+            "opacity": null,
+            "heightPx": null
+          }
+        ]
+      },
+      {
+        "code": "dead_stretch",
+        "severity": "warning",
+        "message": "Nothing on screen changes for 4.96 s (24.94–29.90 s): start the next move within 3 s, or put data-hold on the element whose stillness is deliberate; see references/motion.md.",
+        "selector": "[data-composition-id]",
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0
+        },
+        "time": 24.942,
+        "seconds": 4.958,
+        "floorSeconds": 3,
+        "until": 29.9
+      },
+      {
+        "code": "dead_stretch",
+        "severity": "warning",
+        "message": "Nothing on screen changes for 3.61 s (30.50–34.11 s): start the next move within 3 s, or put data-hold on the element whose stillness is deliberate; see references/motion.md.",
+        "selector": "[data-composition-id]",
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0
+        },
+        "time": 30.501,
+        "seconds": 3.606,
+        "floorSeconds": 3,
+        "until": 34.107
+      },
+      {
+        "code": "dead_stretch",
+        "severity": "warning",
+        "message": "Nothing on screen changes for 3.91 s (38.01–41.92 s): start the next move within 3 s, or put data-hold on the element whose stillness is deliberate; see references/motion.md.",
+        "selector": "[data-composition-id]",
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0
+        },
+        "time": 38.013,
+        "seconds": 3.907,
+        "floorSeconds": 3,
+        "until": 41.92
+      },
+      {
+        "code": "dead_stretch",
+        "severity": "warning",
+        "message": "Nothing on screen changes for 4.36 s (79.63–83.99 s): start the next move within 3 s, or put data-hold on the element whose stillness is deliberate; see references/motion.md.",
+        "selector": "[data-composition-id]",
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0
+        },
+        "time": 79.633,
+        "seconds": 4.357,
+        "floorSeconds": 3,
+        "until": 83.99
+      },
+      {
+        "code": "line_unread",
+        "severity": "warning",
+        "message": "\"LEXCORP YOUR RECEIPTS HAVE UNFINISHED BUSINESS. KEEP THIS.\" (8 words) is on screen 0.54 s (±0.01 s), under its 2.17 s floor: hold it about 0.5 s + 0.3 s a word (2.90 s here) before it leaves or changes; see references/motion.md.",
+        "text": "LEXCORP YOUR RECEIPTS HAVE UNFINISHED BUSINESS. KEEP THIS.",
+        "selector": "#logo-receipt",
+        "dataAttributes": {},
+        "sourceFile": "compositions/logo.html",
+        "bbox": {
+          "x": 759.65,
+          "y": 492.53,
+          "width": 204.66999999999996,
+          "height": 203.05999999999995
+        },
+        "time": 84.271,
+        "words": 8,
+        "seconds": 0.535,
+        "floorSeconds": 2.175,
+        "measured": [
+          {
+            "time": 83.84,
+            "opacity": null,
+            "heightPx": null
+          },
+          {
+            "time": 83.99,
+            "opacity": null,
+            "heightPx": null
+          },
+          {
+            "time": 84.14,
+            "opacity": null,
+            "heightPx": null
+          },
+          {
+            "time": 84.29,
+            "opacity": 1,
+            "heightPx": 203
+          },
+          {
+            "time": 84.441,
+            "opacity": 1,
+            "heightPx": 310
+          },
+          {
+            "time": 84.591,
+            "opacity": 1,
+            "heightPx": 316
+          },
+          {
+            "time": 84.741,
+            "opacity": 0.79,
+            "heightPx": 306
+          },
+          {
+            "time": 84.891,
+            "opacity": 0.2,
+            "heightPx": 290
+          },
+          {
+            "time": 85.042,
+            "opacity": null,
+            "heightPx": null
+          },
+          {
+            "time": 85.192,
+            "opacity": null,
+            "heightPx": null
+          }
+        ]
+      },
+      {
+        "code": "text_below_floor",
+        "severity": "warning",
+        "message": "Type floor is 28 px (2.6% of the 1080 px short side, what a phone can read) and \"YOUR RECEIPTSHAVE UNFINISHEDBUSINESS.KEEP THIS.\" renders at 22 px for 0.60 s: set reading text to at least 28 px, or put data-layout-ignore on text that is texture rather than reading; see references/look.md.",
+        "text": "YOUR RECEIPTSHAVE UNFINISHEDBUSINESS.KEEP THIS.",
+        "selector": "#logo-receipt",
+        "dataAttributes": {},
+        "sourceFile": "compositions/logo.html",
+        "bbox": {
+          "x": 759.65,
+          "y": 492.53,
+          "width": 204.67,
+          "height": 203.06
+        },
+        "time": 84.29,
+        "times": [
+          84.29
+        ],
+        "fontPx": 21.88,
+        "floorPx": 28,
+        "seconds": 0.601,
+        "elements": [
+          {
+            "selector": "#logo-receipt",
+            "text": "YOUR RECEIPTSHAVE UNFINISHEDBUSINESS.KEEP THIS.",
+            "fontPx": 21.88,
+            "time": 84.29,
+            "seconds": 0.601
+          }
+        ]
+      }
+    ],
+    "enabled": true,
+    "step": 0.15000000000000036,
+    "samples": 599
+  },
+  "audio": {
+    "ok": true,
+    "errorCount": 0,
+    "warningCount": 0,
+    "infoCount": 0,
+    "findings": []
+  },
+  "hdr": {
+    "autoPromotion": null,
+    "inspection": "available"
+  },
+  "snapshots": {
+    "enabled": false,
+    "files": [],
+    "times": [],
+    "findingFiles": []
+  }
+}

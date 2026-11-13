@@ -1,0 +1,14 @@
+F
+======================================================================
+FAIL: test_delivery_has_full_hd_video_and_audio_for_ninety_seconds (__main__.DeliveryContract.test_delivery_has_full_hd_video_and_audio_for_ninety_seconds)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/nirmalhk7/Documents/DevWorld/sueperman/output/sueperman-film/verify_delivery.py", line 13, in test_delivery_has_full_hd_video_and_audio_for_ninety_seconds
+    self.assertTrue(video.is_file(), '90-second MP4 delivery has not been rendered')
+    ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: False is not true : 90-second MP4 delivery has not been rendered
+
+----------------------------------------------------------------------
+Ran 1 test in 0.001s
+
+FAILED (failures=1)

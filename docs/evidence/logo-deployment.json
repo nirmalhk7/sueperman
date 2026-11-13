@@ -1,0 +1,128 @@
+{
+  "observed_at": "2026-11-13T22:38:17.721743+00:00",
+  "app_id": "044b649f-018f-4062-bd9a-195919becfb3",
+  "url": "https://sueperman-6t4xk.ondigitalocean.app",
+  "source_commit": "25bf2a8",
+  "deployment_id": "6e7fa1a3-7435-4144-9903-1f405d683681",
+  "previous_deployment_id": "401a7c82-185e-4d90-8747-2555e44d5321",
+  "phase": "ACTIVE",
+  "runtime_settings_preserved": true,
+  "expected_logo_sha256": "30b3b03b4406e39d89d8e398b21ef209a55fce1e8ee42ffd2b4ca265f2212fbd",
+  "progress": {
+    "success_steps": 9,
+    "total_steps": 9,
+    "steps": [
+      {
+        "name": "build",
+        "status": "SUCCESS",
+        "steps": [
+          {
+            "name": "initialize",
+            "status": "SUCCESS",
+            "started_at": "2026-11-13T22:38:20.262341117Z",
+            "ended_at": "2026-11-13T22:38:20.851022663Z"
+          },
+          {
+            "name": "components",
+            "status": "SUCCESS",
+            "steps": [
+              {
+                "name": "api",
+                "status": "SUCCESS",
+                "component_name": "api",
+                "message_base": "Building service"
+              },
+              {
+                "name": "web",
+                "status": "SUCCESS",
+                "component_name": "web",
+                "message_base": "Building service"
+              }
+            ],
+            "started_at": "2026-11-13T22:38:20.851055494Z",
+            "ended_at": "2026-11-13T22:41:17.660606439Z"
+          }
+        ],
+        "started_at": "2026-11-13T22:38:20.262250939Z",
+        "ended_at": "2026-11-13T22:41:18.723984749Z"
+      },
+      {
+        "name": "deploy",
+        "status": "SUCCESS",
+        "steps": [
+          {
+            "name": "initialize",
+            "status": "SUCCESS",
+            "started_at": "2026-11-13T22:41:22.513307689Z",
+            "ended_at": "2026-11-13T22:41:23.353753475Z"
+          },
+          {
+            "name": "components",
+            "status": "SUCCESS",
+            "steps": [
+              {
+                "name": "api",
+                "status": "SUCCESS",
+                "steps": [
+                  {
+                    "name": "deploy",
+                    "status": "SUCCESS",
+                    "component_name": "api",
+                    "message_base": "Deploying service"
+                  },
+                  {
+                    "name": "wait",
+                    "status": "SUCCESS",
+                    "component_name": "api",
+                    "message_base": "Waiting for service"
+                  }
+                ],
+                "component_name": "api"
+              },
+              {
+                "name": "web",
+                "status": "SUCCESS",
+                "steps": [
+                  {
+                    "name": "deploy",
+                    "status": "SUCCESS",
+                    "component_name": "web",
+                    "message_base": "Deploying service"
+                  },
+                  {
+                    "name": "wait",
+                    "status": "SUCCESS",
+                    "component_name": "web",
+                    "message_base": "Waiting for service"
+                  }
+                ],
+                "component_name": "web"
+              }
+            ],
+            "started_at": "2026-11-13T22:41:23.353831019Z",
+            "ended_at": "2026-11-13T22:42:25.684635366Z"
+          },
+          {
+            "name": "finalize",
+            "status": "SUCCESS",
+            "started_at": "2026-11-13T22:42:25.887430967Z",
+            "ended_at": "2026-11-13T22:42:26.238141917Z"
+          }
+        ],
+        "started_at": "2026-11-13T22:41:22.513282062Z",
+        "ended_at": "2026-11-13T22:42:26.238233026Z"
+      }
+    ]
+  },
+  "services": [
+    {
+      "name": "api",
+      "source_commit_hash": "25bf2a801a6054394363a7f8e148a148e1de5952"
+    },
+    {
+      "name": "web",
+      "source_commit_hash": "25bf2a801a6054394363a7f8e148a148e1de5952"
+    }
+  ],
+  "checked_at": "2026-11-13T22:42:34.670109+00:00"
+}

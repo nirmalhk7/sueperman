@@ -1,0 +1,53 @@
+◆  Capturing 13 frames at [2s, 6s, 12s, 22s, 35s, 45s, 50s, 56s, 63s, 70s, 77s, 81s, 88s] from sueperman-film
+[HyperFrames] Not inlining "assets/hopeful.png" (3.4 MB exceeds the 2 MB inline limit). The bundle may not be self-contained.
+[HyperFrames] Not inlining "assets/defeated.png" (3.2 MB exceeds the 2 MB inline limit). The bundle may not be self-contained.
+[HyperFrames] Not inlining "assets/storyboard.png" (3.6 MB exceeds the 2 MB inline limit). The bundle may not be self-contained.
+[HyperFrames] Not inlining "assets/storyboard.png" (3.6 MB exceeds the 2 MB inline limit). The bundle may not be self-contained.
+[HyperFrames] Not inlining "assets/storyboard.png" (3.6 MB exceeds the 2 MB inline limit). The bundle may not be self-contained.
+[HyperFrames] Not inlining "assets/storyboard.png" (3.6 MB exceeds the 2 MB inline limit). The bundle may not be self-contained.
+[HyperFrames] Not inlining "assets/storyboard.png" (3.6 MB exceeds the 2 MB inline limit). The bundle may not be self-contained.
+[HyperFrames] Not inlining "assets/storyboard.png" (3.6 MB exceeds the 2 MB inline limit). The bundle may not be self-contained.
+[HyperFrames] Not inlining "assets/storyboard.png" (3.6 MB exceeds the 2 MB inline limit). The bundle may not be self-contained.
+[INFO] [Compiler] Fetched 11 font face(s) for "Inter" from Google Fonts (cached to /Users/nirmalhk7/.cache/hyperframes/fonts/inter)
+[INFO] [Compiler] Fetched 6 font face(s) for "Oswald" from Google Fonts (cached to /Users/nirmalhk7/.cache/hyperframes/fonts/oswald)
+[INFO] [Compiler] Fetched 1 font face(s) for "Archivo Black" from Google Fonts (cached to /Users/nirmalhk7/.cache/hyperframes/fonts/archivo-black)
+[INFO] [Compiler] Fetched 4 font face(s) for "Space Mono" from Google Fonts (cached to /Users/nirmalhk7/.cache/hyperframes/fonts/space-mono)
+[INFO] [Compiler] Injected deterministic @font-face rules for 4 requested font families
+[hyperframes] browserGpuMode probe → hardware (WebGL renderer vendor="Google Inc. (Apple)" renderer="ANGLE (Apple, ANGLE Metal Renderer: Apple M3 Pro, Unspecified Version)")
+
+   Fonts: 21 loaded
+   Note: added an end-of-timeline frame at 89.75s. Short beats between your --at times may still be skipped — pass them explicitly.
+[hyperframes] snapshot: frame 1/14 at 2s
+[hyperframes] snapshot: frame 2/14 at 6s
+[hyperframes] snapshot: frame 3/14 at 12s
+[hyperframes] snapshot: frame 4/14 at 22s
+[hyperframes] snapshot: frame 5/14 at 35s
+[hyperframes] snapshot: frame 6/14 at 45s
+[hyperframes] snapshot: frame 7/14 at 50s
+[hyperframes] snapshot: frame 8/14 at 56s
+[hyperframes] snapshot: frame 9/14 at 63s
+[hyperframes] snapshot: frame 10/14 at 70s
+[hyperframes] snapshot: frame 11/14 at 77s
+[hyperframes] snapshot: frame 12/14 at 81s
+[hyperframes] snapshot: frame 13/14 at 88s
+[hyperframes] snapshot: frame 14/14 at 89.75s
+   Revision: none (inputs-changed)
+   State: /Users/nirmalhk7/Documents/DevWorld/sueperman/output/sueperman-film/.hyperframes/video-state.json
+
+◇  14 snapshots saved to /Users/nirmalhk7/Documents/DevWorld/sueperman/output/sueperman-film/.hyperframes/artifacts/snapshots/ed42da6b-d7d1-46fd-ba11-d7536ad7c635
+   /Users/nirmalhk7/Documents/DevWorld/sueperman/output/sueperman-film/.hyperframes/artifacts/snapshots/ed42da6b-d7d1-46fd-ba11-d7536ad7c635/frame-00-at-2s.png
+   /Users/nirmalhk7/Documents/DevWorld/sueperman/output/sueperman-film/.hyperframes/artifacts/snapshots/ed42da6b-d7d1-46fd-ba11-d7536ad7c635/frame-01-at-6s.png
+   /Users/nirmalhk7/Documents/DevWorld/sueperman/output/sueperman-film/.hyperframes/artifacts/snapshots/ed42da6b-d7d1-46fd-ba11-d7536ad7c635/frame-02-at-12s.png
+   /Users/nirmalhk7/Documents/DevWorld/sueperman/output/sueperman-film/.hyperframes/artifacts/snapshots/ed42da6b-d7d1-46fd-ba11-d7536ad7c635/frame-03-at-22s.png
+   /Users/nirmalhk7/Documents/DevWorld/sueperman/output/sueperman-film/.hyperframes/artifacts/snapshots/ed42da6b-d7d1-46fd-ba11-d7536ad7c635/frame-04-at-35s.png
+   /Users/nirmalhk7/Documents/DevWorld/sueperman/output/sueperman-film/.hyperframes/artifacts/snapshots/ed42da6b-d7d1-46fd-ba11-d7536ad7c635/frame-05-at-45s.png
+   /Users/nirmalhk7/Documents/DevWorld/sueperman/output/sueperman-film/.hyperframes/artifacts/snapshots/ed42da6b-d7d1-46fd-ba11-d7536ad7c635/frame-06-at-50s.png
+   /Users/nirmalhk7/Documents/DevWorld/sueperman/output/sueperman-film/.hyperframes/artifacts/snapshots/ed42da6b-d7d1-46fd-ba11-d7536ad7c635/frame-07-at-56s.png
+   /Users/nirmalhk7/Documents/DevWorld/sueperman/output/sueperman-film/.hyperframes/artifacts/snapshots/ed42da6b-d7d1-46fd-ba11-d7536ad7c635/frame-08-at-63s.png
+   /Users/nirmalhk7/Documents/DevWorld/sueperman/output/sueperman-film/.hyperframes/artifacts/snapshots/ed42da6b-d7d1-46fd-ba11-d7536ad7c635/frame-09-at-70s.png
+   /Users/nirmalhk7/Documents/DevWorld/sueperman/output/sueperman-film/.hyperframes/artifacts/snapshots/ed42da6b-d7d1-46fd-ba11-d7536ad7c635/frame-10-at-77s.png
+   /Users/nirmalhk7/Documents/DevWorld/sueperman/output/sueperman-film/.hyperframes/artifacts/snapshots/ed42da6b-d7d1-46fd-ba11-d7536ad7c635/frame-11-at-81s.png
+   /Users/nirmalhk7/Documents/DevWorld/sueperman/output/sueperman-film/.hyperframes/artifacts/snapshots/ed42da6b-d7d1-46fd-ba11-d7536ad7c635/frame-12-at-88s.png
+   /Users/nirmalhk7/Documents/DevWorld/sueperman/output/sueperman-film/.hyperframes/artifacts/snapshots/ed42da6b-d7d1-46fd-ba11-d7536ad7c635/frame-13-at-89.75s.png
+   /Users/nirmalhk7/Documents/DevWorld/sueperman/output/sueperman-film/.hyperframes/artifacts/snapshots/ed42da6b-d7d1-46fd-ba11-d7536ad7c635/contact-sheet-1.jpg (grid view for AI review)
+   /Users/nirmalhk7/Documents/DevWorld/sueperman/output/sueperman-film/.hyperframes/artifacts/snapshots/ed42da6b-d7d1-46fd-ba11-d7536ad7c635/contact-sheet-2.jpg (grid view for AI review)
