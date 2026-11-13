@@ -3,11 +3,6 @@
   "services": [
     {
       "name": "api",
-      "github": {
-        "repo": "nirmalhk7/sueperman",
-        "branch": "codex/sueperman",
-        "deploy_on_push": false
-      },
       "dockerfile_path": "services/api/Dockerfile",
       "http_port": 8080,
       "instance_count": 1,
@@ -82,21 +77,24 @@
           "scope": "RUN_TIME",
           "type": "GENERAL"
         }
-      ]
+      ],
+      "git": {
+        "repo_clone_url": "https://github.com/nirmalhk7/sueperman.git",
+        "branch": "codex/sueperman"
+      }
     },
     {
       "name": "web",
-      "github": {
-        "repo": "nirmalhk7/sueperman",
-        "branch": "codex/sueperman",
-        "deploy_on_push": false
-      },
       "dockerfile_path": "apps/web/Dockerfile",
       "http_port": 8080,
       "instance_count": 1,
       "instance_size_slug": "apps-s-1vcpu-0.5gb",
       "health_check": {
         "http_path": "/"
+      },
+      "git": {
+        "repo_clone_url": "https://github.com/nirmalhk7/sueperman.git",
+        "branch": "codex/sueperman"
       }
     }
   ],

@@ -1,0 +1,126 @@
+node:internal/modules/run_main:105
+    triggerUncaughtException(
+    ^
+
+ExpectError: expect(locator).toBeVisible() failed
+
+Locator: getByText('LIVE CPSC lookup', { exact: true })
+Expected: visible
+Timeout: 5000ms
+Error: element(s) not found
+
+Call log:
+  - Expect "toBeVisible" getByText('LIVE CPSC lookup', { exact: true }) with timeout 5000ms
+  - waiting for getByText('LIVE CPSC lookup', { exact: true })
+
+    at captureRawStack (/Users/nirmalhk7/Documents/DevWorld/sueperman/apps/web/node_modules/.pnpm/playwright-core@1.65.0/node_modules/playwright-core/lib/coreBundle.js:9551:17)
+    at callMatcherAsStep (/Users/nirmalhk7/Documents/DevWorld/sueperman/apps/web/node_modules/.pnpm/playwright@1.65.0/node_modules/playwright/lib/matchers/expect.js:13342:57)
+    at Object.toBeVisible (/Users/nirmalhk7/Documents/DevWorld/sueperman/apps/web/node_modules/.pnpm/playwright@1.65.0/node_modules/playwright/lib/matchers/expect.js:13334:23)
+    at /Users/nirmalhk7/Documents/DevWorld/sueperman/apps/web/[eval1]:11:116 {
+  matcherResult: {
+    message: 'expect(locator).toBeVisible() failed\n' +
+      '\n' +
+      "Locator: getByText('LIVE CPSC lookup', { exact: true })\n" +
+      'Expected: visible\n' +
+      'Timeout: 5000ms\n' +
+      'Error: element(s) not found\n' +
+      '\n' +
+      'Call log:\n' +
+      `  - Expect "toBeVisible" getByText('LIVE CPSC lookup', { exact: true }) with timeout 5000ms\n` +
+      "  - waiting for getByText('LIVE CPSC lookup', { exact: true })\n",
+    pass: false,
+    actual: undefined,
+    name: 'toBeVisible',
+    expected: 'visible',
+    log: [
+      `  - Expect "toBeVisible" getByText('LIVE CPSC lookup', { exact: true }) with timeout 5000ms`,
+      "  - waiting for getByText('LIVE CPSC lookup', { exact: true })"
+    ],
+    timeout: 5000,
+    ariaSnapshot: '- link "Skip to content":\n' +
+      '  - /url: "#main"\n' +
+      '- banner:\n' +
+      '  - link "S Sueperman":\n' +
+      '    - /url: /\n' +
+      '  - navigation "Primary":\n' +
+      '    - link "My purchases":\n' +
+      '      - /url: /#purchases\n' +
+      '    - link "Opportunities":\n' +
+      '      - /url: /#opportunities\n' +
+      '    - link "Activity":\n' +
+      '      - /url: /#activity\n' +
+      '  - text: SHARED DEMO / EVIDENCE FIRST\n' +
+      '- text: SHARED DEMO · Use synthetic purchases. Uploaded purchase details are shared with other visitors.\n' +
+      '- main:\n' +
+      '  - link "Back to opportunities":\n' +
+      '    - /url: /#opportunities\n' +
+      '  - text: Recall matched\n' +
+      '  - heading "Recall matched — review details" [level=1]\n' +
+      '  - paragraph: LIVE CPSC lookup · Observed 11/13/2026, 1:25:14 PM\n' +
+      '  - heading "NEWDERY Power Banks Recalled Due to Fire and Burn Hazards; Risk of Serious Injury; Sold on Amazon" [level=2]\n' +
+      '  - text: Your purchase\n' +
+      '  - heading "SYNTHETIC power bank for public verification" [level=3]\n' +
+      '  - paragraph: NEWDERY\n' +
+      '  - strong: ZHX-PB22\n' +
+      '  - paragraph: Demo Store · 2024-06-12\n' +
+      '  - text: Official affected product\n' +
+      '  - heading "CPSC recall 26-792" [level=3]\n' +
+      '  - strong: ZHX-PB22\n' +
+      '  - paragraph: Exact model required. Similar names do not establish a match.\n' +
+      '  - complementary:\n' +
+      '    - strong: Stop use · Battery safety notice\n' +
+      '    - paragraph: "Consumers should stop using the recalled power banks immediately and contact NEWDERY for instructions on how to receive a full refund. To receive a refund, consumers will be required to submit a photo of their recalled power bank showing the model number, serial number and the word “recalled” and the consumer’s last name written on the power bank in permanent marker. Consumers will also be required to confirm disposal of the power bank in accordance with applicable laws and regulations before receiving a refund. Note: Do not throw this lithium-ion battery or device in the trash, the general recycling stream (e.g., street-level or curbside recycling bins), or in used battery recycling boxes found at various retail and home improvement stores. Recalled lithium-ion batteries must be disposed of differently than other batteries, because they present a greater risk of fire. Your municipal household hazardous waste (HHW) collection center may accept this lithium-ion battery or device for disposal. Before taking your battery or device to a HHW collection center, contact it ahead of time and ask whether it accepts recalled lithium-ion batteries. If it does not, contact your municipality for further guidance."\n' +
+      '    - paragraph: "Consumers should stop using the recalled power banks immediately and contact NEWDERY for instructions on how to receive a full refund. To receive a refund, consumers will be required to submit a photo of their recalled power bank showing the model number, serial number and the word “recalled” and the consumer’s last name written on the power bank in permanent marker. Consumers will also be required to confirm disposal of the power bank in accordance with applicable laws and regulations before receiving a refund. Note: Do not throw this lithium-ion battery or device in the trash, the general recycling stream (e.g., street-level or curbside recycling bins), or in used battery recycling boxes found at various retail and home improvement stores. Recalled lithium-ion batteries must be disposed of differently than other batteries, because they present a greater risk of fire. Your municipal household hazardous waste (HHW) collection center may accept this lithium-ion battery or device for disposal. Before taking your battery or device to a HHW collection center, contact it ahead of time and ask whether it accepts recalled lithium-ion batteries. If it does not, contact your municipality for further guidance."\n' +
+      '    - link "Read official safety and remedy instructions":\n' +
+      '      - /url: https://cpsc.gov/Recalls/2026/NEWDERY-Power-Banks-Recalled-Due-to-Fire-and-Burn-Hazards-Risk-of-Serious-Injury-Sold-on-Amazon\n' +
+      '  - heading "Hard-condition checks" [level=2]\n' +
+      '  - table:\n' +
+      '    - rowgroup:\n' +
+      '      - row "Condition Official requirement Your evidence Result":\n' +
+      '        - columnheader "Condition"\n' +
+      '        - columnheader "Official requirement"\n' +
+      '        - columnheader "Your evidence"\n' +
+      '        - columnheader "Result"\n' +
+      '    - rowgroup:\n' +
+      '      - row "official_source \\"CPSC HTTPS recall notice\\" \\"https://cpsc.gov/Recalls/2026/NEWDERY-Power-Banks-Recalled-Due-to-Fire-and-Burn-Hazards-Risk-of-Serious-Injury-Sold-on-Amazon\\" Passed":\n' +
+      '        - cell "official_source"\n' +
+      '        - cell "\\"CPSC HTTPS recall notice\\""\n' +
+      '        - cell "\\"https://cpsc.gov/Recalls/2026/NEWDERY-Power-Banks-Recalled-Due-to-Fire-and-Burn-Hazards-Risk-of-Serious-Injury-Sold-on-Amazon\\""\n' +
+      '        - cell "Passed"\n' +
+      '      - row "brand \\"NEWDERY\\" \\"NEWDERY\\" Passed":\n' +
+      '        - cell "brand"\n' +
+      '        - cell "\\"NEWDERY\\""\n' +
+      '        - cell "\\"NEWDERY\\""\n' +
+      '        - cell "Passed"\n' +
+      '      - row "product_family \\"power bank\\" \\"SYNTHETIC power bank for public verification\\" Passed":\n' +
+      '        - cell "product_family"\n' +
+      '        - cell "\\"power bank\\""\n' +
+      '        - cell "\\"SYNTHETIC power bank for public verification\\""\n' +
+      '        - cell "Passed"\n' +
+      '      - row "model_number [\\"ZHX-PB22\\"] \\"ZHX-PB22\\" Passed":\n' +
+      '        - cell "model_number"\n' +
+      '        - cell "[\\"ZHX-PB22\\"]"\n' +
+      '        - cell "\\"ZHX-PB22\\""\n' +
+      '        - cell "Passed"\n' +
+      '  - heading "Investigation decision" [level=2]\n' +
+      '  - paragraph: "Selected action: produce_packet"\n' +
+      '  - paragraph: "Decision provider: rules"\n' +
+      '  - paragraph: "Hard-gate status: verified_match"\n' +
+      '  - paragraph: "Missing conditions: None"\n' +
+      '  - paragraph: Hard eligibility gates remain authoritative.\n' +
+      '  - heading "Source evidence" [level=2]\n' +
+      '  - link "U.S. Consumer Product Safety Commission":\n' +
+      '    - /url: https://cpsc.gov/Recalls/2026/NEWDERY-Power-Banks-Recalled-Due-to-Fire-and-Burn-Hazards-Risk-of-Serious-Injury-Sold-on-Amazon\n' +
+      '  - paragraph: This recall involves NEWDERY power banks with model number ZHX-PB22. The power banks are black with yellow cables. The brand name “NEWDERY” is engraved on the front and the model number “ZHX-PB22” is printed on the back.\n' +
+      '  - text: government · Observed 2026-11-13T21:25:14.864618Z SHA-256 6fd66b7c0463ad0054627e932d54356f17d629ee51843a2fce887de26b40bfd1\n' +
+      '  - button "Prepare claim packet"\n' +
+      '  - text: Potential remedy; user must provide missing evidence.\n' +
+      '- contentinfo:\n' +
+      '  - strong: Sueperman — Your consumer-rights agent\n' +
+      '  - paragraph: Sueperman helps organize public information and user-provided evidence; verify official terms and submit claims yourself.\n' +
+      '  - text: Local approval never sends a request. No legal advice or guaranteed remedy.\n' +
+      '- alert'
+  }
+}
+
+Node.js v24.1.0

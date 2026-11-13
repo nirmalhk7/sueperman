@@ -1,0 +1,202 @@
+{
+  "observed_at": "2026-11-13T21:25:20.173492+00:00",
+  "url": "https://sueperman-6t4xk.ondigitalocean.app",
+  "mode": "live",
+  "input": "two synthetic test purchases",
+  "prior_input_check": {
+    "run_id": "80936f83-8fe8-45db-9ceb-ca6c410f820e",
+    "status": "completed",
+    "reason": "Non-product descriptive name correctly failed product-family gate; corrected synthetic test input to identify power bank"
+  },
+  "run": {
+    "id": "d3230caa-dc5c-4842-b8e0-bad561d89afa",
+    "created_at": "2026-11-13T21:25:14.708104Z",
+    "updated_at": "2026-11-13T21:25:19.202174Z",
+    "demo": false,
+    "run_id": "d3230caa-dc5c-4842-b8e0-bad561d89afa",
+    "mode": "live",
+    "status": "completed",
+    "summary": {
+      "products_scanned": 2,
+      "candidates": 2,
+      "verified_matches": 1,
+      "rejected": 0,
+      "needs_review": 0,
+      "simulated_settlements": 0,
+      "prepared_packets": 1
+    },
+    "provider_modes": {
+      "receipt": "csv",
+      "recall": "cpsc",
+      "research": "disabled",
+      "decision": "rules",
+      "settlement": "verified_public_sources"
+    },
+    "warnings": [],
+    "opportunities": [
+      "b5be2a08-d346-48d5-b0fc-1b80728c8677",
+      "bbe757cd-4657-49e8-84ab-2ac1663e3d9e"
+    ],
+    "events_url": "/api/runs/d3230caa-dc5c-4842-b8e0-bad561d89afa/events",
+    "purchase_ids": [
+      "68e3a1d5-bef1-41e6-9ed1-6650b0ab7cfe",
+      "c924e721-2157-494c-aaa4-89b5f46e1b19"
+    ],
+    "started_at": "2026-11-13T21:25:14.707610+00:00",
+    "completed_at": "2026-11-13T21:25:19.201766+00:00"
+  },
+  "opportunities": [
+    {
+      "id": "b5be2a08-d346-48d5-b0fc-1b80728c8677",
+      "created_at": "2026-11-13T21:25:14.890297Z",
+      "updated_at": "2026-11-13T21:25:14.892006Z",
+      "demo": false,
+      "product_id": "55b936ff-2d02-420f-b35d-675694ce1759",
+      "kind": "recall",
+      "title": "NEWDERY Power Banks Recalled Due to Fire and Burn Hazards; Risk of Serious Injury; Sold on Amazon",
+      "status": "verified_match",
+      "source_id": "26-792",
+      "official_url": "https://cpsc.gov/Recalls/2026/NEWDERY-Power-Banks-Recalled-Due-to-Fire-and-Burn-Hazards-Risk-of-Serious-Injury-Sold-on-Amazon",
+      "source_observed_at": "2026-11-13T21:25:14.864618Z",
+      "simulated": false,
+      "mode": "live",
+      "matching_reasons": [
+        "official_source: true",
+        "brand: true",
+        "product_family: true",
+        "model_number: true"
+      ],
+      "purchase_model": "ZHX-PB22",
+      "contrary_evidence": [],
+      "remedy_kind": "refund",
+      "recall": {
+        "reference": "26-792",
+        "title": "NEWDERY Power Banks Recalled Due to Fire and Burn Hazards; Risk of Serious Injury; Sold on Amazon",
+        "brand": "NEWDERY",
+        "family": "power bank",
+        "models": [
+          "ZHX-PB22"
+        ],
+        "official_url": "https://cpsc.gov/Recalls/2026/NEWDERY-Power-Banks-Recalled-Due-to-Fire-and-Burn-Hazards-Risk-of-Serious-Injury-Sold-on-Amazon",
+        "fetched_at": "2026-11-13T21:25:14.864618Z",
+        "source_type": "government",
+        "publisher": "U.S. Consumer Product Safety Commission",
+        "excerpt": "This recall involves NEWDERY power banks with model number ZHX-PB22. The power banks are black with yellow cables. The brand name “NEWDERY” is engraved on the front and the model number “ZHX-PB22” is printed on the back.",
+        "remedy_kind": "refund",
+        "instructions": "Consumers should stop using the recalled power banks immediately and contact NEWDERY for instructions on how to receive a full refund. To receive a refund, consumers will be required to submit a photo of their recalled power bank showing the model number, serial number and the word “recalled” and the consumer’s last name written on the power bank in permanent marker. Consumers will also be required to confirm disposal of the power bank in accordance with applicable laws and regulations before receiving a refund. \n\nNote: Do not throw this lithium-ion battery or device in the trash, the general recycling stream (e.g., street-level or curbside recycling bins), or in used battery recycling boxes found at various retail and home improvement stores. Recalled lithium-ion batteries must be disposed of differently than other batteries, because they present a greater risk of fire. Your municipal household hazardous waste (HHW) collection center may accept this lithium-ion battery or device for disposal. Before taking your battery or device to a HHW collection center, contact it ahead of time and ask whether it accepts recalled lithium-ion batteries. If it does not, contact your municipality for further guidance.",
+        "safety_instructions": "Consumers should stop using the recalled power banks immediately and contact NEWDERY for instructions on how to receive a full refund. To receive a refund, consumers will be required to submit a photo of their recalled power bank showing the model number, serial number and the word “recalled” and the consumer’s last name written on the power bank in permanent marker. Consumers will also be required to confirm disposal of the power bank in accordance with applicable laws and regulations before receiving a refund. \n\nNote: Do not throw this lithium-ion battery or device in the trash, the general recycling stream (e.g., street-level or curbside recycling bins), or in used battery recycling boxes found at various retail and home improvement stores. Recalled lithium-ion batteries must be disposed of differently than other batteries, because they present a greater risk of fire. Your municipal household hazardous waste (HHW) collection center may accept this lithium-ion battery or device for disposal. Before taking your battery or device to a HHW collection center, contact it ahead of time and ask whether it accepts recalled lithium-ion batteries. If it does not, contact your municipality for further guidance.",
+        "contact_url": "https://www.newdery.com/pages/newdery-power-bank-recalls",
+        "required_documents": [
+          "Photo showing model, serial number and official required markings",
+          "User confirmation of lawful disposal (never prefilled)"
+        ],
+        "conditions": [],
+        "mode": "live"
+      }
+    },
+    {
+      "id": "bbe757cd-4657-49e8-84ab-2ac1663e3d9e",
+      "created_at": "2026-11-13T21:25:19.174751Z",
+      "updated_at": "2026-11-13T21:25:19.176151Z",
+      "demo": false,
+      "product_id": "9b15de8d-841f-4b32-814f-363f3d434843",
+      "kind": "settlement",
+      "title": "Kirkbride et al. v. The Kroger Co.",
+      "status": "uncertain",
+      "source_id": "2:21-cv-00022",
+      "official_url": "https://www.krogersavingsclubsettlement.com/",
+      "source_observed_at": "2026-11-13T21:25:19.164298Z",
+      "simulated": false,
+      "mode": "live",
+      "matching_reasons": [
+        "Verified open case; personal eligibility and proof remain unconfirmed. Preparation only."
+      ],
+      "purchase_model": null,
+      "deadline_at": "2026-12-21",
+      "remedy_kind": "unknown",
+      "preparation_only": true,
+      "sources_verified": true,
+      "settlement": {
+        "title": "Kirkbride et al. v. The Kroger Co.",
+        "case_number": "2:21-cv-00022",
+        "court": "United States District Court for the Southern District of Ohio",
+        "official_url": "https://www.krogersavingsclubsettlement.com/",
+        "start": "2018-12-09",
+        "end": "2026-08-23",
+        "deadline": "2026-12-21",
+        "simulated": false,
+        "mode": "live",
+        "fetched_at": "2026-11-13T21:25:19.164298Z",
+        "evidence": [
+          {
+            "url": "https://www.krogersavingsclubsettlement.com/",
+            "publisher": "Angeion Group / case administrator",
+            "source_type": "administrator",
+            "fetched_at": "2026-11-13T21:25:19.164298Z",
+            "quoted_excerpt": "This is the official Settlement Website for the Kirkbride et al. v. The Kroger Co. , authorized by the United States District Court for the Southern District of Ohio . A proposed Settlement as been reached in a class action lawsuit regarding The Kroger Co.'s (\"Kroger\") usual and customary (\"U&C\") pricing practices on behalf of individuals who paid for one or more prescription drugs at Kroger using their insurance. Your legal rights will be affected whether you act or do not act. You should read the entire Notice carefully Your Legal Rights and Options in This Settlement PARTICIPATE IN THE SETTLEMENT BY SUBMITTING A CLAIM FORM EXCLUDE YOURSELF FROM THE SETTLEMENT CLASS OBJECT TO THE SETTLEMENT DO NOTHING GET MORE INFORMATION To exercise your right to obtain a share of the Net Settlement Fund, you must complete, sign, and submit a Claim Form (and documentation, if required) by December 21, 2026 . Claims where the total amount claimed is $8,000 or more require supporting documentation sufficient to identify the individual’s payments to Kroger during the Settlement Class Period. FAQs Find answers to frequently asked questions, including important information about your rights and options. Showing 3 of 8 frequently asked questions svg]:rotate-180 text-xl font-semibold\" data-radix-collection-item=\"\"> What is this action about? svg]:rotate-180 text-xl font-semibold\" data-radix-collection-item=\"\"> Who is included in the Settlement? svg]:rotate-180 text-xl font-semibold\" data-radix-co",
+            "content_sha256": "c7e4483e08d7f49da6e2289fa754f25f6dcd2134a5fb621b1e90fccf7c718501",
+            "authoritative_for": [
+              "case_identity",
+              "source_links"
+            ]
+          },
+          {
+            "url": "https://www.krogersavingsclubsettlement.com/important-documents",
+            "publisher": "Angeion Group / case administrator",
+            "source_type": "administrator",
+            "fetched_at": "2026-11-13T21:25:19.164298Z",
+            "quoted_excerpt": "Important Documents - Kroger Savings Club Settlement Provided by Home Important Documents FAQs Contact Submit Claim Submit Claim Home Important Documents FAQs Contact Submit Claim Home svg]:size-3.5\"> Important Documents Important Documents Kirkbride et al. v. The Kroger Co. Review important case documents Claim Form Order Re-Assigning Judge Long Form Notice Filed Motion for Attorney's Fees, Costs, and Service Awards Preliminary Approval Order Settlement Agreement Plan of Allocation Plaintiffs' Unopposed Motion for Preliminary Approval Opinion and Order Granting Class Certification Amended Preliminary Approval Order Kirkbride et al. v. The Kroger Co. Case No. 2:21-cv-00022 United States District Court for the Southern District of Ohio svg]:px-3 btn-pill-white w-full sm:w-auto block\" data-slot=\"button\" id=\"submit-claim-btn-footer\">Submit Claim Copyright 2026 - Privacy Policy Provided by Provided by Copyright 2026 - Privacy Policy",
+            "content_sha256": "b9478781a8be2d9ea06a836ff2f14c93fcb400515bdabdba53c944b98996a7ee",
+            "authoritative_for": [
+              "case_identity",
+              "source_links"
+            ]
+          },
+          {
+            "url": "https://angeion-public.s3.amazonaws.com/www.krogersavingsclubsettlement.com/docs/Kirkbride%20v%20Kroger%20-%20Long-Form%20Notice_Final.pdf",
+            "publisher": "Angeion Group / case administrator",
+            "source_type": "administrator",
+            "fetched_at": "2026-11-13T21:25:19.164298Z",
+            "quoted_excerpt": "Who Is Included? The Settlement Class is defined as follows:  All individuals in the United States and its territories who, at any point in time from December 9, 2018, through August 23, 2026 (“Settlement Class Period”), paid in whole or in part for one or more prescription drugs from Kroger using their insurance.  The following individuals are excluded from the Settlement Class: (1) any Judge presiding over any portion of this Action, including appeals, and immediate members of the Judges’ families, any members of the Judges’ respective staffs (but not members of the immediate families of judicial staff); (2) officers and directors of Kroger, its subsidiaries, parent companies, successors, predecessors, affiliates, and any entity in which Kroger has a controlling interest; (3) individuals who timely and validly request exclusion from the Settlement Class; (4) the legal representatives, successors, or assigns of any such excluded individuals; and (5) all individuals that have sued (other than through this Action), filed an arbitration demand, or participated in a settlement in a suit against Kroger relating to its determination of usual and customary prices in connection with the Savings Club (this exclusion from the Settlement Class does not apply to individuals that have voluntarily dismissed their claims without prejudice in any suit or arbitration). \n[…]\nHow Do I Get A Payment? You must submit a Claim Form by DECEMBER 21, 2026 to be eligible for a payment. • If you received a n otice and a claim identification number from the Settlement Administrator you are a Known Claimant, as defined in the Plan of Allocation and Distribution. If you want to participate in the Settlement, then you will need to submit a Claim Form in order to be eligible to obtain a share of the proposed Settlement. Please visit www.krogersavingsclubsettlement.com for more information and to submit a Claim Form. You will be asked to provide information proving that you are a member of the Settlement Class. You also may be asked to provide supporting documentation or data sufficient to identify your eligible purchases. If you are unable to access the S ettlement Website identified above, please contact the Settlement Administrator by mail at Kroger Savings Club Litigation Settlement, Attn: Claim Form, 1650 Arch Street, Suite 2210, Philadelphia, PA 19103, by email at info@krogersavingsclubsettlement.com, or by phone at (888) 535- 4262. • If you did not receive a n otice and a claim identification number from the Settlement Administrator, but believe you are a potential Settlement Class Member, then you will need to submit a Claim Form in order to be eligible to obtain a share of the proposed Settlement. Please visit www.krogersavingsclubsettlement.com for more information and to submit a Claim Form. You will be asked to provide information proving that you are a member of the Settlement Class. After you submit the Claim Form, if the Settlement Administrator determines you are not on a list of individuals known to have purchased one or more prescription drugs from Kroger during the Settlement Class Period where insurance benefits were used in filling the prescription(s), you wil l be an Unknown Claimant, as defined in the Plan of Allocation and Distribution. You will be contacted by the Settlement Administrator and asked to provide supporting documentation or data sufficient to identify your eligible purchases. If you are unable to access the S ettlement Website identified above, please contact the Settlement Administrator by mail at Kroger Savin\n[…]\nThe Claim Form asks you to attest to your estimated and/or actual payments to Kroger for one or more prescription drugs during the Settlement Class Period where insurance benefits were used in filling the prescription(s) . All individuals submitting a Claim Form where the total amount claimed is $8,000 or more will be required to submit supporting documentation or data sufficient to identify that individual’s payments to Kroger for prescription drug purchases during the Settlement Class Period . In addition, those individuals submitting a Claim Form where the total amount claimed is less than $8,000, who the Settlement Administrator determines is not on a list of individuals known to have purchased one or more prescription drugs from Kroger during the Settlement Class Period where insurance benefits were used in filling the prescription(s), will be contacted by the Settlement Administrator and also asked to submit supporting documentation or data sufficient to identify that individual’s payments to Kroger for prescription drug purchases during the Settlement Class Period. Please see the Claim Form (available at www.krogersavingsclubsettlement.com) for further details about these documentation requirements. EXCLUDE YOURSELF FROM THE SETTLEMENT CLASS If you believe you are a member of the Settlement Class, you may choose to exclude yourself, or “opt out,” from the Settlement Class. If you decide to exclude yourself, you will not be bound by any decision in this lawsuit relating",
+            "content_sha256": "c55ef0ea67c0d6f0276d6a28a77a138288fc5a14ed11c600c1a2431b4e823b5b",
+            "authoritative_for": [
+              "class_definition",
+              "deadline",
+              "proof",
+              "exclusions"
+            ]
+          },
+          {
+            "url": "https://angeion-public.s3.amazonaws.com/www.krogersavingsclubsettlement.com/docs/2026.06.25%20DE%20165%20AMENDED%20OPINION%20AND%20ORDER%20-%20Part%201.pdf",
+            "publisher": "U.S. District Court, Southern District of Ohio (administrator-hosted order)",
+            "source_type": "court",
+            "fetched_at": "2026-11-13T21:25:19.164298Z",
+            "quoted_excerpt": "B. Overview of Settlement Terms The Settlement Agreement seeks to resolve all claims in this suit. Pursuant to the Agreement, the “Settlement Class” is defined as: “[a]ll individuals in the United States and its territories who, at any point in time during the Settlement Class Period, paid in whole or in part Case: 2:21-cv-00022-ALM-SCS Doc #: 165 Filed: 06/25/26 Page: 3 of 23 PAGEID #: 7857 4 for one or more prescription drugs from Kroger using their insurance. ”2 (ECF No. 157 at 5). Further, the “Settlement Class Period” is defined as December 9, 2018, through the date on which Class Notice is disseminated. Id. at 6. Under the Agreement, Defendants are obligated to pay Settlement Class Members via a non-reversionary, all-cash common fund (“the Settlement Fund”) in the amount of $17,000,000. (Id.). The Settlement Class Members will receive the full Settlement Amount, plus interest, after deduction of any Attorneys’ Fees and Expenses, any Service Awards, Notice and Administration Expenses, Taxes, Tax Expenses, Escrow Fees, and other Court approved deductions. To receive a payment, Settlement Class M embers must submit a cl aim form by the claims deadline, in accordance with a Court",
+            "content_sha256": "da184d89c8edc12c5238db4a0dba431a39cae46d74e78345c2c37f5fdf8b5dbb",
+            "authoritative_for": [
+              "case_identity",
+              "source_links"
+            ]
+          }
+        ],
+        "qualifying_transaction": "Prescription drugs paid in whole or part at Kroger using insurance",
+        "instructions": "Preparation only. Review official terms and personally complete any claim. Signed attestations, contact details, payment information and any supporting records must be supplied independently by the user on the official site.",
+        "proof": [
+          "Purchase/payment records for qualifying insured prescriptions; no medical details needed here",
+          "Administrator must determine Known or Unknown Claimant status",
+          "Supporting documentation required for total claimed payments of $8,000 or more",
+          "Unknown Claimants may be contacted for supporting documentation even below $8,000",
+          "User must review geography, exclusions, releases and signature requirements personally"
+        ]
+      }
+    }
+  ],
+  "unapproved_export_blocked": true,
+  "external_submission": false,
+  "public_live_browser": {
+    "observed_at": "2026-11-13T21:26:22.269Z",
+    "recall": true,
+    "settlement": true,
+    "local_export_only": true
+  }
+}

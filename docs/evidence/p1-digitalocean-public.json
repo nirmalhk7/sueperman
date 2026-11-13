@@ -1,0 +1,43 @@
+{
+  "observed_at": "2026-11-13T21:23:45.874844+00:00",
+  "url": "https://sueperman-6t4xk.ondigitalocean.app",
+  "health_status": 200,
+  "health": {
+    "db": "ok",
+    "providers": [
+      {
+        "name": "csv",
+        "configured": true,
+        "enabled": true,
+        "healthy": true
+      },
+      {
+        "name": "cpsc",
+        "configured": true,
+        "enabled": true,
+        "healthy": null
+      },
+      {
+        "name": "brightdata",
+        "configured": false,
+        "enabled": false,
+        "healthy": null
+      },
+      {
+        "name": "gemini",
+        "configured": false,
+        "enabled": false,
+        "healthy": null
+      },
+      {
+        "name": "openai",
+        "configured": false,
+        "enabled": false,
+        "healthy": null
+      }
+    ],
+    "demo_ready": true
+  },
+  "home_status": 200,
+  "shared_demo_label": true
+}

@@ -1,0 +1,132 @@
+{
+  "observed_at": "2026-11-13T21:19:04.035831+00:00",
+  "status": "created",
+  "app_id": "044b649f-018f-4062-bd9a-195919becfb3",
+  "live_url": "https://sueperman-6t4xk.ondigitalocean.app",
+  "default_ingress": "https://sueperman-6t4xk.ondigitalocean.app",
+  "deployment": {
+    "id": "ac96b96b-f2f5-49f9-a808-971f110322b4",
+    "phase": "ACTIVE",
+    "updated_at": "2026-11-13T21:23:23Z",
+    "progress": {
+      "success_steps": 9,
+      "total_steps": 9,
+      "steps": [
+        {
+          "name": "build",
+          "status": "SUCCESS",
+          "steps": [
+            {
+              "name": "initialize",
+              "status": "SUCCESS",
+              "started_at": "2026-11-13T21:19:08.866263642Z",
+              "ended_at": "2026-11-13T21:19:34.872989359Z"
+            },
+            {
+              "name": "components",
+              "status": "SUCCESS",
+              "steps": [
+                {
+                  "name": "api",
+                  "status": "SUCCESS",
+                  "component_name": "api",
+                  "message_base": "Building service"
+                },
+                {
+                  "name": "web",
+                  "status": "SUCCESS",
+                  "component_name": "web",
+                  "message_base": "Building service"
+                }
+              ],
+              "started_at": "2026-11-13T21:19:34.873015077Z",
+              "ended_at": "2026-11-13T21:22:18.770967300Z"
+            }
+          ],
+          "started_at": "2026-11-13T21:19:08.866126607Z",
+          "ended_at": "2026-11-13T21:22:20.046547959Z"
+        },
+        {
+          "name": "deploy",
+          "status": "SUCCESS",
+          "steps": [
+            {
+              "name": "initialize",
+              "status": "SUCCESS",
+              "started_at": "2026-11-13T21:22:24.025904912Z",
+              "ended_at": "2026-11-13T21:22:26.317833642Z"
+            },
+            {
+              "name": "components",
+              "status": "SUCCESS",
+              "steps": [
+                {
+                  "name": "api",
+                  "status": "SUCCESS",
+                  "steps": [
+                    {
+                      "name": "deploy",
+                      "status": "SUCCESS",
+                      "component_name": "api",
+                      "message_base": "Deploying service"
+                    },
+                    {
+                      "name": "wait",
+                      "status": "SUCCESS",
+                      "component_name": "api",
+                      "message_base": "Waiting for service"
+                    }
+                  ],
+                  "component_name": "api"
+                },
+                {
+                  "name": "web",
+                  "status": "SUCCESS",
+                  "steps": [
+                    {
+                      "name": "deploy",
+                      "status": "SUCCESS",
+                      "component_name": "web",
+                      "message_base": "Deploying service"
+                    },
+                    {
+                      "name": "wait",
+                      "status": "SUCCESS",
+                      "component_name": "web",
+                      "message_base": "Waiting for service"
+                    }
+                  ],
+                  "component_name": "web"
+                }
+              ],
+              "started_at": "2026-11-13T21:22:26.317897150Z",
+              "ended_at": "2026-11-13T21:23:22.629050889Z"
+            },
+            {
+              "name": "finalize",
+              "status": "SUCCESS",
+              "started_at": "2026-11-13T21:23:22.838312252Z",
+              "ended_at": "2026-11-13T21:23:23.408394868Z"
+            }
+          ],
+          "started_at": "2026-11-13T21:22:24.025888822Z",
+          "ended_at": "2026-11-13T21:23:23.408482311Z"
+        }
+      ]
+    },
+    "services": [
+      {
+        "name": "api",
+        "source_commit_hash": "4aee3c33dc3be937e0b4de04ac198488f620714b"
+      },
+      {
+        "name": "web",
+        "source_commit_hash": "4aee3c33dc3be937e0b4de04ac198488f620714b"
+      }
+    ]
+  },
+  "source_commit": "4aee3c3",
+  "source_type": "public_git",
+  "initial_github_create_error": "GitHub user not authenticated",
+  "checked_at": "2026-11-13T21:23:35.329521+00:00"
+}

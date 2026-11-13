@@ -78,3 +78,5 @@ Architecture, exact judge clicks, boundaries and remaining gaps: `docs/architect
 Production builds use the bundled Webpack path (`next build --webpack`) because Turbopack could not bind its CSS helper port in this environment. Development keeps Next’s default bundler.
 
 Production container acceptance: `make container-test` (Docker/OrbStack required; all paid providers off). App Platform spec, shared-demo limits, operator credential handling and deployment verification: [deploy/README.md](deploy/README.md). An explicitly empty `NEXT_PUBLIC_API_BASE_URL` selects same-origin `/api`; unset keeps the local port-8000 default.
+
+Public shared demo: [Sueperman](https://sueperman-6t4xk.ondigitalocean.app). Use synthetic purchases. Public CPSC and reviewed settlement reads work; paid Gemini/OpenAI/Bright Data features remain off to protect credits. SQLite demo state can reset on redeploy.

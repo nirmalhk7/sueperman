@@ -1,8 +1,8 @@
 {
-  "observed_at": "2026-11-13T21:11:44.182530+00:00",
+  "observed_at": "2026-11-13T21:19:03.245813+00:00",
   "status": 200,
   "app_name_available": true,
   "app_cost": 10,
-  "spec_sha256": "b3e4c8be0a0a0b0a3b42ce749bcebe1ccf032362e3d70f9619e60aba8cc8d669",
+  "spec_sha256": "9653039bb8f59443649ae26e4e2fd2d2989472e6c37420c2211224c2650844ef",
   "created_resources": false
 }

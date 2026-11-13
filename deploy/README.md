@@ -1,6 +1,6 @@
 # App Platform deployment
 
-`app-spec.json` targets the existing `nirmalhk7/sueperman` repository and `codex/sueperman` branch. It defines one API instance and one web instance, with `/api` preserved by ingress. The deployment is a shared hackathon demo, not private account storage. SQLite state is ephemeral on App Platform and can disappear on redeploy; keep durable personal records outside this demo. No Postgres/P2 dependency was added.
+`app-spec.json` targets the existing `nirmalhk7/sueperman` repository and `codex/sueperman` branch. It uses the public Git clone source rather than GitHub OAuth, which is not connected in this account. It defines one API instance and one web instance, with `/api` preserved by ingress. The deployment is a shared hackathon demo, not private account storage. SQLite state is ephemeral on App Platform and can disappear on redeploy; keep durable personal records outside this demo. No Postgres/P2 dependency was added.
 
 The web image builds with an explicitly empty `NEXT_PUBLIC_API_BASE_URL`, making browser requests same-origin `/api` rather than the visitor's localhost. Bindable App Platform URLs are only used at runtime for backend origin checks. The container build labels shared data and tells visitors to use synthetic purchases.
 
@@ -21,3 +21,5 @@ Official references:
 - [Docker build arguments and runtime bindable variables](https://docs.digitalocean.com/support/why-cant-i-access-my-environment-variables-at-build-time-when-building-from-a-dockerfile-on-app-platform/)
 - [AMD64 requirement](https://docs.digitalocean.com/products/app-platform/how-to/deploy-from-container-images/)
 - [Pricing](https://docs.digitalocean.com/products/app-platform/details/pricing/)
+
+Observed deployment: app `044b649f-018f-4062-bd9a-195919becfb3`, deployment `ac96b96b-f2f5-49f9-a808-971f110322b4`, source commit `4aee3c3`, ACTIVE. [Public shared demo](https://sueperman-6t4xk.ondigitalocean.app). Public health/home HTTP 200, fixture browser and both live CPSC/settlement browser draft workflows passed. The initial GitHub-source request returned `GitHub user not authenticated`; the documented public Git source succeeded without changing repository privacy or authorizing OAuth. Provider keys were never sent to App Platform. Sentry production delivery remains unverified.
