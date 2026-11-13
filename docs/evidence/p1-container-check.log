@@ -1,7 +1,7 @@
 services/api/.venv/bin/python scripts/container_smoke.py
- Image sueperman-check-48481-web Building 
- Image sueperman-check-48481-gateway Building 
- Image sueperman-check-48481-api Building 
+ Image sueperman-check-48481-web Building
+ Image sueperman-check-48481-gateway Building
+ Image sueperman-check-48481-api Building
 #1 [internal] load local bake definitions
 #1 reading from stdin 1.71kB done
 #1 DONE 0.0s
@@ -157,7 +157,7 @@ services/api/.venv/bin/python scripts/container_smoke.py
 #36 4.508 ✓ Running next.config.ts took 954ms
 #36 4.540 - Experiments (use with caution):
 #36 4.540   · clientTraceMetadata
-#36 4.540 
+#36 4.540
 #36 4.603   Creating an optimized production build ...
 #36 32.42 ✓ Compiled successfully in 26.3s
 #36 32.42   Running TypeScript ...
@@ -167,18 +167,18 @@ services/api/.venv/bin/python scripts/container_smoke.py
 #36 44.31 ✓ Generating static pages using 7 workers (3/3) in 1477ms
 #36 44.88   Finalizing page optimization ...
 #36 44.88   Collecting build traces ...
-#36 67.78 
+#36 67.78
 #36 67.79 Route (app)
 #36 67.79 ┌ ○ /
 #36 67.79 ├ ○ /_not-found
 #36 67.79 ├ ƒ /claims/[id]
 #36 67.79 ├ ƒ /opportunities/[id]
 #36 67.79 └ ƒ /runs/[id]
-#36 67.79 
-#36 67.79 
+#36 67.79
+#36 67.79
 #36 67.79 ○  (Static)   prerendered as static content
 #36 67.79 ƒ  (Dynamic)  server-rendered on demand
-#36 67.79 
+#36 67.79
 #36 DONE 68.4s
 
 #38 [web stage-1 2/3] WORKDIR /srv/app/apps/web
@@ -200,33 +200,33 @@ services/api/.venv/bin/python scripts/container_smoke.py
 
 #41 [web] resolving provenance for metadata file
 #41 DONE 0.1s
- Image sueperman-check-48481-api Built 
- Image sueperman-check-48481-web Built 
- Image sueperman-check-48481-gateway Built 
- Network sueperman-check-48481_default Creating 
- Volume sueperman-check-48481_demo-state Creating 
- Volume sueperman-check-48481_demo-state Creating 
- Network sueperman-check-48481_default Creating 
- Volume sueperman-check-48481_demo-state Created 
- Volume sueperman-check-48481_demo-state Created 
- Network sueperman-check-48481_default Created 
- Network sueperman-check-48481_default Created 
- Container sueperman-check-48481-web-1 Creating 
- Container sueperman-check-48481-api-1 Creating 
- Container sueperman-check-48481-api-1 Created 
- Container sueperman-check-48481-web-1 Created 
- Container sueperman-check-48481-gateway-1 Creating 
- Container sueperman-check-48481-gateway-1 Created 
- Container sueperman-check-48481-api-1 Starting 
- Container sueperman-check-48481-web-1 Starting 
- Container sueperman-check-48481-api-1 Started 
- Container sueperman-check-48481-web-1 Started 
- Container sueperman-check-48481-api-1 Waiting 
- Container sueperman-check-48481-web-1 Waiting 
- Container sueperman-check-48481-web-1 Healthy 
- Container sueperman-check-48481-api-1 Healthy 
- Container sueperman-check-48481-gateway-1 Starting 
- Container sueperman-check-48481-gateway-1 Started 
+ Image sueperman-check-48481-api Built
+ Image sueperman-check-48481-web Built
+ Image sueperman-check-48481-gateway Built
+ Network sueperman-check-48481_default Creating
+ Volume sueperman-check-48481_demo-state Creating
+ Volume sueperman-check-48481_demo-state Creating
+ Network sueperman-check-48481_default Creating
+ Volume sueperman-check-48481_demo-state Created
+ Volume sueperman-check-48481_demo-state Created
+ Network sueperman-check-48481_default Created
+ Network sueperman-check-48481_default Created
+ Container sueperman-check-48481-web-1 Creating
+ Container sueperman-check-48481-api-1 Creating
+ Container sueperman-check-48481-api-1 Created
+ Container sueperman-check-48481-web-1 Created
+ Container sueperman-check-48481-gateway-1 Creating
+ Container sueperman-check-48481-gateway-1 Created
+ Container sueperman-check-48481-api-1 Starting
+ Container sueperman-check-48481-web-1 Starting
+ Container sueperman-check-48481-api-1 Started
+ Container sueperman-check-48481-web-1 Started
+ Container sueperman-check-48481-api-1 Waiting
+ Container sueperman-check-48481-web-1 Waiting
+ Container sueperman-check-48481-web-1 Healthy
+ Container sueperman-check-48481-api-1 Healthy
+ Container sueperman-check-48481-gateway-1 Starting
+ Container sueperman-check-48481-gateway-1 Started
 11.19.1
 
 Running 1 test using 1 worker
