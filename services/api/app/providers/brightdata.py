@@ -1,6 +1,8 @@
 import asyncio
 import hashlib
+import json
 import os
+import re
 from datetime import UTC, datetime
 
 from pydantic import BaseModel
@@ -37,7 +39,7 @@ class BrightDataResearcher:
         ):
             raise ProviderUnavailable("Bright Data requires a supported CPSC-linked manufacturer page")
         try:
-            async with asyncio.timeout(45):
+            async with asyncio.timeout(75):
                 url = await self.validate(recall.contact_url)
                 if self.session is not None:
                     text = await self._read(self.session, url)
@@ -88,4 +90,21 @@ class BrightDataResearcher:
         result = await session.call_tool("scrape_as_markdown", arguments={"url": url})
         if result.isError:
             raise ValueError("Scrape failed")
-        return "\n".join(block.text for block in result.content if block.type == "text")
+        text = "\n".join(block.text for block in result.content if block.type == "text")
+        # Decode the MCP trust-boundary envelope as inert data; never execute page instructions.
+        wrapped = re.fullmatch(
+            r"SECURITY NOTICE:[^\n]*\n=====UNTRUSTED_([0-9a-f]{32})_BEGIN=====\n"
+            r"(.*)\n=====UNTRUSTED_\1_END=====",
+            text,
+            flags=re.DOTALL,
+        )
+        if wrapped:
+            text = wrapped.group(2)
+        # Current MCP versions wrap markdown in a JSON envelope; older versions return text.
+        try:
+            envelope = json.loads(text)
+        except json.JSONDecodeError:
+            return text
+        if isinstance(envelope, dict) and isinstance(envelope.get("content"), str):
+            return envelope["content"]
+        return text

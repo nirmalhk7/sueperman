@@ -1,0 +1,195 @@
+FF                                                                       [100%]
+=================================== FAILURES ===================================
+_____ test_search_longer_than_45_seconds_can_still_return_verified_remedy ______
+
+self = <test_brightdata_p1.test_search_longer_than_45_seconds_can_still_return_verified_remedy.<locals>.Session object at 0x109e78c50>
+name = 'search_engine'
+arguments = {'query': 'site:newdery.com ZHX-PB22 recall refund'}
+
+    async def call_tool(self, name, arguments):
+        if name == "search_engine":
+>           await asyncio.sleep(0.52)
+
+services/api/tests/unit/test_brightdata_p1.py:65:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+delay = 0.52, result = None
+
+    async def sleep(delay, result=None):
+        """Coroutine that completes after a given time (in seconds)."""
+        if delay <= 0:
+            await __sleep0()
+            return result
+
+        loop = events.get_running_loop()
+        future = loop.create_future()
+        h = loop.call_later(delay,
+                            futures._set_result_unless_cancelled,
+                            future, result)
+        try:
+>           return await future
+                   ^^^^^^^^^^^^
+E           asyncio.exceptions.CancelledError
+
+/private/tmp/sueperman-python/cpython-3.12.13-macos-aarch64-none/lib/python3.12/asyncio/tasks.py:665: CancelledError
+
+The above exception was the direct cause of the following exception:
+
+self = <app.providers.brightdata.BrightDataResearcher object at 0x109e78c20>
+recall = RecallRecord(reference='26-792', title='NEWDERY Power Banks Recalled Due to Fire and Burn Hazards', brand='NEWDERY', f...d official required markings', 'User confirmation of lawful disposal (never prefilled)'], conditions=[], mode='replay')
+
+    async def research(self, recall: RecallRecord) -> ResearchEvidence:
+        if (
+            not self.token
+            or not official_cpsc(recall.official_url)
+            or recall.reference != "26-792"
+            or recall.contact_url != "https://www.newdery.com/pages/newdery-power-bank-recalls"
+        ):
+            raise ProviderUnavailable("Bright Data requires a supported CPSC-linked manufacturer page")
+        try:
+>           async with asyncio.timeout(45):
+                       ^^^^^^^^^^^^^^^^^^^
+
+services/api/app/providers/brightdata.py:40:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+self = <Timeout [expired]>
+exc_type = <class 'asyncio.exceptions.CancelledError'>
+exc_val = CancelledError(), exc_tb = <traceback object at 0x109e90e40>
+
+    async def __aexit__(
+        self,
+        exc_type: Optional[Type[BaseException]],
+        exc_val: Optional[BaseException],
+        exc_tb: Optional[TracebackType],
+    ) -> Optional[bool]:
+        assert self._state in (_State.ENTERED, _State.EXPIRING)
+
+        if self._timeout_handler is not None:
+            self._timeout_handler.cancel()
+            self._timeout_handler = None
+
+        if self._state is _State.EXPIRING:
+            self._state = _State.EXPIRED
+
+            if self._task.uncancel() <= self._cancelling and exc_type is exceptions.CancelledError:
+                # Since there are no new cancel requests, we're
+                # handling this.
+>               raise TimeoutError from exc_val
+E               TimeoutError
+
+/private/tmp/sueperman-python/cpython-3.12.13-macos-aarch64-none/lib/python3.12/asyncio/timeouts.py:115: TimeoutError
+
+The above exception was the direct cause of the following exception:
+
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x109e78650>
+
+    @pytest.mark.asyncio
+    async def test_search_longer_than_45_seconds_can_still_return_verified_remedy(monkeypatch):
+        # Scale provider latency and the real deadline equally; no 52-second test sleep.
+        original_timeout = asyncio.timeout
+        monkeypatch.setattr(asyncio, "timeout", lambda seconds: original_timeout(seconds / 100))
+
+        class Session:
+            async def call_tool(self, name, arguments):
+                if name == "search_engine":
+                    await asyncio.sleep(0.52)
+                return SimpleNamespace(
+                    isError=False, content=[SimpleNamespace(type="text", text="NEWDERY ZHX-PB22 full refund")]
+                )
+
+        async def validate(url):
+            return url
+
+        record = RecallRecord(**json.loads((ROOT / "demo/recall_fixture.json").read_text()))
+>       evidence = await BrightDataResearcher("test", session=Session(), url_validator=validate).research(record)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+services/api/tests/unit/test_brightdata_p1.py:74:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+self = <app.providers.brightdata.BrightDataResearcher object at 0x109e78c20>
+recall = RecallRecord(reference='26-792', title='NEWDERY Power Banks Recalled Due to Fire and Burn Hazards', brand='NEWDERY', f...d official required markings', 'User confirmation of lawful disposal (never prefilled)'], conditions=[], mode='replay')
+
+    async def research(self, recall: RecallRecord) -> ResearchEvidence:
+        if (
+            not self.token
+            or not official_cpsc(recall.official_url)
+            or recall.reference != "26-792"
+            or recall.contact_url != "https://www.newdery.com/pages/newdery-power-bank-recalls"
+        ):
+            raise ProviderUnavailable("Bright Data requires a supported CPSC-linked manufacturer page")
+        try:
+            async with asyncio.timeout(45):
+                url = await self.validate(recall.contact_url)
+                if self.session is not None:
+                    text = await self._read(self.session, url)
+                else:
+                    from mcp import ClientSession, StdioServerParameters
+                    from mcp.client.stdio import stdio_client
+
+                    # Only two read-only tools are exposed. No claim browser tool exists.
+                    parameters = StdioServerParameters(
+                        command="npx",
+                        args=["-y", "@brightdata/mcp"],
+                        env={
+                            "PATH": os.environ.get("PATH", ""),
+                            "API_TOKEN": self.token,
+                            "TOOLS": "search_engine,scrape_as_markdown",
+                        },
+                    )
+                    with open(os.devnull, "w") as errors:  # noqa: ASYNC230 — local null device; discard provider stderr.
+                        async with (
+                            stdio_client(parameters, errlog=errors) as (read, write),
+                            ClientSession(read, write) as session,
+                        ):
+                            await session.initialize()
+                            text = await self._read(session, url)
+            if "ZHX-PB22" not in text or "refund" not in text.casefold():
+                raise ValueError("Missing cited model or remedy")
+            # Raw web text remains inert evidence; it never changes tool permissions.
+            return ResearchEvidence(
+                url=url,
+                publisher="NEWDERY",
+                fetched_at=datetime.now(UTC),
+                quoted_excerpt="\n".join(
+                    line[:1000]
+                    for line in text.splitlines()
+                    if "ZHX-PB22" in line or "refund" in line.casefold()
+                )[:3000],
+                content_sha256=hashlib.sha256(text.encode()).hexdigest(),
+            )
+        except Exception as exc:
+>           raise ProviderUnavailable("Bright Data unavailable; official CPSC facts retained") from exc
+E           app.providers.errors.ProviderUnavailable: Bright Data unavailable; official CPSC facts retained
+
+services/api/app/providers/brightdata.py:80: ProviderUnavailable
+________ test_json_scrape_envelope_preserves_readable_model_and_remedy _________
+
+    @pytest.mark.asyncio
+    async def test_json_scrape_envelope_preserves_readable_model_and_remedy():
+        class Session:
+            async def call_tool(self, name, arguments):
+                content = "Navigation " * 200 + "\nNEWDERY ZHX-PB22 full refund. Stop using the power bank."
+                text = json.dumps({
+                    "url": "https://www.newdery.com/pages/newdery-power-bank-recalls",
+                    "title": "NEWDERY Power Bank Recalls",
+                    "format": "markdown",
+                    "content": content,
+                })
+                return SimpleNamespace(isError=False, content=[SimpleNamespace(type="text", text=text)])
+
+        async def validate(url):
+            return url
+
+        record = RecallRecord(**json.loads((ROOT / "demo/recall_fixture.json").read_text()))
+        evidence = await BrightDataResearcher("test", session=Session(), url_validator=validate).research(record)
+>       assert "ZHX-PB22" in evidence.quoted_excerpt
+E       assert 'ZHX-PB22' in '{"url": "https://www.newdery.com/pages/newdery-power-bank-recalls", "title": "NEWDERY Power Bank Recalls", "format": ...gation Navigation Navigation Navigation Navigation Navigation Navigation Navigation Navigation Navigation Navigation N'
+E        +  where '{"url": "https://www.newdery.com/pages/newdery-power-bank-recalls", "title": "NEWDERY Power Bank Recalls", "format": ...gation Navigation Navigation Navigation Navigation Navigation Navigation Navigation Navigation Navigation Navigation N' = ResearchEvidence(url='https://www.newdery.com/pages/newdery-power-bank-recalls', publisher='NEWDERY', source_type='man...t_sha256='b2ba6532d676d75a8c8eda0ae63f7fd42378e9d87a442385f656b1b1e6ebaec7', authoritative_for=['supplemental_remedy']).quoted_excerpt
+
+services/api/tests/unit/test_brightdata_p1.py:96: AssertionError
+=========================== short test summary info ============================
+FAILED services/api/tests/unit/test_brightdata_p1.py::test_search_longer_than_45_seconds_can_still_return_verified_remedy
+FAILED services/api/tests/unit/test_brightdata_p1.py::test_json_scrape_envelope_preserves_readable_model_and_remedy
+2 failed, 2 deselected in 0.67s

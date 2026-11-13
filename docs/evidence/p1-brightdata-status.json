@@ -6,17 +6,40 @@
     "search_engine",
     "scrape_as_markdown"
   ],
-  "search_engine": {
-    "is_error": false,
-    "response_characters": 3473
-  },
-  "scrape_as_markdown": {
-    "is_error": true,
+  "status": "proven",
+  "recorded_at": "2026-11-13T21:46:53.081757+00:00",
+  "calls": [
+    {
+      "tool": "search_engine",
+      "is_error": false,
+      "response_characters": 2923,
+      "seconds": 47.476521
+    },
+    {
+      "tool": "scrape_as_markdown",
+      "is_error": false,
+      "response_characters": 8694,
+      "seconds": 3.428267
+    }
+  ],
+  "app_run_id": "e7bd4e7c-e44b-4b9c-b4e1-fa7c9290dd41",
+  "evidence": {
+    "id": "79bd58d0-d9e9-40b0-a2ba-b64d380b77fc",
+    "created_at": "2026-11-13T21:46:52.744698Z",
+    "updated_at": "2026-11-13T21:46:52.744700Z",
+    "demo": false,
     "url": "https://www.newdery.com/pages/newdery-power-bank-recalls",
-    "reason": "Customer is not active"
+    "publisher": "NEWDERY",
+    "source_type": "manufacturer",
+    "fetched_at": "2026-11-13T21:46:52.735171Z",
+    "quoted_excerpt": "   * [Returns & Refunds](/pages/returns-refunds)  \nModels: ZHX-PB22\nTesting has identified that the lithium-ion batteries in certain NEWDERY power banks may overheat, potentially causing burns, fire, or explosion hazards. Consumers are advised to stop using the recalled power banks immediately and follow the instructions below for a refund or replacement.\n\u2714 Contact NEWDERY or Amazon for a full refund or a replacement.\n**Obtaining a Refund**\nNormally, Amazon has refunded affected users\nIf you still haven't received the refund or need further assistance, please contact:\n2\\. Reason why Amazon did not refund (screenshot of communication with Amazon customer service)\n* [Returns & Refunds](/pages/returns-refunds)\n* [Refund policy](/policies/refund-policy)",
+    "content_sha256": "e2c4446aa7b26abaa1a71e90f0bea26bfc58397cc92ededf7eefd22f6c2e0c56",
+    "authoritative_for": [
+      "supplemental_remedy"
+    ]
   },
-  "status": "blocked",
-  "follow_up": "User will resolve account activation; further Bright Data requests stopped.",
-  "observed_on": "2026-11-13",
-  "recorded_at": "2026-11-13T20:11:49.603058+00:00"
+  "browser_passed": true,
+  "details": "p1-brightdata-app-live.json",
+  "public_feature_enabled": false,
+  "model_calls_this_check": 0
 }

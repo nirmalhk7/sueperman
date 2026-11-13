@@ -1,0 +1,28 @@
+{
+  "provider": "brightdata",
+  "mode": "live",
+  "recorded_at": "2026-11-13T21:39:02.579984+00:00",
+  "calls": [
+    {
+      "tool": "search_engine",
+      "is_error": false,
+      "response_characters": 2923,
+      "seconds": 47.476521
+    },
+    {
+      "tool": "scrape_as_markdown",
+      "is_error": false,
+      "response_characters": 8694,
+      "seconds": 3.428267
+    }
+  ],
+  "status": "proven",
+  "evidence": {
+    "url": "https://www.newdery.com/pages/newdery-power-bank-recalls",
+    "publisher": "NEWDERY",
+    "source_type": "manufacturer",
+    "fetched_at": "2026-11-13T21:39:57.490176+00:00",
+    "quoted_excerpt": "{\"url\":\"https://www.newdery.com/pages/newdery-power-bank-recalls\",\"title\":\"NEWDERY Power Bank Recalls\",\"format\":\"markdown\",\"content\":\"[Skip to content](#MainContent) \\n\\n* [ Facebook ](https://www.facebook.com/newdery/ \\\"NEWDERY on Facebook\\\")\\n* [ X (Twitter) ](https://twitter.com/NEWDERY%5FTECH \\\"NEWDERY on X (Twitter)\\\")\\n* [ Instagram ](https://www.instagram.com/newdery%5Ftech/ \\\"NEWDERY on Instagram\\\")\\n* [ YouTube ](https://www.youtube.com/@Newdery \\\"NEWDERY on YouTube\\\")\\n* [ TikTok ](https://www.tiktok.com/@newdery \\\"NEWDERY on TikTok\\\")\\n* [ Pinterest ](https://www.pinterest.com/newdery/ \\\"NEWDERY on Pinterest\\\")\\n\\nNEWDERY Make your life more exciting!\\n\\nA question? Visit our contact page\\n\\nWelcome to our store\\n\\nPause slideshow Play slideshow \\n\\nEnglish \\n\\nUnited States (USD $) \\n\\n* [HOME](/)\\n* PRODUCTS  \\nPRODUCTS\\n* COLLECTIONS  \\nCOLLECTIONS\\n* SUPPORT  \\nSUPPORT\\n\\nEnglish United States (USD $) \\n\\n[ Login ](https://www.newdery.com/customer%5Fauthentication/redire",
+    "content_sha256": "f8274c0e0a4afd0694d33d717d0fd7f07abbc1542c9f9ab074447fcf3731cd5c"
+  }
+}

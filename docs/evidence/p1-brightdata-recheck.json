@@ -1,0 +1,14 @@
+{
+  "provider": "brightdata",
+  "transport": "official @brightdata/mcp via Python MCP stdio",
+  "mode": "live",
+  "recorded_at": "2026-11-13T21:37:24.471574+00:00",
+  "status": "failed",
+  "calls": [],
+  "tools_exposed": [
+    "search_engine",
+    "scrape_as_markdown"
+  ],
+  "error_type": "ExceptionGroup",
+  "error": "unhandled errors in a TaskGroup (1 sub-exception)"
+}

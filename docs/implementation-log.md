@@ -168,3 +168,35 @@ Actual deployment checks and repair:
 - Current evidence: p1-digitalocean-deployment.json, p1-digitalocean-public.json, p1-digitalocean-proposal.json, p1-digitalocean-browser.log, p1-digitalocean-live.json, p1-digitalocean-live-browser.log.
 
 Current P1 audit: public deployment criterion now met. CPSC, Gemini PNG/PDF, OpenAI bounded decision role, deterministic source-backed settlement preparation, local/public browser flows and P0 regression evidence exist. Bright Data live search succeeded but manufacturer scrape remains UNMET: last actual error Customer is not active, further calls stopped per user. Production Sentry delivery remains unverified and is not inferred from local monitoring proof. No P1 completion claim or P2 work.
+
+
+## Bright Data activation and final P1 verification — 2026-11-13
+
+User requested a fresh Bright Data check after activating the account. No Gemini/OpenAI calls were made during this work. The isolated paid-research API was stopped after verification; public paid features remain disabled.
+
+Observed live results and repairs:
+- First production-adapter check initialized the official MCP server and exposed only search_engine/scrape_as_markdown, but the 45-second deadline canceled search. No new inactive-account error was returned. Evidence: p1-brightdata-recheck.json. Historical inactive result retained in p1-brightdata-before-activation.json.
+- One longer-deadline diagnostic succeeded: search_engine 47.476521 seconds / 2923 characters, scrape_as_markdown 3.428267 seconds / 8694 characters. This confirmed activation and actual tool execution; no fixture substituted. Diagnostic excerpt reflects the then-broken parser and is historical, not the usable citation proof.
+- TDD RED: scaled real asyncio deadlines reproduced cancellation of a 52-second search; JSON-wrapped scraped content reproduced missing model/remedy in the saved excerpt. GREEN: bounded research timeout increased to 75 seconds, still below existing 90-second overall run cap; JSON content decoded before selecting relevant lines.
+- First isolated app run invoked both tools successfully but revealed the current official MCP's additional nonce-delimited SECURITY NOTICE wrapper. Inspected installed official MCP source; matching nonce markers enclose inert page data. Parameterized wrapper regression RED, then GREEN after decoding that envelope before JSON. No page instructions gain tool privileges or eligibility authority. Legacy plain text remains supported.
+- Final isolated API run e7bd4e7c-e44b-4b9c-b4e1-fa7c9290dd41 completed with live CPSC and Bright Data, exact recall hard gates intact, and readable NEWDERY model/refund evidence persisted. The existing packet uses CPSC as authoritative Markdown source and the manufacturer URL as contact_or_portal_url. An initial acceptance assertion incorrectly expected the supplemental URL in Markdown; corrected it to verify the actual documented handoff field plus authoritative CPSC citation, without changing the packet or any product requirement. Evidence: p1-brightdata-app-live.json.
+- Actual Chromium workflow displayed the linked NEWDERY manufacturer excerpt with ZHX-PB22/refund text, live CPSC label and explicit local approval/export. Browser requests were forwarded to the isolated port-8002 API; no responses stubbed. No new provider requests during browser verification. Screenshots/video: output/playwright/brightdata-live; output: p1-brightdata-browser.log. Isolated API process stopped afterward.
+
+Final current-code checks:
+- `make test lint typecheck`: exit 0, 79 backend + 11 frontend tests; Ruff/ESLint/MyPy (34 files)/TypeScript pass. p1-brightdata-regression.log. Existing upstream TestClient deprecation warning retained.
+- Targeted Bright Data/optional-provider suite: 13 passed; p1-brightdata-repair-green.log. Expected RED output retained separately for deadline, JSON and nonce-wrapper bugs.
+- `make build`: exit 0, optimized Next Webpack build; p1-brightdata-build.log.
+- `make e2e smoke WEB_PORT=3001`: exit 0, five offline browser flows passed, three opt-in live model/source tests skipped deliberately; exact fixture counts unchanged. p1-brightdata-p0-browser.log.
+- Bright Data live app/browser workflow above passed after the final parser repair. Prior genuine Gemini PNG/PDF, OpenAI decision, public CPSC/settlement browser and Sentry monitoring evidence remain applicable; those implementations were not changed and paid model requests were not repeated.
+
+Completion audit against the P1 objective:
+- P0 preservation: current full regression and browser/smoke results above; negative/missing-model/simulation/local-review/export gates remain intact.
+- CPSC: live official API source, exact matching and source provenance proven locally and publicly (p1-digitalocean-live.json; live-cpsc.json).
+- Bright Data: both official MCP tools succeed; production adapter, persisted manufacturer citation and live UI/local packet workflow proven (p1-brightdata-status.json; p1-brightdata-app-live.json).
+- Gemini: genuine image and PDF extraction, strict local structured validation and explicit identifier confirmation proven (p1-gemini-api-live.json; p1-live-browser.log); no new receipt calls needed.
+- System 1 role, user-selected OpenAI provider: real gpt-6-luna request succeeded (p1-model-live.json); four-choice schema, sanitized state, budget, routing and hard-gate override covered by current tests; decision/action evidence appears in tested UI. No System One vendor claim.
+- Settlement: real administrator/court-linked sources, reviewed hashes, open deadline, deterministic date/merchant/expiry gates and missing-condition uncertainty; only preparation/local export, no declarations or payout promises. Genuine local/public browser evidence: p1-settlement-live.json, p1-digitalocean-live.json.
+- UI provenance and source links: fixture/live/simulated labels, manufacturer citation and selected-action/guard evidence verified by current browser tests plus live recordings.
+- Deployment: previously observed ACTIVE two-service app with public health/home HTTP 200 and public fixture/live-source browser flows; p1-digitalocean-deployment.json and related evidence. Paid model/research features remain off publicly to protect credits. This repair has not redeployed the public image.
+- Sentry: existing real local errors/traces/logs/masked replay/readable frames (sentry-proof.json); production monitoring delivery is explicitly unverified, not a P1 live-integration claim.
+- Docs and actual commands/results updated; no secrets in source, external claim submissions, fabricated purchases presented as real, or P2 work. Remaining documented boundaries concern coverage, shared ephemeral demo storage, public paid flags and production monitoring; no missing credential/account blocker remains for the required P1 integrations.

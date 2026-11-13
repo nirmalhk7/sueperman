@@ -1,0 +1,60 @@
+WEB_URL=http://localhost:3001 pnpm --dir apps/web e2e
+$ playwright test
+
+Running 8 tests using 1 worker
+
+  -  1 tests/p1-live.e2e.ts:7:1 › live image extraction, human confirmation and CPSC recall export
+  -  2 tests/p1-live.e2e.ts:47:1 › live PDF extraction returns identifiers for review
+  -  3 tests/p1-live.e2e.ts:60:1 › live settlement sources stay distinct from personal eligibility and export locally
+(node:91438) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✓  4 tests/stale-packet.e2e.ts:3:1 › withdrawn source verification disables local approval and export (2.0s)
+  ✓  5 tests/workflow.e2e.ts:4:1 › five purchases produce evidence-backed recall, safe export and visible negative cases (3.7s)
+  ✓  6 tests/workflow.e2e.ts:112:1 › demo selection stays five purchases after CSV import without deleting imported history (1.1s)
+  ✓  7 tests/workflow.e2e.ts:130:1 › decision detail explains selected action and hard-gate evidence (1.4s)
+  ✓  8 tests/workflow.e2e.ts:148:1 › scan identifiers require explicit review before confirmation (1.4s)
+
+  3 skipped
+  5 passed (12.1s)
+API_URL=http://localhost:8000 WEB_URL=http://localhost:3001 bash scripts/smoke_test.sh
+{"db":"ok","providers":[{"name":"csv","configured":true,"enabled":true,"healthy":true},{"name":"cpsc","configured":true,"enabled":true,"healthy":null},{"name":"brightdata","configured":true,"enabled":false,"healthy":null},{"name":"gemini","configured":true,"enabled":true,"healthy":null},{"name":"openai","configured":true,"enabled":false,"healthy":null}],"demo_ready":true}{
+  "id": "c7499440-ae41-44ba-990d-b3d2f2b9648d",
+  "created_at": "2026-11-13T21:49:26.376288Z",
+  "updated_at": "2026-11-13T21:49:26.408148Z",
+  "demo": true,
+  "run_id": "c7499440-ae41-44ba-990d-b3d2f2b9648d",
+  "mode": "demo",
+  "status": "completed",
+  "summary": {
+    "products_scanned": 5,
+    "candidates": 4,
+    "verified_matches": 1,
+    "rejected": 1,
+    "needs_review": 1,
+    "simulated_settlements": 1,
+    "prepared_packets": 1
+  },
+  "provider_modes": {
+    "receipt": "csv",
+    "recall": "replay",
+    "research": "disabled",
+    "decision": "rules"
+  },
+  "warnings": [],
+  "opportunities": [
+    "63c1bfb5-7e30-4bc2-927c-79b84b995194",
+    "cf474806-3efd-4044-b86f-39f649bc63d1",
+    "9a7d8077-0874-4547-9e92-014d3fd53fe5",
+    "c2dbb3db-9573-4e3d-8927-d712bdd99a43"
+  ],
+  "events_url": "/api/runs/c7499440-ae41-44ba-990d-b3d2f2b9648d/events",
+  "purchase_ids": [
+    "e8298d11-cb49-446d-b21f-d8d7040be8da",
+    "d53ac682-ec5f-4321-b84c-c86e0f606e31",
+    "40ebb0af-7ebd-4533-b31e-2309eb527e5f",
+    "59fce1db-d656-41fb-b042-19522c97e73e",
+    "af9d64e0-950b-4f1c-a31d-d9fad4cd68a7"
+  ],
+  "started_at": "2026-11-13T21:49:26.376082+00:00",
+  "completed_at": "2026-11-13T21:49:26.408042+00:00"
+}

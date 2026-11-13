@@ -1,0 +1,273 @@
+{
+  "observed_at": "2026-11-13T21:43:49.476730+00:00",
+  "input": "one synthetic CSV purchase",
+  "run": {
+    "id": "87ba4eaf-e4bf-4b3a-a0a3-21c77fac2cbd",
+    "created_at": "2026-11-13T21:42:53.064871Z",
+    "updated_at": "2026-11-13T21:43:49.117971Z",
+    "demo": false,
+    "run_id": "87ba4eaf-e4bf-4b3a-a0a3-21c77fac2cbd",
+    "mode": "live",
+    "status": "completed",
+    "summary": {
+      "products_scanned": 1,
+      "candidates": 1,
+      "verified_matches": 1,
+      "rejected": 0,
+      "needs_review": 0,
+      "simulated_settlements": 0,
+      "prepared_packets": 1
+    },
+    "provider_modes": {
+      "receipt": "csv",
+      "recall": "cpsc",
+      "research": "brightdata",
+      "decision": "rules"
+    },
+    "warnings": [],
+    "opportunities": [
+      "808fecd7-ce41-4a4a-bb61-d02dfa44b284"
+    ],
+    "events_url": "/api/runs/87ba4eaf-e4bf-4b3a-a0a3-21c77fac2cbd/events",
+    "purchase_ids": [
+      "4ec15140-2530-4b25-a10f-e329548151c6"
+    ],
+    "started_at": "2026-11-13T21:42:53.064427+00:00",
+    "completed_at": "2026-11-13T21:43:49.117682+00:00"
+  },
+  "opportunities": [
+    {
+      "id": "808fecd7-ce41-4a4a-bb61-d02dfa44b284",
+      "created_at": "2026-11-13T21:43:49.102353Z",
+      "updated_at": "2026-11-13T21:43:49.103655Z",
+      "demo": false,
+      "product_id": "776bd63f-0354-439b-a1de-8d017c7b02f6",
+      "kind": "recall",
+      "title": "NEWDERY Power Banks Recalled Due to Fire and Burn Hazards; Risk of Serious Injury; Sold on Amazon",
+      "status": "verified_match",
+      "source_id": "26-792",
+      "official_url": "https://cpsc.gov/Recalls/2026/NEWDERY-Power-Banks-Recalled-Due-to-Fire-and-Burn-Hazards-Risk-of-Serious-Injury-Sold-on-Amazon",
+      "source_observed_at": "2026-11-13T21:42:53.216298Z",
+      "simulated": false,
+      "mode": "live",
+      "matching_reasons": [
+        "official_source: true",
+        "brand: true",
+        "product_family: true",
+        "model_number: true"
+      ],
+      "purchase_model": "ZHX-PB22",
+      "contrary_evidence": [],
+      "remedy_kind": "refund",
+      "recall": {
+        "reference": "26-792",
+        "title": "NEWDERY Power Banks Recalled Due to Fire and Burn Hazards; Risk of Serious Injury; Sold on Amazon",
+        "brand": "NEWDERY",
+        "family": "power bank",
+        "models": [
+          "ZHX-PB22"
+        ],
+        "official_url": "https://cpsc.gov/Recalls/2026/NEWDERY-Power-Banks-Recalled-Due-to-Fire-and-Burn-Hazards-Risk-of-Serious-Injury-Sold-on-Amazon",
+        "fetched_at": "2026-11-13T21:42:53.216298Z",
+        "source_type": "government",
+        "publisher": "U.S. Consumer Product Safety Commission",
+        "excerpt": "This recall involves NEWDERY power banks with model number ZHX-PB22. The power banks are black with yellow cables. The brand name \u201cNEWDERY\u201d is engraved on the front and the model number \u201cZHX-PB22\u201d is printed on the back.",
+        "remedy_kind": "refund",
+        "instructions": "Consumers should stop using the recalled power banks immediately and contact NEWDERY for instructions on how to receive a full refund. To receive a refund, consumers will be required to submit a photo of their recalled power bank showing the model number, serial number and the word \u201crecalled\u201d and the consumer\u2019s last name written on the power bank in permanent marker. Consumers will also be required to confirm disposal of the power bank in accordance with applicable laws and regulations before receiving a refund. \n\nNote:\u202fDo not throw this lithium-ion battery or device in the trash, the general recycling stream (e.g., street-level or curbside recycling bins), or in used battery recycling boxes found at various retail and home improvement stores. Recalled lithium-ion batteries must be disposed of differently than other batteries, because they present a greater risk of fire. Your municipal household hazardous waste (HHW) collection center may accept this lithium-ion battery or device for disposal. Before taking your battery or device to a HHW collection center, contact it ahead of time and ask whether it accepts recalled lithium-ion batteries. If it does not, contact your municipality for further guidance.",
+        "safety_instructions": "Consumers should stop using the recalled power banks immediately and contact NEWDERY for instructions on how to receive a full refund. To receive a refund, consumers will be required to submit a photo of their recalled power bank showing the model number, serial number and the word \u201crecalled\u201d and the consumer\u2019s last name written on the power bank in permanent marker. Consumers will also be required to confirm disposal of the power bank in accordance with applicable laws and regulations before receiving a refund. \n\nNote:\u202fDo not throw this lithium-ion battery or device in the trash, the general recycling stream (e.g., street-level or curbside recycling bins), or in used battery recycling boxes found at various retail and home improvement stores. Recalled lithium-ion batteries must be disposed of differently than other batteries, because they present a greater risk of fire. Your municipal household hazardous waste (HHW) collection center may accept this lithium-ion battery or device for disposal. Before taking your battery or device to a HHW collection center, contact it ahead of time and ask whether it accepts recalled lithium-ion batteries. If it does not, contact your municipality for further guidance.",
+        "contact_url": "https://www.newdery.com/pages/newdery-power-bank-recalls",
+        "required_documents": [
+          "Photo showing model, serial number and official required markings",
+          "User confirmation of lawful disposal (never prefilled)"
+        ],
+        "conditions": [],
+        "mode": "live"
+      }
+    }
+  ],
+  "detail": {
+    "id": "808fecd7-ce41-4a4a-bb61-d02dfa44b284",
+    "created_at": "2026-11-13T21:43:49.102353Z",
+    "updated_at": "2026-11-13T21:43:49.103655Z",
+    "demo": false,
+    "product_id": "776bd63f-0354-439b-a1de-8d017c7b02f6",
+    "kind": "recall",
+    "title": "NEWDERY Power Banks Recalled Due to Fire and Burn Hazards; Risk of Serious Injury; Sold on Amazon",
+    "status": "verified_match",
+    "source_id": "26-792",
+    "official_url": "https://cpsc.gov/Recalls/2026/NEWDERY-Power-Banks-Recalled-Due-to-Fire-and-Burn-Hazards-Risk-of-Serious-Injury-Sold-on-Amazon",
+    "source_observed_at": "2026-11-13T21:42:53.216298Z",
+    "simulated": false,
+    "mode": "live",
+    "matching_reasons": [
+      "official_source: true",
+      "brand: true",
+      "product_family: true",
+      "model_number: true"
+    ],
+    "purchase_model": null,
+    "product": {
+      "id": "776bd63f-0354-439b-a1de-8d017c7b02f6",
+      "created_at": "2026-11-13T21:42:53.057130Z",
+      "updated_at": "2026-11-13T21:42:53.057137Z",
+      "demo": false,
+      "purchase_id": "4ec15140-2530-4b25-a10f-e329548151c6",
+      "product": {
+        "product_name": "SYNTHETIC power bank check",
+        "brand": "NEWDERY",
+        "model_number": "ZHX-PB22",
+        "upc": null,
+        "serial_prefix": null,
+        "batch": null,
+        "region": null,
+        "date_purchased": "2024-06-12",
+        "merchant": "Demo Store",
+        "order_reference_redacted": null,
+        "extraction_confidence": 1.0,
+        "user_confirmed_identifiers": false,
+        "suggested_identifiers": {}
+      },
+      "source_type": "csv"
+    },
+    "evidence": [
+      {
+        "id": "e7a06922-7357-4f3c-a1c1-2ef7ebd4d35c",
+        "created_at": "2026-11-13T21:43:49.107830Z",
+        "updated_at": "2026-11-13T21:43:49.107839Z",
+        "demo": false,
+        "url": "https://cpsc.gov/Recalls/2026/NEWDERY-Power-Banks-Recalled-Due-to-Fire-and-Burn-Hazards-Risk-of-Serious-Injury-Sold-on-Amazon",
+        "publisher": "U.S. Consumer Product Safety Commission",
+        "source_type": "government",
+        "fetched_at": "2026-11-13T21:42:53.216298Z",
+        "quoted_excerpt": "This recall involves NEWDERY power banks with model number ZHX-PB22. The power banks are black with yellow cables. The brand name \u201cNEWDERY\u201d is engraved on the front and the model number \u201cZHX-PB22\u201d is printed on the back.",
+        "content_sha256": "6fd66b7c0463ad0054627e932d54356f17d629ee51843a2fce887de26b40bfd1",
+        "domain": "cpsc.gov",
+        "title": "NEWDERY Power Banks Recalled Due to Fire and Burn Hazards; Risk of Serious Injury; Sold on Amazon",
+        "extracted_facts": {
+          "reference": "26-792",
+          "title": "NEWDERY Power Banks Recalled Due to Fire and Burn Hazards; Risk of Serious Injury; Sold on Amazon",
+          "brand": "NEWDERY",
+          "family": "power bank",
+          "models": [
+            "ZHX-PB22"
+          ],
+          "official_url": "https://cpsc.gov/Recalls/2026/NEWDERY-Power-Banks-Recalled-Due-to-Fire-and-Burn-Hazards-Risk-of-Serious-Injury-Sold-on-Amazon",
+          "fetched_at": "2026-11-13T21:42:53.216298Z",
+          "source_type": "government",
+          "publisher": "U.S. Consumer Product Safety Commission",
+          "excerpt": "This recall involves NEWDERY power banks with model number ZHX-PB22. The power banks are black with yellow cables. The brand name \u201cNEWDERY\u201d is engraved on the front and the model number \u201cZHX-PB22\u201d is printed on the back.",
+          "remedy_kind": "refund",
+          "instructions": "Consumers should stop using the recalled power banks immediately and contact NEWDERY for instructions on how to receive a full refund. To receive a refund, consumers will be required to submit a photo of their recalled power bank showing the model number, serial number and the word \u201crecalled\u201d and the consumer\u2019s last name written on the power bank in permanent marker. Consumers will also be required to confirm disposal of the power bank in accordance with applicable laws and regulations before receiving a refund. \n\nNote:\u202fDo not throw this lithium-ion battery or device in the trash, the general recycling stream (e.g., street-level or curbside recycling bins), or in used battery recycling boxes found at various retail and home improvement stores. Recalled lithium-ion batteries must be disposed of differently than other batteries, because they present a greater risk of fire. Your municipal household hazardous waste (HHW) collection center may accept this lithium-ion battery or device for disposal. Before taking your battery or device to a HHW collection center, contact it ahead of time and ask whether it accepts recalled lithium-ion batteries. If it does not, contact your municipality for further guidance.",
+          "safety_instructions": "Consumers should stop using the recalled power banks immediately and contact NEWDERY for instructions on how to receive a full refund. To receive a refund, consumers will be required to submit a photo of their recalled power bank showing the model number, serial number and the word \u201crecalled\u201d and the consumer\u2019s last name written on the power bank in permanent marker. Consumers will also be required to confirm disposal of the power bank in accordance with applicable laws and regulations before receiving a refund. \n\nNote:\u202fDo not throw this lithium-ion battery or device in the trash, the general recycling stream (e.g., street-level or curbside recycling bins), or in used battery recycling boxes found at various retail and home improvement stores. Recalled lithium-ion batteries must be disposed of differently than other batteries, because they present a greater risk of fire. Your municipal household hazardous waste (HHW) collection center may accept this lithium-ion battery or device for disposal. Before taking your battery or device to a HHW collection center, contact it ahead of time and ask whether it accepts recalled lithium-ion batteries. If it does not, contact your municipality for further guidance.",
+          "contact_url": "https://www.newdery.com/pages/newdery-power-bank-recalls",
+          "required_documents": [
+            "Photo showing model, serial number and official required markings",
+            "User confirmation of lawful disposal (never prefilled)"
+          ],
+          "conditions": [],
+          "mode": "live"
+        },
+        "authoritative_for": [
+          "model",
+          "remedy",
+          "safety"
+        ]
+      },
+      {
+        "id": "4750731b-232c-4df8-a3e9-00c12ce28af2",
+        "created_at": "2026-11-13T21:43:49.107846Z",
+        "updated_at": "2026-11-13T21:43:49.107848Z",
+        "demo": false,
+        "url": "https://www.newdery.com/pages/newdery-power-bank-recalls",
+        "publisher": "NEWDERY",
+        "source_type": "manufacturer",
+        "fetched_at": "2026-11-13T21:43:49.097449Z",
+        "quoted_excerpt": "{\"url\":\"https://www.newdery.com/pages/newdery-power-bank-recalls\",\"title\":\"NEWDERY Power Bank Recalls\",\"format\":\"markdown\",\"content\":\"[Skip to content](#MainContent) \\n\\n* [ Facebook ](https://www.facebook.com/newdery/ \\\"NEWDERY on Facebook\\\")\\n* [ X (Twitter) ](https://twitter.com/NEWDERY%5FTECH \\\"NEWDERY on X (Twitter)\\\")\\n* [ Instagram ](https://www.instagram.com/newdery%5Ftech/ \\\"NEWDERY on Instagram\\\")\\n* [ YouTube ](https://www.youtube.com/@Newdery \\\"NEWDERY on YouTube\\\")\\n* [ TikTok ](https://www.tiktok.com/@newdery \\\"NEWDERY on TikTok\\\")\\n* [ Pinterest ](https://www.pinterest.com/newdery/ \\\"NEWDERY on Pinterest\\\")\\n\\nNEWDERY Make your life more exciting!\\n\\nA question? Visit our contact page\\n\\nWelcome to our store\\n\\nPause slideshow Play slideshow \\n\\nEnglish \\n\\nUnited States (USD $) \\n\\n* [HOME](/)\\n* PRODUCTS  \\nPRODUCTS\\n* COLLECTIONS  \\nCOLLECTIONS\\n* SUPPORT  \\nSUPPORT\\n\\nEnglish United States (USD $) \\n\\n[ Login ](https://www.newdery.com/customer%5Fauthentication/redire",
+        "content_sha256": "f9e3a25fdb5688b82338bc2bdea5f0f24e61e54981f7f7ebdd6dbe535aa3585f",
+        "authoritative_for": [
+          "supplemental_remedy"
+        ]
+      }
+    ],
+    "assessment": {
+      "id": "c56c0d22-878a-47fb-99fb-f099e0404dc5",
+      "created_at": "2026-11-13T21:43:49.111080Z",
+      "updated_at": "2026-11-13T21:43:49.111086Z",
+      "demo": false,
+      "outcome": "eligible_candidate",
+      "hard_conditions": [
+        {
+          "name": "official_source",
+          "expected": "CPSC HTTPS recall notice",
+          "observed": "https://cpsc.gov/Recalls/2026/NEWDERY-Power-Banks-Recalled-Due-to-Fire-and-Burn-Hazards-Risk-of-Serious-Injury-Sold-on-Amazon",
+          "status": "true",
+          "source_id": "26-792"
+        },
+        {
+          "name": "brand",
+          "expected": "NEWDERY",
+          "observed": "NEWDERY",
+          "status": "true",
+          "source_id": "26-792"
+        },
+        {
+          "name": "product_family",
+          "expected": "power bank",
+          "observed": "SYNTHETIC power bank check",
+          "status": "true",
+          "source_id": "26-792"
+        },
+        {
+          "name": "model_number",
+          "expected": [
+            "ZHX-PB22"
+          ],
+          "observed": "ZHX-PB22",
+          "status": "true",
+          "source_id": "26-792"
+        }
+      ],
+      "missing_fields": [],
+      "reasons": [
+        "official_source: true",
+        "brand: true",
+        "product_family: true",
+        "model_number: true"
+      ],
+      "performed_by": "deterministic",
+      "evaluated_at": "2026-11-13T21:43:49.109735Z",
+      "decision_raw_summary": {
+        "choice": "produce_packet",
+        "mode": "rules",
+        "overridden": false,
+        "proposed_choice": null
+      }
+    },
+    "contrary_evidence": [],
+    "remedy_kind": "refund",
+    "recall": {
+      "reference": "26-792",
+      "title": "NEWDERY Power Banks Recalled Due to Fire and Burn Hazards; Risk of Serious Injury; Sold on Amazon",
+      "brand": "NEWDERY",
+      "family": "power bank",
+      "models": [
+        "ZHX-PB22"
+      ],
+      "official_url": "https://cpsc.gov/Recalls/2026/NEWDERY-Power-Banks-Recalled-Due-to-Fire-and-Burn-Hazards-Risk-of-Serious-Injury-Sold-on-Amazon",
+      "fetched_at": "2026-11-13T21:42:53.216298Z",
+      "source_type": "government",
+      "publisher": "U.S. Consumer Product Safety Commission",
+      "excerpt": "This recall involves NEWDERY power banks with model number ZHX-PB22. The power banks are black with yellow cables. The brand name \u201cNEWDERY\u201d is engraved on the front and the model number \u201cZHX-PB22\u201d is printed on the back.",
+      "remedy_kind": "refund",
+      "instructions": "Consumers should stop using the recalled power banks immediately and contact NEWDERY for instructions on how to receive a full refund. To receive a refund, consumers will be required to submit a photo of their recalled power bank showing the model number, serial number and the word \u201crecalled\u201d and the consumer\u2019s last name written on the power bank in permanent marker. Consumers will also be required to confirm disposal of the power bank in accordance with applicable laws and regulations before receiving a refund. \n\nNote:\u202fDo not throw this lithium-ion battery or device in the trash, the general recycling stream (e.g., street-level or curbside recycling bins), or in used battery recycling boxes found at various retail and home improvement stores. Recalled lithium-ion batteries must be disposed of differently than other batteries, because they present a greater risk of fire. Your municipal household hazardous waste (HHW) collection center may accept this lithium-ion battery or device for disposal. Before taking your battery or device to a HHW collection center, contact it ahead of time and ask whether it accepts recalled lithium-ion batteries. If it does not, contact your municipality for further guidance.",
+      "safety_instructions": "Consumers should stop using the recalled power banks immediately and contact NEWDERY for instructions on how to receive a full refund. To receive a refund, consumers will be required to submit a photo of their recalled power bank showing the model number, serial number and the word \u201crecalled\u201d and the consumer\u2019s last name written on the power bank in permanent marker. Consumers will also be required to confirm disposal of the power bank in accordance with applicable laws and regulations before receiving a refund. \n\nNote:\u202fDo not throw this lithium-ion battery or device in the trash, the general recycling stream (e.g., street-level or curbside recycling bins), or in used battery recycling boxes found at various retail and home improvement stores. Recalled lithium-ion batteries must be disposed of differently than other batteries, because they present a greater risk of fire. Your municipal household hazardous waste (HHW) collection center may accept this lithium-ion battery or device for disposal. Before taking your battery or device to a HHW collection center, contact it ahead of time and ask whether it accepts recalled lithium-ion batteries. If it does not, contact your municipality for further guidance.",
+      "contact_url": "https://www.newdery.com/pages/newdery-power-bank-recalls",
+      "required_documents": [
+        "Photo showing model, serial number and official required markings",
+        "User confirmation of lawful disposal (never prefilled)"
+      ],
+      "conditions": [],
+      "mode": "live"
+    }
+  }
+}
