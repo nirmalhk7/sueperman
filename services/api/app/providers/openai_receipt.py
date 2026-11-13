@@ -3,6 +3,8 @@
 import asyncio
 import base64
 import io
+import logging
+import re
 from datetime import UTC, datetime
 
 import httpx
@@ -146,4 +148,17 @@ class OpenAIReceiptExtractor:
                 response.raise_for_status()
             return validate_receipt(output_text(response.json()))
         except Exception as exc:
+            code = "unknown"
+            status = None
+            if isinstance(exc, httpx.HTTPStatusError):
+                status = exc.response.status_code
+                try:
+                    supplied = exc.response.json().get("error", {}).get("code")
+                    if isinstance(supplied, str) and re.fullmatch(r"[a-z_]{1,64}", supplied):
+                        code = supplied
+                except (ValueError, AttributeError, TypeError):
+                    pass
+            logging.getLogger(__name__).warning(
+                "Receipt OCR failure error_type=%s status=%s code=%s", type(exc).__name__, status, code
+            )
             raise ProviderUnavailable("OpenAI receipt reading unavailable or photo unreadable") from exc

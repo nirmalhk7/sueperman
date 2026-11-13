@@ -133,3 +133,21 @@ def test_daily_budget_is_atomic_under_concurrent_upload_reservations(tmp_path):
         assert reserve_receipt_call(factory, 3) is False
     finally:
         engine.dispose()
+
+
+def test_ocr_failure_logs_only_safe_error_classification(monkeypatch, tmp_path, caplog):
+    from app.main import create_app
+
+    enable(monkeypatch)
+    with respx.mock as routes:
+        routes.post("https://api.openai.com/v1/responses").respond(400, json={"error": {
+            "code": "invalid_json_schema", "message": "private receipt and test-openai", "param": "text.format.schema"
+        }})
+        with TestClient(create_app(database_url=f"sqlite:///{tmp_path}/logs.db")) as client:
+            with caplog.at_level("WARNING"):
+                assert upload(client).status_code == 503
+            assert "error_type=HTTPStatusError" in caplog.text
+            assert "status=400" in caplog.text
+            assert "code=invalid_json_schema" in caplog.text
+            assert "private receipt" not in caplog.text
+            assert "test-openai" not in caplog.text
