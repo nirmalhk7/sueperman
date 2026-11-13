@@ -1,0 +1,6 @@
+order_id,purchased_at,merchant,product_name,brand,model_number,upc
+DEMO-001,2024-06-12,Amazon,Portable Power Bank,NEWDERY,ZHX-PB22,
+DEMO-002,2024-06-13,Amazon,Portable Power Bank,NEWDERY,ZHX-PB23,
+DEMO-003,2025-07-18,Demo Store,Stainless Bottle,DemoCo,DC-BOTTLE-1,
+DEMO-004,2024-06-14,Amazon,Portable Power Bank,NEWDERY,,
+DEMO-005,2025-05-10,Demo Store,Example Earbuds,DemoCo,DC-EARBUDS-1,

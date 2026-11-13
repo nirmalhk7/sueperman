@@ -1,0 +1,13 @@
+{
+  "provider": "cpsc",
+  "mode": "live",
+  "url": "https://cpsc.gov/Recalls/2026/NEWDERY-Power-Banks-Recalled-Due-to-Fire-and-Burn-Hazards-Risk-of-Serious-Injury-Sold-on-Amazon",
+  "fetched_at": "2026-11-13T18:23:50.855382+00:00",
+  "reference": "26-792",
+  "exact_status": "verified_match",
+  "near_match_status": "rejected",
+  "affected_models": [
+    "ZHX-PB22"
+  ],
+  "record_count": 1
+}

@@ -1,0 +1,42 @@
+{
+  "run_id": "b3a4e497-d726-4b58-85f3-000f7bfaa508",
+  "status": "completed",
+  "summary": {
+    "products_scanned": 5,
+    "candidates": 4,
+    "verified_matches": 1,
+    "rejected": 1,
+    "needs_review": 1,
+    "simulated_settlements": 1,
+    "prepared_packets": 1
+  },
+  "provider_modes": {
+    "receipt": "csv",
+    "recall": "cpsc",
+    "research": "disabled",
+    "decision": "rules"
+  },
+  "sources": [
+    {
+      "url": "https://cpsc.gov/Recalls/2026/NEWDERY-Power-Banks-Recalled-Due-to-Fire-and-Burn-Hazards-Risk-of-Serious-Injury-Sold-on-Amazon",
+      "fetched_at": "2026-11-13T18:24:45.055097Z",
+      "status": "rejected",
+      "purchase_model": "ZHX-PB23",
+      "mode": "live"
+    },
+    {
+      "url": "https://cpsc.gov/Recalls/2026/NEWDERY-Power-Banks-Recalled-Due-to-Fire-and-Burn-Hazards-Risk-of-Serious-Injury-Sold-on-Amazon",
+      "fetched_at": "2026-11-13T18:24:45.055097Z",
+      "status": "needs_review",
+      "purchase_model": null,
+      "mode": "live"
+    },
+    {
+      "url": "https://cpsc.gov/Recalls/2026/NEWDERY-Power-Banks-Recalled-Due-to-Fire-and-Burn-Hazards-Risk-of-Serious-Injury-Sold-on-Amazon",
+      "fetched_at": "2026-11-13T18:24:45.055097Z",
+      "status": "verified_match",
+      "purchase_model": "ZHX-PB22",
+      "mode": "live"
+    }
+  ]
+}

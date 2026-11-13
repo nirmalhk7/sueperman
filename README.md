@@ -1,0 +1,74 @@
+# Sueperman — Your consumer-rights agent
+
+Fixture-first consumer remedy discovery. Import purchases, compare exact product identifiers with official recall evidence, inspect exclusions, review a local remedy draft, and export Markdown. No external claim submission, money movement or legal advice.
+
+## Run locally
+
+Prerequisites: Node.js 20.9+ (verified with 24.1.0), pnpm (verified with 11.25.0), uv, and network access for first dependency/runtime installation. Python 3.12 is installed automatically by uv when needed. On macOS, prerequisites can be installed with `brew install node pnpm uv`.
+
+From repository root:
+
+```sh
+cp .env.example .env
+make setup
+make dev
+```
+
+Open http://localhost:3000. API health: http://localhost:8000/api/health. API docs: http://localhost:8000/docs. Click **Try demo data**, then **Check my purchases**.
+
+If another app owns 3000, keep it running and use:
+
+```sh
+make dev WEB_PORT=3001
+```
+
+Open http://localhost:3001. This also configures CORS for that origin. Use `WEB_PORT=3001` for smoke and E2E commands below. Stop dev with Ctrl+C. Restart backend after Python changes. The app binds to loopback and has no account system; do not expose this local demo as a shared production service.
+
+## Verify
+
+Run these while both apps are running:
+
+```sh
+make seed
+make demo
+make demo
+make test
+make lint
+make typecheck
+make smoke
+make e2e
+make build
+```
+
+`make demo` asserts counts and prints actual JSON, failing nonzero on unexpected outcomes. Expected fixture results: five products; one matched recall, one rejected near-match, one missing-model review, one product without recall, one prominently simulated settlement; exactly one real-recall packet. Imports and run triggers are idempotent. Demo reset preserves non-demo imported records. **Try demo data** selects only five demo rows.
+
+`make test` runs pytest plus frontend unit checks. Playwright verifies evidence, negative cases, missing model, simulation, local approval and downloaded Markdown; it records video and screenshots under `apps/web/test-results/`. Stable delivery copies are in `output/playwright/`. See `docs/implementation-log.md` for actual commands and outcomes.
+
+## Live providers
+
+All provider flags default off. Offline CSV/rules/recorded CPSC require no paid keys.
+
+- CPSC: set `CPSC_LIVE_ENABLED=true` in `.env`, restart backend, choose **Live APIs with labeled fallback** under demo controls. The production adapter has a recorded live proof in `docs/evidence/live-cpsc.json`. Run `PYTHONPATH=services/api services/api/.venv/bin/python scripts/live_cpsc_check.py` for a fresh public read. The normalizer supports notice 26-792 explicitly; changed or unsupported notices require manual review.
+- Bright Data: set `BRIGHTDATA_ENABLED=true` and server-only `BRIGHTDATA_API_TOKEN`. Uses Python MCP stdio with `npx @brightdata/mcp`, exposing only `search_engine` and `scrape_as_markdown`. First npx startup may exceed the bounded timeout; preinstall/warm the official package if needed. Only supported CPSC-linked public manufacturer pages are researched. Failure retains CPSC facts and marks partial.
+- Gemini: set `GEMINI_ENABLED=true` and server-only `GEMINI_API_KEY`. Upload PNG/JPEG/PDF; SDK model defaults to `gemini-2.5-flash-lite`. Scanned identifiers remain unverified suggestions, never eligibility evidence. Supply a user-confirmed CSV to use identifiers in matching. Malformed extraction is rejected; CSV remains available.
+- System One: set `SYSTEM_ONE_ENABLED=true` and server-only `SYSTEM_ONE_API_KEY`. Validates configured `decisions` ID and Choice capability against the live catalog, then posts a bounded sanitized state. Unknown choices or failures fall back to rules; model output cannot override hard gates.
+- Sentry: setting server-only `SENTRY_DSN` enables explicit sanitized run-failure events. Raw requests, receipts, exceptions, user fields and breadcrumbs are discarded. No live event or tracing proof has been recorded without a DSN.
+
+See `docs/SPONSORS.md`: transport contract tests are **not** live sponsor proof. No live settlement, deployment, video-generation sponsor or analytics database is claimed.
+
+## Evidence and privacy
+
+All five demo purchase records are synthetic. CPSC recall 26-792 is a recorded real government notice; snapshot URL/time/raw hash are in `demo/PROVENANCE.md`. Cards identify replay versus live. The settlement is fictional and has no claim portal. No payout balances or guarantees appear.
+
+SQLite stores typed products, opportunities, evidence, assessments, packets, runs and ordered audit events. Raw receipts are processed in memory and not retained; FastAPI may spool multipart data to the OS temporary directory. CPSC response caches live under ignored `uploads/`, outside the webroot. Logs never contain raw receipts or credentials. Local approval does not attest disposal or supply missing names, signatures, photos or serial numbers. Changed evidence invalidates prior approval.
+
+## Troubleshooting
+
+- `uv` or `pnpm` missing: install prerequisites, then rerun `make setup`. Setup downloads a locked Python environment, Next dependencies and Chromium. uv cache/runtime default to task-specific `/tmp` paths; rerun setup if OS removes them.
+- Port conflict: stop only your own server or select `WEB_PORT=3001`; backend still requires free port 8000. Do not terminate unrelated apps.
+- Browser cannot reach API: use the same host/origin as `FRONTEND_ORIGIN`; Make defaults to `http://localhost:<WEB_PORT>`. API base can be overridden with `API_URL=http://localhost:8000` or `NEXT_PUBLIC_API_BASE_URL` in the process environment.
+- Provider unavailable: inspect health and timeline. A failed live request falls back only when `DEMO_MODE=true`, with an explicit partial/replay label. With demo disabled it cannot produce fixture positives.
+- Interrupted run: startup marks unfinished runs partial; trigger a new idempotency key. BackgroundTasks are process-local, not a durable job queue.
+- Test warning: installed Starlette currently emits an upstream deprecation warning for its HTTPX-based TestClient. Tests still run and assert real API behavior; warning is recorded, not hidden.
+
+Architecture, exact judge clicks, boundaries and remaining gaps: `docs/architecture.md`, `docs/DEMO.md`, `docs/known-limitations.md`.

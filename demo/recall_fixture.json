@@ -1,0 +1,24 @@
+{
+  "reference": "26-792",
+  "title": "NEWDERY Power Banks Recalled Due to Fire and Burn Hazards",
+  "brand": "NEWDERY",
+  "family": "power bank",
+  "models": [
+    "ZHX-PB22"
+  ],
+  "official_url": "https://www.cpsc.gov/Recalls/2026/NEWDERY-Power-Banks-Recalled-Due-to-Fire-and-Burn-Hazards-Risk-of-Serious-Injury-Sold-on-Amazon",
+  "fetched_at": "2026-11-13T17:48:00Z",
+  "source_type": "government",
+  "publisher": "U.S. Consumer Product Safety Commission",
+  "excerpt": "This recall involves NEWDERY power banks with model number ZHX-PB22.",
+  "remedy_kind": "refund",
+  "instructions": "Stop using the recalled power bank immediately. Contact NEWDERY for full-refund instructions. CPSC requires a photo showing model number, serial number, the word “recalled” and your last name written in permanent marker, plus confirmation of lawful disposal. Sueperman does not attest disposal or provide your name.",
+  "safety_instructions": "Do not put this recalled lithium-ion device in trash, curbside recycling, or retail battery boxes. Contact your municipal household hazardous waste collection center before visiting; ask whether it accepts recalled lithium-ion batteries. If not, ask your municipality for guidance.",
+  "contact_url": "https://www.newdery.com/pages/newdery-power-bank-recalls",
+  "required_documents": [
+    "Photo of power bank with model and serial number and official required markings",
+    "User confirmation of lawful disposal (never prefilled)"
+  ],
+  "conditions": [],
+  "mode": "replay"
+}
