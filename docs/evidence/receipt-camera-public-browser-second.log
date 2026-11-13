@@ -1,0 +1,25 @@
+node:internal/modules/run_main:105
+    triggerUncaughtException(
+    ^
+
+ExpectError: expect(received).toBe(expected) // Object.is equality
+
+Expected: 200
+Received: 504
+    at captureRawStack (/Users/nirmalhk7/Documents/DevWorld/sueperman/apps/web/node_modules/.pnpm/playwright-core@1.65.0/node_modules/playwright-core/lib/coreBundle.js:9551:17)
+    at callMatcherAsStep (/Users/nirmalhk7/Documents/DevWorld/sueperman/apps/web/node_modules/.pnpm/playwright@1.65.0/node_modules/playwright/lib/matchers/expect.js:13342:57)
+    at Object.toBe (/Users/nirmalhk7/Documents/DevWorld/sueperman/apps/web/node_modules/.pnpm/playwright@1.65.0/node_modules/playwright/lib/matchers/expect.js:13334:23)
+    at /Users/nirmalhk7/Documents/DevWorld/sueperman/apps/web/tests/receipt-camera-live.check.mjs:27:29 {
+  matcherResult: {
+    actual: 504,
+    expected: 200,
+    message: 'expect(received).toBe(expected) // Object.is equality\n' +
+      '\n' +
+      'Expected: 200\n' +
+      'Received: 504',
+    name: 'toBe',
+    pass: false
+  }
+}
+
+Node.js v24.1.0

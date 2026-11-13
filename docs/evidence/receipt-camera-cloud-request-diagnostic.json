@@ -1,0 +1,23 @@
+{
+  "prepared_bytes": 33753,
+  "status": "success",
+  "products": [
+    {
+      "product_name": "Portable Power Bank",
+      "brand": "NEWDERY",
+      "model_number": null,
+      "upc": null,
+      "serial_prefix": null,
+      "batch": null,
+      "region": null,
+      "date_purchased": "2024-06-12",
+      "merchant": "Demo Store",
+      "order_reference_redacted": null,
+      "extraction_confidence": 0.5,
+      "user_confirmed_identifiers": false,
+      "suggested_identifiers": {
+        "model_number": "ZHX-PB22"
+      }
+    }
+  ]
+}

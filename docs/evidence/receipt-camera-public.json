@@ -1,0 +1,89 @@
+{
+  "observed_at": "2026-11-13T22:28:10.079Z",
+  "url": "https://sueperman-6t4xk.ondigitalocean.app",
+  "provider": "openai",
+  "model": "gpt-6-luna",
+  "input": "clearly labeled synthetic receipt JPEG",
+  "health": {
+    "db": "ok",
+    "providers": [
+      {
+        "name": "csv",
+        "configured": true,
+        "enabled": true,
+        "healthy": true
+      },
+      {
+        "name": "openai_receipts",
+        "configured": true,
+        "enabled": true,
+        "healthy": null
+      },
+      {
+        "name": "cpsc",
+        "configured": true,
+        "enabled": true,
+        "healthy": null
+      },
+      {
+        "name": "brightdata",
+        "configured": false,
+        "enabled": false,
+        "healthy": null
+      },
+      {
+        "name": "gemini",
+        "configured": false,
+        "enabled": false,
+        "healthy": null
+      },
+      {
+        "name": "openai",
+        "configured": true,
+        "enabled": false,
+        "healthy": null
+      }
+    ],
+    "demo_ready": true
+  },
+  "mobile_camera_preference": "environment",
+  "live_photo_upload_status": 200,
+  "upload": {
+    "purchase_ids": [
+      "41d30623-27d7-4932-9916-59d516f8c15c"
+    ],
+    "product_ids": [
+      "106ae8a4-102d-4247-9ac0-3c2bd437f33e"
+    ],
+    "parse_warnings": [
+      "Scanned identifiers are unverified suggestions. Review and confirm them before checking purchases."
+    ]
+  },
+  "product": {
+    "id": "106ae8a4-102d-4247-9ac0-3c2bd437f33e",
+    "created_at": "2026-11-13T22:28:09.041107Z",
+    "updated_at": "2026-11-13T22:28:09.041120Z",
+    "demo": false,
+    "purchase_id": "41d30623-27d7-4932-9916-59d516f8c15c",
+    "product": {
+      "product_name": "Portable Power Bank",
+      "brand": "NEWDERY",
+      "model_number": null,
+      "upc": null,
+      "serial_prefix": null,
+      "batch": null,
+      "region": null,
+      "date_purchased": "2024-06-12",
+      "merchant": "Demo Store",
+      "order_reference_redacted": null,
+      "extraction_confidence": 0.5,
+      "user_confirmed_identifiers": false,
+      "suggested_identifiers": {
+        "model_number": "ZHX-PB22"
+      }
+    },
+    "source_type": "image"
+  },
+  "duplicate_reused_without_model_request": true,
+  "unconfirmed_identifiers": true
+}

@@ -1,0 +1,130 @@
+{
+  "observed_at": "2026-11-13T22:23:39.223293+00:00",
+  "app_id": "044b649f-018f-4062-bd9a-195919becfb3",
+  "url": "https://sueperman-6t4xk.ondigitalocean.app",
+  "source_commit": "f8ff31f",
+  "deployment_id": "401a7c82-185e-4d90-8747-2555e44d5321",
+  "previous_deployment_id": "e2d468ec-f29a-414c-ab8f-2d18ec12c542",
+  "phase": "ACTIVE",
+  "base_monthly_cost": 10,
+  "openai_receipt_daily_limit": 10,
+  "openai_key_scope": "API service RUN_TIME SECRET",
+  "key_in_source": false,
+  "progress": {
+    "success_steps": 9,
+    "total_steps": 9,
+    "steps": [
+      {
+        "name": "build",
+        "status": "SUCCESS",
+        "steps": [
+          {
+            "name": "initialize",
+            "status": "SUCCESS",
+            "started_at": "2026-11-13T22:23:42.345159182Z",
+            "ended_at": "2026-11-13T22:23:43.417005926Z"
+          },
+          {
+            "name": "components",
+            "status": "SUCCESS",
+            "steps": [
+              {
+                "name": "api",
+                "status": "SUCCESS",
+                "component_name": "api",
+                "message_base": "Building service"
+              },
+              {
+                "name": "web",
+                "status": "SUCCESS",
+                "component_name": "web",
+                "message_base": "Building service"
+              }
+            ],
+            "started_at": "2026-11-13T22:23:43.417035231Z",
+            "ended_at": "2026-11-13T22:26:05.601706379Z"
+          }
+        ],
+        "started_at": "2026-11-13T22:23:42.345097698Z",
+        "ended_at": "2026-11-13T22:26:06.090447921Z"
+      },
+      {
+        "name": "deploy",
+        "status": "SUCCESS",
+        "steps": [
+          {
+            "name": "initialize",
+            "status": "SUCCESS",
+            "started_at": "2026-11-13T22:26:11.463419280Z",
+            "ended_at": "2026-11-13T22:26:12.110296322Z"
+          },
+          {
+            "name": "components",
+            "status": "SUCCESS",
+            "steps": [
+              {
+                "name": "api",
+                "status": "SUCCESS",
+                "steps": [
+                  {
+                    "name": "deploy",
+                    "status": "SUCCESS",
+                    "component_name": "api",
+                    "message_base": "Deploying service"
+                  },
+                  {
+                    "name": "wait",
+                    "status": "SUCCESS",
+                    "component_name": "api",
+                    "message_base": "Waiting for service"
+                  }
+                ],
+                "component_name": "api"
+              },
+              {
+                "name": "web",
+                "status": "SUCCESS",
+                "steps": [
+                  {
+                    "name": "deploy",
+                    "status": "SUCCESS",
+                    "component_name": "web",
+                    "message_base": "Deploying service"
+                  },
+                  {
+                    "name": "wait",
+                    "status": "SUCCESS",
+                    "component_name": "web",
+                    "message_base": "Waiting for service"
+                  }
+                ],
+                "component_name": "web"
+              }
+            ],
+            "started_at": "2026-11-13T22:26:12.110372895Z",
+            "ended_at": "2026-11-13T22:27:10.073754471Z"
+          },
+          {
+            "name": "finalize",
+            "status": "SUCCESS",
+            "started_at": "2026-11-13T22:27:10.410283196Z",
+            "ended_at": "2026-11-13T22:27:10.729657633Z"
+          }
+        ],
+        "started_at": "2026-11-13T22:26:11.463395456Z",
+        "ended_at": "2026-11-13T22:27:10.729720109Z"
+      }
+    ]
+  },
+  "services": [
+    {
+      "name": "api",
+      "source_commit_hash": "f8ff31fffb9e7ba9324d718f4e179b7d80fc271f"
+    },
+    {
+      "name": "web",
+      "source_commit_hash": "f8ff31fffb9e7ba9324d718f4e179b7d80fc271f"
+    }
+  ],
+  "checked_at": "2026-11-13T22:27:21.169333+00:00"
+}

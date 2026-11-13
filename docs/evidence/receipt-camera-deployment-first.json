@@ -1,0 +1,129 @@
+{
+  "observed_at": "2026-11-13T22:05:20.253954+00:00",
+  "app_id": "044b649f-018f-4062-bd9a-195919becfb3",
+  "url": "https://sueperman-6t4xk.ondigitalocean.app",
+  "source_commit": "8a4bc56",
+  "deployment_id": "e2d468ec-f29a-414c-ab8f-2d18ec12c542",
+  "phase": "ACTIVE",
+  "base_monthly_cost": 10,
+  "openai_receipt_daily_limit": 10,
+  "openai_key_scope": "API service RUN_TIME SECRET",
+  "key_in_source": false,
+  "progress": {
+    "success_steps": 9,
+    "total_steps": 9,
+    "steps": [
+      {
+        "name": "build",
+        "status": "SUCCESS",
+        "steps": [
+          {
+            "name": "initialize",
+            "status": "SUCCESS",
+            "started_at": "2026-11-13T22:05:23.346457559Z",
+            "ended_at": "2026-11-13T22:05:23.775561526Z"
+          },
+          {
+            "name": "components",
+            "status": "SUCCESS",
+            "steps": [
+              {
+                "name": "api",
+                "status": "SUCCESS",
+                "component_name": "api",
+                "message_base": "Building service"
+              },
+              {
+                "name": "web",
+                "status": "SUCCESS",
+                "component_name": "web",
+                "message_base": "Building service"
+              }
+            ],
+            "started_at": "2026-11-13T22:05:23.775597673Z",
+            "ended_at": "2026-11-13T22:09:57.904274989Z"
+          }
+        ],
+        "started_at": "2026-11-13T22:05:23.346391426Z",
+        "ended_at": "2026-11-13T22:09:59.141324115Z"
+      },
+      {
+        "name": "deploy",
+        "status": "SUCCESS",
+        "steps": [
+          {
+            "name": "initialize",
+            "status": "SUCCESS",
+            "started_at": "2026-11-13T22:10:03.755508800Z",
+            "ended_at": "2026-11-13T22:10:06.318293707Z"
+          },
+          {
+            "name": "components",
+            "status": "SUCCESS",
+            "steps": [
+              {
+                "name": "api",
+                "status": "SUCCESS",
+                "steps": [
+                  {
+                    "name": "deploy",
+                    "status": "SUCCESS",
+                    "component_name": "api",
+                    "message_base": "Deploying service"
+                  },
+                  {
+                    "name": "wait",
+                    "status": "SUCCESS",
+                    "component_name": "api",
+                    "message_base": "Waiting for service"
+                  }
+                ],
+                "component_name": "api"
+              },
+              {
+                "name": "web",
+                "status": "SUCCESS",
+                "steps": [
+                  {
+                    "name": "deploy",
+                    "status": "SUCCESS",
+                    "component_name": "web",
+                    "message_base": "Deploying service"
+                  },
+                  {
+                    "name": "wait",
+                    "status": "SUCCESS",
+                    "component_name": "web",
+                    "message_base": "Waiting for service"
+                  }
+                ],
+                "component_name": "web"
+              }
+            ],
+            "started_at": "2026-11-13T22:10:06.318352877Z",
+            "ended_at": "2026-11-13T22:10:59.342597098Z"
+          },
+          {
+            "name": "finalize",
+            "status": "SUCCESS",
+            "started_at": "2026-11-13T22:10:59.981901334Z",
+            "ended_at": "2026-11-13T22:11:00.500197606Z"
+          }
+        ],
+        "started_at": "2026-11-13T22:10:03.755481820Z",
+        "ended_at": "2026-11-13T22:11:00.500281252Z"
+      }
+    ]
+  },
+  "services": [
+    {
+      "name": "api",
+      "source_commit_hash": "8a4bc56320cf7bf0239dcf3a4be8008a5ca45462"
+    },
+    {
+      "name": "web",
+      "source_commit_hash": "8a4bc56320cf7bf0239dcf3a4be8008a5ca45462"
+    }
+  ],
+  "checked_at": "2026-11-13T22:11:05.461755+00:00"
+}
