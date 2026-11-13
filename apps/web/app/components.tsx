@@ -33,7 +33,7 @@ export function Opportunities({ items }: { items: Opportunity[] }) {
                 Your model: {o.purchase_model || "not provided"}
               </span>
               <span className="small mono">
-                {sourceLabel(o.kind, o.mode, o.simulated)}
+                {sourceLabel(o.kind, o.mode, o.simulated, o.status)}
               </span>
               <span className="small">
                 Observed {new Date(o.source_observed_at).toLocaleString()}

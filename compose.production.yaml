@@ -1,0 +1,45 @@
+services:
+  api:
+    platform: linux/amd64
+    build:
+      context: .
+      dockerfile: services/api/Dockerfile
+    environment:
+      DEMO_MODE: "true"
+      FRONTEND_ORIGIN: http://127.0.0.1:${CONTAINER_WEB_PORT:-3080}
+      CPSC_LIVE_ENABLED: "false"
+      SETTLEMENT_LIVE_ENABLED: "false"
+      GEMINI_ENABLED: "false"
+      OPENAI_ENABLED: "false"
+      BRIGHTDATA_ENABLED: "false"
+    volumes:
+      - demo-state:/data
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://127.0.0.1:8080/api/health')"]
+      interval: 2s
+      timeout: 5s
+      retries: 30
+  web:
+    platform: linux/amd64
+    build:
+      context: .
+      dockerfile: apps/web/Dockerfile
+    healthcheck:
+      test: ["CMD", "node", "-e", "fetch('http://127.0.0.1:8080/').then(r=>process.exit(r.ok?0:1)).catch(()=>process.exit(1))"]
+      interval: 2s
+      timeout: 5s
+      retries: 30
+  gateway:
+    platform: linux/amd64
+    build:
+      context: .
+      dockerfile: deploy/gateway.Dockerfile
+    ports:
+      - 127.0.0.1:${CONTAINER_WEB_PORT:-3080}:8080
+    depends_on:
+      api:
+        condition: service_healthy
+      web:
+        condition: service_healthy
+volumes:
+  demo-state:

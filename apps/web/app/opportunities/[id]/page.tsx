@@ -53,14 +53,14 @@ export default function Page() {
           </div>
         ) : (
           <p className="mono small">
-            {sourceLabel(d.kind, d.mode, d.simulated)}{" "}
+            {sourceLabel(d.kind, d.mode, d.simulated, d.status)}{" "}
             · Observed {new Date(d.source_observed_at).toLocaleString()}
           </p>
         )}
         <h2>{d.title}</h2>
         {d.kind === "settlement" && !d.simulated && (
           <aside className="notice">
-            <strong>Personal eligibility unconfirmed — preparation only</strong>
+            <strong>{d.status === "unavailable" ? "Source verification unavailable — prior evidence only" : "Personal eligibility unconfirmed — preparation only"}</strong>
             <p>{d.settlement?.court}</p>
             <p>Review official class terms, proof, exclusions and releases. No declarations are inferred and no claim is submitted.</p>
           </aside>

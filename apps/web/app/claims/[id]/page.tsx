@@ -53,17 +53,21 @@ export default function Page() {
       <p role={error ? "alert" : "status"}>{error || "Loading packet…"}</p>
     );
   const approved = ["approved_local", "exported"].includes(p.status);
+  const blocked = p.status === "needs_evidence" || p.verification_status === "unavailable";
   return (
     <>
       <span className="eyebrow">Your review comes first</span>
       <h1>Review your remedy draft.</h1>
       <p className="mono small">
-        {p.mode === "replay"
+        {p.verification_status === "unavailable"
+          ? "SETTLEMENT VERIFICATION UNAVAILABLE — PRIOR DRAFT ONLY"
+          : p.mode === "replay"
           ? "OFFLINE REPLAY of a real published recall"
           : p.kind === "settlement" ? "LIVE verified settlement sources" : "LIVE CPSC source"}
       </p>
       <div className="notice">
         <strong>Local draft only</strong>
+        {blocked && <p>Run another live check to verify official sources before approving or exporting this draft.</p>}
         <p>
           Approval saves your review locally. It does not contact a manufacturer
           or submit a claim. Required documents and declarations remain your
@@ -104,13 +108,13 @@ export default function Page() {
           </div>
         )}
         <div className="actions">
-          <button onClick={approve} disabled={!checked || busy || approved}>
+          <button onClick={approve} disabled={!checked || busy || approved || blocked}>
             Approve draft locally
           </button>
           <button
             className="secondary"
             onClick={download}
-            disabled={!approved || busy}
+            disabled={!approved || busy || blocked}
           >
             Export Markdown
           </button>

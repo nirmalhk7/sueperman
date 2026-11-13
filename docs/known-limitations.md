@@ -1,6 +1,6 @@
 # Known limitations
 
-- Local P0 application; no authentication, no public deployment. DigitalOcean credentials and `doctl` are unavailable. No deployment success claimed.
+- No authentication or private account isolation. Container builds label this a shared demo; use synthetic purchases. DigitalOcean credentials now authenticate and the app proposal validates, but no public deployment success is claimed yet. SQLite on App Platform is ephemeral; source deployment is one instance per app service.
 - Live CPSC supported normalizer is intentionally limited to official notice 26-792. Its exact affected-product description is checked; unfamiliar restrictions require manual review. Other recalls are discovered but cannot become verified positives without a tested normalizer. Catalog coverage is not comprehensive.
 - Bright Data search succeeded through the actual MCP server, but scrape_as_markdown returned “Customer is not active.” User is handling activation; further Bright Data requests stopped. No live manufacturer extraction claimed.
 - Gemini PNG/PDF extraction and an OpenAI bounded decision request succeeded. This account cannot use legacy gemini-2.5-flash-lite; ignored local configuration selects gemini-3.5-flash-lite. Provider schema is structural; Pydantic still enforces dates, string lengths and forbidden extra fields locally. Generation caps and duplicate-import reuse reduce cost. Credit totals are not independently verified.
@@ -14,3 +14,5 @@
 - Browser verification used port 3001 because unrelated career-ops occupied 3000. Clean-clone Make defaults remain 3000; both apps were started with `make dev WEB_PORT=3001`.
 - Browser acceptance recording is an automated walkthrough, not a narrated 90-second judge video. The exact 90-second live presentation script is in DEMO.md.
 - One upstream Starlette TestClient deprecation warning remains visible in test output. It is not a failing check.
+
+- Failed settlement-source refresh now invalidates previous approval/export and labels historical sources unavailable. A later successful refresh creates a new unapproved draft; old approval never silently returns.

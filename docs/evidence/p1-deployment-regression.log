@@ -1,0 +1,68 @@
+services/api/.venv/bin/pytest services/api/tests -q
+........................................................................ [ 94%]
+....                                                                     [100%]
+=============================== warnings summary ===============================
+services/api/.venv/lib/python3.12/site-packages/fastapi/testclient.py:1
+  /Users/nirmalhk7/Documents/DevWorld/sueperman/services/api/.venv/lib/python3.12/site-packages/fastapi/testclient.py:1: StarletteDeprecationWarning: Using `httpx` with `starlette.testclient` is deprecated; install `httpx2` instead.
+    from starlette.testclient import TestClient as TestClient  # noqa
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+76 passed, 1 warning in 18.28s
+pnpm --dir apps/web test
+$ node --import tsx --test tests/*.test.ts
+✔ API request respects local default base (249.84025ms)
+✔ API request respects "" base (316.688875ms)
+✔ API request respects "https://app.example.test" base (260.471167ms)
+✔ browser events keep readable stack locations but drop uploaded facts and credentials (1.738708ms)
+✔ trace attributes cannot retain request bodies or URL parameters (0.246125ms)
+✔ privacy filtering preserves source-map debug IDs needed for readable stacks (0.104084ms)
+✔ streamed spans scrub URL names and request attributes before export (4.376084ms)
+✔ replay correlation survives filtering while user tags are removed (0.161167ms)
+✔ simulation label takes priority over candidate status (0.509708ms)
+✔ real settlement labels identify public sources and keep eligibility uncertain (3.93825ms)
+✔ failed settlement verification never keeps a live-verified badge (0.484ms)
+ℹ tests 11
+ℹ suites 0
+ℹ pass 11
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 1006.499875
+services/api/.venv/bin/ruff check services/api/app services/api/tests scripts
+All checks passed!
+pnpm --dir apps/web lint
+$ eslint app lib tests
+services/api/.venv/bin/mypy --config-file services/api/pyproject.toml services/api/app
+Success: no issues found in 34 source files
+pnpm --dir apps/web typecheck
+$ tsc --noEmit
+pnpm --dir apps/web build
+$ next build --webpack
+▲ Next.js 16.4.6 (webpack)
+- Environments: .env.local
+✓ Running next.config.ts took 430ms
+- Experiments (use with caution):
+  · clientTraceMetadata
+
+  Creating an optimized production build ...
+✓ Compiled successfully in 5.7s
+  Running TypeScript ...
+  Finished TypeScript in 4.3s ...
+  Collecting page data using 7 workers ...
+  Generating static pages using 7 workers (0/3) ...
+✓ Generating static pages using 7 workers (3/3) in 4.9s
+  Finalizing page optimization ...
+  Collecting build traces ...
+
+Route (app)
+┌ ○ /
+├ ○ /_not-found
+├ ƒ /claims/[id]
+├ ƒ /opportunities/[id]
+└ ƒ /runs/[id]
+
+
+○  (Static)   prerendered as static content
+ƒ  (Dynamic)  server-rendered on demand
+

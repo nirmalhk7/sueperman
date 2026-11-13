@@ -294,6 +294,66 @@ def persist_verified_settlement(session, entity, product, rules):
     return opp
 
 
+def invalidate_settlements(session, product_id):
+    stale = session.scalars(
+        select(Opportunity).where(Opportunity.product_id == product_id, Opportunity.kind == "settlement")
+    ).all()
+    ids = []
+    for opp in stale:
+        if opp.payload.get("simulated", True):
+            continue
+        reason = "Primary-source refresh unavailable; prior draft requires renewed verification."
+        opp.payload = opp.payload | {
+            "status": "unavailable",
+            "sources_verified": False,
+            "verification_failed_at": now(),
+            "matching_reasons": list(dict.fromkeys([*opp.payload["matching_reasons"], reason])),
+        }
+        packet = session.scalar(select(ClaimPacket).where(ClaimPacket.opportunity_id == opp.id))
+        if packet is not None:
+            packet.payload = packet.payload | {
+                "status": "needs_evidence",
+                "approved_at": None,
+                "reviewed_at": None,
+                "verification_status": "unavailable",
+                "missing_documents": list(
+                    dict.fromkeys(
+                        [
+                            *packet.payload["missing_documents"],
+                            "Renew verification of official administrator and court sources",
+                        ]
+                    )
+                ),
+            }
+        assessment = session.scalar(
+            select(EligibilityAssessment).where(EligibilityAssessment.opportunity_id == opp.id)
+        )
+        if assessment is not None:
+            conditions = [
+                c for c in assessment.payload["hard_conditions"] if c["name"] != "current_primary_sources"
+            ]
+            assessment.payload = assessment.payload | {
+                "outcome": "uncertain",
+                "evaluated_at": now(),
+                "hard_conditions": [
+                    *conditions,
+                    {
+                        "name": "current_primary_sources",
+                        "expected": "Reviewed current primary documents",
+                        "observed": "Unavailable",
+                        "status": "unknown",
+                        "source_id": opp.official_url,
+                    },
+                ],
+                "missing_fields": list(
+                    dict.fromkeys([*assessment.payload["missing_fields"], "current_primary_sources"])
+                ),
+            }
+        ids.append(opp.id)
+    session.commit()
+    return ids
+
+
 async def execute(factory, run_id, settings):
     with factory() as session:
         run = session.get(AgentRun, run_id)
@@ -468,7 +528,8 @@ async def execute(factory, run_id, settings):
                                 )
                         except ProviderUnavailable:
                             modes["settlement"] = "unavailable"
-                            warnings.append("Settlement primary sources unavailable; no real case shown")
+                            ids.extend(invalidate_settlements(session, entity.id))
+                            warnings.append("Settlement primary sources unavailable; prior drafts disabled")
                 event(session, run, Stage.AWAITING_USER_REVIEW)
         except TimeoutError:
             warnings.append("Run reached 90-second limit; review partial results")

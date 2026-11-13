@@ -7,7 +7,7 @@ WEB_URL ?= http://localhost:$(WEB_PORT)
 export FRONTEND_ORIGIN ?= $(WEB_URL)
 export NEXT_PUBLIC_API_BASE_URL ?= $(API_URL)
 PY := services/api/.venv/bin/python
-.PHONY: setup dev seed test demo lint typecheck smoke e2e build
+.PHONY: setup dev seed test demo lint typecheck smoke e2e build container-test
 setup:
 	command -v uv
 	command -v pnpm
@@ -35,3 +35,5 @@ e2e:
 	WEB_URL=$(WEB_URL) pnpm --dir apps/web e2e
 build:
 	pnpm --dir apps/web build
+container-test:
+	$(PY) scripts/container_smoke.py

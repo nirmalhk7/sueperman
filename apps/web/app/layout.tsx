@@ -7,6 +7,7 @@ export const metadata: Metadata = {
     "Evidence-backed recall discovery and locally approved remedy drafts.",
 };
 export default function Layout({ children }: { children: React.ReactNode }) {
+  const sharedDemo = process.env.NEXT_PUBLIC_SHARED_DEMO === "true";
   return (
     <html lang="en">
       <body>
@@ -22,11 +23,12 @@ export default function Layout({ children }: { children: React.ReactNode }) {
             <Link href="/#opportunities">Opportunities</Link>
             <Link href="/#activity">Activity</Link>
           </nav>
-          <span className="mode">LOCAL / EVIDENCE FIRST</span>
+          <span className="mode">{sharedDemo ? "SHARED DEMO" : "LOCAL"} / EVIDENCE FIRST</span>
         </header>
         <div className="banner">
-          REPLAY AVAILABLE · Demo purchases are synthetic. Source timestamps and
-          provider modes shown on every result.
+          {sharedDemo
+            ? "SHARED DEMO · Use synthetic purchases. Uploaded purchase details are shared with other visitors."
+            : "REPLAY AVAILABLE · Demo purchases are synthetic. Source timestamps and provider modes shown on every result."}
         </div>
         <main id="main">{children}</main>
         <footer>

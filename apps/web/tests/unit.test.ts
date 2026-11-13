@@ -17,3 +17,9 @@ test("real settlement labels identify public sources and keep eligibility uncert
   assert.equal(opportunityLabel("uncertain", false), "Needs information");
   assert.equal(opportunityLabel("ineligible", false), "Not affected");
 });
+
+test("failed settlement verification never keeps a live-verified badge", async () => {
+  const { sourceLabel } = await import("../lib/labels");
+  assert.equal(sourceLabel("settlement", "live", false, "unavailable"), "SETTLEMENT VERIFICATION UNAVAILABLE — PRIOR SOURCES ONLY");
+  assert.equal(opportunityLabel("unavailable", false), "Sources unavailable");
+});

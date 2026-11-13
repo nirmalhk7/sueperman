@@ -131,3 +131,23 @@ Final verification for this P1 checkpoint — 2026-11-13:
 - Actual final source adapter read: PASS all four primary settlement documents, reviewed hashes and deadline verified; refreshed `p1-settlement-live.json`. P0 and simulated settlement remain separate.
 - Candidate-repository scan found zero configured credential values; ignored `.env` and frontend `.env.local` remain mode 600. No secret value printed. Review of final source diff completed.
 - P1 completion audit: P0 preserved; CPSC live, Gemini PNG/PDF live, OpenAI live decision, UI decision evidence, deterministic settlement checking/preparation, source provenance and local browser workflows proven. Bright Data scrape criterion UNMET (account inactive; user handling activation, calls stopped). Public DigitalOcean URL/health UNMET (credential unavailable; no deployment). Goal remains active/incomplete; no P2 or external claim submissions.
+
+
+## Deployment preparation and source-refresh safety — 2026-11-13
+
+DigitalOcean operator credential was supplied and saved only in ignored root `.env` (mode 600). Account authentication succeeded. No app was created. The exact current `deploy/app-spec.json` received HTTP 200 from the non-mutating proposal endpoint: available name and $10/month base cost. Proposal evidence includes the exact spec SHA-256. Actual public deployment/health remains unverified.
+
+Acceptance additions and observed red/green:
+- Same-origin API configuration: a process-isolated frontend behavior test failed because an explicit empty public base URL fell back to localhost. Nullish fallback now preserves the empty string; unset and explicit remote URL cases also pass.
+- Production packaging: real AMD64 container builds exposed missing useradd PATH, missing pnpm build policy, and unsupported daemon bind-mount access. Fixed PATH, copied existing workspace build policy before dependency installation, and used a normal COPY-based test gateway image. API/web run non-root; private environment files are excluded. No provider keys enter the test containers.
+- Shared-demo disclosure: executable container acceptance failed on the prior LOCAL label. Production builds now display SHARED DEMO and tell visitors to use synthetic purchases because this demo has no account isolation.
+- Stale settlement sources: integration test reproduced HTTP 200 export after a previously approved source document changed, instead of expected 409. Failed verification now invalidates real settlement evidence status and prior approval, blocks packet creation/export, and preserves historical evidence as unavailable. Restored verified sources require fresh approval. Simulated fixtures remain separate. UI test reproduced missing unavailable-source warning; warning and disabled approval/export now pass.
+
+Final current-code verification:
+- `make test lint typecheck build`: exit 0, 76 backend tests, 11 frontend tests, Ruff/ESLint, MyPy (34 files), TypeScript and optimized production build pass. Evidence: `p1-deployment-regression.log`. Existing upstream TestClient deprecation warning remains.
+- `make container-test`: exit 0. Real Linux AMD64 API/web/gateway images, same-origin HTTP health, five exact fixture outcomes, negative and approval gates, local export, non-root users, env-file exclusion, Node/npm availability, plus one production-browser workflow passed. Evidence: `p1-container-check.log`, recordings under `output/playwright/container/`. Isolated containers/network/volume removed afterward. All providers disabled; no model calls.
+- `make e2e smoke WEB_PORT=3001`: exit 0, five offline browser flows passed; three opt-in live tests skipped deliberately. Exact five-purchase fixture outcomes preserved. Evidence: `p1-deployment-browser.log`.
+- `P1_LIVE_E2E=1 WEB_URL=http://localhost:3001 pnpm --dir apps/web exec playwright test tests/p1-live.e2e.ts --grep 'live settlement sources' --output=../../output/playwright/p1-deployment`: exit 0, one live settlement browser workflow passed after the safety repair. Genuine public primary-source reads; no Gemini/OpenAI/Bright Data calls. Evidence: `p1-deployment-live.log`.
+- `git diff --check`: pass. Final source/deployment diff reviewed. Exact proposal hash verified. Candidate tracked/untracked nonignored files contain zero configured credential values. Root `.env` remains ignored and mode 600.
+
+Remaining criteria: publish tested source branch with specific authorization, then create/verify public DigitalOcean app; Bright Data manufacturer scrape remains unproven and calls remain stopped per user. No P1 completion claim, P2 work, external claim submissions, GitHub posts or pushes.
