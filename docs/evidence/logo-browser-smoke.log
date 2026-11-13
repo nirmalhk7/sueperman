@@ -1,0 +1,62 @@
+WEB_URL=http://localhost:3001 pnpm --dir apps/web e2e
+$ playwright test
+
+Running 10 tests using 1 worker
+
+  -   1 tests/p1-live.e2e.ts:7:1 › live image extraction, human confirmation and CPSC recall export
+  -   2 tests/p1-live.e2e.ts:47:1 › live PDF extraction returns identifiers for review
+  -   3 tests/p1-live.e2e.ts:60:1 › live settlement sources stay distinct from personal eligibility and export locally
+(node:63010) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✓   4 tests/receipt-camera.e2e.ts:20:1 › camera photo is read into reviewable purchases without confirming identifiers (2.6s)
+  ✓   5 tests/receipt-camera.e2e.ts:48:1 › camera upload failure permits another photo without starting a purchase check (1.2s)
+  ✓   6 tests/stale-packet.e2e.ts:3:1 › withdrawn source verification disables local approval and export (2.3s)
+  ✓   7 tests/workflow.e2e.ts:4:1 › five purchases produce evidence-backed recall, safe export and visible negative cases (7.6s)
+  ✓   8 tests/workflow.e2e.ts:112:1 › demo selection stays five purchases after CSV import without deleting imported history (1.4s)
+  ✓   9 tests/workflow.e2e.ts:130:1 › decision detail explains selected action and hard-gate evidence (2.1s)
+  ✓  10 tests/workflow.e2e.ts:148:1 › scan identifiers require explicit review before confirmation (1.4s)
+
+  3 skipped
+  7 passed (20.9s)
+API_URL=http://localhost:8000 WEB_URL=http://localhost:3001 bash scripts/smoke_test.sh
+{"db":"ok","providers":[{"name":"csv","configured":true,"enabled":true,"healthy":true},{"name":"openai_receipts","configured":true,"enabled":true,"healthy":null},{"name":"cpsc","configured":true,"enabled":true,"healthy":null},{"name":"brightdata","configured":true,"enabled":false,"healthy":null},{"name":"gemini","configured":true,"enabled":true,"healthy":null},{"name":"openai","configured":true,"enabled":false,"healthy":null}],"demo_ready":true}{
+  "id": "2f831ed9-7641-44ff-9062-878fed8cd5b4",
+  "created_at": "2026-11-13T22:35:06.619906Z",
+  "updated_at": "2026-11-13T22:35:06.672631Z",
+  "demo": true,
+  "run_id": "2f831ed9-7641-44ff-9062-878fed8cd5b4",
+  "mode": "demo",
+  "status": "completed",
+  "summary": {
+    "products_scanned": 5,
+    "candidates": 4,
+    "verified_matches": 1,
+    "rejected": 1,
+    "needs_review": 1,
+    "simulated_settlements": 1,
+    "prepared_packets": 1
+  },
+  "provider_modes": {
+    "receipt": "csv",
+    "recall": "replay",
+    "research": "disabled",
+    "decision": "rules"
+  },
+  "warnings": [],
+  "opportunities": [
+    "ad904eff-45a4-4008-879d-face88dc836d",
+    "ab9e1c70-159d-4f75-ad31-dfb243958396",
+    "2de1910b-0237-45e4-9146-a32da7658268",
+    "bbff5370-31c6-4f01-8f96-fa2cda6f3430"
+  ],
+  "events_url": "/api/runs/2f831ed9-7641-44ff-9062-878fed8cd5b4/events",
+  "purchase_ids": [
+    "3bbec555-8ced-4316-ae7e-e52cdde2776c",
+    "11268721-9c45-4508-9930-d2280758e762",
+    "1deb65d4-2769-4d0e-a98a-ade973166ee2",
+    "b47085bb-d2ea-4f65-8b9e-c52dc10d36f9",
+    "4d96ec25-c8a0-41e4-a1e6-ea051793ad5d"
+  ],
+  "started_at": "2026-11-13T22:35:06.619578+00:00",
+  "completed_at": "2026-11-13T22:35:06.672525+00:00"
+}

@@ -232,3 +232,16 @@ Public receipt-camera verification — 2026-11-13:
 - Local app restarted with OpenAI photo reading configured and independent research/routing disabled. Existing Gemini PDF path retained locally. Public Gemini/Bright Data/decision routing remain off. Public daily cap is 10 attempted receipt calls per UTC day, per database, with explicit image/metadata/output limits; no provider-side billing-limit claim. Shared ephemeral demo and lack of account isolation remain disclosed.
 
 Requirement audit: mobile camera preference and desktop file fallback implemented; actual JPEG OCR uses user-selected OpenAI; normalized merchant/date/item facts displayed; identifiers remain explicit-review suggestions; invalid/unreadable/refused/incomplete responses import no products; budget and restart/concurrency/duplicate safeguards tested; CSV/PDF/P0 preserved; actual local/public live photo and browser evidence retained; no external claims or fabricated real purchases. Physical phone camera hardware has not been verified here. Separate logo/video edits remain untouched and uncommitted by this work.
+
+
+## Supplied logo and final deployment preparation — 2026-11-13
+
+User explicitly selected the attached receipt-shaped S logo and requested DigitalOcean deployment at the very end. Adopted the already-prepared local header image markup, copied the exact supplied transparent PNG without editing/recoloring/cropping, and added matching browser/Apple icon metadata. Asset SHA-256: 30b3b03b4406e39d89d8e398b21ef209a55fce1e8ee42ffd2b4ca265f2212fbd. Adjacent Sueperman text names the accessible home link; empty image alt avoids duplicating that name. Existing spacing and responsive layout preserved. Unrelated film work excluded.
+
+Acceptance/checks completed before deployment:
+- Current public acceptance RED: header image absent (logo-red.log). No pre-existing user changes discarded.
+- Local browser acceptance GREEN: exact asset bytes served, loaded header image, accessible home link, favicon, no horizontal overflow at 1440px and 390px. Header-only screenshots visually reviewed, with no purchase details captured. logo-local.json, logo-local-acceptance.log, output/playwright/logo-local/.
+- `make lint typecheck build`: exit 0, Ruff/ESLint/MyPy/TypeScript and optimized Next build passed. logo-build-checks.log.
+- `make test`: exit 0, 89 backend + 11 frontend tests. logo-unit-checks.log; existing upstream TestClient warning remains.
+- `make e2e smoke WEB_PORT=3001`: exit 0, seven browser flows passed, three paid/live tests deliberately skipped; exact fixture summary preserved. logo-browser-smoke.log. No paid provider calls.
+- Source diff reviewed. Deployment occurs only after this verified source and original asset are committed/pushed. The deployment will preserve API runtime secrets and receipt limits; public header/icon/health verification will follow as a read-only acceptance check.
