@@ -1,0 +1,55 @@
+{
+  "observed_at": "2026-11-13T22:00:31.552531+00:00",
+  "provider": "openai",
+  "model": "gpt-6-luna",
+  "mode": "live",
+  "input": "clearly labeled synthetic receipt JPEG",
+  "live_requests": 1,
+  "upload": {
+    "purchase_ids": [
+      "0d87b4ac-2ff4-4d72-a6c2-7552c682831e"
+    ],
+    "product_ids": [
+      "0be862cd-b250-4b4f-9eff-5d308b53ea9f"
+    ],
+    "parse_warnings": [
+      "Scanned identifiers are unverified suggestions. Review and confirm them before checking purchases."
+    ]
+  },
+  "products": [
+    {
+      "id": "0be862cd-b250-4b4f-9eff-5d308b53ea9f",
+      "created_at": "2026-11-13T22:00:31.543877Z",
+      "updated_at": "2026-11-13T22:00:31.543883Z",
+      "demo": false,
+      "purchase_id": "0d87b4ac-2ff4-4d72-a6c2-7552c682831e",
+      "product": {
+        "product_name": "Portable Power Bank",
+        "brand": "NEWDERY",
+        "model_number": null,
+        "upc": null,
+        "serial_prefix": null,
+        "batch": null,
+        "region": null,
+        "date_purchased": "2024-06-12",
+        "merchant": "Demo Store",
+        "order_reference_redacted": null,
+        "extraction_confidence": 0.5,
+        "user_confirmed_identifiers": false,
+        "suggested_identifiers": {
+          "model_number": "ZHX-PB22"
+        }
+      },
+      "source_type": "image"
+    }
+  ],
+  "identifiers_require_review": true,
+  "browser": {
+    "mobile_viewport": true,
+    "camera_preference": "environment",
+    "jpeg_upload": true,
+    "review_gate": true,
+    "cached_import_reused": true,
+    "additional_model_requests": 0
+  }
+}

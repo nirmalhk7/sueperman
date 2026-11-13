@@ -215,6 +215,7 @@ export function Dashboard() {
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState("");
   const [mode, setMode] = useState<"demo" | "live">("demo");
+  const [uploadMessage, setUploadMessage] = useState("");
   async function refresh() {
     setProducts(await api<Product[]>("/products"));
   }
@@ -247,6 +248,8 @@ export function Dashboard() {
   async function upload(file: File) {
     setBusy(true);
     setError("");
+    setUploadMessage(file.type.startsWith("image/") || file.type === "application/pdf"
+      ? "Reading receipt…" : "Importing purchases…");
     try {
       const form = new FormData();
       form.append("file", file);
@@ -255,6 +258,7 @@ export function Dashboard() {
     } catch (e) {
       setError((e as Error).message);
     } finally {
+      setUploadMessage("");
       setBusy(false);
     }
   }
@@ -316,7 +320,7 @@ export function Dashboard() {
             My purchases{" "}
             <span className="small">/ {products.length} items</span>
           </h2>
-          <span className="small">CSV · Up to 10MB · No account needed</span>
+          <span className="small">CSV · Receipt photo · PDF · Up to 10MB</span>
         </div>
         <div
           className="upload"
@@ -343,9 +347,32 @@ export function Dashboard() {
             disabled={busy}
             onChange={(e) => {
               const f = e.target.files?.[0];
+              e.target.value = "";
               if (f) void upload(f);
             }}
           />
+          <div className="section">
+            <label htmlFor="receipt-camera"><strong>Take receipt photo</strong></label>
+            <p className="small">
+              Use your phone’s rear camera, or choose a saved JPEG or PNG photo.
+              Capture the whole receipt in good light. We read visible text;
+              review the merchant, date and items before checking purchases.
+            </p>
+            <input
+              id="receipt-camera"
+              aria-label="Take receipt photo"
+              type="file"
+              accept="image/jpeg,image/png"
+              capture="environment"
+              disabled={busy}
+              onChange={(e) => {
+                const f = e.target.files?.[0];
+                e.target.value = "";
+                if (f) void upload(f);
+              }}
+            />
+          </div>
+          {uploadMessage && <p role="status">{uploadMessage}</p>}
         </div>
         {products.length > 0 && (
           <div className="panel table-wrap section">

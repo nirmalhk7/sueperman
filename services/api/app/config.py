@@ -23,6 +23,9 @@ class Settings(BaseSettings):
     system_one_model: str = "decisions"
     openai_enabled: bool = False
     openai_api_key: str = ""
+    openai_receipt_enabled: bool = False
+    openai_receipt_model: str = "gpt-6-luna"
+    openai_receipt_daily_limit: int = Field(default=10, ge=0, le=100)
     openai_decision_model: str = "gpt-6-luna"
     openai_max_calls_per_run: int = Field(default=3, ge=0, le=10)
     sentry_dsn: str = ""

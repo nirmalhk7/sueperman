@@ -18,6 +18,7 @@ def offline_provider_environment(monkeypatch):
     for key in [
         "SETTLEMENT_LIVE_ENABLED",
         "OPENAI_ENABLED",
+        "OPENAI_RECEIPT_ENABLED",
         "CPSC_LIVE_ENABLED",
         "GEMINI_ENABLED",
         "BRIGHTDATA_ENABLED",

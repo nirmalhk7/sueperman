@@ -14,6 +14,12 @@ class Base(DeclarativeBase):
     pass
 
 
+class ReceiptOCRUsage(Base):
+    __tablename__ = "receipt_ocr_usage"
+    day: Mapped[str] = mapped_column(String, primary_key=True)
+    calls: Mapped[int] = mapped_column(default=0)
+
+
 class Entity:
     id: Mapped[str] = mapped_column(String, primary_key=True, default=lambda: str(uuid4()))
     created_at: Mapped[str] = mapped_column(default=now)

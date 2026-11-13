@@ -14,6 +14,7 @@ from app.models import (
 )
 from app.providers.errors import ProviderUnavailable
 from app.providers.gemini import GeminiReceiptExtractor
+from app.providers.openai_receipt import OpenAIReceiptExtractor, reserve_receipt_call
 from app.providers.receipt import MAX_UPLOAD
 from app.schemas import IdentifierConfirmation, ImportResponse, ProductInput, ProductResponse
 
@@ -62,12 +63,23 @@ def register(app, factory, settings, import_products):
                     ],
                     "parse_warnings": ["Existing receipt import reused; no additional model request."],
                 }
-        if not settings.gemini_enabled or not settings.gemini_api_key:
+        use_openai = source_type == "image" and settings.openai_receipt_enabled
+        if use_openai:
+            if not settings.openai_api_key:
+                raise HTTPException(503, "Photo reading not configured; upload a UTF-8 CSV instead")
+            if not reserve_receipt_call(factory, settings.openai_receipt_daily_limit):
+                raise HTTPException(429, "Daily receipt-photo limit reached; try tomorrow or upload CSV")
+        elif not settings.gemini_enabled or not settings.gemini_api_key:
             raise HTTPException(503, "Receipt extraction not configured; upload a UTF-8 CSV instead")
         try:
-            extracted = await GeminiReceiptExtractor(settings.gemini_api_key, settings.gemini_model).extract(
-                content, file.content_type
-            )
+            if use_openai:
+                extracted = await OpenAIReceiptExtractor(
+                    settings.openai_api_key, settings.openai_receipt_model
+                ).extract(content, file.content_type)
+            else:
+                extracted = await GeminiReceiptExtractor(settings.gemini_api_key, settings.gemini_model).extract(
+                    content, file.content_type
+                )
         except ProviderUnavailable:
             raise HTTPException(503, "Receipt extraction unavailable; upload a UTF-8 CSV instead") from None
         with factory() as s:

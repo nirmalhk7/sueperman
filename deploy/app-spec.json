@@ -76,6 +76,24 @@
           "value": "production",
           "scope": "RUN_TIME",
           "type": "GENERAL"
+        },
+        {
+          "key": "OPENAI_RECEIPT_ENABLED",
+          "value": "true",
+          "scope": "RUN_TIME",
+          "type": "GENERAL"
+        },
+        {
+          "key": "OPENAI_RECEIPT_MODEL",
+          "value": "gpt-6-luna",
+          "scope": "RUN_TIME",
+          "type": "GENERAL"
+        },
+        {
+          "key": "OPENAI_RECEIPT_DAILY_LIMIT",
+          "value": "10",
+          "scope": "RUN_TIME",
+          "type": "GENERAL"
         }
       ],
       "git": {

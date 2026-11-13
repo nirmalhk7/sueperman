@@ -13,6 +13,11 @@ def register(app, factory, settings):
             "demo_ready": settings.demo_mode,
             "providers": [
                 {"name": "csv", "enabled": True, "configured": True, "healthy": True},
+                {
+                    "name": "openai_receipts",
+                    "enabled": settings.openai_receipt_enabled,
+                    "configured": bool(settings.openai_api_key),
+                },
                 {"name": "cpsc", "enabled": settings.cpsc_live_enabled, "configured": True},
                 {
                     "name": "brightdata",

@@ -200,3 +200,22 @@ Completion audit against the P1 objective:
 - Deployment: previously observed ACTIVE two-service app with public health/home HTTP 200 and public fixture/live-source browser flows; p1-digitalocean-deployment.json and related evidence. Paid model/research features remain off publicly to protect credits. This repair has not redeployed the public image.
 - Sentry: existing real local errors/traces/logs/masked replay/readable frames (sentry-proof.json); production monitoring delivery is explicitly unverified, not a P1 live-integration claim.
 - Docs and actual commands/results updated; no secrets in source, external claim submissions, fabricated purchases presented as real, or P2 work. Remaining documented boundaries concern coverage, shared ephemeral demo storage, public paid flags and production monitoring; no missing credential/account blocker remains for the required P1 integrations.
+
+
+## Receipt camera and user-selected OpenAI OCR — 2026-11-13
+
+User requested photographing a receipt and reading it, then explicitly chose OpenAI credits. Scope: mobile rear-camera preference plus desktop photo fallback; existing upload/normalized-product/review flow; separate OpenAI photo extraction and bounded public spend. Existing Gemini image/PDF extraction, CSV, hard eligibility gates and identifier confirmation remain supported. Separate uncommitted logo/video edits are excluded from this change.
+
+Acceptance mapping and observed red/green:
+- Camera request/JPEG upload/read-in-progress/review-only results and failed-upload retry: new mobile Playwright tests initially failed because no camera input existed. Added capture=environment with JPEG/PNG accept, reading feedback, disabled controls while reading and input reset. First green attempt caught overly broad status/alert test locators (existing Processing status and Next route announcer); scoped to intended messages. Final two tests pass without model calls.
+- OpenAI image extraction/shared strict receipt validation: initial integration tests returned 503 without any OpenAI request. New adapter uses vision-capable gpt-6-luna Responses API with strict structured output, store:false, no model tools, 1024 output-token cap and no retry. Merchant/date/item extraction, unknown identifiers, refusal/incomplete/invalid date/empty item rejection and duplicate reuse pass with actual transport boundaries doubled offline.
+- Image preparation: missing module RED; real JPEG decode/orientation/downsize/no EXIF/corruption checks GREEN. Added locked Pillow dependency. No raw image or camera metadata is added to stored product facts.
+- Shared daily budget: restart persistence and concurrent reservation tests RED before implementation; GREEN with atomic SQLite counter. Default 10 attempted requests per UTC day; duplicates checked before budget reservation; failed attempts remain counted. This is a request limit, not a provider monetary budget, and public ephemeral SQLite can reset on redeploy.
+- Installing Pillow exposed a pre-existing Gemini mixed-list type inference issue in MyPy. Typed the equivalent SDK user Content/Parts explicitly. Existing Gemini transport/receipt tests remain green; no extra paid Gemini request.
+- One genuine OpenAI upload of clearly synthetic JPEG returned merchant Demo Store, Portable Power Bank, date 2024-06-12; identifiers stayed unconfirmed. Evidence: receipt-camera-openai-live.json. Real mobile-browser input/upload/review used that cached photo (zero additional model calls): receipt-camera-live-browser.log and output/playwright/receipt-camera-live/mobile-reading.png.
+
+Local checkpoint:
+- `make test lint typecheck build`: exit 0; 88 backend tests, 11 frontend unit tests, Ruff/ESLint, MyPy (35 files), TypeScript and optimized Next Webpack build. receipt-camera-regression.log. Existing upstream TestClient deprecation warning remains.
+- `make e2e smoke WEB_PORT=3001`: exit 0; seven offline browser flows, three opt-in tests skipped; exact P0 fixture counts unchanged. receipt-camera-browser-smoke.log.
+- OpenAI-specific targeted backend suite: nine passed. Two mobile camera browser tests passed. Red/green logs retained.
+- Public receipt-photo deployment and actual public upload verification pending at this checkpoint. Runtime secret will be sent only to the API service, never source/frontend/build. No claims submitted; no additional research/routing model calls.

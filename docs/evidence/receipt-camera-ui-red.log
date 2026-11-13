@@ -1,0 +1,83 @@
+
+Running 2 tests using 1 worker
+
+(node:6148) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✘  1 tests/receipt-camera.e2e.ts:20:1 › camera photo is read into reviewable purchases without confirming identifiers (6.6s)
+(node:6365) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✘  2 tests/receipt-camera.e2e.ts:48:1 › camera upload failure permits another photo without starting a purchase check (32.5s)
+
+
+  1) tests/receipt-camera.e2e.ts:20:1 › camera photo is read into reviewable purchases without confirming identifiers
+
+    Error: expect(locator).toHaveAttribute(expected) failed
+
+    Locator: getByLabel('Take receipt photo', { exact: true })
+    Expected: "environment"
+    Timeout: 5000ms
+    Error: element(s) not found
+
+    Call log:
+      - Expect "toHaveAttribute" getByLabel('Take receipt photo', { exact: true }) with timeout 5000ms
+      - waiting for getByLabel('Take receipt photo', { exact: true })
+
+
+      33 |   await page.goto("/");
+      34 |   const camera = page.getByLabel("Take receipt photo", { exact: true });
+    > 35 |   await expect(camera).toHaveAttribute("capture", "environment");
+         |                        ^
+      36 |   await expect(camera).toHaveAttribute("accept", "image/jpeg,image/png");
+      37 |   try {
+      38 |     await camera.setInputFiles(path.resolve("../../demo/receipt-synthetic.jpg"));
+        at /Users/nirmalhk7/Documents/DevWorld/sueperman/apps/web/tests/receipt-camera.e2e.ts:35:24
+
+    attachment #1: video (video/webm) ──────────────────────────────────────────────────────────────
+    ../../output/playwright/receipt-camera-red/receipt-camera.e2e.ts-came-d092f-hout-confirming-identifiers/video.webm
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: ../../output/playwright/receipt-camera-red/receipt-camera.e2e.ts-came-d092f-hout-confirming-identifiers/error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    ../../output/playwright/receipt-camera-red/receipt-camera.e2e.ts-came-d092f-hout-confirming-identifiers/trace.zip
+    Usage:
+
+        pnpm exec playwright show-trace ../../output/playwright/receipt-camera-red/receipt-camera.e2e.ts-came-d092f-hout-confirming-identifiers/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  2) tests/receipt-camera.e2e.ts:48:1 › camera upload failure permits another photo without starting a purchase check
+
+    Test timeout of 30000ms exceeded.
+
+    Error: locator.setInputFiles: Test timeout of 30000ms exceeded.
+    Call log:
+      - waiting for getByLabel('Take receipt photo', { exact: true })
+
+
+      53 |   await page.goto("/");
+      54 |   const camera = page.getByLabel("Take receipt photo", { exact: true });
+    > 55 |   await camera.setInputFiles(path.resolve("../../demo/receipt-synthetic.jpg"));
+         |   ^
+      56 |   await expect(page.getByRole("alert")).toContainText("Daily receipt-photo limit reached");
+      57 |   await expect(camera).toBeEnabled();
+      58 |   await expect(camera).toHaveValue("");
+        at /Users/nirmalhk7/Documents/DevWorld/sueperman/apps/web/tests/receipt-camera.e2e.ts:55:3
+
+    attachment #1: video (video/webm) ──────────────────────────────────────────────────────────────
+    ../../output/playwright/receipt-camera-red/receipt-camera.e2e.ts-came-f4011-t-starting-a-purchase-check/video.webm
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: ../../output/playwright/receipt-camera-red/receipt-camera.e2e.ts-came-f4011-t-starting-a-purchase-check/error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    ../../output/playwright/receipt-camera-red/receipt-camera.e2e.ts-came-f4011-t-starting-a-purchase-check/trace.zip
+    Usage:
+
+        pnpm exec playwright show-trace ../../output/playwright/receipt-camera-red/receipt-camera.e2e.ts-came-f4011-t-starting-a-purchase-check/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  2 failed
+    tests/receipt-camera.e2e.ts:20:1 › camera photo is read into reviewable purchases without confirming identifiers
+    tests/receipt-camera.e2e.ts:48:1 › camera upload failure permits another photo without starting a purchase check
