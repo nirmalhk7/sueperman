@@ -1,0 +1,26 @@
+{
+  "detector": {
+    "ignoreRules": [],
+    "ignoreFiles": [],
+    "ignoreValues": [
+      {
+        "rule": "side-tab",
+        "value": "*",
+        "files": [
+          "apps/web/app/globals.css"
+        ],
+        "createdAt": "2026-11-13T20:30:25.829Z",
+        "reason": "Agent review: existing P0 .notice and .simulation styles are semantic safety and simulation banners with explicit text, not decorative card accents; preserve established warning differentiation."
+      },
+      {
+        "rule": "overused-font",
+        "value": "arial",
+        "files": [
+          "apps/web/app/globals.css"
+        ],
+        "createdAt": "2026-11-13T20:30:25.928Z",
+        "reason": "Agent review: existing P0 system-font stack supports the SPEC offline-first, no-key demo without external font downloads; typography redesign is outside current P1 scope."
+      }
+    ]
+  }
+}
