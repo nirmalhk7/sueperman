@@ -1,0 +1,20 @@
+F                                                                        [100%]
+=================================== FAILURES ===================================
+_________ test_unknown_schema_version_blocks_without_rebuilding_legacy _________
+
+tmp_path = PosixPath('/private/var/folders/k0/w3xrb_d95jn2t7nf2f0s05yr0000gp/T/pytest-of-nirmalhk7/pytest-139/test_unknown_schema_version_bl0')
+
+    def test_unknown_schema_version_blocks_without_rebuilding_legacy(tmp_path):
+        module, factory, product_id, _run_id, _product, _recall = setup(tmp_path)
+        engine = factory.kw["bind"]
+        module.setup_schema(engine)
+        with engine.begin() as connection:
+            connection.exec_driver_sql("UPDATE diwali_schema_versions SET version=2")
+>       with pytest.raises(RuntimeError, match="schema version"):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE RuntimeError
+
+services/api/tests/diwali/test_persistence.py:151: Failed
+=========================== short test summary info ============================
+FAILED services/api/tests/diwali/test_persistence.py::test_unknown_schema_version_blocks_without_rebuilding_legacy
+1 failed in 0.46s

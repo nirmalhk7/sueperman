@@ -1,0 +1,92 @@
+{
+  "provider": "band",
+  "scope": "five synthetic cases over live BAND SDK; no application DB/UI integration",
+  "source": "recorded",
+  "observed_at": "2026-11-15T09:09:10.991188+00:00",
+  "live": true,
+  "proof_status": "PARTIAL",
+  "application_gate_passed": false,
+  "post_attempts": 18,
+  "received": true,
+  "consumed": true,
+  "started_actors": 4,
+  "cases": [
+    {
+      "case": 1,
+      "outcome": "verified_match",
+      "types": [
+        "ResearchRequested",
+        "ResearchReport",
+        "ReviewRequested",
+        "ReviewReport",
+        "BuildRequested",
+        "BuildReport"
+      ],
+      "draft": true,
+      "golden_matched": true
+    },
+    {
+      "case": 2,
+      "outcome": "rejected",
+      "types": [
+        "ResearchRequested",
+        "ResearchReport",
+        "ReviewRequested",
+        "ReviewReport"
+      ],
+      "draft": false,
+      "golden_matched": true
+    },
+    {
+      "case": 3,
+      "outcome": "no_match",
+      "types": [
+        "ResearchRequested",
+        "ResearchReport"
+      ],
+      "draft": false,
+      "golden_matched": true
+    },
+    {
+      "case": 4,
+      "outcome": "needs_review",
+      "types": [
+        "ResearchRequested",
+        "ResearchReport",
+        "ReviewRequested",
+        "ReviewReport"
+      ],
+      "draft": false,
+      "golden_matched": true
+    },
+    {
+      "case": 5,
+      "outcome": "simulated_settlement",
+      "types": [
+        "ResearchRequested",
+        "ResearchReport"
+      ],
+      "draft": false,
+      "golden_matched": true
+    }
+  ],
+  "all_five_golden_cases_passed": true,
+  "cleanup_confirmed": true,
+  "actor_rejections": {
+    "manager": 0,
+    "researcher": 0,
+    "skeptic": 0,
+    "builder": 0
+  },
+  "tested_tree_digest": "a89cc0cbca16c0fd0d27bf2ffe306d57e27350a405d3ee8f9e7de27c5b83f004",
+  "tested_source_sha256": {
+    "services/api/app/diwali/band_bridge.py": "282e9dc55563e48b966658ea842e4202096e73561874a6b12e9ba0c5b66a109a",
+    "services/api/app/diwali/core.py": "1c992d4a8bcc65bcd1df927a10ce50ef402fdb5baa7147af31b6fbfc7fffacd8",
+    "services/api/app/diwali/message_schema.py": "e918cf0cd24ed56c24883c3bfefbd957ea1e2dce5299fa76c172f26460a2a958",
+    "services/api/pyproject.toml": "2f846f76a6f9bc640cedbda555ddc007e67424b1429a416bc5cbe07ca140e22c",
+    "services/api/uv.lock": "f033246cd2da081c8df37b926903ceec193750d80835a5b4017d79d16b165acf",
+    "services/api/app/collaboration/contracts.py": "f319c5399d558ad01e4f6309983b487b2590d8f45297871ccdd2ba0e80b1d572",
+    "services/api/app/collaboration/skill_package.py": "3a9c4335996f97402041f9b50a21e7e98dc5357863535ad7d95fd8567a73a530"
+  },
+  "probe_script_sha256": "33c550dd368516048ec5aba8e88f02fd2f79ad1e7e9d9b897be4f2afc34d4136"
+}

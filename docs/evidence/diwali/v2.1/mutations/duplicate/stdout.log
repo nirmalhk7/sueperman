@@ -1,0 +1,22 @@
+F                                                                        [100%]
+=================================== FAILURES ===================================
+___________________________ test_duplicate_delivery ____________________________
+
+    def test_duplicate_delivery():
+        module, state, report = researched()
+        accepted, _ = module.reduce_case(state, report)
+        repeated, commands = module.reduce_case(accepted, report)
+>       assert repeated == accepted
+E       AssertionError: assert CaseState(con... failure=None) == CaseState(con... failure=None)
+E         
+E         Omitting 16 identical items, use -vv to show
+E         Differing attributes:
+E         ['revision']
+E         
+E         Drill down into differing attribute revision:
+E           revision: 3 != 2
+
+services/api/tests/diwali/test_reducer.py:24: AssertionError
+=========================== short test summary info ============================
+FAILED services/api/tests/diwali/test_reducer.py::test_duplicate_delivery - A...
+1 failed in 0.15s

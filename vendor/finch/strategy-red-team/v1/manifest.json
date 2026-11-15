@@ -1,0 +1,11 @@
+{
+  "delivery": "finch",
+  "chain_id": "8453",
+  "skill_id": "311",
+  "version": "1",
+  "license": "MIT",
+  "sha256": "3758fcf6f2f2653721c9d58586f7816e17d47d4723b54a5d3457a6641d2663fc",
+  "reviewed": true,
+  "review_reference": "docs/evidence/diwali/finch-package-review.json",
+  "content_mode": "public"
+}

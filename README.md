@@ -58,6 +58,25 @@ All provider flags default off. Offline CSV/rules/recorded CPSC require no paid 
 
 See `docs/SPONSORS.md`: Bright Data search, manufacturer scraping and local evidence/export workflow are proven after activation. DigitalOcean public deployment is proven. The editable HyperFrames commercial and final MP4 are in [output/sueperman-film](output/sueperman-film/README.md); analytics databases remain unimplemented. Paid browser checks are opt-in: `P1_LIVE_E2E=1 WEB_URL=http://localhost:3001 pnpm --dir apps/web exec playwright test tests/p1-live.e2e.ts`. They may make two capped receipt calls on a fresh database. Start with `BRIGHTDATA_ENABLED=false OPENAI_ENABLED=false make dev WEB_PORT=3001` to avoid additional research/routing charges.
 
+## V2 P1 additions
+
+P1 adds reviewed CPSC normalizers for Flaunt `26-610` (`E33A`) and iStore `25-390` (`IST-09991/W05`), daily source watches, and a persistent evidence-readiness checklist. Exact model checks remain authoritative; changed official records require review. iStore's optional receipt is not required proof.
+
+For a trusted local instance, add these settings to the existing ignored `.env` without replacing credentials, then restart the backend:
+
+```dotenv
+P1_ENABLED=true
+CPSC_LIVE_ENABLED=true
+P1_MONITOR_ENABLED=true
+P1_MONITOR_POLL_SECONDS=60
+```
+
+Choose the existing live API mode to investigate additional notices. On a supported recall's evidence page, **Enable daily source checks** opts into a fixed 24-hour watch. Up to five watches can be active; checks pause during investigations. Changes or unavailable sources revoke approval and retain source history. Interrupted checks are disabled at restart until re-enabled. The app must remain running; SQLite on ephemeral hosting does not provide durable scheduling.
+
+On a recall draft, **Evidence readiness** records only what the user says is ready locally. It does not upload documents, verify proof, supply declarations or change eligibility. Checklist changes require renewed local approval; export labels these notes as self-reported. Source, product or policy changes reset readiness. Feature flags default off; no new paid provider is required. The application still has no account isolation, so this is not a private multi-user service.
+
+`make test` includes isolated P1 browser acceptance with recorded HTTP responses. The dedicated browser scenario is excluded from a bare `make e2e` because its controlled source server is required; the pytest harness runs all four scenarios without skips. Actual public CPSC and scheduler evidence, requirement coverage and remaining P0 gaps are in [P1 status](docs/DIWALI_P1.md). No P1 deployment or completion of Diwali sponsor gates is implied.
+
 ## Evidence and privacy
 
 All five demo purchase records are synthetic. CPSC recall 26-792 is a recorded real government notice; snapshot URL/time/raw hash are in `demo/PROVENANCE.md`. Cards identify replay versus live. The five-row demo settlement is fictional and has no claim portal. The separately verified live Kroger case is always labeled distinctly, with personal eligibility unconfirmed. No payout balances or guarantees appear.
@@ -83,3 +102,13 @@ Public shared demo: [Sueperman](https://sueperman-6t4xk.ondigitalocean.app). Use
 
 
 Receipt camera: choose **Take receipt photo** on a phone (rear-camera preference), or select a saved JPEG/PNG on desktop. Review extracted merchant/date/items and confirm identifiers before checking purchases. Set `OPENAI_RECEIPT_ENABLED=true` and server-only `OPENAI_API_KEY` to read photos with OpenAI `gpt-6-luna`; this is independent of decision routing. `OPENAI_RECEIPT_DAILY_LIMIT=10` caps attempted calls across the shared database per UTC day. Duplicate imported photos bypass calls. Photos are oriented, resized to a maximum 1600-pixel side, stripped of EXIF, and sent with `store:false`, no tools/retries, and a 1024-output-token cap. Input remains limited to 10MB/20 megapixels. Failed calls consume an attempt; malformed/unreadable results import no products. This is an application request cap, not an OpenAI billing cap. App Platform's ephemeral database can reset quotas on redeploy. PDF extraction retains the existing Gemini path.
+
+## V2 agent-team replay (provisional)
+
+Choose **Try demo data**, then **Investigate with agent team** beside a synthetic product. The opt-in case board shows Scout's candidate, Skeptic's source-linked challenge, one missing-fact question, deterministic decision and evidence. Exact ZHX-PB22 can prepare a local draft; ZHX-PB23 and unsupported suffix/punctuation variants reject; a missing model remains unresolved until explicitly answered. Answers create case-only revisions and do not edit V1 product records.
+
+This path runs entirely locally with no sponsor keys. Every role is deterministic **OFFLINE REPLAY**, with no BAND room or live sponsor execution. `POST /api/collaborations` accepts one existing product ID per case, a unique idempotency key, and `mode: "replay"` (default). `mode: "live"` currently returns explicit partial status; setting `COLLABORATION_LIVE_ENABLED=true` does not activate unimplemented sponsor adapters. Shared team demo defaults to synthetic products only (`COLLABORATION_PUBLIC_DEMO=true`). Keep that flag enabled publicly.
+
+Case history, task intents/results, snapshots and approval bindings persist additively in SQLite. Changes to product facts, evidence, rule or local checklist invalidate prior approval before export. Reset preserves products referenced by case history. Team drafts use separate case records and `/api/collaborations/{id}/claim-packet`, `/approve-local`, `/export` endpoints; V1 opportunity and claim-packet APIs remain compatible. This remains a process-local worker with partial status after interruption, not a durable job system.
+
+Run `make test` and `WEB_URL=http://localhost:3001 make e2e` with servers started on that web port. See [V2 status and R01–R18 acceptance accounting](docs/v2-status.md), [Diwali compliance and sponsor feasibility](docs/diwali-compliance.md), and [live integration next steps](docs/diwali-live-runbook.md). **P0 release remains incomplete** until all five real sponsor integrations, their safety checks, deployed acceptance, actual participant/authorship evidence and an AdaL-produced video are verified. Existing HyperFrames output is preserved and is not AdaL proof.

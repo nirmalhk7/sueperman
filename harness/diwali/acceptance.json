@@ -1,0 +1,236 @@
+{
+  "spec_version": "2.1",
+  "requirements": [
+    {
+      "id": "D01",
+      "gate": "G2",
+      "node": "services/api/tests/diwali/test_local_core.py::test_five_golden_outcomes",
+      "expected_assertion": "PB22 verified; exact source and one unsigned draft",
+      "evidence_path": "docs/evidence/diwali/v2.1/G2.json"
+    },
+    {
+      "id": "D02",
+      "gate": "G2",
+      "node": "services/api/tests/diwali/test_local_core.py::test_five_golden_outcomes",
+      "expected_assertion": "PB23 rejected with MODEL_MISMATCH; no builder",
+      "evidence_path": "docs/evidence/diwali/v2.1/G2.json"
+    },
+    {
+      "id": "D03",
+      "gate": "G2",
+      "node": "services/api/tests/diwali/test_local_core.py::test_five_golden_outcomes",
+      "expected_assertion": "Bottle no candidate",
+      "evidence_path": "docs/evidence/diwali/v2.1/G2.json"
+    },
+    {
+      "id": "D04",
+      "gate": "G2",
+      "node": "services/api/tests/diwali/test_local_core.py::test_five_golden_outcomes",
+      "expected_assertion": "Missing model asks one question",
+      "evidence_path": "docs/evidence/diwali/v2.1/G2.json"
+    },
+    {
+      "id": "D05",
+      "gate": "G2",
+      "node": "services/api/tests/diwali/test_local_core.py::test_five_golden_outcomes",
+      "expected_assertion": "Earbuds simulated only",
+      "evidence_path": "docs/evidence/diwali/v2.1/G2.json"
+    },
+    {
+      "id": "D06",
+      "gate": "G2",
+      "node": "services/api/tests/diwali/test_local_core.py::test_four_identities",
+      "expected_assertion": "Exactly manager/researcher/skeptic/builder",
+      "evidence_path": "docs/evidence/diwali/v2.1/G2.json"
+    },
+    {
+      "id": "D07",
+      "gate": "G2",
+      "node": "services/api/tests/diwali/test_local_core.py::test_golden_traces",
+      "expected_assertion": "Exact ordered 6/4/2-message traces",
+      "evidence_path": "docs/evidence/diwali/v2.1/G2.json"
+    },
+    {
+      "id": "D08",
+      "gate": "G2",
+      "node": "services/api/tests/diwali/test_local_core.py::test_transport_parity",
+      "expected_assertion": "Recorded transport same domain result",
+      "evidence_path": "docs/evidence/diwali/v2.1/G2.json"
+    },
+    {
+      "id": "D09",
+      "gate": "G2",
+      "node": "services/api/tests/diwali/test_reducer.py::test_duplicate_delivery",
+      "expected_assertion": "Same ID/digest no-op",
+      "evidence_path": "docs/evidence/diwali/v2.1/G2.json"
+    },
+    {
+      "id": "D10",
+      "gate": "G2",
+      "node": "services/api/tests/diwali/test_reducer.py::test_conflicting_duplicate",
+      "expected_assertion": "Conflicting reuse rejected",
+      "evidence_path": "docs/evidence/diwali/v2.1/G2.json"
+    },
+    {
+      "id": "D11",
+      "gate": "G2",
+      "node": "services/api/tests/diwali/test_reducer.py::test_wrong_sender_revision",
+      "expected_assertion": "Wrong sender/revision rejected",
+      "evidence_path": "docs/evidence/diwali/v2.1/G2.json"
+    },
+    {
+      "id": "D12",
+      "gate": "G2",
+      "node": "services/api/tests/diwali/test_reducer.py::test_terminal_late_message",
+      "expected_assertion": "DONE unchanged",
+      "evidence_path": "docs/evidence/diwali/v2.1/G2.json"
+    },
+    {
+      "id": "D13",
+      "gate": "G2",
+      "node": "services/api/tests/diwali/test_local_core.py::test_missing_purchase_model",
+      "expected_assertion": "No follow-up for private purchase fact",
+      "evidence_path": "docs/evidence/diwali/v2.1/G2.json"
+    },
+    {
+      "id": "D14",
+      "gate": "G2",
+      "node": "services/api/tests/diwali/test_reducer.py::test_public_followup",
+      "expected_assertion": "One public follow-up",
+      "evidence_path": "docs/evidence/diwali/v2.1/G2.json"
+    },
+    {
+      "id": "D15",
+      "gate": "G2",
+      "node": "services/api/tests/diwali/test_reducer.py::test_unresolved_second_review",
+      "expected_assertion": "Second unresolved review terminates",
+      "evidence_path": "docs/evidence/diwali/v2.1/G2.json"
+    },
+    {
+      "id": "D16",
+      "gate": "G3",
+      "node": "services/api/tests/diwali/test_api.py::test_default_compatibility",
+      "expected_assertion": "Omitted fields preserve V1 response",
+      "evidence_path": "docs/evidence/diwali/v2.1/G3.json"
+    },
+    {
+      "id": "D17",
+      "gate": "G3",
+      "node": "services/api/tests/diwali/test_api.py::test_idempotency_modes",
+      "expected_assertion": "Same key different effective mode 409",
+      "evidence_path": "docs/evidence/diwali/v2.1/G3.json"
+    },
+    {
+      "id": "D18",
+      "gate": "G3",
+      "node": "services/api/tests/diwali/test_api.py::test_feature_off_parity",
+      "expected_assertion": "Five V1 outcomes with feature off",
+      "evidence_path": "docs/evidence/diwali/v2.1/G3.json"
+    },
+    {
+      "id": "D19",
+      "gate": "G3",
+      "node": "services/api/tests/diwali/test_persistence.py::test_finalization_rollback",
+      "expected_assertion": "Domain rows and finalization roll back together",
+      "evidence_path": "docs/evidence/diwali/v2.1/G3.json"
+    },
+    {
+      "id": "D20",
+      "gate": "G3",
+      "node": "services/api/tests/diwali/test_persistence.py::test_restart_cancels_tasks",
+      "expected_assertion": "Restart cancels pending tasks",
+      "evidence_path": "docs/evidence/diwali/v2.1/G3.json"
+    },
+    {
+      "id": "D21",
+      "gate": "G3",
+      "node": "services/api/tests/diwali/test_persistence.py::test_stale_evidence",
+      "expected_assertion": "Changed digests block approval",
+      "evidence_path": "docs/evidence/diwali/v2.1/G3.json"
+    },
+    {
+      "id": "D22",
+      "gate": "G3",
+      "node": "services/api/tests/diwali/test_persistence.py::test_no_repeat_side_effect",
+      "expected_assertion": "No repeated work on duplicate or restart",
+      "evidence_path": "docs/evidence/diwali/v2.1/G3.json"
+    },
+    {
+      "id": "D23",
+      "gate": "G5",
+      "node": "services/api/tests/diwali/test_lyzr_contract.py::test_invalid_response",
+      "expected_assertion": "Reject invalid JSON/ref/tool instruction",
+      "evidence_path": "docs/evidence/diwali/v2.1/G5.json"
+    },
+    {
+      "id": "D24",
+      "gate": "G2",
+      "node": "services/api/tests/diwali/test_local_core.py::test_untrusted_source",
+      "expected_assertion": "Reject injection and SSRF",
+      "evidence_path": "docs/evidence/diwali/v2.1/G2.json"
+    },
+    {
+      "id": "D25",
+      "gate": "G2",
+      "node": "services/api/tests/diwali/test_local_core.py::test_network_denied",
+      "expected_assertion": "No-key local transport cannot reach network",
+      "evidence_path": "docs/evidence/diwali/v2.1/G2.json"
+    },
+    {
+      "id": "D26",
+      "gate": "G3",
+      "node": "services/api/tests/diwali/test_api.py::test_unapproved_export",
+      "expected_assertion": "Export before local approval rejected",
+      "evidence_path": "docs/evidence/diwali/v2.1/G3.json"
+    },
+    {
+      "id": "D27",
+      "gate": "G3",
+      "node": "services/api/tests/diwali/test_api.py::test_provenance",
+      "expected_assertion": "Local transport and recorded source distinct",
+      "evidence_path": "docs/evidence/diwali/v2.1/G3.json"
+    },
+    {
+      "id": "D28",
+      "gate": "G3",
+      "node": "services/api/tests/diwali/test_ui.py::test_browser_error_empty_states",
+      "expected_assertion": "Rendered error and empty states",
+      "evidence_path": "docs/evidence/diwali/v2.1/G3.json"
+    },
+    {
+      "id": "D29",
+      "gate": "G3",
+      "node": "services/api/tests/diwali/test_ui.py::test_browser_packet_workflow",
+      "expected_assertion": "Real browser review/approve/export",
+      "evidence_path": "docs/evidence/diwali/v2.1/G3.json"
+    },
+    {
+      "id": "D30",
+      "gate": "G1",
+      "node": "services/api/tests/diwali/test_harness.py::test_proof_requires_artifact",
+      "expected_assertion": "No claimed proof without observed artifact",
+      "evidence_path": "docs/evidence/diwali/v2.1/G1.json"
+    },
+    {
+      "id": "D31",
+      "gate": "G1",
+      "node": "services/api/tests/diwali/test_harness.py::test_skips_cannot_pass",
+      "expected_assertion": "Required tests cannot skip or xfail",
+      "evidence_path": "docs/evidence/diwali/v2.1/G1.json"
+    },
+    {
+      "id": "D32",
+      "gate": "G1",
+      "node": "services/api/tests/diwali/test_harness.py::test_baseline_integrity",
+      "expected_assertion": "Evidence tied to protected tree and fixture digests",
+      "evidence_path": "docs/evidence/diwali/v2.1/G1.json"
+    }
+  ],
+  "gate_checks": {
+    "G0": [],
+    "G1": [
+      "services/api/tests/diwali/test_messages.py",
+      "services/api/tests/diwali/test_harness.py"
+    ]
+  }
+}

@@ -1,0 +1,164 @@
+[
+  {
+    "status": "PASS",
+    "target": "services/api/app/matching/recall.py",
+    "before": "model in [normalize_model(m) for m in recall.models] if model and recall.models else None",
+    "after": "True if model and recall.models else None",
+    "observed_exit_code": 1,
+    "check": {
+      "command": [
+        "/Users/nirmalhk7/Documents/DevWorld/sueperman/services/api/.venv/bin/python",
+        "-m",
+        "pytest",
+        "services/api/tests/diwali/test_local_core.py::test_five_golden_outcomes",
+        "-q",
+        "--strict-markers",
+        "-o",
+        "xfail_strict=true",
+        "--junitxml=/Users/nirmalhk7/Documents/DevWorld/sueperman/docs/evidence/diwali/v2.1/mutations/pb23/pytest.xml"
+      ],
+      "status": "FAIL",
+      "exit_code": 1,
+      "duration_seconds": 0.4861760000931099,
+      "stdout_path": "/Users/nirmalhk7/Documents/DevWorld/sueperman/docs/evidence/diwali/v2.1/mutations/pb23/stdout.log",
+      "stderr_path": "/Users/nirmalhk7/Documents/DevWorld/sueperman/docs/evidence/diwali/v2.1/mutations/pb23/stderr.log",
+      "tests": 1
+    },
+    "mutation": "pb23"
+  },
+  {
+    "status": "PASS",
+    "target": "services/api/app/diwali/core.py",
+    "before": "outcome=\"needs_review\", question_field=\"model_number\"",
+    "after": "outcome=\"verified_match\", question_field=\"model_number\"",
+    "observed_exit_code": 1,
+    "check": {
+      "command": [
+        "/Users/nirmalhk7/Documents/DevWorld/sueperman/services/api/.venv/bin/python",
+        "-m",
+        "pytest",
+        "services/api/tests/diwali/test_local_core.py::test_missing_purchase_model",
+        "-q",
+        "--strict-markers",
+        "-o",
+        "xfail_strict=true",
+        "--junitxml=/Users/nirmalhk7/Documents/DevWorld/sueperman/docs/evidence/diwali/v2.1/mutations/unknown/pytest.xml"
+      ],
+      "status": "FAIL",
+      "exit_code": 1,
+      "duration_seconds": 0.4077775829937309,
+      "stdout_path": "/Users/nirmalhk7/Documents/DevWorld/sueperman/docs/evidence/diwali/v2.1/mutations/unknown/stdout.log",
+      "stderr_path": "/Users/nirmalhk7/Documents/DevWorld/sueperman/docs/evidence/diwali/v2.1/mutations/unknown/stderr.log",
+      "tests": 1
+    },
+    "mutation": "unknown"
+  },
+  {
+    "status": "PASS",
+    "target": "services/api/app/api/claims.py",
+    "before": "if packet.payload[\"status\"] not in {\"approved_local\", \"exported\"}:",
+    "after": "if False:",
+    "observed_exit_code": 1,
+    "check": {
+      "command": [
+        "/Users/nirmalhk7/Documents/DevWorld/sueperman/services/api/.venv/bin/python",
+        "-m",
+        "pytest",
+        "services/api/tests/diwali/test_api.py::test_unapproved_export",
+        "-q",
+        "--strict-markers",
+        "-o",
+        "xfail_strict=true",
+        "--junitxml=/Users/nirmalhk7/Documents/DevWorld/sueperman/docs/evidence/diwali/v2.1/mutations/approval/pytest.xml"
+      ],
+      "status": "FAIL",
+      "exit_code": 1,
+      "duration_seconds": 1.2780795000726357,
+      "stdout_path": "/Users/nirmalhk7/Documents/DevWorld/sueperman/docs/evidence/diwali/v2.1/mutations/approval/stdout.log",
+      "stderr_path": "/Users/nirmalhk7/Documents/DevWorld/sueperman/docs/evidence/diwali/v2.1/mutations/approval/stderr.log",
+      "tests": 1
+    },
+    "mutation": "approval"
+  },
+  {
+    "status": "PASS",
+    "target": "services/api/app/diwali/core.py",
+    "before": "raise ValueError(\"Conflicting message ID reuse\")\n        return state, ()",
+    "after": "raise ValueError(\"Conflicting message ID reuse\")\n        return replace(state, revision=state.revision + 1), ()",
+    "observed_exit_code": 1,
+    "check": {
+      "command": [
+        "/Users/nirmalhk7/Documents/DevWorld/sueperman/services/api/.venv/bin/python",
+        "-m",
+        "pytest",
+        "services/api/tests/diwali/test_reducer.py::test_duplicate_delivery",
+        "-q",
+        "--strict-markers",
+        "-o",
+        "xfail_strict=true",
+        "--junitxml=/Users/nirmalhk7/Documents/DevWorld/sueperman/docs/evidence/diwali/v2.1/mutations/duplicate/pytest.xml"
+      ],
+      "status": "FAIL",
+      "exit_code": 1,
+      "duration_seconds": 0.4209953329991549,
+      "stdout_path": "/Users/nirmalhk7/Documents/DevWorld/sueperman/docs/evidence/diwali/v2.1/mutations/duplicate/stdout.log",
+      "stderr_path": "/Users/nirmalhk7/Documents/DevWorld/sueperman/docs/evidence/diwali/v2.1/mutations/duplicate/stderr.log",
+      "tests": 1
+    },
+    "mutation": "duplicate"
+  },
+  {
+    "status": "PASS",
+    "target": "services/api/app/diwali/coordinator.py",
+    "before": "run.status = \"partial\" if surviving_results(session, run_id) else \"failed\"",
+    "after": "run.status = \"completed\"",
+    "observed_exit_code": 1,
+    "check": {
+      "command": [
+        "/Users/nirmalhk7/Documents/DevWorld/sueperman/services/api/.venv/bin/python",
+        "-m",
+        "pytest",
+        "services/api/tests/diwali/test_failures.py::test_malformed_result_closes_case_without_packet",
+        "-q",
+        "--strict-markers",
+        "-o",
+        "xfail_strict=true",
+        "--junitxml=/Users/nirmalhk7/Documents/DevWorld/sueperman/docs/evidence/diwali/v2.1/mutations/provider-failure/pytest.xml"
+      ],
+      "status": "FAIL",
+      "exit_code": 1,
+      "duration_seconds": 0.7356386249884963,
+      "stdout_path": "/Users/nirmalhk7/Documents/DevWorld/sueperman/docs/evidence/diwali/v2.1/mutations/provider-failure/stdout.log",
+      "stderr_path": "/Users/nirmalhk7/Documents/DevWorld/sueperman/docs/evidence/diwali/v2.1/mutations/provider-failure/stderr.log",
+      "tests": 1
+    },
+    "mutation": "provider-failure"
+  },
+  {
+    "status": "PASS",
+    "target": "services/api/app/api/runs.py",
+    "before": "\"actual_transport\": \"local\"",
+    "after": "\"actual_transport\": \"band\"",
+    "observed_exit_code": 1,
+    "check": {
+      "command": [
+        "/Users/nirmalhk7/Documents/DevWorld/sueperman/services/api/.venv/bin/python",
+        "-m",
+        "pytest",
+        "services/api/tests/diwali/test_api.py::test_provenance",
+        "-q",
+        "--strict-markers",
+        "-o",
+        "xfail_strict=true",
+        "--junitxml=/Users/nirmalhk7/Documents/DevWorld/sueperman/docs/evidence/diwali/v2.1/mutations/false-band/pytest.xml"
+      ],
+      "status": "FAIL",
+      "exit_code": 1,
+      "duration_seconds": 1.0725129579659551,
+      "stdout_path": "/Users/nirmalhk7/Documents/DevWorld/sueperman/docs/evidence/diwali/v2.1/mutations/false-band/stdout.log",
+      "stderr_path": "/Users/nirmalhk7/Documents/DevWorld/sueperman/docs/evidence/diwali/v2.1/mutations/false-band/stderr.log",
+      "tests": 1
+    },
+    "mutation": "false-band"
+  }
+]

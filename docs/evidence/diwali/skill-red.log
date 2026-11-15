@@ -1,0 +1,32 @@
+F                                                                        [100%]
+=================================== FAILURES ===================================
+_______ test_skill_hash_review_license_and_identity_required_before_use ________
+
+    def verifier():
+        try:
+>           from app.collaboration.skill_package import reviewed_package
+E           ModuleNotFoundError: No module named 'app.collaboration.skill_package'
+
+services/api/tests/collaboration/test_skill_package.py:9: ModuleNotFoundError
+
+During handling of the above exception, another exception occurred:
+
+    def test_skill_hash_review_license_and_identity_required_before_use():
+>       verify = verifier()
+                 ^^^^^^^^^^
+
+services/api/tests/collaboration/test_skill_package.py:16: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    def verifier():
+        try:
+            from app.collaboration.skill_package import reviewed_package
+            return reviewed_package
+        except ImportError:
+>           pytest.fail("Reviewed skill package gate missing")
+E           Failed: Reviewed skill package gate missing
+
+services/api/tests/collaboration/test_skill_package.py:12: Failed
+=========================== short test summary info ============================
+FAILED services/api/tests/collaboration/test_skill_package.py::test_skill_hash_review_license_and_identity_required_before_use
+1 failed in 0.15s

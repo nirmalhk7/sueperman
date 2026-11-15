@@ -1,0 +1,82 @@
+F                                                                        [100%]
+=================================== FAILURES ===================================
+_______________________ test_browser_error_empty_states ________________________
+
+browser_env = (PosixPath('/private/var/folders/k0/w3xrb_d95jn2t7nf2f0s05yr0000gp/T/pytest-of-nirmalhk7/pytest-141/diwali-browser0/we...tents/MacOS/codex', ...}, PosixPath('/Users/nirmalhk7/Documents/DevWorld/sueperman/docs/evidence/diwali/v2.1/browser'))
+
+    def test_browser_error_empty_states(browser_env):
+>       check_browser(browser_env, "Diwali error and empty states")
+
+services/api/tests/diwali/test_ui.py:102: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+browser_env = (PosixPath('/private/var/folders/k0/w3xrb_d95jn2t7nf2f0s05yr0000gp/T/pytest-of-nirmalhk7/pytest-141/diwali-browser0/we...tents/MacOS/codex', ...}, PosixPath('/Users/nirmalhk7/Documents/DevWorld/sueperman/docs/evidence/diwali/v2.1/browser'))
+name = 'Diwali error and empty states'
+
+    def check_browser(browser_env, name):
+        web, env, logs = browser_env
+        command = ["node", str(ROOT / "apps/web/node_modules/@playwright/test/cli.js"), "test", "diwali.e2e.ts", "--grep", name]
+        result = subprocess.run(command, cwd=web, env=env, capture_output=True, text=True, timeout=120, check=False)
+        (logs / (name.replace(" ", "-") + ".log")).write_text(result.stdout + result.stderr)
+>       assert result.returncode == 0, result.stdout + result.stderr
+E       AssertionError: 
+E         Running 1 test using 1 worker
+E         
+E           ✘  1 tests/diwali.e2e.ts:36:1 › Diwali error and empty states (32.3s)
+E         
+E         
+E           1) tests/diwali.e2e.ts:36:1 › Diwali error and empty states ──────────────────────────────────────
+E         
+E             Test timeout of 30000ms exceeded.
+E         
+E             Error: page.waitForResponse: Test timeout of 30000ms exceeded.
+E         
+E               53 |   });
+E               54 |   await page.reload();
+E             > 55 |   const fallback = page.waitForResponse(response => response.request().method() === "POST" && response.url().endsWith("/api/runs"));
+E                  |                         ^
+E               56 |   await page.getByRole("button", { name: "Run recorded-source workflow separately" }).click();
+E               57 |   const next = await (await fallback).json();
+E               58 |   expect(next.run_id).not.toBe(started.run_id);
+E                 at /private/var/folders/k0/w3xrb_d95jn2t7nf2f0s05yr0000gp/T/pytest-of-nirmalhk7/pytest-141/diwali-browser0/web/tests/diwali.e2e.ts:55:25
+E         
+E             Error: locator.click: Test timeout of 30000ms exceeded.
+E             Call log:
+E               - waiting for getByRole('button', { name: 'Run recorded-source workflow separately' })
+E         
+E         
+E               54 |   await page.reload();
+E               55 |   const fallback = page.waitForResponse(response => response.request().method() === "POST" && response.url().endsWith("/api/runs"));
+E             > 56 |   await page.getByRole("button", { name: "Run recorded-source workflow separately" }).click();
+E                  |                                                                                       ^
+E               57 |   const next = await (await fallback).json();
+E               58 |   expect(next.run_id).not.toBe(started.run_id);
+E               59 |   expect(next.fallback_of).toBe(started.run_id);
+E                 at /private/var/folders/k0/w3xrb_d95jn2t7nf2f0s05yr0000gp/T/pytest-of-nirmalhk7/pytest-141/diwali-browser0/web/tests/diwali.e2e.ts:56:87
+E         
+E             Error Context: test-results/diwali.e2e.ts-Diwali-error-and-empty-states/error-context.md
+E         
+E             attachment #2: video (video/webm) ──────────────────────────────────────────────────────────────
+E             test-results/diwali.e2e.ts-Diwali-error-and-empty-states/video.webm
+E             ────────────────────────────────────────────────────────────────────────────────────────────────
+E         
+E             attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+E             test-results/diwali.e2e.ts-Diwali-error-and-empty-states/trace.zip
+E             Usage:
+E         
+E                 npx playwright show-trace test-results/diwali.e2e.ts-Diwali-error-and-empty-states/trace.zip
+E         
+E             ────────────────────────────────────────────────────────────────────────────────────────────────
+E         
+E           1 failed
+E             tests/diwali.e2e.ts:36:1 › Diwali error and empty states ───────────────────────────────────────
+E         (node:74219) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+E         (Use `node --trace-warnings ...` to show where the warning was created)
+E         
+E       assert 1 == 0
+E        +  where 1 = CompletedProcess(args=['node', '/Users/nirmalhk7/Documents/DevWorld/sueperman/apps/web/node_modules/@playwright/test/c...ed due to the 'FORCE_COLOR' env being set.\n(Use `node --trace-warnings ...` to show where the warning was created)\n").returncode
+
+services/api/tests/diwali/test_ui.py:97: AssertionError
+=========================== short test summary info ============================
+FAILED services/api/tests/diwali/test_ui.py::test_browser_error_empty_states
+1 failed in 54.08s

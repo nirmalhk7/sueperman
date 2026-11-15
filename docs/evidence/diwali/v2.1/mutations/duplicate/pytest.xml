@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="1" skipped="0" tests="1" time="0.154" timestamp="2026-11-14T23:56:48.766512-08:00" hostname="EXCALIBUR.local"><testcase classname="tests.diwali.test_reducer" name="test_duplicate_delivery" time="0.031"><failure message="AssertionError: assert CaseState(con... failure=None) == CaseState(con... failure=None)&#10;  &#10;  Omitting 16 identical items, use -vv to show&#10;  Differing attributes:&#10;  ['revision']&#10;  &#10;  Drill down into differing attribute revision:&#10;    revision: 3 != 2">def test_duplicate_delivery():
+        module, state, report = researched()
+        accepted, _ = module.reduce_case(state, report)
+        repeated, commands = module.reduce_case(accepted, report)
+&gt;       assert repeated == accepted
+E       AssertionError: assert CaseState(con... failure=None) == CaseState(con... failure=None)
+E         
+E         Omitting 16 identical items, use -vv to show
+E         Differing attributes:
+E         ['revision']
+E         
+E         Drill down into differing attribute revision:
+E           revision: 3 != 2
+
+services/api/tests/diwali/test_reducer.py:24: AssertionError</failure></testcase></testsuite></testsuites>

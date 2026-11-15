@@ -1,0 +1,29 @@
+{
+  "status": "PASS",
+  "scope": "Two sequential application lifespans on one disposable SQLite database",
+  "readiness_survived_restart": true,
+  "binding_preserved": true,
+  "approval_required_after_restart": true,
+  "local_export_verified": true,
+  "source_mode": "recorded",
+  "paid_calls": 0,
+  "claims_submitted": 0,
+  "tested_tree_digest": "0bdbaa20c72aec52d5b721d13e094c49256720be22f9f53d495d3fc085e25a8b",
+  "tested_source_sha256": {
+    "services/api/app/p1/monitoring.py": "057c85a4994a75cd8ce9a3854b42e7e9a1b58db7359a085279d1742dc986c80f",
+    "services/api/app/p1/obligations.py": "c5df92fbe39e42834ecdfe65ba328cc639cfc4368f1db18fd25137ed517ad8cc",
+    "services/api/app/p1/normalizers.py": "3a99f336dfc9eae63538769a5a8483e2777ac7b6bd658e40a602771bde103e6f",
+    "services/api/app/p1/__init__.py": "ff99f2a4df56c6f6651af576d81e71b2580bd5b4e167096ab9f1184f8154f1cf",
+    "services/api/app/p1/api.py": "f39cf056d0cdc11e1dcf19fdfc1314398fd0940afdda49246f7995368b992b80",
+    "services/api/app/p1/normalizers.json": "708acba992cf5480cfc59bc048427cd93f96c501642baf66be13fb345cf55ba6",
+    "services/api/app/matching/recall.py": "218a49f501e3d3f8dd8e6bc6fb38dacb9e77851e104e04771c53b7044b6518e6",
+    "services/api/app/providers/cpsc.py": "26be96d35b2e750ecdee4d3049a58a82ac5177986661ac21e27771e8ea15b469",
+    "services/api/app/agent/orchestrator.py": "7ca02e678cdc8d213f235b97cf475168bf4fcab1debec76d7369a7fdf70d6156",
+    "services/api/app/api/claims.py": "b7de3f7faeaf82521810712125605ca985c4fb855167c483199a312caebc7518",
+    "services/api/app/main.py": "c8c7cfeb07de0c3e0ff03c980db9fd46d44692a847453ff7cf2acdd5e85d3875",
+    "services/api/app/config.py": "da0848877fccbbe2d95cc64a07ce0c4b51f9a98d1f447decbfe7994b8e0c86e7",
+    "apps/web/components/p1-controls.tsx": "ee970b5b756dcb55437d275139faedac42470cdd1c0ce4227734cbebc0d86828",
+    "apps/web/app/claims/[id]/page.tsx": "fb51fec8a6277919c872de448417a6a122fd40e00d4d87661b69b8a881abd433",
+    "apps/web/app/opportunities/[id]/page.tsx": "838b55021ce5a6d140492aa9422b59a9daefe2cff6e3875542e3136e550a4dea"
+  }
+}

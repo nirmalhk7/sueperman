@@ -1,7 +1,7 @@
 {
   "version": 1,
   "historyId": "bda1f7ce-ac59-4d42-acfa-f6f32cef8f5b",
-  "currentRevision": "1a6e2625-bc81-44d9-adaa-14bd35469a59",
+  "currentRevision": "5937c030-9d27-43bf-b9e1-85f60b9ac519",
   "pendingChanges": true,
   "files": {
     "AGENTS.md": {
@@ -281,8 +281,8 @@
       "content": "/Users/nirmalhk7/.cache/hyperframes/history/bda1f7ce-ac59-4d42-acfa-f6f32cef8f5b/blobs/bb/bb3d12accf0da3c8b66c886cb198612baebde79511848385afa4c979afefc16d"
     },
     "index.html": {
-      "hash": "ec0bf411c87ef125684e844103d10558ce8b15972f630838f213aafa50baadd6",
-      "content": "/Users/nirmalhk7/.cache/hyperframes/history/bda1f7ce-ac59-4d42-acfa-f6f32cef8f5b/blobs/ec/ec0bf411c87ef125684e844103d10558ce8b15972f630838f213aafa50baadd6"
+      "hash": "104cc3276fbf097fbea9e5bd6c47b005fbcc99463b19f4760d6390ffb33ce0ea",
+      "content": "/Users/nirmalhk7/.cache/hyperframes/history/bda1f7ce-ac59-4d42-acfa-f6f32cef8f5b/blobs/10/104cc3276fbf097fbea9e5bd6c47b005fbcc99463b19f4760d6390ffb33ce0ea"
     },
     "make_audio.py": {
       "hash": "deed7ca41c30586b05d86a108ed6d11af7c91e670f084ae5b65f8d27599a2eef",
@@ -463,6 +463,10 @@
     "Lois-Lane-2026-11-13-14-53-Are-you-kidding-me-[angry] (2).mp3": {
       "hash": "dc1bc5824b7e21ebcc8f455248295755680723fba62deebbca3e1057b8e9b559",
       "content": "/Users/nirmalhk7/.cache/hyperframes/history/bda1f7ce-ac59-4d42-acfa-f6f32cef8f5b/blobs/dc/dc1bc5824b7e21ebcc8f455248295755680723fba62deebbca3e1057b8e9b559"
+    },
+    "Pokemon-Movie-PPG-Movie-Voice-Trailer-2026-11-13-15-05-Its-an-ordinary-day-in-Metropolis,-but-with-grea.mp3": {
+      "hash": "1553a20628d1cbc201ecdab4bd7a71aaf0cc5edbdc3b5e01c48131e1bcd82a1c",
+      "content": "/Users/nirmalhk7/.cache/hyperframes/history/bda1f7ce-ac59-4d42-acfa-f6f32cef8f5b/blobs/15/1553a20628d1cbc201ecdab4bd7a71aaf0cc5edbdc3b5e01c48131e1bcd82a1c"
     }
   },
   "revisions": {
@@ -2196,6 +2200,51 @@
         "index.html": {
           "before": "/Users/nirmalhk7/.cache/hyperframes/history/bda1f7ce-ac59-4d42-acfa-f6f32cef8f5b/blobs/5d/5d1ab4b0cb93abf30f9d28b3853c26cf8eb297e23a7382f37bb2b5ee8c2869a3",
           "after": "/Users/nirmalhk7/.cache/hyperframes/history/bda1f7ce-ac59-4d42-acfa-f6f32cef8f5b/blobs/8f/8f95491a9a5f7e96376e8f6d1e6da9021b87d5ce663cce88b88c55daea797fda"
+        }
+      }
+    },
+    "594a54df-afac-4ca4-bf5c-2b0ea687aac1": {
+      "actor": {
+        "kind": "person",
+        "name": "You"
+      },
+      "label": "Delete timeline clip",
+      "startedAt": 1794610441854,
+      "endedAt": 1794610441854,
+      "files": {
+        "index.html": {
+          "before": "/Users/nirmalhk7/.cache/hyperframes/history/bda1f7ce-ac59-4d42-acfa-f6f32cef8f5b/blobs/8f/8f95491a9a5f7e96376e8f6d1e6da9021b87d5ce663cce88b88c55daea797fda",
+          "after": "/Users/nirmalhk7/.cache/hyperframes/history/bda1f7ce-ac59-4d42-acfa-f6f32cef8f5b/blobs/ec/ec0bf411c87ef125684e844103d10558ce8b15972f630838f213aafa50baadd6"
+        }
+      }
+    },
+    "ed905e48-9643-408d-abaf-f032ce2954ee": {
+      "actor": {
+        "kind": "outside",
+        "name": "Outside"
+      },
+      "label": "Changed outside the app",
+      "startedAt": 1794611125613,
+      "endedAt": 1794611125670,
+      "files": {
+        "Pokemon-Movie-PPG-Movie-Voice-Trailer-2026-11-13-15-05-Its-an-ordinary-day-in-Metropolis,-but-with-grea.mp3": {
+          "before": null,
+          "after": "/Users/nirmalhk7/.cache/hyperframes/history/bda1f7ce-ac59-4d42-acfa-f6f32cef8f5b/blobs/15/1553a20628d1cbc201ecdab4bd7a71aaf0cc5edbdc3b5e01c48131e1bcd82a1c"
+        }
+      }
+    },
+    "5937c030-9d27-43bf-b9e1-85f60b9ac519": {
+      "actor": {
+        "kind": "person",
+        "name": "You"
+      },
+      "label": "Add timeline asset",
+      "startedAt": 1794611125670,
+      "endedAt": 1794611125670,
+      "files": {
+        "index.html": {
+          "before": "/Users/nirmalhk7/.cache/hyperframes/history/bda1f7ce-ac59-4d42-acfa-f6f32cef8f5b/blobs/ec/ec0bf411c87ef125684e844103d10558ce8b15972f630838f213aafa50baadd6",
+          "after": "/Users/nirmalhk7/.cache/hyperframes/history/bda1f7ce-ac59-4d42-acfa-f6f32cef8f5b/blobs/d6/d6f55d3b2c356b7c56d405eec50863f1524ff0add17b61294b88417aafc5c1a0"
         }
       }
     }

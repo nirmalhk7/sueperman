@@ -49,6 +49,7 @@ export interface Opportunity {
   status: string;
   official_url: string;
   source_observed_at: string;
+  monitor_status?: string;
   simulated: boolean;
   mode: string;
   matching_reasons: string[];
@@ -98,12 +99,32 @@ export interface Detail extends Opportunity {
   };
 }
 export interface Run {
+  purchase_ids?: string[];
+  collaboration_mode?: "deterministic" | "local" | "band";
+  actual_transport?: "deterministic" | "local" | "band";
+  source_mode?: "live" | "recorded" | "fixture";
   run_id: string;
   status: string;
   summary: Record<string, number>;
   provider_modes: Record<string, string>;
   warnings: string[];
   opportunities: string[];
+}
+export interface DiwaliMessage {
+  seq: number;
+  message_id: string;
+  case_id: string;
+  sender: string;
+  recipient: string;
+  type: string;
+  source_refs: string[];
+  payload: {
+    rule_result?: string;
+    challenge_code?: string;
+    compared_identifiers?: { purchase_model: string | null; source_models: string[] };
+    requested_fields?: string[];
+    review_note?: string;
+  };
 }
 export interface Audit {
   id: string;
@@ -133,4 +154,52 @@ export interface Health {
   db: string;
   demo_ready: boolean;
   providers: { name: string; enabled: boolean; configured: boolean }[];
+}
+
+export interface Collaboration {
+  id: string;
+  case_id: string;
+  product_ids: string[];
+  revision: number;
+  current_revision: number;
+  current: boolean;
+  status: string;
+  mode: "replay" | "live";
+  warnings: string[];
+  live_sponsor_proof: string[];
+  board: {
+    finding?: string;
+    challenge?: string;
+    decision?: string;
+    missing_information?: string[];
+    question_field?: string | null;
+    question?: string | null;
+    conditions?: Condition[];
+  };
+  evidence: {
+    source_id: string;
+    publisher: string;
+    url: string;
+    fetched_at: string;
+    content_sha256: string;
+    excerpt: string;
+    mode: string;
+  }[];
+}
+export interface TeamEvent {
+  id: string;
+  seq: number;
+  kind: string;
+  sender: string;
+  recipient: string;
+  mode: string;
+  provider?: string;
+  task_kind?: string;
+  status?: string;
+  source_refs: string[];
+}
+export interface TeamDraft {
+  id: string;
+  status: string;
+  markdown: string;
 }

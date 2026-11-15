@@ -1,0 +1,42 @@
+.........FF                                                              [100%]
+=================================== FAILURES ===================================
+___________________ test_invalid_envelope_rejected[change9] ____________________
+
+change = {'source_refs': ['xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx']}
+
+    @pytest.mark.parametrize("change", [
+        {"sender": "scout"}, {"recipient": "builder"}, {"type": "ChallengeRaised"},
+        {"mode": "live"}, {"expected_case_revision": 0},
+        {"sent_at": "2026-11-15T00:00:00"}, {"deadline_at": "2026-11-14T00:00:00Z"},
+        {"payload": {"product_ref": "product-1", "eligible": True}},
+        {"message_id": "not-a-uuid"},
+        {"source_refs": ["x" * 201]}, {"source_refs": ["cpsc:26-792\nforged"]},
+    ])
+    def test_invalid_envelope_rejected(change):
+>       with pytest.raises(ValidationError):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE ValidationError
+
+services/api/tests/diwali/test_messages.py:48: Failed
+___________________ test_invalid_envelope_rejected[change10] ___________________
+
+change = {'source_refs': ['cpsc:26-792\nforged']}
+
+    @pytest.mark.parametrize("change", [
+        {"sender": "scout"}, {"recipient": "builder"}, {"type": "ChallengeRaised"},
+        {"mode": "live"}, {"expected_case_revision": 0},
+        {"sent_at": "2026-11-15T00:00:00"}, {"deadline_at": "2026-11-14T00:00:00Z"},
+        {"payload": {"product_ref": "product-1", "eligible": True}},
+        {"message_id": "not-a-uuid"},
+        {"source_refs": ["x" * 201]}, {"source_refs": ["cpsc:26-792\nforged"]},
+    ])
+    def test_invalid_envelope_rejected(change):
+>       with pytest.raises(ValidationError):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE ValidationError
+
+services/api/tests/diwali/test_messages.py:48: Failed
+=========================== short test summary info ============================
+FAILED services/api/tests/diwali/test_messages.py::test_invalid_envelope_rejected[change9]
+FAILED services/api/tests/diwali/test_messages.py::test_invalid_envelope_rejected[change10]
+2 failed, 9 passed in 0.13s

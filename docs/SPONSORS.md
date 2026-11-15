@@ -36,3 +36,9 @@ No claims were submitted or messages sent. Only the explicitly approved existing
 
 
 **OpenAI receipt vision: PROVEN.** User chose OpenAI credits for photo reading. Real local and public JPEG reading with gpt-6-luna returned merchant/date/item facts, with explicit identifier review retained. Mobile browser entry requests rear-camera capture; public workflow and cached repeat passed. receipt-camera-openai-live.json, receipt-camera-public.json, receipt-camera-public-browser.log. Daily request quota, image resizing/metadata removal, strict structured output, store:false and no tools/retries tested. This is additional OpenAI functionality, not a System One vendor integration or a new prize claim.
+
+## Diwali V2 sponsors — separate event, offline foundation only
+
+BAND, Agent37, AdaL, Finch and Lyzr have **no live application execution proof** in this checkout. V2's opt-in board uses local deterministic replay and explicitly labels it. V1 sponsor proofs above do not qualify for Diwali's five-sponsor target. The Finch pin validator has test fixtures only; no delivered package has been invoked. No AdaL video has been produced.
+
+See [feasibility/compliance](diwali-compliance.md), [requirement status](v2-status.md), [next steps](diwali-live-runbook.md), and [sanitized evidence manifest](evidence/diwali/manifest.json). Keep the empty live-proof list and incomplete release status until actual receipts exist.

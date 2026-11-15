@@ -1,0 +1,277 @@
+FFFFFF                                                                   [100%]
+=================================== FAILURES ===================================
+_________ test_sdk_sender_addresses_exact_recipient_without_post_retry _________
+
+    def bridge():
+        try:
+>           return importlib.import_module("app.diwali.band_bridge")
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+services/api/tests/diwali/test_band_bridge.py:18: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+/private/tmp/sueperman-python/cpython-3.12.13-macos-aarch64-none/lib/python3.12/importlib/__init__.py:90: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+<frozen importlib._bootstrap>:1387: in _gcd_import
+    ???
+<frozen importlib._bootstrap>:1360: in _find_and_load
+    ???
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+name = 'app.diwali.band_bridge', import_ = <function _gcd_import at 0x1028f80e0>
+
+>   ???
+E   ModuleNotFoundError: No module named 'app.diwali.band_bridge'
+
+<frozen importlib._bootstrap>:1324: ModuleNotFoundError
+
+During handling of the above exception, another exception occurred:
+
+    @pytest.mark.asyncio
+    async def test_sdk_sender_addresses_exact_recipient_without_post_retry():
+>       module = bridge()
+                 ^^^^^^^^
+
+services/api/tests/diwali/test_band_bridge.py:44: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    def bridge():
+        try:
+            return importlib.import_module("app.diwali.band_bridge")
+        except ModuleNotFoundError:
+>           pytest.fail("Pinned BAND custom adapter is not implemented")
+E           Failed: Pinned BAND custom adapter is not implemented
+
+services/api/tests/diwali/test_band_bridge.py:20: Failed
+______ test_sdk_adapter_runs_same_research_handler_and_replies_to_manager ______
+
+    def bridge():
+        try:
+>           return importlib.import_module("app.diwali.band_bridge")
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+services/api/tests/diwali/test_band_bridge.py:18: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+/private/tmp/sueperman-python/cpython-3.12.13-macos-aarch64-none/lib/python3.12/importlib/__init__.py:90: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+<frozen importlib._bootstrap>:1387: in _gcd_import
+    ???
+<frozen importlib._bootstrap>:1360: in _find_and_load
+    ???
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+name = 'app.diwali.band_bridge', import_ = <function _gcd_import at 0x1028f80e0>
+
+>   ???
+E   ModuleNotFoundError: No module named 'app.diwali.band_bridge'
+
+<frozen importlib._bootstrap>:1324: ModuleNotFoundError
+
+During handling of the above exception, another exception occurred:
+
+    @pytest.mark.asyncio
+    async def test_sdk_adapter_runs_same_research_handler_and_replies_to_manager():
+>       module = bridge()
+                 ^^^^^^^^
+
+services/api/tests/diwali/test_band_bridge.py:66: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    def bridge():
+        try:
+            return importlib.import_module("app.diwali.band_bridge")
+        except ModuleNotFoundError:
+>           pytest.fail("Pinned BAND custom adapter is not implemented")
+E           Failed: Pinned BAND custom adapter is not implemented
+
+services/api/tests/diwali/test_band_bridge.py:20: Failed
+__ test_unauthenticated_or_expired_platform_message_does_not_dispatch[sender] __
+
+    def bridge():
+        try:
+>           return importlib.import_module("app.diwali.band_bridge")
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+services/api/tests/diwali/test_band_bridge.py:18: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+/private/tmp/sueperman-python/cpython-3.12.13-macos-aarch64-none/lib/python3.12/importlib/__init__.py:90: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+<frozen importlib._bootstrap>:1387: in _gcd_import
+    ???
+<frozen importlib._bootstrap>:1360: in _find_and_load
+    ???
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+name = 'app.diwali.band_bridge', import_ = <function _gcd_import at 0x1028f80e0>
+
+>   ???
+E   ModuleNotFoundError: No module named 'app.diwali.band_bridge'
+
+<frozen importlib._bootstrap>:1324: ModuleNotFoundError
+
+During handling of the above exception, another exception occurred:
+
+fault = 'sender'
+
+    @pytest.mark.asyncio
+    @pytest.mark.parametrize("fault", ["sender", "room", "expired"])
+    async def test_unauthenticated_or_expired_platform_message_does_not_dispatch(fault):
+>       module = bridge()
+                 ^^^^^^^^
+
+services/api/tests/diwali/test_band_bridge.py:88: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    def bridge():
+        try:
+            return importlib.import_module("app.diwali.band_bridge")
+        except ModuleNotFoundError:
+>           pytest.fail("Pinned BAND custom adapter is not implemented")
+E           Failed: Pinned BAND custom adapter is not implemented
+
+services/api/tests/diwali/test_band_bridge.py:20: Failed
+___ test_unauthenticated_or_expired_platform_message_does_not_dispatch[room] ___
+
+    def bridge():
+        try:
+>           return importlib.import_module("app.diwali.band_bridge")
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+services/api/tests/diwali/test_band_bridge.py:18: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+/private/tmp/sueperman-python/cpython-3.12.13-macos-aarch64-none/lib/python3.12/importlib/__init__.py:90: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+<frozen importlib._bootstrap>:1387: in _gcd_import
+    ???
+<frozen importlib._bootstrap>:1360: in _find_and_load
+    ???
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+name = 'app.diwali.band_bridge', import_ = <function _gcd_import at 0x1028f80e0>
+
+>   ???
+E   ModuleNotFoundError: No module named 'app.diwali.band_bridge'
+
+<frozen importlib._bootstrap>:1324: ModuleNotFoundError
+
+During handling of the above exception, another exception occurred:
+
+fault = 'room'
+
+    @pytest.mark.asyncio
+    @pytest.mark.parametrize("fault", ["sender", "room", "expired"])
+    async def test_unauthenticated_or_expired_platform_message_does_not_dispatch(fault):
+>       module = bridge()
+                 ^^^^^^^^
+
+services/api/tests/diwali/test_band_bridge.py:88: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    def bridge():
+        try:
+            return importlib.import_module("app.diwali.band_bridge")
+        except ModuleNotFoundError:
+>           pytest.fail("Pinned BAND custom adapter is not implemented")
+E           Failed: Pinned BAND custom adapter is not implemented
+
+services/api/tests/diwali/test_band_bridge.py:20: Failed
+_ test_unauthenticated_or_expired_platform_message_does_not_dispatch[expired] __
+
+    def bridge():
+        try:
+>           return importlib.import_module("app.diwali.band_bridge")
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+services/api/tests/diwali/test_band_bridge.py:18: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+/private/tmp/sueperman-python/cpython-3.12.13-macos-aarch64-none/lib/python3.12/importlib/__init__.py:90: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+<frozen importlib._bootstrap>:1387: in _gcd_import
+    ???
+<frozen importlib._bootstrap>:1360: in _find_and_load
+    ???
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+name = 'app.diwali.band_bridge', import_ = <function _gcd_import at 0x1028f80e0>
+
+>   ???
+E   ModuleNotFoundError: No module named 'app.diwali.band_bridge'
+
+<frozen importlib._bootstrap>:1324: ModuleNotFoundError
+
+During handling of the above exception, another exception occurred:
+
+fault = 'expired'
+
+    @pytest.mark.asyncio
+    @pytest.mark.parametrize("fault", ["sender", "room", "expired"])
+    async def test_unauthenticated_or_expired_platform_message_does_not_dispatch(fault):
+>       module = bridge()
+                 ^^^^^^^^
+
+services/api/tests/diwali/test_band_bridge.py:88: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    def bridge():
+        try:
+            return importlib.import_module("app.diwali.band_bridge")
+        except ModuleNotFoundError:
+>           pytest.fail("Pinned BAND custom adapter is not implemented")
+E           Failed: Pinned BAND custom adapter is not implemented
+
+services/api/tests/diwali/test_band_bridge.py:20: Failed
+__________________ test_redelivery_does_not_send_result_twice __________________
+
+    def bridge():
+        try:
+>           return importlib.import_module("app.diwali.band_bridge")
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+services/api/tests/diwali/test_band_bridge.py:18: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+/private/tmp/sueperman-python/cpython-3.12.13-macos-aarch64-none/lib/python3.12/importlib/__init__.py:90: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+<frozen importlib._bootstrap>:1387: in _gcd_import
+    ???
+<frozen importlib._bootstrap>:1360: in _find_and_load
+    ???
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+name = 'app.diwali.band_bridge', import_ = <function _gcd_import at 0x1028f80e0>
+
+>   ???
+E   ModuleNotFoundError: No module named 'app.diwali.band_bridge'
+
+<frozen importlib._bootstrap>:1324: ModuleNotFoundError
+
+During handling of the above exception, another exception occurred:
+
+    @pytest.mark.asyncio
+    async def test_redelivery_does_not_send_result_twice():
+>       module = bridge()
+                 ^^^^^^^^
+
+services/api/tests/diwali/test_band_bridge.py:107: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    def bridge():
+        try:
+            return importlib.import_module("app.diwali.band_bridge")
+        except ModuleNotFoundError:
+>           pytest.fail("Pinned BAND custom adapter is not implemented")
+E           Failed: Pinned BAND custom adapter is not implemented
+
+services/api/tests/diwali/test_band_bridge.py:20: Failed
+=========================== short test summary info ============================
+FAILED services/api/tests/diwali/test_band_bridge.py::test_sdk_sender_addresses_exact_recipient_without_post_retry
+FAILED services/api/tests/diwali/test_band_bridge.py::test_sdk_adapter_runs_same_research_handler_and_replies_to_manager
+FAILED services/api/tests/diwali/test_band_bridge.py::test_unauthenticated_or_expired_platform_message_does_not_dispatch[sender]
+FAILED services/api/tests/diwali/test_band_bridge.py::test_unauthenticated_or_expired_platform_message_does_not_dispatch[room]
+FAILED services/api/tests/diwali/test_band_bridge.py::test_unauthenticated_or_expired_platform_message_does_not_dispatch[expired]
+FAILED services/api/tests/diwali/test_band_bridge.py::test_redelivery_does_not_send_result_twice
+6 failed in 0.23s

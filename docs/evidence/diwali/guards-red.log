@@ -1,0 +1,264 @@
+FFFFFFFF                                                                 [100%]
+=================================== FAILURES ===================================
+_______ test_supported_model_boundary_is_exact[ZHX-PB22-verified_match] ________
+
+    def roles():
+        try:
+>           from app.collaboration import roles
+E           ImportError: cannot import name 'roles' from 'app.collaboration' (/Users/nirmalhk7/Documents/DevWorld/sueperman/services/api/app/collaboration/__init__.py)
+
+services/api/tests/collaboration/test_guards.py:9: ImportError
+
+During handling of the above exception, another exception occurred:
+
+model = 'ZHX-PB22', expected = 'verified_match'
+
+    @pytest.mark.asyncio
+    @pytest.mark.parametrize("model,expected", [("ZHX-PB22", "verified_match"), ("ZHX-PB23", "rejected"),
+                                                ("ZHX-PB22-A", "rejected"), ("ZHXPB22", "rejected"),
+                                                ("ZHX.PB22", "rejected"), (None, "needs_review")])
+    async def test_supported_model_boundary_is_exact(model, expected):
+>       r = roles()
+            ^^^^^^^
+
+services/api/tests/collaboration/test_guards.py:20: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    def roles():
+        try:
+            from app.collaboration import roles
+            return roles
+        except ImportError:
+>           pytest.fail("Bounded offline roles missing")
+E           Failed: Bounded offline roles missing
+
+services/api/tests/collaboration/test_guards.py:12: Failed
+__________ test_supported_model_boundary_is_exact[ZHX-PB23-rejected] ___________
+
+    def roles():
+        try:
+>           from app.collaboration import roles
+E           ImportError: cannot import name 'roles' from 'app.collaboration' (/Users/nirmalhk7/Documents/DevWorld/sueperman/services/api/app/collaboration/__init__.py)
+
+services/api/tests/collaboration/test_guards.py:9: ImportError
+
+During handling of the above exception, another exception occurred:
+
+model = 'ZHX-PB23', expected = 'rejected'
+
+    @pytest.mark.asyncio
+    @pytest.mark.parametrize("model,expected", [("ZHX-PB22", "verified_match"), ("ZHX-PB23", "rejected"),
+                                                ("ZHX-PB22-A", "rejected"), ("ZHXPB22", "rejected"),
+                                                ("ZHX.PB22", "rejected"), (None, "needs_review")])
+    async def test_supported_model_boundary_is_exact(model, expected):
+>       r = roles()
+            ^^^^^^^
+
+services/api/tests/collaboration/test_guards.py:20: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    def roles():
+        try:
+            from app.collaboration import roles
+            return roles
+        except ImportError:
+>           pytest.fail("Bounded offline roles missing")
+E           Failed: Bounded offline roles missing
+
+services/api/tests/collaboration/test_guards.py:12: Failed
+_________ test_supported_model_boundary_is_exact[ZHX-PB22-A-rejected] __________
+
+    def roles():
+        try:
+>           from app.collaboration import roles
+E           ImportError: cannot import name 'roles' from 'app.collaboration' (/Users/nirmalhk7/Documents/DevWorld/sueperman/services/api/app/collaboration/__init__.py)
+
+services/api/tests/collaboration/test_guards.py:9: ImportError
+
+During handling of the above exception, another exception occurred:
+
+model = 'ZHX-PB22-A', expected = 'rejected'
+
+    @pytest.mark.asyncio
+    @pytest.mark.parametrize("model,expected", [("ZHX-PB22", "verified_match"), ("ZHX-PB23", "rejected"),
+                                                ("ZHX-PB22-A", "rejected"), ("ZHXPB22", "rejected"),
+                                                ("ZHX.PB22", "rejected"), (None, "needs_review")])
+    async def test_supported_model_boundary_is_exact(model, expected):
+>       r = roles()
+            ^^^^^^^
+
+services/api/tests/collaboration/test_guards.py:20: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    def roles():
+        try:
+            from app.collaboration import roles
+            return roles
+        except ImportError:
+>           pytest.fail("Bounded offline roles missing")
+E           Failed: Bounded offline roles missing
+
+services/api/tests/collaboration/test_guards.py:12: Failed
+___________ test_supported_model_boundary_is_exact[ZHXPB22-rejected] ___________
+
+    def roles():
+        try:
+>           from app.collaboration import roles
+E           ImportError: cannot import name 'roles' from 'app.collaboration' (/Users/nirmalhk7/Documents/DevWorld/sueperman/services/api/app/collaboration/__init__.py)
+
+services/api/tests/collaboration/test_guards.py:9: ImportError
+
+During handling of the above exception, another exception occurred:
+
+model = 'ZHXPB22', expected = 'rejected'
+
+    @pytest.mark.asyncio
+    @pytest.mark.parametrize("model,expected", [("ZHX-PB22", "verified_match"), ("ZHX-PB23", "rejected"),
+                                                ("ZHX-PB22-A", "rejected"), ("ZHXPB22", "rejected"),
+                                                ("ZHX.PB22", "rejected"), (None, "needs_review")])
+    async def test_supported_model_boundary_is_exact(model, expected):
+>       r = roles()
+            ^^^^^^^
+
+services/api/tests/collaboration/test_guards.py:20: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    def roles():
+        try:
+            from app.collaboration import roles
+            return roles
+        except ImportError:
+>           pytest.fail("Bounded offline roles missing")
+E           Failed: Bounded offline roles missing
+
+services/api/tests/collaboration/test_guards.py:12: Failed
+__________ test_supported_model_boundary_is_exact[ZHX.PB22-rejected] ___________
+
+    def roles():
+        try:
+>           from app.collaboration import roles
+E           ImportError: cannot import name 'roles' from 'app.collaboration' (/Users/nirmalhk7/Documents/DevWorld/sueperman/services/api/app/collaboration/__init__.py)
+
+services/api/tests/collaboration/test_guards.py:9: ImportError
+
+During handling of the above exception, another exception occurred:
+
+model = 'ZHX.PB22', expected = 'rejected'
+
+    @pytest.mark.asyncio
+    @pytest.mark.parametrize("model,expected", [("ZHX-PB22", "verified_match"), ("ZHX-PB23", "rejected"),
+                                                ("ZHX-PB22-A", "rejected"), ("ZHXPB22", "rejected"),
+                                                ("ZHX.PB22", "rejected"), (None, "needs_review")])
+    async def test_supported_model_boundary_is_exact(model, expected):
+>       r = roles()
+            ^^^^^^^
+
+services/api/tests/collaboration/test_guards.py:20: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    def roles():
+        try:
+            from app.collaboration import roles
+            return roles
+        except ImportError:
+>           pytest.fail("Bounded offline roles missing")
+E           Failed: Bounded offline roles missing
+
+services/api/tests/collaboration/test_guards.py:12: Failed
+__________ test_supported_model_boundary_is_exact[None-needs_review] ___________
+
+    def roles():
+        try:
+>           from app.collaboration import roles
+E           ImportError: cannot import name 'roles' from 'app.collaboration' (/Users/nirmalhk7/Documents/DevWorld/sueperman/services/api/app/collaboration/__init__.py)
+
+services/api/tests/collaboration/test_guards.py:9: ImportError
+
+During handling of the above exception, another exception occurred:
+
+model = None, expected = 'needs_review'
+
+    @pytest.mark.asyncio
+    @pytest.mark.parametrize("model,expected", [("ZHX-PB22", "verified_match"), ("ZHX-PB23", "rejected"),
+                                                ("ZHX-PB22-A", "rejected"), ("ZHXPB22", "rejected"),
+                                                ("ZHX.PB22", "rejected"), (None, "needs_review")])
+    async def test_supported_model_boundary_is_exact(model, expected):
+>       r = roles()
+            ^^^^^^^
+
+services/api/tests/collaboration/test_guards.py:20: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    def roles():
+        try:
+            from app.collaboration import roles
+            return roles
+        except ImportError:
+>           pytest.fail("Bounded offline roles missing")
+E           Failed: Bounded offline roles missing
+
+services/api/tests/collaboration/test_guards.py:12: Failed
+_ test_message_projection_excludes_receipts_orders_and_unneeded_purchase_facts _
+
+    def roles():
+        try:
+>           from app.collaboration import roles
+E           ImportError: cannot import name 'roles' from 'app.collaboration' (/Users/nirmalhk7/Documents/DevWorld/sueperman/services/api/app/collaboration/__init__.py)
+
+services/api/tests/collaboration/test_guards.py:9: ImportError
+
+During handling of the above exception, another exception occurred:
+
+    def test_message_projection_excludes_receipts_orders_and_unneeded_purchase_facts():
+>       r = roles()
+            ^^^^^^^
+
+services/api/tests/collaboration/test_guards.py:28: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    def roles():
+        try:
+            from app.collaboration import roles
+            return roles
+        except ImportError:
+>           pytest.fail("Bounded offline roles missing")
+E           Failed: Bounded offline roles missing
+
+services/api/tests/collaboration/test_guards.py:12: Failed
+__________ test_one_question_skips_conditions_not_required_by_notice ___________
+
+    def roles():
+        try:
+>           from app.collaboration import roles
+E           ImportError: cannot import name 'roles' from 'app.collaboration' (/Users/nirmalhk7/Documents/DevWorld/sueperman/services/api/app/collaboration/__init__.py)
+
+services/api/tests/collaboration/test_guards.py:9: ImportError
+
+During handling of the above exception, another exception occurred:
+
+    def test_one_question_skips_conditions_not_required_by_notice():
+>       r = roles()
+            ^^^^^^^
+
+services/api/tests/collaboration/test_guards.py:37: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    def roles():
+        try:
+            from app.collaboration import roles
+            return roles
+        except ImportError:
+>           pytest.fail("Bounded offline roles missing")
+E           Failed: Bounded offline roles missing
+
+services/api/tests/collaboration/test_guards.py:12: Failed
+=========================== short test summary info ============================
+FAILED services/api/tests/collaboration/test_guards.py::test_supported_model_boundary_is_exact[ZHX-PB22-verified_match]
+FAILED services/api/tests/collaboration/test_guards.py::test_supported_model_boundary_is_exact[ZHX-PB23-rejected]
+FAILED services/api/tests/collaboration/test_guards.py::test_supported_model_boundary_is_exact[ZHX-PB22-A-rejected]
+FAILED services/api/tests/collaboration/test_guards.py::test_supported_model_boundary_is_exact[ZHXPB22-rejected]
+FAILED services/api/tests/collaboration/test_guards.py::test_supported_model_boundary_is_exact[ZHX.PB22-rejected]
+FAILED services/api/tests/collaboration/test_guards.py::test_supported_model_boundary_is_exact[None-needs_review]
+FAILED services/api/tests/collaboration/test_guards.py::test_message_projection_excludes_receipts_orders_and_unneeded_purchase_facts
+FAILED services/api/tests/collaboration/test_guards.py::test_one_question_skips_conditions_not_required_by_notice
+8 failed in 0.18s

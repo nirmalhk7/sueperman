@@ -1,0 +1,85 @@
+============================= test session starts ==============================
+platform darwin -- Python 3.12.13, pytest-9.2.0, pluggy-1.7.0
+rootdir: /Users/nirmalhk7/Documents/DevWorld/sueperman/services/api
+configfile: pyproject.toml
+plugins: anyio-4.16.0, asyncio-1.5.0, respx-0.23.1
+asyncio: mode=Mode.AUTO, debug=False, asyncio_default_fixture_loop_scope=function, asyncio_default_test_loop_scope=function
+collected 1 item
+
+services/api/tests/p1/test_p1_browser.py F                               [100%]
+
+=================================== FAILURES ===================================
+__________________________ test_p1_browser_acceptance __________________________
+
+p1_browser_env = (PosixPath('/private/var/folders/k0/w3xrb_d95jn2t7nf2f0s05yr0000gp/T/pytest-of-nirmalhk7/pytest-192/p1-browser0/web'),...7m/B+uuWKD5tBfVNWI=', ...}, PosixPath('/Users/nirmalhk7/Documents/DevWorld/sueperman/docs/evidence/diwali/p1/browser'))
+
+    def test_p1_browser_acceptance(p1_browser_env):
+        web, env, logs = p1_browser_env
+        result = subprocess.run(["node", str(ROOT / "apps/web/node_modules/@playwright/test/cli.js"),
+            "test", "p1.e2e.ts"], cwd=web, env=env, capture_output=True, text=True, timeout=180, check=False)
+        (logs / "acceptance.log").write_text(result.stdout + result.stderr)
+>       assert result.returncode == 0, result.stdout + result.stderr
+E       AssertionError: 
+E         Running 3 tests using 1 worker
+E         
+E           ✓  1 tests/p1.e2e.ts:28:1 › P1 additional notices preserve exact negative and missing cases (1.5s)
+E           ✓  2 tests/p1.e2e.ts:42:1 › P1 readiness persists and requires renewed local approval (965ms)
+E           ✘  3 tests/p1.e2e.ts:63:1 › P1 daily monitor records source change and blocks old export (10.7s)
+E         
+E         
+E           1) tests/p1.e2e.ts:63:1 › P1 daily monitor records source change and blocks old export ───────────
+E         
+E             Error: expect(locator).toBeVisible() failed
+E         
+E             Locator: getByText('Affected model unknown — review official notice', { exact: true })
+E             Expected: visible
+E             Timeout: 5000ms
+E             Error: element(s) not found
+E         
+E             Call log:
+E               - Expect "toBeVisible" getByText('Affected model unknown — review official notice', { exact: true }) with timeout 5000ms
+E               - waiting for getByText('Affected model unknown — review official notice', { exact: true })
+E         
+E         
+E               73 |   await expect(page.getByTestId("monitor-result")).toHaveText("Last result: changed", { timeout: 12000 });
+E               74 |   await expect(page.getByText("Source changed — review required", { exact: true })).toBeVisible();
+E             > 75 |   await expect(page.getByText("Affected model unknown — review official notice", { exact: true })).toBeVisible();
+E                  |                                                                                                    ^
+E               76 |   await expect(page.getByText("DC-EARBUDS-1 — SIMULATION", { exact: true })).toHaveCount(0);
+E               77 |   await expect(page.getByText("Source update requires a new review", { exact: true })).toBeVisible();
+E               78 |   await expect(page.getByTestId("source-history")).toContainText("TEST100");
+E                 at /private/var/folders/k0/w3xrb_d95jn2t7nf2f0s05yr0000gp/T/pytest-of-nirmalhk7/pytest-192/p1-browser0/web/tests/p1.e2e.ts:75:100
+E         
+E             attachment #1: video (video/webm) ──────────────────────────────────────────────────────────────
+E             test-results/p1.e2e.ts-P1-daily-monitor-9a536-hange-and-blocks-old-export/video.webm
+E             ────────────────────────────────────────────────────────────────────────────────────────────────
+E         
+E             Error Context: test-results/p1.e2e.ts-P1-daily-monitor-9a536-hange-and-blocks-old-export/error-context.md
+E         
+E             attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+E             test-results/p1.e2e.ts-P1-daily-monitor-9a536-hange-and-blocks-old-export/trace.zip
+E             Usage:
+E         
+E                 npx playwright show-trace test-results/p1.e2e.ts-P1-daily-monitor-9a536-hange-and-blocks-old-export/trace.zip
+E         
+E             ────────────────────────────────────────────────────────────────────────────────────────────────
+E         
+E           1 failed
+E             tests/p1.e2e.ts:63:1 › P1 daily monitor records source change and blocks old export ────────────
+E           2 passed (14.4s)
+E         (node:86286) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+E         (Use `node --trace-warnings ...` to show where the warning was created)
+E         
+E       assert 1 == 0
+E        +  where 1 = CompletedProcess(args=['node', '/Users/nirmalhk7/Documents/DevWorld/sueperman/apps/web/node_modules/@playwright/test/c...ed due to the 'FORCE_COLOR' env being set.\n(Use `node --trace-warnings ...` to show where the warning was created)\n").returncode
+
+services/api/tests/p1/test_p1_browser.py:106: AssertionError
+=============================== warnings summary ===============================
+services/api/.venv/lib/python3.12/site-packages/fastapi/testclient.py:1
+  /Users/nirmalhk7/Documents/DevWorld/sueperman/services/api/.venv/lib/python3.12/site-packages/fastapi/testclient.py:1: StarletteDeprecationWarning: Using `httpx` with `starlette.testclient` is deprecated; install `httpx2` instead.
+    from starlette.testclient import TestClient as TestClient  # noqa
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+=========================== short test summary info ============================
+FAILED services/api/tests/p1/test_p1_browser.py::test_p1_browser_acceptance
+======================== 1 failed, 1 warning in 32.13s =========================

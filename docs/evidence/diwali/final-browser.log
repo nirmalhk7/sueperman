@@ -1,0 +1,22 @@
+WEB_URL=http://localhost:3012 pnpm --dir apps/web e2e
+$ playwright test
+
+Running 12 tests using 1 worker
+
+(node:48300) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✓   1 tests/collaboration.e2e.ts:5:1 › offline team board explains exact, excluded and missing-model cases with safe local export (6.1s)
+  ✓   2 tests/collaboration.e2e.ts:46:1 › a newer case run blocks export from an already open approved draft (2.1s)
+  -   3 tests/p1-live.e2e.ts:7:1 › live image extraction, human confirmation and CPSC recall export
+  -   4 tests/p1-live.e2e.ts:47:1 › live PDF extraction returns identifiers for review
+  -   5 tests/p1-live.e2e.ts:60:1 › live settlement sources stay distinct from personal eligibility and export locally
+  ✓   6 tests/receipt-camera.e2e.ts:20:1 › camera photo is read into reviewable purchases without confirming identifiers (905ms)
+  ✓   7 tests/receipt-camera.e2e.ts:48:1 › camera upload failure permits another photo without starting a purchase check (1.0s)
+  ✓   8 tests/stale-packet.e2e.ts:3:1 › withdrawn source verification disables local approval and export (1.5s)
+  ✓   9 tests/workflow.e2e.ts:4:1 › five purchases produce evidence-backed recall, safe export and visible negative cases (4.8s)
+  ✓  10 tests/workflow.e2e.ts:112:1 › demo selection stays five purchases after CSV import without deleting imported history (1.0s)
+  ✓  11 tests/workflow.e2e.ts:130:1 › decision detail explains selected action and hard-gate evidence (1.3s)
+  ✓  12 tests/workflow.e2e.ts:148:1 › scan identifiers require explicit review before confirmation (1.0s)
+
+  3 skipped
+  9 passed (21.9s)

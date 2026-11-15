@@ -1,0 +1,52 @@
+{
+  "identity": {
+    "name": "Strategy Red Team",
+    "chain_id": 8453,
+    "skill_id": "311",
+    "version": "1",
+    "license": "MIT"
+  },
+  "source_url": "https://www.finchtech.ai/en/market/chips/base/strategy-red-team_finchip",
+  "delivery": "Finch signed-in browser Download; native Save dialog to isolated temporary directory",
+  "downloaded_archive_sha256": "fb2aa27b6e6461c12a06f6a98ff54810b4a0616a6f2f8bafa05046679f1a8550",
+  "published_primary_markdown_sha256": "3758fcf6f2f2653721c9d58586f7816e17d47d4723b54a5d3457a6641d2663fc",
+  "primary_hash_verified_against_download": true,
+  "published_content_commitment": "0xff4c73fcb96705f9388897d112df5fba4dcba7d631bf337c5b76bfbd394ef839",
+  "content_commitment_independently_verified": false,
+  "hash_scope_note": "Finch describes content commitment as SkillRoot structure or older plaintext ZIP, not downloaded-file SHA-256. Do not equate it with archive hash.",
+  "reviewed_files": [
+    "LICENSE",
+    "NOTICE",
+    "README.md",
+    "SOURCE-PROVENANCE.md",
+    "SKILL.md"
+  ],
+  "archive_members": [
+    "assets/promo-square.webp",
+    "LICENSE",
+    "NOTICE",
+    "README.md",
+    "SKILL.md",
+    "SOURCE-PROVENANCE.md"
+  ],
+  "safety_review": {
+    "executable_code_present": false,
+    "scripts_or_dependencies_present": false,
+    "network_required_by_skill": false,
+    "references_followed": false,
+    "optional_cross_model_mode": "not enabled; only if explicitly requested",
+    "license_attribution_retained": true
+  },
+  "scope": "General strategy assumption review; candidate method for a bounded recall challenge, not a recall matcher or legal/compliance sign-off.",
+  "required_runtime_constraints": [
+    "Unknown conditions remain unknown",
+    "No speculative risk becomes a factual exclusion",
+    "Only supplied source IDs may be cited",
+    "No optional cross-model or network calls",
+    "Deterministic verifier controls eligibility and export",
+    "Use existing CaseResult schema rather than executing or trusting free-form Markdown"
+  ],
+  "recall_suitability_acceptance_verified": false,
+  "skill_model_invocation_verified": false,
+  "counts_as_completed_R06": false
+}

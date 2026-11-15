@@ -1,0 +1,34 @@
+F                                                                        [100%]
+=================================== FAILURES ===================================
+_____________ test_intent_saved_and_session_closed_before_dispatch _____________
+
+tmp_path = PosixPath('/private/var/folders/k0/w3xrb_d95jn2t7nf2f0s05yr0000gp/T/pytest-of-nirmalhk7/pytest-159/test_intent_saved_and_session_0')
+
+    @pytest.mark.asyncio
+    async def test_intent_saved_and_session_closed_before_dispatch(tmp_path):
+        module, factory, _p, run_id, _product, _recall = setup(tmp_path)
+        engine = factory.kw["bind"]
+        class Observed(LocalTransport):
+            def exchange(self, message, context):
+                assert engine.pool.checkedout() == 0
+                with factory() as session:
+                    task = session.get(module.TaskRow, str(message.task_id))
+                    intent = session.get(module.MessageRow, str(message.message_id))
+                    assert task.state == "pending"
+                    assert task.payload["attempts"] == 1
+                    assert intent.delivery == "dispatching"
+                    assert intent.seq is None
+                return super().exchange(message, context)
+        queued(factory, run_id)
+        await execute(factory, run_id, Settings(), Observed())
+        with factory() as session:
+>           assert session.get(AgentRun, run_id).status == "completed"
+E           AssertionError: assert 'failed' == 'completed'
+E             
+E             - completed
+E             + failed
+
+services/api/tests/diwali/test_failures.py:92: AssertionError
+=========================== short test summary info ============================
+FAILED services/api/tests/diwali/test_failures.py::test_intent_saved_and_session_closed_before_dispatch
+1 failed in 0.43s

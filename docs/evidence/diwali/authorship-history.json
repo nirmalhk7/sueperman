@@ -1,0 +1,100 @@
+{
+  "source": "local git history; author timestamps are recorded metadata, not organizer eligibility proof",
+  "baseline_head": "1dbd30ff4009cf357f28e70334703321a21c269f",
+  "commits": [
+    {
+      "commit": "1dbd30ff4009cf357f28e70334703321a21c269f",
+      "authored_at": "2026-11-13T14:59:23-08:00",
+      "author_name": "Nirmal Khedkar",
+      "subject": "Include the latest completed HyperFrames export"
+    },
+    {
+      "commit": "f4e9d581b273819ab11744383d30ed3f24a4e723",
+      "authored_at": "2026-11-13T14:57:01-08:00",
+      "author_name": "Nirmal Khedkar",
+      "subject": "Archive HyperFrames film, media and complete verification artifacts"
+    },
+    {
+      "commit": "25bf2a801a6054394363a7f8e148a148e1de5952",
+      "authored_at": "2026-11-13T14:37:59-08:00",
+      "author_name": "Nirmal Khedkar",
+      "subject": "Use supplied receipt logo in header and browser icons"
+    },
+    {
+      "commit": "df75ac537013d73db503b41940a3f39e1426bdec",
+      "authored_at": "2026-11-13T14:32:55-08:00",
+      "author_name": "Nirmal Khedkar",
+      "subject": "Record public receipt camera OCR verification and spending limits"
+    },
+    {
+      "commit": "f8ff31fffb9e7ba9324d718f4e179b7d80fc271f",
+      "authored_at": "2026-11-13T14:23:07-08:00",
+      "author_name": "Nirmal Khedkar",
+      "subject": "Classify receipt OCR failures without logging private content"
+    },
+    {
+      "commit": "8a4bc56320cf7bf0239dcf3a4be8008a5ca45462",
+      "authored_at": "2026-11-13T14:04:15-08:00",
+      "author_name": "Nirmal Khedkar",
+      "subject": "Add receipt camera capture and budgeted OpenAI photo OCR"
+    },
+    {
+      "commit": "2f6e7cf9a8def48ae2bdae6df5e55fa77452c9c6",
+      "authored_at": "2026-11-13T13:50:51-08:00",
+      "author_name": "Nirmal Khedkar",
+      "subject": "Verify activated Bright Data and decode current MCP evidence envelopes"
+    },
+    {
+      "commit": "e285db7146282a98a97f3f045740ec8777cecf89",
+      "authored_at": "2026-11-13T13:27:49-08:00",
+      "author_name": "Nirmal Khedkar",
+      "subject": "Record verified public DigitalOcean deployment and live browser evidence"
+    },
+    {
+      "commit": "4aee3c33dc3be937e0b4de04ac198488f620714b",
+      "authored_at": "2026-11-13T13:16:34-08:00",
+      "author_name": "Nirmal Khedkar",
+      "subject": "Normalize verification log whitespace"
+    },
+    {
+      "commit": "30d6ccaed99ea4b81638c9d8d395732202fd0209",
+      "authored_at": "2026-11-13T13:16:19-08:00",
+      "author_name": "Nirmal Khedkar",
+      "subject": "Prepare verified App Platform containers and invalidate stale settlement drafts"
+    },
+    {
+      "commit": "ca58358f7d1dda9b35b4906d5c1c5bdb2137ebf7",
+      "authored_at": "2026-11-13T12:30:37-08:00",
+      "author_name": "Nirmal Khedkar",
+      "subject": "Record scoped design exceptions for semantic banners and system font"
+    },
+    {
+      "commit": "93cec1860200ab2b34a541c863cc2a3d7b13399f",
+      "authored_at": "2026-11-13T12:29:04-08:00",
+      "author_name": "Nirmal Khedkar",
+      "subject": "Implement live P1 receipt and settlement workflows with bounded decisions"
+    },
+    {
+      "commit": "7ece40c584cb84abb4629701dbd6b3371f49543e",
+      "authored_at": "2026-11-13T11:37:08-08:00",
+      "author_name": "Nirmal Khedkar",
+      "subject": "Add Sentry monitoring and OpenAI decision routing"
+    },
+    {
+      "commit": "fb08804955e80b48d78064b31869d8721e8d6bb0",
+      "authored_at": "2026-11-13T10:29:30-08:00",
+      "author_name": "Nirmal Khedkar",
+      "subject": "Record clean-clone setup and offline acceptance evidence"
+    },
+    {
+      "commit": "a0751b45eb588ac5c812939d8e879c54d7f94a60",
+      "authored_at": "2026-11-13T10:26:51-08:00",
+      "author_name": "Nirmal Khedkar",
+      "subject": "Implement fixture-first Sueperman recall workflow and live CPSC adapter"
+    }
+  ],
+  "v2_changes": "uncommitted working tree",
+  "participant_attestation": null,
+  "organizer_authorship_confirmation": null,
+  "note": "Author names do not establish current participant count or membership. Existing earlier work is not relabeled."
+}

@@ -1,0 +1,167 @@
+FFF.FFFF                                                                 [100%]
+=================================== FAILURES ===================================
+__________________________ test_default_compatibility __________________________
+
+client = <starlette.testclient.TestClient object at 0x10ed49460>
+
+    def test_default_compatibility(client):
+        seed = client.post("/api/demo/reset").json()
+        body = {"purchase_ids": seed["purchase_ids"], "mode": "demo", "idempotency_key": "default"}
+        first = client.post("/api/runs", json=body).json()
+        same = client.post("/api/runs", json=body | {"collaboration_mode": "deterministic"})
+        assert same.status_code == 200
+        assert same.json()["run_id"] == first["run_id"]
+        assert "collaboration_mode" not in same.json()
+        messages = client.get(f"/api/runs/{first['run_id']}/agent-messages")
+>       assert messages.status_code == 200
+E       assert 404 == 200
+E        +  where 404 = <Response [404 Not Found]>.status_code
+
+services/api/tests/diwali/test_api.py:35: AssertionError
+------------------------------ Captured log call -------------------------------
+WARNING  urllib3.connectionpool:connectionpool.py:874 Retrying (Retry(total=2, connect=None, read=None, redirect=None, status=None)) after connection broken by 'NameResolutionError("HTTPSConnection(host='o410546.ingest.us.sentry.io', port=443): Failed to resolve 'o410546.ingest.us.sentry.io' ([Errno 8] nodename nor servname provided, or not known)")': /api/4512425942515712/envelope/
+WARNING  urllib3.connectionpool:connectionpool.py:874 Retrying (Retry(total=1, connect=None, read=None, redirect=None, status=None)) after connection broken by 'NameResolutionError("HTTPSConnection(host='o410546.ingest.us.sentry.io', port=443): Failed to resolve 'o410546.ingest.us.sentry.io' ([Errno 8] nodename nor servname provided, or not known)")': /api/4512425942515712/envelope/
+WARNING  urllib3.connectionpool:connectionpool.py:874 Retrying (Retry(total=0, connect=None, read=None, redirect=None, status=None)) after connection broken by 'NameResolutionError("HTTPSConnection(host='o410546.ingest.us.sentry.io', port=443): Failed to resolve 'o410546.ingest.us.sentry.io' ([Errno 8] nodename nor servname provided, or not known)")': /api/4512425942515712/envelope/
+WARNING  urllib3.connectionpool:connectionpool.py:874 Retrying (Retry(total=2, connect=None, read=None, redirect=None, status=None)) after connection broken by 'NameResolutionError("HTTPSConnection(host='o410546.ingest.us.sentry.io', port=443): Failed to resolve 'o410546.ingest.us.sentry.io' ([Errno 8] nodename nor servname provided, or not known)")': /api/4512425942515712/envelope/
+WARNING  urllib3.connectionpool:connectionpool.py:874 Retrying (Retry(total=1, connect=None, read=None, redirect=None, status=None)) after connection broken by 'NameResolutionError("HTTPSConnection(host='o410546.ingest.us.sentry.io', port=443): Failed to resolve 'o410546.ingest.us.sentry.io' ([Errno 8] nodename nor servname provided, or not known)")': /api/4512425942515712/envelope/
+WARNING  urllib3.connectionpool:connectionpool.py:874 Retrying (Retry(total=0, connect=None, read=None, redirect=None, status=None)) after connection broken by 'NameResolutionError("HTTPSConnection(host='o410546.ingest.us.sentry.io', port=443): Failed to resolve 'o410546.ingest.us.sentry.io' ([Errno 8] nodename nor servname provided, or not known)")': /api/4512425942515712/envelope/
+WARNING  urllib3.connectionpool:connectionpool.py:874 Retrying (Retry(total=2, connect=None, read=None, redirect=None, status=None)) after connection broken by 'NameResolutionError("HTTPSConnection(host='o410546.ingest.us.sentry.io', port=443): Failed to resolve 'o410546.ingest.us.sentry.io' ([Errno 8] nodename nor servname provided, or not known)")': /api/4512425942515712/envelope/
+WARNING  urllib3.connectionpool:connectionpool.py:874 Retrying (Retry(total=1, connect=None, read=None, redirect=None, status=None)) after connection broken by 'NameResolutionError("HTTPSConnection(host='o410546.ingest.us.sentry.io', port=443): Failed to resolve 'o410546.ingest.us.sentry.io' ([Errno 8] nodename nor servname provided, or not known)")': /api/4512425942515712/envelope/
+WARNING  urllib3.connectionpool:connectionpool.py:874 Retrying (Retry(total=0, connect=None, read=None, redirect=None, status=None)) after connection broken by 'NameResolutionError("HTTPSConnection(host='o410546.ingest.us.sentry.io', port=443): Failed to resolve 'o410546.ingest.us.sentry.io' ([Errno 8] nodename nor servname provided, or not known)")': /api/4512425942515712/envelope/
+____________________________ test_idempotency_modes ____________________________
+
+client = <starlette.testclient.TestClient object at 0x10edfdd90>
+
+    def test_idempotency_modes(client):
+        seed = client.post("/api/demo/reset").json()
+        body = {"purchase_ids": seed["purchase_ids"], "mode": "demo", "idempotency_key": "collision"}
+        first = client.post("/api/runs", json=body)
+        assert first.status_code == 200
+>       assert client.post("/api/runs", json=body | {"collaboration_mode": "local"}).status_code == 409
+E       AssertionError: assert 200 == 409
+E        +  where 200 = <Response [200 OK]>.status_code
+E        +    where <Response [200 OK]> = post('/api/runs', json=({'purchase_ids': ['191118d6-73bc-4844-89f5-6e6ac40a07f1', '4755b02e-9b86-404e-8007-0003edcfa1e8', 'd6077b61-2f5b-4797-...-0d36-42ef-96f8-04149b173f70', '61f66bde-0b55-46c5-99a8-1643bd2b8bed'], 'mode': 'demo', 'idempotency_key': 'collision'} | {'collaboration_mode': 'local'}))
+E        +      where post = <starlette.testclient.TestClient object at 0x10edfdd90>.post
+
+services/api/tests/diwali/test_api.py:44: AssertionError
+------------------------------ Captured log call -------------------------------
+WARNING  urllib3.connectionpool:connectionpool.py:874 Retrying (Retry(total=2, connect=None, read=None, redirect=None, status=None)) after connection broken by 'NameResolutionError("HTTPSConnection(host='o410546.ingest.us.sentry.io', port=443): Failed to resolve 'o410546.ingest.us.sentry.io' ([Errno 8] nodename nor servname provided, or not known)")': /api/4512425942515712/envelope/
+WARNING  urllib3.connectionpool:connectionpool.py:874 Retrying (Retry(total=1, connect=None, read=None, redirect=None, status=None)) after connection broken by 'NameResolutionError("HTTPSConnection(host='o410546.ingest.us.sentry.io', port=443): Failed to resolve 'o410546.ingest.us.sentry.io' ([Errno 8] nodename nor servname provided, or not known)")': /api/4512425942515712/envelope/
+WARNING  urllib3.connectionpool:connectionpool.py:874 Retrying (Retry(total=0, connect=None, read=None, redirect=None, status=None)) after connection broken by 'NameResolutionError("HTTPSConnection(host='o410546.ingest.us.sentry.io', port=443): Failed to resolve 'o410546.ingest.us.sentry.io' ([Errno 8] nodename nor servname provided, or not known)")': /api/4512425942515712/envelope/
+WARNING  urllib3.connectionpool:connectionpool.py:874 Retrying (Retry(total=2, connect=None, read=None, redirect=None, status=None)) after connection broken by 'NameResolutionError("HTTPSConnection(host='o410546.ingest.us.sentry.io', port=443): Failed to resolve 'o410546.ingest.us.sentry.io' ([Errno 8] nodename nor servname provided, or not known)")': /api/4512425942515712/envelope/
+WARNING  urllib3.connectionpool:connectionpool.py:874 Retrying (Retry(total=1, connect=None, read=None, redirect=None, status=None)) after connection broken by 'NameResolutionError("HTTPSConnection(host='o410546.ingest.us.sentry.io', port=443): Failed to resolve 'o410546.ingest.us.sentry.io' ([Errno 8] nodename nor servname provided, or not known)")': /api/4512425942515712/envelope/
+WARNING  urllib3.connectionpool:connectionpool.py:874 Retrying (Retry(total=0, connect=None, read=None, redirect=None, status=None)) after connection broken by 'NameResolutionError("HTTPSConnection(host='o410546.ingest.us.sentry.io', port=443): Failed to resolve 'o410546.ingest.us.sentry.io' ([Errno 8] nodename nor servname provided, or not known)")': /api/4512425942515712/envelope/
+___________________________ test_feature_off_parity ____________________________
+
+tmp_path = PosixPath('/private/var/folders/k0/w3xrb_d95jn2t7nf2f0s05yr0000gp/T/pytest-of-nirmalhk7/pytest-101/test_feature_off_parity0')
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x10ed5ec90>
+
+    def test_feature_off_parity(tmp_path, monkeypatch):
+        monkeypatch.setenv("DIWALI_ENABLED", "false")
+        with TestClient(create_app(f"sqlite:///{tmp_path}/off.db")) as client:
+            seed = client.post("/api/demo/reset").json()
+            body = {"purchase_ids": seed["purchase_ids"], "idempotency_key": "disabled"}
+>           assert client.post("/api/runs", json=body | {"collaboration_mode": "local"}).status_code == 403
+E           AssertionError: assert 200 == 403
+E            +  where 200 = <Response [200 OK]>.status_code
+E            +    where <Response [200 OK]> = post('/api/runs', json=({'purchase_ids': ['dbba26d2-d468-4d73-9218-5a23e8c1a3be', '6e16ae56-629c-48c0-9a0e-c9aad787ffad', '92f60851-3533-4ae5-...a44e5', '8699d4e2-4974-4d7f-9ea4-317209600041', 'debcc232-366f-49af-98f2-8bf406e6e1ca'], 'idempotency_key': 'disabled'} | {'collaboration_mode': 'local'}))
+E            +      where post = <starlette.testclient.TestClient object at 0x10ef8eff0>.post
+
+services/api/tests/diwali/test_api.py:53: AssertionError
+------------------------------ Captured log call -------------------------------
+WARNING  urllib3.connectionpool:connectionpool.py:874 Retrying (Retry(total=2, connect=None, read=None, redirect=None, status=None)) after connection broken by 'NameResolutionError("HTTPSConnection(host='o410546.ingest.us.sentry.io', port=443): Failed to resolve 'o410546.ingest.us.sentry.io' ([Errno 8] nodename nor servname provided, or not known)")': /api/4512425942515712/envelope/
+WARNING  urllib3.connectionpool:connectionpool.py:874 Retrying (Retry(total=1, connect=None, read=None, redirect=None, status=None)) after connection broken by 'NameResolutionError("HTTPSConnection(host='o410546.ingest.us.sentry.io', port=443): Failed to resolve 'o410546.ingest.us.sentry.io' ([Errno 8] nodename nor servname provided, or not known)")': /api/4512425942515712/envelope/
+WARNING  urllib3.connectionpool:connectionpool.py:874 Retrying (Retry(total=0, connect=None, read=None, redirect=None, status=None)) after connection broken by 'NameResolutionError("HTTPSConnection(host='o410546.ingest.us.sentry.io', port=443): Failed to resolve 'o410546.ingest.us.sentry.io' ([Errno 8] nodename nor servname provided, or not known)")': /api/4512425942515712/envelope/
+WARNING  urllib3.connectionpool:connectionpool.py:874 Retrying (Retry(total=2, connect=None, read=None, redirect=None, status=None)) after connection broken by 'NameResolutionError("HTTPSConnection(host='o410546.ingest.us.sentry.io', port=443): Failed to resolve 'o410546.ingest.us.sentry.io' ([Errno 8] nodename nor servname provided, or not known)")': /api/4512425942515712/envelope/
+WARNING  urllib3.connectionpool:connectionpool.py:874 Retrying (Retry(total=1, connect=None, read=None, redirect=None, status=None)) after connection broken by 'NameResolutionError("HTTPSConnection(host='o410546.ingest.us.sentry.io', port=443): Failed to resolve 'o410546.ingest.us.sentry.io' ([Errno 8] nodename nor servname provided, or not known)")': /api/4512425942515712/envelope/
+WARNING  urllib3.connectionpool:connectionpool.py:874 Retrying (Retry(total=0, connect=None, read=None, redirect=None, status=None)) after connection broken by 'NameResolutionError("HTTPSConnection(host='o410546.ingest.us.sentry.io', port=443): Failed to resolve 'o410546.ingest.us.sentry.io' ([Errno 8] nodename nor servname provided, or not known)")': /api/4512425942515712/envelope/
+_______________________________ test_provenance ________________________________
+
+client = <starlette.testclient.TestClient object at 0x1148a6840>
+
+    def test_provenance(client):
+        result, _ = run(client)
+        assert result["status"] == "completed"
+>       assert result["collaboration_mode"] == "local"
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       KeyError: 'collaboration_mode'
+
+services/api/tests/diwali/test_api.py:85: KeyError
+------------------------------ Captured log call -------------------------------
+WARNING  urllib3.connectionpool:connectionpool.py:874 Retrying (Retry(total=2, connect=None, read=None, redirect=None, status=None)) after connection broken by 'NameResolutionError("HTTPSConnection(host='o410546.ingest.us.sentry.io', port=443): Failed to resolve 'o410546.ingest.us.sentry.io' ([Errno 8] nodename nor servname provided, or not known)")': /api/4512425942515712/envelope/
+WARNING  urllib3.connectionpool:connectionpool.py:874 Retrying (Retry(total=1, connect=None, read=None, redirect=None, status=None)) after connection broken by 'NameResolutionError("HTTPSConnection(host='o410546.ingest.us.sentry.io', port=443): Failed to resolve 'o410546.ingest.us.sentry.io' ([Errno 8] nodename nor servname provided, or not known)")': /api/4512425942515712/envelope/
+WARNING  urllib3.connectionpool:connectionpool.py:874 Retrying (Retry(total=0, connect=None, read=None, redirect=None, status=None)) after connection broken by 'NameResolutionError("HTTPSConnection(host='o410546.ingest.us.sentry.io', port=443): Failed to resolve 'o410546.ingest.us.sentry.io' ([Errno 8] nodename nor servname provided, or not known)")': /api/4512425942515712/envelope/
+WARNING  urllib3.connectionpool:connectionpool.py:874 Retrying (Retry(total=2, connect=None, read=None, redirect=None, status=None)) after connection broken by 'NameResolutionError("HTTPSConnection(host='o410546.ingest.us.sentry.io', port=443): Failed to resolve 'o410546.ingest.us.sentry.io' ([Errno 8] nodename nor servname provided, or not known)")': /api/4512425942515712/envelope/
+WARNING  urllib3.connectionpool:connectionpool.py:874 Retrying (Retry(total=1, connect=None, read=None, redirect=None, status=None)) after connection broken by 'NameResolutionError("HTTPSConnection(host='o410546.ingest.us.sentry.io', port=443): Failed to resolve 'o410546.ingest.us.sentry.io' ([Errno 8] nodename nor servname provided, or not known)")': /api/4512425942515712/envelope/
+WARNING  urllib3.connectionpool:connectionpool.py:874 Retrying (Retry(total=0, connect=None, read=None, redirect=None, status=None)) after connection broken by 'NameResolutionError("HTTPSConnection(host='o410546.ingest.us.sentry.io', port=443): Failed to resolve 'o410546.ingest.us.sentry.io' ([Errno 8] nodename nor servname provided, or not known)")': /api/4512425942515712/envelope/
+---------------------------- Captured log teardown -----------------------------
+WARNING  urllib3.connectionpool:connectionpool.py:874 Retrying (Retry(total=0, connect=None, read=None, redirect=None, status=None)) after connection broken by 'NameResolutionError("HTTPSConnection(host='o410546.ingest.us.sentry.io', port=443): Failed to resolve 'o410546.ingest.us.sentry.io' ([Errno 8] nodename nor servname provided, or not known)")': /api/4512425942515712/envelope/
+____________________ test_unavailable_band_cannot_fall_back ____________________
+
+client = <starlette.testclient.TestClient object at 0x1149bc500>
+
+    def test_unavailable_band_cannot_fall_back(client):
+        seed = client.post("/api/demo/reset").json()
+        response = client.post("/api/runs", json={"purchase_ids": seed["purchase_ids"],
+            "idempotency_key": "band", "collaboration_mode": "band"})
+>       assert response.status_code == 503
+E       assert 200 == 503
+E        +  where 200 = <Response [200 OK]>.status_code
+
+services/api/tests/diwali/test_api.py:104: AssertionError
+------------------------------ Captured log call -------------------------------
+WARNING  urllib3.connectionpool:connectionpool.py:874 Retrying (Retry(total=2, connect=None, read=None, redirect=None, status=None)) after connection broken by 'NameResolutionError("HTTPSConnection(host='o410546.ingest.us.sentry.io', port=443): Failed to resolve 'o410546.ingest.us.sentry.io' ([Errno 8] nodename nor servname provided, or not known)")': /api/4512425942515712/envelope/
+WARNING  urllib3.connectionpool:connectionpool.py:874 Retrying (Retry(total=1, connect=None, read=None, redirect=None, status=None)) after connection broken by 'NameResolutionError("HTTPSConnection(host='o410546.ingest.us.sentry.io', port=443): Failed to resolve 'o410546.ingest.us.sentry.io' ([Errno 8] nodename nor servname provided, or not known)")': /api/4512425942515712/envelope/
+WARNING  urllib3.connectionpool:connectionpool.py:874 Retrying (Retry(total=0, connect=None, read=None, redirect=None, status=None)) after connection broken by 'NameResolutionError("HTTPSConnection(host='o410546.ingest.us.sentry.io', port=443): Failed to resolve 'o410546.ingest.us.sentry.io' ([Errno 8] nodename nor servname provided, or not known)")': /api/4512425942515712/envelope/
+---------------------------- Captured log teardown -----------------------------
+WARNING  urllib3.connectionpool:connectionpool.py:874 Retrying (Retry(total=1, connect=None, read=None, redirect=None, status=None)) after connection broken by 'NameResolutionError("HTTPSConnection(host='o410546.ingest.us.sentry.io', port=443): Failed to resolve 'o410546.ingest.us.sentry.io' ([Errno 8] nodename nor servname provided, or not known)")': /api/4512425942515712/envelope/
+WARNING  urllib3.connectionpool:connectionpool.py:874 Retrying (Retry(total=0, connect=None, read=None, redirect=None, status=None)) after connection broken by 'NameResolutionError("HTTPSConnection(host='o410546.ingest.us.sentry.io', port=443): Failed to resolve 'o410546.ingest.us.sentry.io' ([Errno 8] nodename nor servname provided, or not known)")': /api/4512425942515712/envelope/
+_________________ test_status_is_cached_not_provider_execution _________________
+
+client = <starlette.testclient.TestClient object at 0x1148a07d0>
+
+    def test_status_is_cached_not_provider_execution(client):
+        response = client.get("/api/integrations/diwali/status")
+>       assert response.status_code == 200
+E       assert 404 == 200
+E        +  where 404 = <Response [404 Not Found]>.status_code
+
+services/api/tests/diwali/test_api.py:109: AssertionError
+---------------------------- Captured log teardown -----------------------------
+WARNING  urllib3.connectionpool:connectionpool.py:874 Retrying (Retry(total=1, connect=None, read=None, redirect=None, status=None)) after connection broken by 'NameResolutionError("HTTPSConnection(host='o410546.ingest.us.sentry.io', port=443): Failed to resolve 'o410546.ingest.us.sentry.io' ([Errno 8] nodename nor servname provided, or not known)")': /api/4512425942515712/envelope/
+WARNING  urllib3.connectionpool:connectionpool.py:874 Retrying (Retry(total=0, connect=None, read=None, redirect=None, status=None)) after connection broken by 'NameResolutionError("HTTPSConnection(host='o410546.ingest.us.sentry.io', port=443): Failed to resolve 'o410546.ingest.us.sentry.io' ([Errno 8] nodename nor servname provided, or not known)")': /api/4512425942515712/envelope/
+____________________ test_local_transport_refuses_live_mode ____________________
+
+client = <starlette.testclient.TestClient object at 0x10efb1eb0>
+
+    def test_local_transport_refuses_live_mode(client):
+        seed = client.post("/api/demo/reset").json()
+        response = client.post("/api/runs", json={"purchase_ids": seed["purchase_ids"], "mode": "live",
+            "idempotency_key": "private", "collaboration_mode": "local"})
+>       assert response.status_code == 422
+E       assert 200 == 422
+E        +  where 200 = <Response [200 OK]>.status_code
+
+services/api/tests/diwali/test_api.py:118: AssertionError
+------------------------------ Captured log call -------------------------------
+WARNING  urllib3.connectionpool:connectionpool.py:874 Retrying (Retry(total=2, connect=None, read=None, redirect=None, status=None)) after connection broken by 'NameResolutionError("HTTPSConnection(host='o410546.ingest.us.sentry.io', port=443): Failed to resolve 'o410546.ingest.us.sentry.io' ([Errno 8] nodename nor servname provided, or not known)")': /api/4512425942515712/envelope/
+WARNING  urllib3.connectionpool:connectionpool.py:874 Retrying (Retry(total=1, connect=None, read=None, redirect=None, status=None)) after connection broken by 'NameResolutionError("HTTPSConnection(host='o410546.ingest.us.sentry.io', port=443): Failed to resolve 'o410546.ingest.us.sentry.io' ([Errno 8] nodename nor servname provided, or not known)")': /api/4512425942515712/envelope/
+WARNING  urllib3.connectionpool:connectionpool.py:874 Retrying (Retry(total=0, connect=None, read=None, redirect=None, status=None)) after connection broken by 'NameResolutionError("HTTPSConnection(host='o410546.ingest.us.sentry.io', port=443): Failed to resolve 'o410546.ingest.us.sentry.io' ([Errno 8] nodename nor servname provided, or not known)")': /api/4512425942515712/envelope/
+---------------------------- Captured log teardown -----------------------------
+WARNING  urllib3.connectionpool:connectionpool.py:874 Retrying (Retry(total=1, connect=None, read=None, redirect=None, status=None)) after connection broken by 'NameResolutionError("HTTPSConnection(host='o410546.ingest.us.sentry.io', port=443): Failed to resolve 'o410546.ingest.us.sentry.io' ([Errno 8] nodename nor servname provided, or not known)")': /api/4512425942515712/envelope/
+WARNING  urllib3.connectionpool:connectionpool.py:874 Retrying (Retry(total=0, connect=None, read=None, redirect=None, status=None)) after connection broken by 'NameResolutionError("HTTPSConnection(host='o410546.ingest.us.sentry.io', port=443): Failed to resolve 'o410546.ingest.us.sentry.io' ([Errno 8] nodename nor servname provided, or not known)")': /api/4512425942515712/envelope/
+=============================== warnings summary ===============================
+services/api/.venv/lib/python3.12/site-packages/fastapi/testclient.py:1
+  /Users/nirmalhk7/Documents/DevWorld/sueperman/services/api/.venv/lib/python3.12/site-packages/fastapi/testclient.py:1: StarletteDeprecationWarning: Using `httpx` with `starlette.testclient` is deprecated; install `httpx2` instead.
+    from starlette.testclient import TestClient as TestClient  # noqa
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+=========================== short test summary info ============================
+FAILED services/api/tests/diwali/test_api.py::test_default_compatibility - as...
+FAILED services/api/tests/diwali/test_api.py::test_idempotency_modes - Assert...
+FAILED services/api/tests/diwali/test_api.py::test_feature_off_parity - Asser...
+FAILED services/api/tests/diwali/test_api.py::test_provenance - KeyError: 'co...
+FAILED services/api/tests/diwali/test_api.py::test_unavailable_band_cannot_fall_back
+FAILED services/api/tests/diwali/test_api.py::test_status_is_cached_not_provider_execution
+FAILED services/api/tests/diwali/test_api.py::test_local_transport_refuses_live_mode
+7 failed, 1 passed, 1 warning in 1.41s

@@ -1,0 +1,339 @@
+..........F.F...                                                         [100%]
+=================================== FAILURES ===================================
+___ test_changed_material_binding_revokes_approval_and_retains_history[rule] ___
+
+client = <starlette.testclient.TestClient object at 0x10af673e0>
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x10b0710d0>
+changed = 'rule'
+
+    @pytest.mark.parametrize("changed", ["evidence", "product", "rule", "skill"])
+    def test_changed_material_binding_revokes_approval_and_retains_history(client, monkeypatch, changed):
+        from app.collaboration import roles
+        created, product = start(client)
+        url = f"/api/collaborations/{created['id']}"
+        assert client.post(url + "/approve-local", json={"confirmed": True}).status_code == 200
+        if changed == "evidence":
+            original = roles.load_recall()
+            monkeypatch.setattr(roles, "load_recall", lambda: original.model_copy(update={
+                "excerpt": original.excerpt + " Updated official restriction requires review."}))
+        elif changed == "rule":
+            monkeypatch.setattr(roles, "RULE_VERSION", "26-792-v2")
+        elif changed == "skill":
+            monkeypatch.setattr(roles, "OFFLINE_SKILL", roles.OFFLINE_SKILL | {"version": 2})
+        else:
+            # Explicit confirmation is a real existing product mutation, unlike a case-only answer.
+            response = client.post(f"/api/products/{product['id']}/confirm-identifiers",
+                                   json={"confirmed": True, "model_number": "ZHX-PB23", "brand": "NEWDERY"})
+            # CSV cannot be edited through OCR API. Mutate disposable DB to simulate upstream product revision.
+            assert response.status_code == 409
+            from app.models import Product
+            factory = client.ledger_factory
+            with factory() as s:
+                entity = s.get(Product, product['id'])
+                entity.payload = entity.payload | {"product": entity.payload['product'] | {"model_number": "ZHX-PB23"}}
+                s.commit()
+        assert client.post(url + "/export").status_code == 409
+        history = client.get(url + "/history").json()
+        assert len(history["revisions"]) == 2
+        assert history["revisions"][0]["fingerprint"] != history["revisions"][1]["fingerprint"]
+>       assert len(history["snapshots"]) == (2 if changed == "evidence" else 1)
+E       AssertionError: assert 2 == 1
+E        +  where 2 = len([{'source_id': '26-792', 'publisher': 'U.S. Consumer Product Safety Commission', 'url': 'https://www.cpsc.gov/Recalls/...called-Due-to-Fire-and-Burn-Hazards-Risk-of-Serious-Injury-Sold-on-Amazon', 'fetched_at': '2026-11-13T17:48:00Z', ...}])
+
+services/api/tests/collaboration/test_collaboration_workflow.py:204: AssertionError
+____ test_demo_reset_after_team_run_preserves_case_history_and_v1_workflow _____
+
+self = <sqlalchemy.engine.base.Connection object at 0x10b4c0200>
+dialect = <sqlalchemy.dialects.sqlite.pysqlite.SQLiteDialect_pysqlite object at 0x10b3aa8d0>
+context = <sqlalchemy.dialects.sqlite.base.SQLiteExecutionContext object at 0x10b4c02f0>
+statement = <sqlalchemy.dialects.sqlite.base.SQLiteCompiler object at 0x10b44a870>
+parameters = [()]
+
+    def _exec_single_context(
+        self,
+        dialect: Dialect,
+        context: ExecutionContext,
+        statement: Union[str, Compiled],
+        parameters: Optional[_AnyMultiExecuteParams],
+    ) -> CursorResult[Unpack[TupleAny]]:
+        """continue the _execute_context() method for a single DBAPI
+        cursor.execute() or cursor.executemany() call.
+    
+        """
+        if dialect.bind_typing is BindTyping.SETINPUTSIZES:
+            generic_setinputsizes = context._prepare_set_input_sizes()
+    
+            if generic_setinputsizes:
+                try:
+                    dialect.do_set_input_sizes(
+                        context.cursor, generic_setinputsizes, context
+                    )
+                except BaseException as e:
+                    self._handle_dbapi_exception(
+                        e, str(statement), parameters, None, context
+                    )
+    
+        cursor, str_statement, parameters = (
+            context.cursor,
+            context.statement,
+            context.parameters,
+        )
+    
+        effective_parameters: Optional[_AnyExecuteParams]
+    
+        if not context.executemany:
+            effective_parameters = parameters[0]
+        else:
+            effective_parameters = parameters
+    
+        evt_handled: bool = False
+        try:
+            if self._has_events or self.engine._has_events:
+                for fn in self.dispatch.before_cursor_execute:
+                    str_statement, effective_parameters = fn(
+                        self,
+                        cursor,
+                        str_statement,
+                        effective_parameters,
+                        context,
+                        context.executemany,
+                    )
+    
+            if self._echo:
+                self._log_info(str_statement)
+    
+                stats = context._get_cache_stats()
+    
+                self._log_parameters(
+                    effective_parameters, stats, ismulti=context.executemany
+                )
+    
+            if context.execute_style is ExecuteStyle.EXECUTEMANY:
+                effective_parameters = cast(
+                    "_CoreMultiExecuteParams", effective_parameters
+                )
+                if self.dialect._has_events:
+                    for fn in self.dialect.dispatch.do_executemany:
+                        if fn(
+                            cursor,
+                            str_statement,
+                            effective_parameters,
+                            context,
+                        ):
+                            evt_handled = True
+                            break
+                if not evt_handled:
+                    self.dialect.do_executemany(
+                        cursor,
+                        str_statement,
+                        effective_parameters,
+                        context,
+                    )
+            elif not effective_parameters and context.no_parameters:
+                if self.dialect._has_events:
+                    for fn in self.dialect.dispatch.do_execute_no_params:
+                        if fn(cursor, str_statement, context):
+                            evt_handled = True
+                            break
+                if not evt_handled:
+                    self.dialect.do_execute_no_params(
+                        cursor, str_statement, context
+                    )
+            else:
+                effective_parameters = cast(
+                    "_CoreSingleExecuteParams", effective_parameters
+                )
+                if self.dialect._has_events:
+                    for fn in self.dialect.dispatch.do_execute:
+                        if fn(
+                            cursor,
+                            str_statement,
+                            effective_parameters,
+                            context,
+                        ):
+                            evt_handled = True
+                            break
+                if not evt_handled:
+>                   self.dialect.do_execute(
+                        cursor, str_statement, effective_parameters, context
+                    )
+
+services/api/.venv/lib/python3.12/site-packages/sqlalchemy/engine/base.py:1977: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <sqlalchemy.dialects.sqlite.pysqlite.SQLiteDialect_pysqlite object at 0x10b3aa8d0>
+cursor = <sqlite3.Cursor object at 0x10b4753c0>
+statement = 'DELETE FROM products WHERE products.demo IS 1', parameters = ()
+context = <sqlalchemy.dialects.sqlite.base.SQLiteExecutionContext object at 0x10b4c02f0>
+
+    def do_execute(self, cursor, statement, parameters, context=None):
+>       cursor.execute(statement, parameters)
+E       sqlite3.IntegrityError: FOREIGN KEY constraint failed
+
+services/api/.venv/lib/python3.12/site-packages/sqlalchemy/engine/default.py:1192: IntegrityError
+
+The above exception was the direct cause of the following exception:
+
+client = <starlette.testclient.TestClient object at 0x10b3974a0>
+
+    def test_demo_reset_after_team_run_preserves_case_history_and_v1_workflow(client):
+        created, _ = start(client)
+>       reset = client.post("/api/demo/reset")
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+services/api/tests/collaboration/test_collaboration_workflow.py:209: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+services/api/.venv/lib/python3.12/site-packages/httpx/_client.py:1144: in post
+    return self.request(
+services/api/.venv/lib/python3.12/site-packages/starlette/testclient.py:518: in request
+    return super().request(
+services/api/.venv/lib/python3.12/site-packages/httpx/_client.py:825: in request
+    return self.send(request, auth=auth, follow_redirects=follow_redirects)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+services/api/.venv/lib/python3.12/site-packages/httpx/_client.py:928: in send
+    raise exc
+services/api/.venv/lib/python3.12/site-packages/httpx/_client.py:922: in send
+    response.read()
+services/api/.venv/lib/python3.12/site-packages/httpx/_models.py:881: in read
+    self._content = b"".join(self.iter_bytes())
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+services/api/.venv/lib/python3.12/site-packages/httpx/_models.py:897: in iter_bytes
+    for raw_bytes in self.iter_raw():
+                     ^^^^^^^^^^^^^^^
+services/api/.venv/lib/python3.12/site-packages/httpx/_models.py:951: in iter_raw
+    for raw_stream_bytes in self.stream:
+                            ^^^^^^^^^^^
+services/api/.venv/lib/python3.12/site-packages/httpx/_client.py:153: in __iter__
+    for chunk in self._stream:
+                 ^^^^^^^^^^^^
+services/api/.venv/lib/python3.12/site-packages/starlette/testclient.py:384: in iter_body
+    exit_stack.close()
+/private/tmp/sueperman-python/cpython-3.12.13-macos-aarch64-none/lib/python3.12/contextlib.py:618: in close
+    self.__exit__(None, None, None)
+/private/tmp/sueperman-python/cpython-3.12.13-macos-aarch64-none/lib/python3.12/contextlib.py:610: in __exit__
+    raise exc_details[1]
+/private/tmp/sueperman-python/cpython-3.12.13-macos-aarch64-none/lib/python3.12/contextlib.py:595: in __exit__
+    if cb(*exc_details):
+       ^^^^^^^^^^^^^^^^
+services/api/.venv/lib/python3.12/site-packages/starlette/testclient.py:399: in close_app
+    raise exception
+services/api/.venv/lib/python3.12/site-packages/anyio/from_thread.py:272: in _call_func
+    retval = await retval_or_awaitable
+             ^^^^^^^^^^^^^^^^^^^^^^^^^
+services/api/.venv/lib/python3.12/site-packages/starlette/testclient.py:366: in run_app
+    await self.app(scope, receive, send)
+services/api/.venv/lib/python3.12/site-packages/fastapi/applications.py:1194: in __call__
+    await super().__call__(scope, receive, send)
+services/api/.venv/lib/python3.12/site-packages/starlette/applications.py:96: in __call__
+    await self.middleware_stack(scope, receive, send)
+services/api/.venv/lib/python3.12/site-packages/starlette/middleware/errors.py:186: in __call__
+    raise exc
+services/api/.venv/lib/python3.12/site-packages/starlette/middleware/errors.py:164: in __call__
+    await self.app(scope, receive, _send)
+services/api/.venv/lib/python3.12/site-packages/fastapi/telemetry/_asgi.py:151: in __call__
+    await self.app(scope, receive, send)
+services/api/.venv/lib/python3.12/site-packages/starlette/middleware/base.py:203: in __call__
+    response = await self.dispatch_func(request, call_next)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+services/api/app/main.py:63: in restrict_mutations
+    return await call_next(request)
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+services/api/.venv/lib/python3.12/site-packages/starlette/middleware/base.py:179: in call_next
+    raise app_exc from app_exc.__cause__ or app_exc.__context__
+services/api/.venv/lib/python3.12/site-packages/starlette/middleware/base.py:149: in coro
+    await self.app(scope, receive_or_disconnect, send_no_error)
+services/api/.venv/lib/python3.12/site-packages/starlette/middleware/cors.py:91: in __call__
+    await self.simple_response(scope, receive, send, request_headers=headers)
+services/api/.venv/lib/python3.12/site-packages/starlette/middleware/cors.py:149: in simple_response
+    await self.app(scope, receive, send)
+services/api/.venv/lib/python3.12/site-packages/starlette/middleware/exceptions.py:63: in __call__
+    await wrap_app_handling_exceptions(self.app, conn)(scope, receive, send)
+services/api/.venv/lib/python3.12/site-packages/starlette/_exception_handler.py:53: in wrapped_app
+    raise exc
+services/api/.venv/lib/python3.12/site-packages/starlette/_exception_handler.py:42: in wrapped_app
+    await app(scope, receive, sender)
+services/api/.venv/lib/python3.12/site-packages/fastapi/middleware/asyncexitstack.py:18: in __call__
+    await self.app(scope, receive, send)
+services/api/.venv/lib/python3.12/site-packages/starlette/routing.py:683: in __call__
+    await self.middleware_stack(scope, receive, send)
+services/api/.venv/lib/python3.12/site-packages/fastapi/routing.py:2811: in app
+    await route.handle(scope, receive, send)
+services/api/.venv/lib/python3.12/site-packages/fastapi/routing.py:1330: in handle
+    await super().handle(scope, receive, send)
+services/api/.venv/lib/python3.12/site-packages/starlette/routing.py:289: in handle
+    await self.app(scope, receive, send)
+services/api/.venv/lib/python3.12/site-packages/fastapi/routing.py:166: in app
+    await wrap_app_handling_exceptions(app, request)(scope, receive, send)
+services/api/.venv/lib/python3.12/site-packages/starlette/_exception_handler.py:53: in wrapped_app
+    raise exc
+services/api/.venv/lib/python3.12/site-packages/starlette/_exception_handler.py:42: in wrapped_app
+    await app(scope, receive, sender)
+services/api/.venv/lib/python3.12/site-packages/fastapi/routing.py:152: in app
+    response = await f(request)
+               ^^^^^^^^^^^^^^^^
+services/api/.venv/lib/python3.12/site-packages/fastapi/routing.py:745: in app
+    raw_response = await run_endpoint_function(
+services/api/.venv/lib/python3.12/site-packages/fastapi/routing.py:374: in run_endpoint_function
+    return await run_in_threadpool(
+services/api/.venv/lib/python3.12/site-packages/starlette/concurrency.py:34: in run_in_threadpool
+    return await anyio.to_thread.run_sync(func)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+services/api/.venv/lib/python3.12/site-packages/anyio/to_thread.py:65: in run_sync
+    return await get_async_backend().run_sync_in_worker_thread(
+services/api/.venv/lib/python3.12/site-packages/anyio/_backends/_asyncio.py:2779: in run_sync_in_worker_thread
+    return await future
+           ^^^^^^^^^^^^
+services/api/.venv/lib/python3.12/site-packages/anyio/_backends/_asyncio.py:1124: in run
+    result = context.run(func, *args)
+             ^^^^^^^^^^^^^^^^^^^^^^^^
+services/api/.venv/lib/python3.12/site-packages/fastapi/telemetry/_api.py:244: in _run_sync_endpoint
+    return function(**arguments)
+           ^^^^^^^^^^^^^^^^^^^^^
+services/api/app/api/demo.py:39: in reset
+    s.execute(delete(model).where(model.demo.is_(True)))
+services/api/.venv/lib/python3.12/site-packages/sqlalchemy/orm/session.py:2555: in execute
+    return self._execute_internal(
+services/api/.venv/lib/python3.12/site-packages/sqlalchemy/orm/session.py:2445: in _execute_internal
+    compile_state_cls.orm_execute_statement(
+services/api/.venv/lib/python3.12/site-packages/sqlalchemy/orm/bulk_persistence.py:2068: in orm_execute_statement
+    return super().orm_execute_statement(
+services/api/.venv/lib/python3.12/site-packages/sqlalchemy/orm/context.py:322: in orm_execute_statement
+    result = conn.execute(
+services/api/.venv/lib/python3.12/site-packages/sqlalchemy/engine/base.py:1494: in execute
+    return meth(
+services/api/.venv/lib/python3.12/site-packages/sqlalchemy/sql/elements.py:534: in _execute_on_connection
+    return connection._execute_clauseelement(
+services/api/.venv/lib/python3.12/site-packages/sqlalchemy/engine/base.py:1714: in _execute_clauseelement
+    ret = self._execute_context(
+services/api/.venv/lib/python3.12/site-packages/sqlalchemy/engine/base.py:1868: in _execute_context
+    return self._exec_single_context(
+services/api/.venv/lib/python3.12/site-packages/sqlalchemy/engine/base.py:1996: in _exec_single_context
+    self._handle_dbapi_exception(
+services/api/.venv/lib/python3.12/site-packages/sqlalchemy/engine/base.py:2351: in _handle_dbapi_exception
+    raise sqlalchemy_exception.with_traceback(exc_info[2]) from e
+services/api/.venv/lib/python3.12/site-packages/sqlalchemy/engine/base.py:1977: in _exec_single_context
+    self.dialect.do_execute(
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <sqlalchemy.dialects.sqlite.pysqlite.SQLiteDialect_pysqlite object at 0x10b3aa8d0>
+cursor = <sqlite3.Cursor object at 0x10b4753c0>
+statement = 'DELETE FROM products WHERE products.demo IS 1', parameters = ()
+context = <sqlalchemy.dialects.sqlite.base.SQLiteExecutionContext object at 0x10b4c02f0>
+
+    def do_execute(self, cursor, statement, parameters, context=None):
+>       cursor.execute(statement, parameters)
+E       sqlalchemy.exc.IntegrityError: (sqlite3.IntegrityError) FOREIGN KEY constraint failed
+E       [SQL: DELETE FROM products WHERE products.demo IS 1]
+E       (Background on this error at: https://sqlalche.me/e/21/gkpj)
+
+services/api/.venv/lib/python3.12/site-packages/sqlalchemy/engine/default.py:1192: IntegrityError
+=============================== warnings summary ===============================
+services/api/.venv/lib/python3.12/site-packages/fastapi/testclient.py:1
+  /Users/nirmalhk7/Documents/DevWorld/sueperman/services/api/.venv/lib/python3.12/site-packages/fastapi/testclient.py:1: StarletteDeprecationWarning: Using `httpx` with `starlette.testclient` is deprecated; install `httpx2` instead.
+    from starlette.testclient import TestClient as TestClient  # noqa
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+=========================== short test summary info ============================
+FAILED services/api/tests/collaboration/test_collaboration_workflow.py::test_changed_material_binding_revokes_approval_and_retains_history[rule]
+FAILED services/api/tests/collaboration/test_collaboration_workflow.py::test_demo_reset_after_team_run_preserves_case_history_and_v1_workflow
+2 failed, 14 passed, 1 warning in 2.34s

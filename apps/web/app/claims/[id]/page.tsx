@@ -1,5 +1,6 @@
 "use client";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
+import { EvidenceReadiness } from "@/components/p1-controls";
 import { useParams } from "next/navigation";
 import { API, api, post, type Packet } from "@/lib/api";
 export default function Page() {
@@ -8,6 +9,11 @@ export default function Page() {
   const [checked, setChecked] = useState(false);
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState("");
+  const [readinessBusy, setReadinessBusy] = useState(false);
+  const readinessChanged = useCallback(async () => {
+    setP(await api<Packet>(`/claim-packets/${id}`));
+    setChecked(false);
+  }, [id]);
   useEffect(() => {
     void api<Packet>(`/claim-packets/${id}`)
       .then(setP)
@@ -77,6 +83,7 @@ export default function Page() {
       <div className="panel">
         <pre>{p.markdown}</pre>
       </div>
+      {p.kind !== "settlement" && <EvidenceReadiness packetId={id} onChanged={readinessChanged} onPending={setReadinessBusy} />}
       <section className="section">
         <h2>Evidence still needed</h2>
         <ul>
@@ -108,13 +115,13 @@ export default function Page() {
           </div>
         )}
         <div className="actions">
-          <button onClick={approve} disabled={!checked || busy || approved || blocked}>
+          <button onClick={approve} disabled={!checked || busy || readinessBusy || approved || blocked}>
             Approve draft locally
           </button>
           <button
             className="secondary"
             onClick={download}
-            disabled={!approved || busy || blocked}
+            disabled={!approved || busy || readinessBusy || blocked}
           >
             Export Markdown
           </button>

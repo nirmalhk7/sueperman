@@ -1,0 +1,36 @@
+F                                                                        [100%]
+=================================== FAILURES ===================================
+_______________________________ test_provenance ________________________________
+
+client = <starlette.testclient.TestClient object at 0x10c5229c0>
+
+    def test_provenance(client):
+        result, _ = run(client)
+        assert result["status"] == "completed"
+        assert result["collaboration_mode"] == "local"
+        assert result["actual_transport"] == "local"
+        assert result["source_mode"] == "recorded"
+>       assert result["summary"]["rejected"] == 1
+E       assert 0 == 1
+
+services/api/tests/diwali/test_api.py:88: AssertionError
+------------------------------ Captured log call -------------------------------
+WARNING  urllib3.connectionpool:connectionpool.py:874 Retrying (Retry(total=2, connect=None, read=None, redirect=None, status=None)) after connection broken by 'NameResolutionError("HTTPSConnection(host='o410546.ingest.us.sentry.io', port=443): Failed to resolve 'o410546.ingest.us.sentry.io' ([Errno 8] nodename nor servname provided, or not known)")': /api/4512425942515712/envelope/
+WARNING  urllib3.connectionpool:connectionpool.py:874 Retrying (Retry(total=1, connect=None, read=None, redirect=None, status=None)) after connection broken by 'NameResolutionError("HTTPSConnection(host='o410546.ingest.us.sentry.io', port=443): Failed to resolve 'o410546.ingest.us.sentry.io' ([Errno 8] nodename nor servname provided, or not known)")': /api/4512425942515712/envelope/
+WARNING  urllib3.connectionpool:connectionpool.py:874 Retrying (Retry(total=0, connect=None, read=None, redirect=None, status=None)) after connection broken by 'NameResolutionError("HTTPSConnection(host='o410546.ingest.us.sentry.io', port=443): Failed to resolve 'o410546.ingest.us.sentry.io' ([Errno 8] nodename nor servname provided, or not known)")': /api/4512425942515712/envelope/
+WARNING  urllib3.connectionpool:connectionpool.py:874 Retrying (Retry(total=2, connect=None, read=None, redirect=None, status=None)) after connection broken by 'NameResolutionError("HTTPSConnection(host='o410546.ingest.us.sentry.io', port=443): Failed to resolve 'o410546.ingest.us.sentry.io' ([Errno 8] nodename nor servname provided, or not known)")': /api/4512425942515712/envelope/
+WARNING  urllib3.connectionpool:connectionpool.py:874 Retrying (Retry(total=1, connect=None, read=None, redirect=None, status=None)) after connection broken by 'NameResolutionError("HTTPSConnection(host='o410546.ingest.us.sentry.io', port=443): Failed to resolve 'o410546.ingest.us.sentry.io' ([Errno 8] nodename nor servname provided, or not known)")': /api/4512425942515712/envelope/
+WARNING  urllib3.connectionpool:connectionpool.py:874 Retrying (Retry(total=0, connect=None, read=None, redirect=None, status=None)) after connection broken by 'NameResolutionError("HTTPSConnection(host='o410546.ingest.us.sentry.io', port=443): Failed to resolve 'o410546.ingest.us.sentry.io' ([Errno 8] nodename nor servname provided, or not known)")': /api/4512425942515712/envelope/
+=============================== warnings summary ===============================
+services/api/.venv/lib/python3.12/site-packages/fastapi/testclient.py:1
+  /Users/nirmalhk7/Documents/DevWorld/sueperman/services/api/.venv/lib/python3.12/site-packages/fastapi/testclient.py:1: StarletteDeprecationWarning: Using `httpx` with `starlette.testclient` is deprecated; install `httpx2` instead.
+    from starlette.testclient import TestClient as TestClient  # noqa
+
+tests/diwali/test_api.py::test_provenance
+  /Users/nirmalhk7/Documents/DevWorld/sueperman/services/api/app/diwali/persistence.py:102: SAWarning: fully NULL primary key identity cannot load any object.  This condition may raise an error in a future release.
+    return session.get(Opportunity, case.payload.get("opportunity_id"))
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+=========================== short test summary info ============================
+FAILED services/api/tests/diwali/test_api.py::test_provenance - assert 0 == 1
+1 failed, 2 warnings in 0.88s

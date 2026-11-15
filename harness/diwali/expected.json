@@ -1,0 +1,50 @@
+{
+  "spec_version": "2.1",
+  "evaluation_date": "2026-11-13",
+  "source_id": "26-792",
+  "source_models": [
+    "ZHX-PB22"
+  ],
+  "source_url": "https://www.cpsc.gov/Recalls/2026/NEWDERY-Power-Banks-Recalled-Due-to-Fire-and-Burn-Hazards-Risk-of-Serious-Injury-Sold-on-Amazon",
+  "cases": [
+    {
+      "fixture": "DEMO-001",
+      "purchase_model": "ZHX-PB22",
+      "outcome": "verified_match",
+      "message_count": 6,
+      "real_drafts": 1,
+      "approved": false
+    },
+    {
+      "fixture": "DEMO-002",
+      "purchase_model": "ZHX-PB23",
+      "outcome": "rejected",
+      "challenge": "MODEL_MISMATCH",
+      "message_count": 4,
+      "real_drafts": 0
+    },
+    {
+      "fixture": "DEMO-003",
+      "purchase_model": "DC-BOTTLE-1",
+      "outcome": "no_match",
+      "message_count": 2,
+      "real_drafts": 0
+    },
+    {
+      "fixture": "DEMO-004",
+      "purchase_model": null,
+      "outcome": "needs_review",
+      "question_field": "model_number",
+      "message_count": 4,
+      "followups": 0,
+      "real_drafts": 0
+    },
+    {
+      "fixture": "DEMO-005",
+      "purchase_model": "DC-EARBUDS-1",
+      "outcome": "simulated_settlement",
+      "real_drafts": 0,
+      "label": "SIMULATED CASE \u2014 NO REAL CLAIM AVAILABLE"
+    }
+  ]
+}

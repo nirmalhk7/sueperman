@@ -1,0 +1,51 @@
+{
+  "scope": "Authorized synthetic sponsor probes; full P0 incomplete",
+  "providers": {
+    "band": {
+      "result": "PASS",
+      "evidence": "G4/five-case-live-probe.json",
+      "limit": "Recorded sources; application transport wiring incomplete"
+    },
+    "lyzr": {
+      "result": "PASS",
+      "evidence": "G5/live-probe.json",
+      "limit": "Existing Builder only; required reviewer configuration and integration incomplete"
+    },
+    "finch": {
+      "result": "PASS",
+      "evidence": "G6/delivery-probe.json",
+      "limit": "Generic candidate delivery and integrity only; required package and invocation incomplete"
+    }
+  },
+  "final_checks": [
+    {
+      "command": "services/api/.venv/bin/pytest -c services/api/pyproject.toml services/api/tests",
+      "result": "235 passed, 1 existing deprecation warning",
+      "log": "G4/backend-regression-final.log"
+    },
+    {
+      "command": "services/api/.venv/bin/pytest -c services/api/pyproject.toml services/api/tests/diwali/test_band_bridge.py services/api/tests/collaboration/test_skill_package.py",
+      "result": "8 passed",
+      "log": "G4/adapter-check.log"
+    },
+    {
+      "command": "services/api/.venv/bin/mypy --config-file services/api/pyproject.toml services/api/app",
+      "result": "Success: no issues found in 50 source files",
+      "log": "G4/mypy.log"
+    },
+    {
+      "command": "services/api/.venv/bin/ruff check services/api/app/diwali/band_bridge.py services/api/tests/diwali/test_band_bridge.py",
+      "result": "All checks passed"
+    },
+    {
+      "command": "git diff --check",
+      "result": "PASS"
+    }
+  ],
+  "remaining": [
+    "Complete G4 application integration and dependency audit",
+    "Configure/integrate required Lyzr reviewer",
+    "Publish/retrieve/invoke required Finch Recall Evidence Auditor with owner publication authorization"
+  ],
+  "live_proof_scope": "Each capture retains exact tested source hashes. A later type-only BAND narrowing repair was regression-tested but not live-retested."
+}

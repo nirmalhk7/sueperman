@@ -4,6 +4,7 @@ from sqlalchemy.exc import IntegrityError
 
 from app.agent.orchestrator import execute, run_view
 from app.db import view
+from app.diwali.coordinator import execute as execute_diwali
 from app.models import (
     AgentRun,
     AuditEvent,
@@ -19,13 +20,27 @@ def register(app, factory, settings, get):
         if body.mode == "demo" and not settings.demo_mode:
             raise HTTPException(422, "Demo mode disabled")
         with factory() as s:
+            s.connection().exec_driver_sql("BEGIN IMMEDIATE")
             old = s.scalar(select(AgentRun).where(AgentRun.idempotency_key == body.idempotency_key))
             if old:
-                if old.payload["purchase_ids"] != body.purchase_ids or old.payload["mode"] != body.mode:
+                if (old.payload["purchase_ids"] != body.purchase_ids or old.payload["mode"] != body.mode
+                        or old.payload.get("collaboration_mode", "deterministic") != body.collaboration_mode
+                        or old.payload.get("fallback_of") != body.fallback_of):
                     raise HTTPException(409, "Idempotency key already used for different input")
                 return run_view(old)
+            if body.collaboration_mode != "deterministic":
+                if not settings.diwali_enabled:
+                    raise HTTPException(403, "Diwali collaboration disabled")
+                if body.collaboration_mode == "band":
+                    raise HTTPException(503, "BAND transport contract is not verified")
+                if body.mode != "demo" or len(body.purchase_ids) > 5:
+                    raise HTTPException(422, "Local collaboration requires at most five synthetic demo purchases")
+                if len(body.purchase_ids) != len(set(body.purchase_ids)):
+                    raise HTTPException(422, "One case per unique purchase is required")
             for identifier in body.purchase_ids:
-                get(s, Purchase, identifier)
+                purchase = get(s, Purchase, identifier)
+                if body.collaboration_mode == "local" and not purchase.demo:
+                    raise HTTPException(422, "Local collaboration accepts synthetic demo data only")
             if s.scalar(select(AgentRun).where(AgentRun.status.in_(["queued", "running"]))):
                 raise HTTPException(409, "A run is already active; wait before retrying")
             run = AgentRun(
@@ -41,13 +56,20 @@ def register(app, factory, settings, get):
                     "provider_modes": {},
                 },
             )
+            if body.collaboration_mode != "deterministic":
+                run.payload = run.payload | {"collaboration_mode": body.collaboration_mode,
+                    "actual_transport": "local", "source_mode": "recorded", "reviewer_mode": "rules"}
+            if body.fallback_of is not None:
+                get(s, AgentRun, body.fallback_of)
+                run.payload = run.payload | {"fallback_of": body.fallback_of}
             s.add(run)
             try:
                 s.commit()
             except IntegrityError:
                 s.rollback()
                 raise HTTPException(409, "Duplicate run trigger") from None
-            background.add_task(execute, factory, run.id, settings)
+            background.add_task(execute_diwali if body.collaboration_mode == "local" else execute,
+                                factory, run.id, settings)
             return run_view(run)
 
     @app.get("/api/runs/{identifier}", response_model=RunResponse)

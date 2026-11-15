@@ -1,0 +1,45 @@
+.......F..F                                                              [100%]
+=================================== FAILURES ===================================
+______________ test_role_cannot_request_other_roles_capabilities _______________
+
+    def test_role_cannot_request_other_roles_capabilities():
+        c = contracts()
+>       with pytest.raises(ValidationError):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE ValidationError
+
+services/api/tests/collaboration/test_contracts.py:110: Failed
+_____________ test_closed_run_rejects_late_result_and_seventh_task _____________
+
+tmp_path = PosixPath('/private/var/folders/k0/w3xrb_d95jn2t7nf2f0s05yr0000gp/T/pytest-of-nirmalhk7/pytest-84/test_closed_run_rejects_late_r0')
+
+    def test_closed_run_rejects_late_result_and_seventh_task(tmp_path):
+        l = ledger()
+        from app.collaboration.contracts import CaseTask, CaseResult
+        from app.db import database
+        from app.models import Product, Purchase
+        engine, factory = database(f"sqlite:///{tmp_path}/bounds.db")
+        with factory() as s:
+            purchase = Purchase(import_key="limits"); s.add(purchase); s.flush()
+            product = Product(purchase_id=purchase.id); s.add(product); s.flush()
+            case = l.create_case(s, product.id)
+            l.revise(s, case, {"product_hash": "a" * 64, "evidence_hashes": [],
+                               "rule_version": "v1", "skill_hash": "b" * 64})
+            run = l.create_run(s, case, "limits", "replay")
+            tasks = []
+            for index in range(6):
+                task = CaseTask(case_id=case.id, task_id=f"task-{index}", revision=1, sender="controller",
+                                recipient="scout", kind="source_investigation", deduplication_key=str(index),
+                                remaining_ms=1000, mode="replay")
+                l.record_intent(s, run, task)
+                tasks.append(task)
+            seventh = tasks[0].model_copy(update={"task_id": "seventh", "deduplication_key": "seventh"})
+>           with pytest.raises(ValueError, match="budget"):
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E           Failed: DID NOT RAISE ValueError
+
+services/api/tests/collaboration/test_ledger.py:183: Failed
+=========================== short test summary info ============================
+FAILED services/api/tests/collaboration/test_contracts.py::test_role_cannot_request_other_roles_capabilities
+FAILED services/api/tests/collaboration/test_ledger.py::test_closed_run_rejects_late_result_and_seventh_task
+2 failed, 9 passed in 0.48s

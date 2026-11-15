@@ -383,7 +383,7 @@ async def execute(factory, run_id, settings):
                 event(session, run, Stage.PRODUCT_NORMALIZED)
                 if live:
                     if settings.cpsc_live_enabled:
-                        source = CPSCRecallSource()
+                        source = CPSCRecallSource(reviewed_notices=settings.p1_enabled)
                         modes["recall"] = "cpsc"
                     elif settings.demo_mode:
                         warnings.append("LIVE PROVIDER UNAVAILABLE — DEMO DATA")

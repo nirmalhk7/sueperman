@@ -7,6 +7,12 @@ WEB_URL ?= http://localhost:$(WEB_PORT)
 export FRONTEND_ORIGIN ?= $(WEB_URL)
 export NEXT_PUBLIC_API_BASE_URL ?= $(API_URL)
 PY := services/api/.venv/bin/python
+GATE ?= G3
+.PHONY: diwali-check diwali-live-check
+diwali-check:
+	$(PY) scripts/verify_diwali.py --through $(GATE) --offline
+diwali-live-check:
+	$(PY) scripts/verify_diwali.py --live-provider $(PROVIDER)
 .PHONY: setup dev seed test demo lint typecheck smoke e2e build container-test
 setup:
 	command -v uv

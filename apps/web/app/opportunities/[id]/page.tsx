@@ -1,5 +1,6 @@
 "use client";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
+import { SourceMonitor } from "@/components/p1-controls";
 import { useParams, useRouter } from "next/navigation";
 import Link from "next/link";
 import { api, post, type Detail, type Packet } from "@/lib/api";
@@ -10,6 +11,9 @@ export default function Page() {
   const [d, setD] = useState<Detail | null>(null);
   const [error, setError] = useState("");
   const [busy, setBusy] = useState(false);
+  const monitorChanged = useCallback(async () => {
+    setD(await api<Detail>(`/opportunities/${id}`));
+  }, [id]);
   useEffect(() => {
     void api<Detail>(`/opportunities/${id}`)
       .then(setD)
@@ -53,11 +57,16 @@ export default function Page() {
           </div>
         ) : (
           <p className="mono small">
-            {sourceLabel(d.kind, d.mode, d.simulated, d.status)}{" "}
+            {d.monitor_status ? "PRIOR CPSC OBSERVATION" : sourceLabel(d.kind, d.mode, d.simulated, d.status)}{" "}
             · Observed {new Date(d.source_observed_at).toLocaleString()}
           </p>
         )}
         <h2>{d.title}</h2>
+        {d.monitor_status && <aside className="notice">
+          <strong>{d.monitor_status === "SOURCE_CHANGED_REVIEW_REQUIRED"
+            ? "Source update requires a new review" : "Current source unavailable — review required"}</strong>
+          <p>Previous evidence is retained below. Old local approval is revoked; review current official sources before preparing a new draft.</p>
+        </aside>}
         {d.kind === "settlement" && !d.simulated && (
           <aside className="notice">
             <strong>{d.status === "unavailable" ? "Source verification unavailable — prior evidence only" : "Personal eligibility unconfirmed — preparation only"}</strong>
@@ -96,7 +105,9 @@ export default function Page() {
                 : d.kind === "settlement" ? "Case " + d.source_id : "CPSC recall " + d.source_id}
             </h3>
             <strong className="mono">
-              {d.settlement?.qualifying_transaction || d.recall?.models.join(", ") || "DC-EARBUDS-1 — SIMULATION"}
+              {d.simulated ? "DC-EARBUDS-1 — SIMULATION"
+                : d.kind === "settlement" ? d.settlement?.qualifying_transaction || "Review official class definition"
+                : d.recall?.models.join(", ") || "Affected model unknown — review official notice"}
             </strong>
             <p>
               {d.simulated
@@ -188,6 +199,7 @@ export default function Page() {
             ))}
           </div>
         </section>
+        {d.kind === "recall" && <SourceMonitor opportunityId={id} onChanged={monitorChanged} />}
         {error && (
           <div role="alert" className="error">
             {error}

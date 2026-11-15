@@ -1,0 +1,24 @@
+{
+  "command": [
+    "/Users/nirmalhk7/Documents/DevWorld/sueperman/services/api/.venv/bin/python",
+    "-m",
+    "pytest",
+    "services/api/tests/diwali/test_messages.py",
+    "services/api/tests/diwali/test_harness.py",
+    "services/api/tests/diwali/test_harness.py::test_proof_requires_artifact",
+    "services/api/tests/diwali/test_harness.py::test_skips_cannot_pass",
+    "services/api/tests/diwali/test_harness.py::test_baseline_integrity",
+    "-q",
+    "--strict-markers",
+    "-o",
+    "xfail_strict=true",
+    "--junitxml=/Users/nirmalhk7/Documents/DevWorld/sueperman/docs/evidence/diwali/v2.1/G1/pytest.xml"
+  ],
+  "status": "PASS",
+  "exit_code": 0,
+  "duration_seconds": 4.414308791980147,
+  "stdout_path": "/Users/nirmalhk7/Documents/DevWorld/sueperman/docs/evidence/diwali/v2.1/G1/stdout.log",
+  "stderr_path": "/Users/nirmalhk7/Documents/DevWorld/sueperman/docs/evidence/diwali/v2.1/G1/stderr.log",
+  "tests": 34,
+  "tested_tree_digest": "24536685f70c08db367eb98dc909e281b962d91d880504edb3ea1e644cd10a66"
+}

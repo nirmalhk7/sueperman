@@ -1,0 +1,56 @@
+FFF                                                                      [100%]
+=================================== FAILURES ===================================
+____________ test_operator_reset_requires_isolated_explicit_opt_in _____________
+
+client = <starlette.testclient.TestClient object at 0x10bf532c0>
+
+    def test_operator_reset_requires_isolated_explicit_opt_in(client):
+>       assert client.post("/api/demo/diwali/reset").status_code == 403
+E       AssertionError: assert 404 == 403
+E        +  where 404 = <Response [404 Not Found]>.status_code
+E        +    where <Response [404 Not Found]> = post('/api/demo/diwali/reset')
+E        +      where post = <starlette.testclient.TestClient object at 0x10bf532c0>.post
+
+services/api/tests/diwali/test_api.py:169: AssertionError
+___________________ test_operator_reset_reuses_original_seed ___________________
+
+tmp_path = PosixPath('/private/var/folders/k0/w3xrb_d95jn2t7nf2f0s05yr0000gp/T/pytest-of-nirmalhk7/pytest-123/test_operator_reset_reuses_ori0')
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x108ed0d10>
+
+    def test_operator_reset_reuses_original_seed(tmp_path, monkeypatch):
+        monkeypatch.setenv("DIWALI_OPERATOR_DEMO", "true")
+        with TestClient(create_app(f"sqlite:///{tmp_path}/isolated.db")) as client:
+            first = client.post("/api/demo/diwali/reset")
+            second = client.post("/api/demo/diwali/reset")
+>           assert first.status_code == second.status_code == 200
+E           assert 404 == 200
+E            +  where 404 = <Response [404 Not Found]>.status_code
+
+services/api/tests/diwali/test_api.py:177: AssertionError
+___________________ test_odd_message_budget_never_overshoots ___________________
+
+tmp_path = PosixPath('/private/var/folders/k0/w3xrb_d95jn2t7nf2f0s05yr0000gp/T/pytest-of-nirmalhk7/pytest-123/test_odd_message_budget_never_0')
+
+    @pytest.mark.asyncio
+    async def test_odd_message_budget_never_overshoots(tmp_path):
+        module, factory, _p, run_id, _product, _recall = setup(tmp_path)
+        queued(factory, run_id)
+        await execute(factory, run_id, Settings(diwali_max_messages_per_case=3))
+        with factory() as session:
+            accepted = session.scalars(select(module.MessageRow).where(module.MessageRow.delivery == "consumed")).all()
+>           assert len(accepted) == 2
+E           assert 4 == 2
+E            +  where 4 = len([<app.diwali.persistence.MessageRow object at 0x10c0589b0>, <app.diwali.persistence.MessageRow object at 0x10c058e30>, <app.diwali.persistence.MessageRow object at 0x10c058f20>, <app.diwali.persistence.MessageRow object at 0x10c058f80>])
+
+services/api/tests/diwali/test_failures.py:99: AssertionError
+=============================== warnings summary ===============================
+services/api/.venv/lib/python3.12/site-packages/fastapi/testclient.py:1
+  /Users/nirmalhk7/Documents/DevWorld/sueperman/services/api/.venv/lib/python3.12/site-packages/fastapi/testclient.py:1: StarletteDeprecationWarning: Using `httpx` with `starlette.testclient` is deprecated; install `httpx2` instead.
+    from starlette.testclient import TestClient as TestClient  # noqa
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+=========================== short test summary info ============================
+FAILED services/api/tests/diwali/test_api.py::test_operator_reset_requires_isolated_explicit_opt_in
+FAILED services/api/tests/diwali/test_api.py::test_operator_reset_reuses_original_seed
+FAILED services/api/tests/diwali/test_failures.py::test_odd_message_budget_never_overshoots
+3 failed, 1 warning in 0.91s

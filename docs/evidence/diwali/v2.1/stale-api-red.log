@@ -1,0 +1,76 @@
+FF                                                                       [100%]
+=================================== FAILURES ===================================
+_______________ test_packet_routes_reject_changed_input[product] _______________
+
+client = <starlette.testclient.TestClient object at 0x10c3dc830>
+tmp_path = PosixPath('/private/var/folders/k0/w3xrb_d95jn2t7nf2f0s05yr0000gp/T/pytest-of-nirmalhk7/pytest-108/test_packet_routes_reject_chan0')
+changed = 'product'
+
+    @pytest.mark.parametrize("changed", ["product", "source"])
+    def test_packet_routes_reject_changed_input(client, tmp_path, changed):
+        from sqlalchemy import select
+        from app.db import database
+        from app.models import Product, SourceEvidence
+        result, _ = run(client)
+        opportunities = client.get("/api/opportunities", params={"run_id": result["run_id"]}).json()
+        exact = next(o for o in opportunities if o["status"] == "verified_match")
+        packet = client.post(f"/api/opportunities/{exact['id']}/claim-packet").json()
+        path = f"/api/claim-packets/{packet['id']}"
+        assert client.post(path + "/approve-local", json={"confirmed": True}).status_code == 200
+        engine, factory = database(f"sqlite:///{tmp_path}/api.db")
+        with factory.begin() as session:
+            if changed == "product":
+                product = session.get(Product, exact["product_id"])
+                product.payload = product.payload | {"product": product.payload["product"] | {"model_number": "ZHX-PB23"}}
+            else:
+                source = session.scalar(select(SourceEvidence).where(SourceEvidence.opportunity_id == exact["id"]))
+                source.payload = source.payload | {"quoted_excerpt": "Changed official model restriction"}
+>       assert client.post(path + "/export").status_code == 409
+E       AssertionError: assert 200 == 409
+E        +  where 200 = <Response [200 OK]>.status_code
+E        +    where <Response [200 OK]> = post(('/api/claim-packets/436612b3-108e-416e-8d86-3f3e33cc49b5' + '/export'))
+E        +      where post = <starlette.testclient.TestClient object at 0x10c3dc830>.post
+
+services/api/tests/diwali/test_api.py:143: AssertionError
+_______________ test_packet_routes_reject_changed_input[source] ________________
+
+client = <starlette.testclient.TestClient object at 0x10c410da0>
+tmp_path = PosixPath('/private/var/folders/k0/w3xrb_d95jn2t7nf2f0s05yr0000gp/T/pytest-of-nirmalhk7/pytest-108/test_packet_routes_reject_chan1')
+changed = 'source'
+
+    @pytest.mark.parametrize("changed", ["product", "source"])
+    def test_packet_routes_reject_changed_input(client, tmp_path, changed):
+        from sqlalchemy import select
+        from app.db import database
+        from app.models import Product, SourceEvidence
+        result, _ = run(client)
+        opportunities = client.get("/api/opportunities", params={"run_id": result["run_id"]}).json()
+        exact = next(o for o in opportunities if o["status"] == "verified_match")
+        packet = client.post(f"/api/opportunities/{exact['id']}/claim-packet").json()
+        path = f"/api/claim-packets/{packet['id']}"
+        assert client.post(path + "/approve-local", json={"confirmed": True}).status_code == 200
+        engine, factory = database(f"sqlite:///{tmp_path}/api.db")
+        with factory.begin() as session:
+            if changed == "product":
+                product = session.get(Product, exact["product_id"])
+                product.payload = product.payload | {"product": product.payload["product"] | {"model_number": "ZHX-PB23"}}
+            else:
+                source = session.scalar(select(SourceEvidence).where(SourceEvidence.opportunity_id == exact["id"]))
+                source.payload = source.payload | {"quoted_excerpt": "Changed official model restriction"}
+>       assert client.post(path + "/export").status_code == 409
+E       AssertionError: assert 200 == 409
+E        +  where 200 = <Response [200 OK]>.status_code
+E        +    where <Response [200 OK]> = post(('/api/claim-packets/087e7972-8707-4ef5-9a62-608688ed7c1a' + '/export'))
+E        +      where post = <starlette.testclient.TestClient object at 0x10c410da0>.post
+
+services/api/tests/diwali/test_api.py:143: AssertionError
+=============================== warnings summary ===============================
+services/api/.venv/lib/python3.12/site-packages/fastapi/testclient.py:1
+  /Users/nirmalhk7/Documents/DevWorld/sueperman/services/api/.venv/lib/python3.12/site-packages/fastapi/testclient.py:1: StarletteDeprecationWarning: Using `httpx` with `starlette.testclient` is deprecated; install `httpx2` instead.
+    from starlette.testclient import TestClient as TestClient  # noqa
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+=========================== short test summary info ============================
+FAILED services/api/tests/diwali/test_api.py::test_packet_routes_reject_changed_input[product]
+FAILED services/api/tests/diwali/test_api.py::test_packet_routes_reject_changed_input[source]
+2 failed, 1 warning in 0.86s

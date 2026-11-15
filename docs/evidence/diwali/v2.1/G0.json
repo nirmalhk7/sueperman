@@ -1,0 +1,23 @@
+{
+  "status": "PASS",
+  "failures": [],
+  "baseline_checks": [
+    {
+      "command": "make test",
+      "exit_code": 0,
+      "result": "132 backend + 11 frontend passed; 0 skipped; existing Starlette deprecation warning",
+      "evidence": "docs/evidence/diwali/v2.1/baseline-test.log"
+    },
+    {
+      "command": "make lint",
+      "exit_code": 0,
+      "evidence": "docs/evidence/diwali/v2.1/baseline-lint.log"
+    },
+    {
+      "command": "make typecheck",
+      "exit_code": 0,
+      "evidence": "docs/evidence/diwali/v2.1/baseline-typecheck.log"
+    }
+  ],
+  "tested_tree_digest": "24536685f70c08db367eb98dc909e281b962d91d880504edb3ea1e644cd10a66"
+}

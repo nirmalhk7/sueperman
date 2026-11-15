@@ -1,0 +1,68 @@
+[
+  {
+    "command": [
+      "make",
+      "test"
+    ],
+    "status": "PASS",
+    "exit_code": 0,
+    "stdout_path": "/Users/nirmalhk7/Documents/DevWorld/sueperman/docs/evidence/diwali/p1/regressions/test/stdout.log",
+    "stderr_path": "/Users/nirmalhk7/Documents/DevWorld/sueperman/docs/evidence/diwali/p1/regressions/test/stderr.log",
+    "duration_seconds": 93.70473120792303
+  },
+  {
+    "command": [
+      "make",
+      "lint"
+    ],
+    "status": "PASS",
+    "exit_code": 0,
+    "stdout_path": "/Users/nirmalhk7/Documents/DevWorld/sueperman/docs/evidence/diwali/p1/regressions/lint/stdout.log",
+    "stderr_path": "/Users/nirmalhk7/Documents/DevWorld/sueperman/docs/evidence/diwali/p1/regressions/lint/stderr.log",
+    "duration_seconds": 3.1523948329268023
+  },
+  {
+    "command": [
+      "make",
+      "typecheck"
+    ],
+    "status": "PASS",
+    "exit_code": 0,
+    "stdout_path": "/Users/nirmalhk7/Documents/DevWorld/sueperman/docs/evidence/diwali/p1/regressions/typecheck/stdout.log",
+    "stderr_path": "/Users/nirmalhk7/Documents/DevWorld/sueperman/docs/evidence/diwali/p1/regressions/typecheck/stderr.log",
+    "duration_seconds": 3.0313251249026507
+  },
+  {
+    "command": [
+      "make",
+      "build"
+    ],
+    "status": "PASS",
+    "exit_code": 0,
+    "stdout_path": "/Users/nirmalhk7/Documents/DevWorld/sueperman/docs/evidence/diwali/p1/regressions/build/stdout.log",
+    "stderr_path": "/Users/nirmalhk7/Documents/DevWorld/sueperman/docs/evidence/diwali/p1/regressions/build/stderr.log",
+    "duration_seconds": 21.366480291006155
+  },
+  {
+    "command": [
+      "make",
+      "smoke"
+    ],
+    "status": "PASS",
+    "exit_code": 0,
+    "stdout_path": "/Users/nirmalhk7/Documents/DevWorld/sueperman/docs/evidence/diwali/p1/regressions/smoke/stdout.log",
+    "stderr_path": "/Users/nirmalhk7/Documents/DevWorld/sueperman/docs/evidence/diwali/p1/regressions/smoke/stderr.log",
+    "duration_seconds": 0.2736073340056464
+  },
+  {
+    "command": [
+      "make",
+      "e2e"
+    ],
+    "status": "PASS",
+    "exit_code": 0,
+    "stdout_path": "/Users/nirmalhk7/Documents/DevWorld/sueperman/docs/evidence/diwali/p1/regressions/e2e/stdout.log",
+    "stderr_path": "/Users/nirmalhk7/Documents/DevWorld/sueperman/docs/evidence/diwali/p1/regressions/e2e/stderr.log",
+    "duration_seconds": 13.27086491708178
+  }
+]

@@ -9,6 +9,31 @@ ROOT = Path(__file__).resolve().parents[3]
 class Settings(BaseSettings):
     model_config = SettingsConfigDict(env_file=ROOT / ".env", extra="ignore")
     demo_mode: bool = True
+    p1_enabled: bool = False
+    p1_monitor_enabled: bool = False
+    p1_monitor_poll_seconds: float = Field(default=60, ge=1, le=3600)
+    diwali_enabled: bool = False
+    diwali_operator_demo: bool = False
+    diwali_live_authorized: bool = False
+    band_enabled: bool = False
+    band_credentials_file: str = ""
+    lyzr_enabled: bool = False
+    lyzr_api_key: str = ""
+    lyzr_review_agent_id: str = ""
+    finch_enabled: bool = False
+    finch_skill_path: str = ""
+    finch_skill_sha256: str = ""
+    agent37_enabled: bool = False
+    agent37_api_key: str = ""
+    agent37_instance_id: str = ""
+    diwali_max_messages_per_case: int = Field(default=12, ge=2, le=12)
+    diwali_max_followups_per_case: int = Field(default=1, ge=0, le=1)
+    diwali_max_lyzr_calls_per_run: int = Field(default=3, ge=0, le=3)
+    diwali_remote_task_seconds: float = Field(default=10, gt=0, le=10)
+    diwali_max_run_seconds: float = Field(default=90, gt=5, le=90)
+    collaboration_live_enabled: bool = False
+    collaboration_public_demo: bool = True
+    collaboration_timeout_seconds: float = Field(default=90, gt=0, le=90)
     database_url: str = "sqlite:///./sueperman.db"
     frontend_origin: str = "http://localhost:3000"
     cpsc_live_enabled: bool = False

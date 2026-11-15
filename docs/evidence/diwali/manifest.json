@@ -1,0 +1,86 @@
+{
+  "schema_version": 1,
+  "mode": "offline_replay_only",
+  "live_sponsor_proof": [],
+  "release_ready": false,
+  "blockers": [
+    "BAND SDK adapter and actual addressed request/reply handshake not implemented or verified",
+    "Agent37 compute credit required; no isolated pinned worker, instance or network-policy verification",
+    "AdaL deferred by user; constrained runtime and video absent",
+    "Finch candidate delivered and integrity-reviewed; recall suitability tests and actual skill invocation still required",
+    "Lyzr adapter and live schema-validated case response not yet implemented or verified",
+    "Participant attestation, final submission channel, final published V2/video and remaining release acceptance unresolved"
+  ],
+  "offline_verification": {
+    "backend_tests_passed": 132,
+    "frontend_tests_passed": 11,
+    "browser_tests_passed": 9,
+    "paid_live_browser_tests_skipped": 3,
+    "lint": "passed",
+    "typecheck": "passed",
+    "local_smoke": "passed",
+    "production_build": "passed",
+    "sponsor_adapters_implemented": false,
+    "test_evidence_is_live_sponsor_proof": false,
+    "container_acceptance": "passed; V1 offline flow, not live V2 deployment"
+  },
+  "authorship_history": "authorship-history.json; participant attestation unresolved",
+  "account_setup": {
+    "observed_date": "2026-11-14 America/Los_Angeles",
+    "band": {
+      "identities_created": [
+        "controller",
+        "scout",
+        "skeptic",
+        "builder"
+      ],
+      "room_created": true,
+      "participants": "four Sueperman identities and account owner only",
+      "public_directory": false,
+      "personal_registry_access": false,
+      "webhooks": false,
+      "credentials": "ignored .env only",
+      "handshake_verified": false
+    },
+    "lyzr": {
+      "studio_builder_created": true,
+      "structured_output_ui_validated": true,
+      "instructions_verified_in_saved_agent_json": true,
+      "tools": "none",
+      "knowledge_sources": "none",
+      "cross_session_memory": false,
+      "standard_key_saved": true,
+      "legacy_key_disabled_with_explicit_approval": true,
+      "generated_api_path": "/v3/inference/chat/",
+      "generated_auth_header": "x-api-key",
+      "generated_request_fields": [
+        "user_id",
+        "agent_id",
+        "session_id",
+        "message"
+      ],
+      "agent_execution_verified": false
+    },
+    "agent37": {
+      "key_saved": true,
+      "balance_observed_usd": 0,
+      "instance_created": false
+    },
+    "finch": {
+      "signed_in": true,
+      "candidate_package_downloaded": true,
+      "name": "Strategy Red Team",
+      "chain_id": 8453,
+      "skill_id": "311",
+      "version": "1",
+      "license": "MIT",
+      "published_primary_hash_verified": true,
+      "real_package_pin_gate_passed": true,
+      "tampered_primary_content_rejected": true,
+      "challenge_suitability_verified": false,
+      "skill_model_invocation_verified": false,
+      "review": "finch-package-review.json"
+    },
+    "adal": "Deferred at user request; original five-sponsor release gate remains unmet"
+  }
+}

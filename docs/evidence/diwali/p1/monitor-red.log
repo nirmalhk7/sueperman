@@ -1,0 +1,294 @@
+============================= test session starts ==============================
+platform darwin -- Python 3.12.13, pytest-9.2.0, pluggy-1.7.0
+rootdir: /Users/nirmalhk7/Documents/DevWorld/sueperman/services/api
+configfile: pyproject.toml
+plugins: anyio-4.16.0, asyncio-1.5.0, respx-0.23.1
+asyncio: mode=Mode.AUTO, debug=False, asyncio_default_fixture_loop_scope=function, asyncio_default_test_loop_scope=function
+collected 6 items
+
+services/api/tests/p1/test_monitoring.py FFFFFF                          [100%]
+
+=================================== FAILURES ===================================
+_ test_unchanged_timestamp_only_refresh_preserves_approval_and_daily_schedule __
+
+    def monitor():
+        try:
+>           return importlib.import_module("app.p1.monitoring")
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+services/api/tests/p1/test_monitoring.py:20: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+/private/tmp/sueperman-python/cpython-3.12.13-macos-aarch64-none/lib/python3.12/importlib/__init__.py:90: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+<frozen importlib._bootstrap>:1387: in _gcd_import
+    ???
+<frozen importlib._bootstrap>:1360: in _find_and_load
+    ???
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+name = 'app.p1.monitoring', import_ = <function _gcd_import at 0x102d1c0e0>
+
+>   ???
+E   ModuleNotFoundError: No module named 'app.p1.monitoring'
+
+<frozen importlib._bootstrap>:1324: ModuleNotFoundError
+
+During handling of the above exception, another exception occurred:
+
+graph = (Engine(sqlite:////private/var/folders/k0/w3xrb_d95jn2t7nf2f0s05yr0000gp/T/pytest-of-nirmalhk7/pytest-174/test_unchang... official required markings', 'User confirmation of lawful disposal (never prefilled)'], conditions=[], mode='replay'))
+
+    @pytest.mark.asyncio
+    async def test_unchanged_timestamp_only_refresh_preserves_approval_and_daily_schedule(graph):
+>       module = monitor()
+                 ^^^^^^^^^
+
+services/api/tests/p1/test_monitoring.py:55: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    def monitor():
+        try:
+            return importlib.import_module("app.p1.monitoring")
+        except ModuleNotFoundError:
+>           pytest.fail("Persistent P1 source monitoring is not implemented")
+E           Failed: Persistent P1 source monitoring is not implemented
+
+services/api/tests/p1/test_monitoring.py:22: Failed
+________ test_changed_source_revokes_export_and_retains_both_snapshots _________
+
+    def monitor():
+        try:
+>           return importlib.import_module("app.p1.monitoring")
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+services/api/tests/p1/test_monitoring.py:20: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+/private/tmp/sueperman-python/cpython-3.12.13-macos-aarch64-none/lib/python3.12/importlib/__init__.py:90: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+<frozen importlib._bootstrap>:1387: in _gcd_import
+    ???
+<frozen importlib._bootstrap>:1360: in _find_and_load
+    ???
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+name = 'app.p1.monitoring', import_ = <function _gcd_import at 0x102d1c0e0>
+
+>   ???
+E   ModuleNotFoundError: No module named 'app.p1.monitoring'
+
+<frozen importlib._bootstrap>:1324: ModuleNotFoundError
+
+During handling of the above exception, another exception occurred:
+
+graph = (Engine(sqlite:////private/var/folders/k0/w3xrb_d95jn2t7nf2f0s05yr0000gp/T/pytest-of-nirmalhk7/pytest-174/test_changed... official required markings', 'User confirmation of lawful disposal (never prefilled)'], conditions=[], mode='replay'))
+
+    @pytest.mark.asyncio
+    async def test_changed_source_revokes_export_and_retains_both_snapshots(graph):
+>       module = monitor()
+                 ^^^^^^^^^
+
+services/api/tests/p1/test_monitoring.py:78: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    def monitor():
+        try:
+            return importlib.import_module("app.p1.monitoring")
+        except ModuleNotFoundError:
+>           pytest.fail("Persistent P1 source monitoring is not implemented")
+E           Failed: Persistent P1 source monitoring is not implemented
+
+services/api/tests/p1/test_monitoring.py:22: Failed
+__ test_timeout_revokes_approval_without_automatic_retry_or_recovery_approval __
+
+    def monitor():
+        try:
+>           return importlib.import_module("app.p1.monitoring")
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+services/api/tests/p1/test_monitoring.py:20: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+/private/tmp/sueperman-python/cpython-3.12.13-macos-aarch64-none/lib/python3.12/importlib/__init__.py:90: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+<frozen importlib._bootstrap>:1387: in _gcd_import
+    ???
+<frozen importlib._bootstrap>:1360: in _find_and_load
+    ???
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+name = 'app.p1.monitoring', import_ = <function _gcd_import at 0x102d1c0e0>
+
+>   ???
+E   ModuleNotFoundError: No module named 'app.p1.monitoring'
+
+<frozen importlib._bootstrap>:1324: ModuleNotFoundError
+
+During handling of the above exception, another exception occurred:
+
+graph = (Engine(sqlite:////private/var/folders/k0/w3xrb_d95jn2t7nf2f0s05yr0000gp/T/pytest-of-nirmalhk7/pytest-174/test_timeout... official required markings', 'User confirmation of lawful disposal (never prefilled)'], conditions=[], mode='replay'))
+
+    @pytest.mark.asyncio
+    async def test_timeout_revokes_approval_without_automatic_retry_or_recovery_approval(graph):
+>       module = monitor()
+                 ^^^^^^^^^
+
+services/api/tests/p1/test_monitoring.py:97: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    def monitor():
+        try:
+            return importlib.import_module("app.p1.monitoring")
+        except ModuleNotFoundError:
+>           pytest.fail("Persistent P1 source monitoring is not implemented")
+E           Failed: Persistent P1 source monitoring is not implemented
+
+services/api/tests/p1/test_monitoring.py:22: Failed
+_____________ test_concurrent_ticks_read_once_and_skip_active_runs _____________
+
+    def monitor():
+        try:
+>           return importlib.import_module("app.p1.monitoring")
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+services/api/tests/p1/test_monitoring.py:20: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+/private/tmp/sueperman-python/cpython-3.12.13-macos-aarch64-none/lib/python3.12/importlib/__init__.py:90: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+<frozen importlib._bootstrap>:1387: in _gcd_import
+    ???
+<frozen importlib._bootstrap>:1360: in _find_and_load
+    ???
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+name = 'app.p1.monitoring', import_ = <function _gcd_import at 0x102d1c0e0>
+
+>   ???
+E   ModuleNotFoundError: No module named 'app.p1.monitoring'
+
+<frozen importlib._bootstrap>:1324: ModuleNotFoundError
+
+During handling of the above exception, another exception occurred:
+
+graph = (Engine(sqlite:////private/var/folders/k0/w3xrb_d95jn2t7nf2f0s05yr0000gp/T/pytest-of-nirmalhk7/pytest-174/test_concurr... official required markings', 'User confirmation of lawful disposal (never prefilled)'], conditions=[], mode='replay'))
+
+    @pytest.mark.asyncio
+    async def test_concurrent_ticks_read_once_and_skip_active_runs(graph):
+>       module = monitor()
+                 ^^^^^^^^^
+
+services/api/tests/p1/test_monitoring.py:116: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    def monitor():
+        try:
+            return importlib.import_module("app.p1.monitoring")
+        except ModuleNotFoundError:
+>           pytest.fail("Persistent P1 source monitoring is not implemented")
+E           Failed: Persistent P1 source monitoring is not implemented
+
+services/api/tests/p1/test_monitoring.py:22: Failed
+___ test_restart_disables_inflight_watch_and_migration_preserves_legacy_rows ___
+
+    def monitor():
+        try:
+>           return importlib.import_module("app.p1.monitoring")
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+services/api/tests/p1/test_monitoring.py:20: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+/private/tmp/sueperman-python/cpython-3.12.13-macos-aarch64-none/lib/python3.12/importlib/__init__.py:90: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+<frozen importlib._bootstrap>:1387: in _gcd_import
+    ???
+<frozen importlib._bootstrap>:1360: in _find_and_load
+    ???
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+name = 'app.p1.monitoring', import_ = <function _gcd_import at 0x102d1c0e0>
+
+>   ???
+E   ModuleNotFoundError: No module named 'app.p1.monitoring'
+
+<frozen importlib._bootstrap>:1324: ModuleNotFoundError
+
+During handling of the above exception, another exception occurred:
+
+graph = (Engine(sqlite:////private/var/folders/k0/w3xrb_d95jn2t7nf2f0s05yr0000gp/T/pytest-of-nirmalhk7/pytest-174/test_restart... official required markings', 'User confirmation of lawful disposal (never prefilled)'], conditions=[], mode='replay'))
+
+    def test_restart_disables_inflight_watch_and_migration_preserves_legacy_rows(graph):
+>       module = monitor()
+                 ^^^^^^^^^
+
+services/api/tests/p1/test_monitoring.py:134: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    def monitor():
+        try:
+            return importlib.import_module("app.p1.monitoring")
+        except ModuleNotFoundError:
+>           pytest.fail("Persistent P1 source monitoring is not implemented")
+E           Failed: Persistent P1 source monitoring is not implemented
+
+services/api/tests/p1/test_monitoring.py:22: Failed
+______________ test_wrong_source_cannot_replace_current_snapshot _______________
+
+    def monitor():
+        try:
+>           return importlib.import_module("app.p1.monitoring")
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+services/api/tests/p1/test_monitoring.py:20: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+/private/tmp/sueperman-python/cpython-3.12.13-macos-aarch64-none/lib/python3.12/importlib/__init__.py:90: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+<frozen importlib._bootstrap>:1387: in _gcd_import
+    ???
+<frozen importlib._bootstrap>:1360: in _find_and_load
+    ???
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+name = 'app.p1.monitoring', import_ = <function _gcd_import at 0x102d1c0e0>
+
+>   ???
+E   ModuleNotFoundError: No module named 'app.p1.monitoring'
+
+<frozen importlib._bootstrap>:1324: ModuleNotFoundError
+
+During handling of the above exception, another exception occurred:
+
+graph = (Engine(sqlite:////private/var/folders/k0/w3xrb_d95jn2t7nf2f0s05yr0000gp/T/pytest-of-nirmalhk7/pytest-174/test_wrong_s... official required markings', 'User confirmation of lawful disposal (never prefilled)'], conditions=[], mode='replay'))
+
+    @pytest.mark.asyncio
+    async def test_wrong_source_cannot_replace_current_snapshot(graph):
+>       module = monitor()
+                 ^^^^^^^^^
+
+services/api/tests/p1/test_monitoring.py:153: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    def monitor():
+        try:
+            return importlib.import_module("app.p1.monitoring")
+        except ModuleNotFoundError:
+>           pytest.fail("Persistent P1 source monitoring is not implemented")
+E           Failed: Persistent P1 source monitoring is not implemented
+
+services/api/tests/p1/test_monitoring.py:22: Failed
+=============================== warnings summary ===============================
+services/api/.venv/lib/python3.12/site-packages/fastapi/testclient.py:1
+  /Users/nirmalhk7/Documents/DevWorld/sueperman/services/api/.venv/lib/python3.12/site-packages/fastapi/testclient.py:1: StarletteDeprecationWarning: Using `httpx` with `starlette.testclient` is deprecated; install `httpx2` instead.
+    from starlette.testclient import TestClient as TestClient  # noqa
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+=========================== short test summary info ============================
+FAILED services/api/tests/p1/test_monitoring.py::test_unchanged_timestamp_only_refresh_preserves_approval_and_daily_schedule
+FAILED services/api/tests/p1/test_monitoring.py::test_changed_source_revokes_export_and_retains_both_snapshots
+FAILED services/api/tests/p1/test_monitoring.py::test_timeout_revokes_approval_without_automatic_retry_or_recovery_approval
+FAILED services/api/tests/p1/test_monitoring.py::test_concurrent_ticks_read_once_and_skip_active_runs
+FAILED services/api/tests/p1/test_monitoring.py::test_restart_disables_inflight_watch_and_migration_preserves_legacy_rows
+FAILED services/api/tests/p1/test_monitoring.py::test_wrong_source_cannot_replace_current_snapshot
+========================= 6 failed, 1 warning in 1.33s =========================

@@ -1,0 +1,173 @@
+============================= test session starts ==============================
+platform darwin -- Python 3.12.13, pytest-9.2.0, pluggy-1.7.0
+rootdir: /Users/nirmalhk7/Documents/DevWorld/sueperman/services/api
+configfile: pyproject.toml
+plugins: anyio-4.16.0, asyncio-1.5.0, respx-0.23.1
+asyncio: mode=Mode.AUTO, debug=False, asyncio_default_fixture_loop_scope=function, asyncio_default_test_loop_scope=function
+collected 6 items
+
+services/api/tests/p1/test_obligations.py FFFFFF                         [100%]
+
+=================================== FAILURES ===================================
+_ test_readiness_requires_confirmation_without_changing_facts_or_missing_proof _
+
+graph = (Engine(sqlite:////private/var/folders/k0/w3xrb_d95jn2t7nf2f0s05yr0000gp/T/pytest-of-nirmalhk7/pytest-182/test_readine... official required markings', 'User confirmation of lawful disposal (never prefilled)'], conditions=[], mode='replay'))
+
+    def test_readiness_requires_confirmation_without_changing_facts_or_missing_proof(graph):
+        _engine, factory, client, opportunity_id, packet_id, _record = graph
+        before = client.get(f"/api/claim-packets/{packet_id}").json()
+>       state = checklist(client, packet_id)
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+services/api/tests/p1/test_obligations.py:31: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+client = <starlette.testclient.TestClient object at 0x10a9c8200>
+packet_id = '02dfc69d-2d59-4c3d-ae5f-81727e43bd04'
+
+    def checklist(client, packet_id):
+        response = client.get(f"/api/claim-packets/{packet_id}/obligations")
+>       assert response.status_code == 200, response.text
+E       AssertionError: {"detail":"Not Found"}
+E       assert 404 == 200
+E        +  where 404 = <Response [404 Not Found]>.status_code
+
+services/api/tests/p1/test_obligations.py:18: AssertionError
+_______ test_readiness_edit_revokes_approval_export_and_repeat_is_a_noop _______
+
+graph = (Engine(sqlite:////private/var/folders/k0/w3xrb_d95jn2t7nf2f0s05yr0000gp/T/pytest-of-nirmalhk7/pytest-182/test_readine... official required markings', 'User confirmation of lawful disposal (never prefilled)'], conditions=[], mode='replay'))
+
+    def test_readiness_edit_revokes_approval_export_and_repeat_is_a_noop(graph):
+        _engine, _factory, client, _opportunity_id, packet_id, _record = graph
+>       state = checklist(client, packet_id)
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+services/api/tests/p1/test_obligations.py:51: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+client = <starlette.testclient.TestClient object at 0x10abbe6f0>
+packet_id = '405edf8e-bef6-4fbf-a8de-49cc54048688'
+
+    def checklist(client, packet_id):
+        response = client.get(f"/api/claim-packets/{packet_id}/obligations")
+>       assert response.status_code == 200, response.text
+E       AssertionError: {"detail":"Not Found"}
+E       assert 404 == 200
+E        +  where 404 = <Response [404 Not Found]>.status_code
+
+services/api/tests/p1/test_obligations.py:18: AssertionError
+_ test_changed_binding_resets_readiness_rejects_stale_updates_and_revokes_export[product] _
+
+graph = (Engine(sqlite:////private/var/folders/k0/w3xrb_d95jn2t7nf2f0s05yr0000gp/T/pytest-of-nirmalhk7/pytest-182/test_changed... official required markings', 'User confirmation of lawful disposal (never prefilled)'], conditions=[], mode='replay'))
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x10aae5040>
+change = 'product'
+
+    @pytest.mark.parametrize("change", ["product", "evidence", "policy"])
+    def test_changed_binding_resets_readiness_rejects_stale_updates_and_revokes_export(graph, monkeypatch, change):
+        _engine, factory, client, opportunity_id, packet_id, _record = graph
+>       state = checklist(client, packet_id)
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+services/api/tests/p1/test_obligations.py:70: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+client = <starlette.testclient.TestClient object at 0x10ac87ce0>
+packet_id = 'a0071b03-f5f0-4d88-8280-bd79c052fdb6'
+
+    def checklist(client, packet_id):
+        response = client.get(f"/api/claim-packets/{packet_id}/obligations")
+>       assert response.status_code == 200, response.text
+E       AssertionError: {"detail":"Not Found"}
+E       assert 404 == 200
+E        +  where 404 = <Response [404 Not Found]>.status_code
+
+services/api/tests/p1/test_obligations.py:18: AssertionError
+_ test_changed_binding_resets_readiness_rejects_stale_updates_and_revokes_export[evidence] _
+
+graph = (Engine(sqlite:////private/var/folders/k0/w3xrb_d95jn2t7nf2f0s05yr0000gp/T/pytest-of-nirmalhk7/pytest-182/test_changed... official required markings', 'User confirmation of lawful disposal (never prefilled)'], conditions=[], mode='replay'))
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x10abfc6b0>
+change = 'evidence'
+
+    @pytest.mark.parametrize("change", ["product", "evidence", "policy"])
+    def test_changed_binding_resets_readiness_rejects_stale_updates_and_revokes_export(graph, monkeypatch, change):
+        _engine, factory, client, opportunity_id, packet_id, _record = graph
+>       state = checklist(client, packet_id)
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+services/api/tests/p1/test_obligations.py:70: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+client = <starlette.testclient.TestClient object at 0x10acca8d0>
+packet_id = '064aa76a-1e43-46c2-bcb8-876a7e7d6a53'
+
+    def checklist(client, packet_id):
+        response = client.get(f"/api/claim-packets/{packet_id}/obligations")
+>       assert response.status_code == 200, response.text
+E       AssertionError: {"detail":"Not Found"}
+E       assert 404 == 200
+E        +  where 404 = <Response [404 Not Found]>.status_code
+
+services/api/tests/p1/test_obligations.py:18: AssertionError
+_ test_changed_binding_resets_readiness_rejects_stale_updates_and_revokes_export[policy] _
+
+graph = (Engine(sqlite:////private/var/folders/k0/w3xrb_d95jn2t7nf2f0s05yr0000gp/T/pytest-of-nirmalhk7/pytest-182/test_changed... official required markings', 'User confirmation of lawful disposal (never prefilled)'], conditions=[], mode='replay'))
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x10ad87560>
+change = 'policy'
+
+    @pytest.mark.parametrize("change", ["product", "evidence", "policy"])
+    def test_changed_binding_resets_readiness_rejects_stale_updates_and_revokes_export(graph, monkeypatch, change):
+        _engine, factory, client, opportunity_id, packet_id, _record = graph
+>       state = checklist(client, packet_id)
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+services/api/tests/p1/test_obligations.py:70: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+client = <starlette.testclient.TestClient object at 0x10ae53ce0>
+packet_id = '0c9a8478-d26d-40cf-be40-5efbc139f37a'
+
+    def checklist(client, packet_id):
+        response = client.get(f"/api/claim-packets/{packet_id}/obligations")
+>       assert response.status_code == 200, response.text
+E       AssertionError: {"detail":"Not Found"}
+E       assert 404 == 200
+E        +  where 404 = <Response [404 Not Found]>.status_code
+
+services/api/tests/p1/test_obligations.py:18: AssertionError
+_ test_unknown_item_cannot_create_invented_obligation_and_state_survives_reopen _
+
+graph = (Engine(sqlite:////private/var/folders/k0/w3xrb_d95jn2t7nf2f0s05yr0000gp/T/pytest-of-nirmalhk7/pytest-182/test_unknown... official required markings', 'User confirmation of lawful disposal (never prefilled)'], conditions=[], mode='replay'))
+
+    def test_unknown_item_cannot_create_invented_obligation_and_state_survives_reopen(graph):
+        _engine, factory, client, _opportunity_id, packet_id, _record = graph
+>       state = checklist(client, packet_id)
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+services/api/tests/p1/test_obligations.py:99: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+client = <starlette.testclient.TestClient object at 0x10af3be90>
+packet_id = 'e3b59082-3c2b-425c-93ff-46240c86d6f2'
+
+    def checklist(client, packet_id):
+        response = client.get(f"/api/claim-packets/{packet_id}/obligations")
+>       assert response.status_code == 200, response.text
+E       AssertionError: {"detail":"Not Found"}
+E       assert 404 == 200
+E        +  where 404 = <Response [404 Not Found]>.status_code
+
+services/api/tests/p1/test_obligations.py:18: AssertionError
+=============================== warnings summary ===============================
+services/api/.venv/lib/python3.12/site-packages/fastapi/testclient.py:1
+  /Users/nirmalhk7/Documents/DevWorld/sueperman/services/api/.venv/lib/python3.12/site-packages/fastapi/testclient.py:1: StarletteDeprecationWarning: Using `httpx` with `starlette.testclient` is deprecated; install `httpx2` instead.
+    from starlette.testclient import TestClient as TestClient  # noqa
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+=========================== short test summary info ============================
+FAILED services/api/tests/p1/test_obligations.py::test_readiness_requires_confirmation_without_changing_facts_or_missing_proof
+FAILED services/api/tests/p1/test_obligations.py::test_readiness_edit_revokes_approval_export_and_repeat_is_a_noop
+FAILED services/api/tests/p1/test_obligations.py::test_changed_binding_resets_readiness_rejects_stale_updates_and_revokes_export[product]
+FAILED services/api/tests/p1/test_obligations.py::test_changed_binding_resets_readiness_rejects_stale_updates_and_revokes_export[evidence]
+FAILED services/api/tests/p1/test_obligations.py::test_changed_binding_resets_readiness_rejects_stale_updates_and_revokes_export[policy]
+FAILED services/api/tests/p1/test_obligations.py::test_unknown_item_cannot_create_invented_obligation_and_state_survives_reopen
+========================= 6 failed, 1 warning in 1.21s =========================

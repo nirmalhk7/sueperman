@@ -1,0 +1,38 @@
+FF                                                                       [100%]
+=================================== FAILURES ===================================
+_____________________ test_command_failure_keeps_evidence ______________________
+
+tmp_path = PosixPath('/private/var/folders/k0/w3xrb_d95jn2t7nf2f0s05yr0000gp/T/pytest-of-nirmalhk7/pytest-128/test_command_failure_keeps_evi0')
+
+    def test_command_failure_keeps_evidence(tmp_path):
+        module = harness()
+>       result = module.run_command([sys.executable, "-c", "print('observed failure'); raise SystemExit(7)"],
+                 ^^^^^^^^^^^^^^^^^^
+                                    tmp_path, tmp_path / "command")
+E       AttributeError: module 'verify_diwali' has no attribute 'run_command'
+
+services/api/tests/diwali/test_harness.py:80: AttributeError
+_________________ test_g3_cannot_pass_without_app_regressions __________________
+
+tmp_path = PosixPath('/private/var/folders/k0/w3xrb_d95jn2t7nf2f0s05yr0000gp/T/pytest-of-nirmalhk7/pytest-128/test_g3_cannot_pass_without_ap0')
+
+    def test_g3_cannot_pass_without_app_regressions(tmp_path):
+        module = harness()
+        folder = tmp_path / "harness/diwali"
+        folder.mkdir(parents=True)
+        (folder / "baseline.json").write_text(json.dumps({"checks": [{"exit_code": 0}]}))
+        (tmp_path / "test_acceptance.py").write_text("def test_acceptance(): assert True\n")
+        (folder / "acceptance.json").write_text(json.dumps({"requirements": [],
+            "gate_checks": {g: ["test_acceptance.py"] for g in ["G1", "G2", "G3"]}}))
+        results = module.verify(tmp_path, "G3")
+>       assert results["G3"]["status"] == "FAIL"
+E       AssertionError: assert 'PASS' == 'FAIL'
+E         
+E         - FAIL
+E         + PASS
+
+services/api/tests/diwali/test_harness.py:97: AssertionError
+=========================== short test summary info ============================
+FAILED services/api/tests/diwali/test_harness.py::test_command_failure_keeps_evidence
+FAILED services/api/tests/diwali/test_harness.py::test_g3_cannot_pass_without_app_regressions
+2 failed in 0.98s

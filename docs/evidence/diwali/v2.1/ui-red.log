@@ -1,0 +1,143 @@
+FF                                                                       [100%]
+=================================== FAILURES ===================================
+_______________________ test_browser_error_empty_states ________________________
+
+browser_env = (PosixPath('/private/var/folders/k0/w3xrb_d95jn2t7nf2f0s05yr0000gp/T/pytest-of-nirmalhk7/pytest-116/diwali-browser0/we...tents/MacOS/codex', ...}, PosixPath('/Users/nirmalhk7/Documents/DevWorld/sueperman/docs/evidence/diwali/v2.1/browser'))
+
+    def test_browser_error_empty_states(browser_env):
+>       check_browser(browser_env, "Diwali error and empty states")
+
+services/api/tests/diwali/test_ui.py:97: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+browser_env = (PosixPath('/private/var/folders/k0/w3xrb_d95jn2t7nf2f0s05yr0000gp/T/pytest-of-nirmalhk7/pytest-116/diwali-browser0/we...tents/MacOS/codex', ...}, PosixPath('/Users/nirmalhk7/Documents/DevWorld/sueperman/docs/evidence/diwali/v2.1/browser'))
+name = 'Diwali error and empty states'
+
+    def check_browser(browser_env, name):
+        web, env, logs = browser_env
+        command = ["node", str(ROOT / "apps/web/node_modules/@playwright/test/cli.js"), "test", "diwali.e2e.ts", "--grep", name]
+        result = subprocess.run(command, cwd=web, env=env, capture_output=True, text=True, timeout=120, check=False)
+        (logs / (name.replace(" ", "-") + ".log")).write_text(result.stdout + result.stderr)
+>       assert result.returncode == 0, result.stdout + result.stderr
+E       AssertionError: 
+E         Running 1 test using 1 worker
+E         
+E           ✘  1 tests/diwali.e2e.ts:33:1 › Diwali error and empty states (14.1s)
+E         
+E         
+E           1) tests/diwali.e2e.ts:33:1 › Diwali error and empty states ──────────────────────────────────────
+E         
+E             Error: expect(locator).toContainText(expected) failed
+E         
+E             Locator: getByTestId('agent-timeline')
+E             Expected substring: "No accepted actor messages yet."
+E             Timeout: 5000ms
+E             Error: element(s) not found
+E         
+E             Call log:
+E               - Expect "toContainText" getByTestId('agent-timeline') with timeout 5000ms
+E               - waiting for getByTestId('agent-timeline')
+E         
+E         
+E               38 |   await page.route("**/agent-messages*", route => route.fulfill({ json: { items: [], next_seq: 0 } }));
+E               39 |   await page.goto(`/runs/${started.run_id}`);
+E             > 40 |   await expect(page.getByTestId("agent-timeline")).toContainText("No accepted actor messages yet.");
+E                  |                                                    ^
+E               41 |   await page.unroute("**/agent-messages*");
+E               42 |   await page.route("**/agent-messages*", route => route.fulfill({ status: 503, json: { message: "Timeline unavailable" } }));
+E               43 |   await page.reload();
+E                 at /private/var/folders/k0/w3xrb_d95jn2t7nf2f0s05yr0000gp/T/pytest-of-nirmalhk7/pytest-116/diwali-browser0/web/tests/diwali.e2e.ts:40:52
+E         
+E             attachment #1: video (video/webm) ──────────────────────────────────────────────────────────────
+E             test-results/diwali.e2e.ts-Diwali-error-and-empty-states/video.webm
+E             ────────────────────────────────────────────────────────────────────────────────────────────────
+E         
+E             Error Context: test-results/diwali.e2e.ts-Diwali-error-and-empty-states/error-context.md
+E         
+E             attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+E             test-results/diwali.e2e.ts-Diwali-error-and-empty-states/trace.zip
+E             Usage:
+E         
+E                 npx playwright show-trace test-results/diwali.e2e.ts-Diwali-error-and-empty-states/trace.zip
+E         
+E             ────────────────────────────────────────────────────────────────────────────────────────────────
+E         
+E           1 failed
+E             tests/diwali.e2e.ts:33:1 › Diwali error and empty states ───────────────────────────────────────
+E         (node:31270) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+E         (Use `node --trace-warnings ...` to show where the warning was created)
+E         
+E       assert 1 == 0
+E        +  where 1 = CompletedProcess(args=['node', '/Users/nirmalhk7/Documents/DevWorld/sueperman/apps/web/node_modules/@playwright/test/c...ed due to the 'FORCE_COLOR' env being set.\n(Use `node --trace-warnings ...` to show where the warning was created)\n").returncode
+
+services/api/tests/diwali/test_ui.py:92: AssertionError
+_________________________ test_browser_packet_workflow _________________________
+
+browser_env = (PosixPath('/private/var/folders/k0/w3xrb_d95jn2t7nf2f0s05yr0000gp/T/pytest-of-nirmalhk7/pytest-116/diwali-browser0/we...tents/MacOS/codex', ...}, PosixPath('/Users/nirmalhk7/Documents/DevWorld/sueperman/docs/evidence/diwali/v2.1/browser'))
+
+    def test_browser_packet_workflow(browser_env):
+>       check_browser(browser_env, "Diwali packet workflow")
+
+services/api/tests/diwali/test_ui.py:101: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+browser_env = (PosixPath('/private/var/folders/k0/w3xrb_d95jn2t7nf2f0s05yr0000gp/T/pytest-of-nirmalhk7/pytest-116/diwali-browser0/we...tents/MacOS/codex', ...}, PosixPath('/Users/nirmalhk7/Documents/DevWorld/sueperman/docs/evidence/diwali/v2.1/browser'))
+name = 'Diwali packet workflow'
+
+    def check_browser(browser_env, name):
+        web, env, logs = browser_env
+        command = ["node", str(ROOT / "apps/web/node_modules/@playwright/test/cli.js"), "test", "diwali.e2e.ts", "--grep", name]
+        result = subprocess.run(command, cwd=web, env=env, capture_output=True, text=True, timeout=120, check=False)
+        (logs / (name.replace(" ", "-") + ".log")).write_text(result.stdout + result.stderr)
+>       assert result.returncode == 0, result.stdout + result.stderr
+E       AssertionError: 
+E         Running 1 test using 1 worker
+E         
+E           ✘  1 tests/diwali.e2e.ts:6:1 › Diwali packet workflow (31.3s)
+E         
+E         
+E           1) tests/diwali.e2e.ts:6:1 › Diwali packet workflow ──────────────────────────────────────────────
+E         
+E             Test timeout of 30000ms exceeded.
+E         
+E             Error: locator.selectOption: Test timeout of 30000ms exceeded.
+E             Call log:
+E               - waiting for getByTestId('diwali-mode')
+E         
+E         
+E                8 |   await page.getByRole("button", { name: "Try demo data" }).click();
+E                9 |   await expect(page.getByRole("heading", { name: /My purchases.*5 items/ })).toBeVisible();
+E             > 10 |   await page.getByTestId("diwali-mode").selectOption("local");
+E                  |                                         ^
+E               11 |   await page.getByRole("button", { name: "Check my purchases" }).click();
+E               12 |   await expect(page.getByRole("heading", { name: "Run completed" })).toBeVisible();
+E               13 |   await expect(page.getByTestId("transport-mode")).toHaveText("LOCAL TEST");
+E                 at /private/var/folders/k0/w3xrb_d95jn2t7nf2f0s05yr0000gp/T/pytest-of-nirmalhk7/pytest-116/diwali-browser0/web/tests/diwali.e2e.ts:10:41
+E         
+E             attachment #1: video (video/webm) ──────────────────────────────────────────────────────────────
+E             test-results/diwali.e2e.ts-Diwali-packet-workflow/video.webm
+E             ────────────────────────────────────────────────────────────────────────────────────────────────
+E         
+E             Error Context: test-results/diwali.e2e.ts-Diwali-packet-workflow/error-context.md
+E         
+E             attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+E             test-results/diwali.e2e.ts-Diwali-packet-workflow/trace.zip
+E             Usage:
+E         
+E                 npx playwright show-trace test-results/diwali.e2e.ts-Diwali-packet-workflow/trace.zip
+E         
+E             ────────────────────────────────────────────────────────────────────────────────────────────────
+E         
+E           1 failed
+E             tests/diwali.e2e.ts:6:1 › Diwali packet workflow ───────────────────────────────────────────────
+E         (node:31722) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+E         (Use `node --trace-warnings ...` to show where the warning was created)
+E         
+E       assert 1 == 0
+E        +  where 1 = CompletedProcess(args=['node', '/Users/nirmalhk7/Documents/DevWorld/sueperman/apps/web/node_modules/@playwright/test/c...ed due to the 'FORCE_COLOR' env being set.\n(Use `node --trace-warnings ...` to show where the warning was created)\n").returncode
+
+services/api/tests/diwali/test_ui.py:92: AssertionError
+=========================== short test summary info ============================
+FAILED services/api/tests/diwali/test_ui.py::test_browser_error_empty_states
+FAILED services/api/tests/diwali/test_ui.py::test_browser_packet_workflow - A...
+2 failed in 68.12s (0:01:08)

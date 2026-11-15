@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="1" skipped="0" tests="1" time="0.687" timestamp="2026-11-14T23:56:50.121884-08:00" hostname="EXCALIBUR.local"><testcase classname="tests.diwali.test_api" name="test_provenance" time="0.102"><failure message="AssertionError: assert 'band' == 'local'&#10;  &#10;  - local&#10;  + band">client = &lt;starlette.testclient.TestClient object at 0x10e882a20&gt;
+
+    def test_provenance(client):
+        result, _ = run(client)
+        assert result["status"] == "completed"
+        assert result["collaboration_mode"] == "local"
+&gt;       assert result["actual_transport"] == "local"
+E       AssertionError: assert 'band' == 'local'
+E         
+E         - local
+E         + band
+
+services/api/tests/diwali/test_api.py:86: AssertionError</failure></testcase></testsuite></testsuites>

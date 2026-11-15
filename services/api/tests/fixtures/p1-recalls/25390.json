@@ -1,0 +1,82 @@
+{
+  "RecallID": 10347,
+  "RecallNumber": "25390",
+  "RecallDate": "2025-07-17T00:00:00",
+  "Description": "This recall involves the iStore Magnetic Wireless Power Bank, 5000 mAh portable charger. Only model number IST-09991/W05 power banks are included in the recall. The iStore logo is engraved on the front side of the power bank, and the model number is printed on the back, as shown in the photos above. Some units may also have the word \"iStore\" printed above the model number. The power banks are compatible with various mobile devices, and measure 3 inches by 2 inches by 0.25 inches and weigh around 3.2 ounces. The product was sold with a USB-C to USB-C cable that measures about 12 inches long. Note: Do not throw this recalled lithium-ion battery or device in the trash, the general recycling stream (e.g., street-level or curbside recycling bins), or used battery recycling boxes found at various retail and home improvement stores. Recalled lithium-ion batteries must be disposed of differently than other batteries, because they present a greater risk of fire. Your municipal household hazardous waste (HHW) collection center may accept this recalled lithium-ion battery or device for disposal. Before taking your battery or device to a HHW collection center, contact that office ahead of time and ask whether it accepts recalled lithium-ion batteries. If it does not, contact your municipality for further guidance.",
+  "URL": "https://www.cpsc.gov/Recalls/2025/iStore-Magnetic-Wireless-Power-Banks-Recalled-Due-to-Fire-and-Burn-Hazards-Imported-by-Tomauri",
+  "Title": "iStore Magnetic Wireless Power Banks Recalled Due to Fire and Burn Hazards; Imported by Tomauri",
+  "ConsumerContact": "iStore toll-free at 800-268-4049 from 9 a.m. to 5 p.m. ET Monday through Friday, by email at recall@istore.co, or online at https://istore.co/pages/battery-recall and https://www.tomauri.com/pages/battery-recall or go to http://www.tomauri.com and click on \"Recalls\" at the bottom of the page.",
+  "LastPublishDate": "2025-07-17T00:00:00",
+  "Products": [
+    {
+      "Name": "iStore Magnetic Wireless Power Banks (IST-09991/W05 model only)",
+      "Description": "",
+      "Model": "",
+      "Type": "",
+      "CategoryID": "",
+      "NumberOfUnits": "About 8,520 (An additional 6,400 were sold in Canada)"
+    }
+  ],
+  "Inconjunctions": [
+    {
+      "URL": "https://recalls-rappels.canada.ca/en/alert-recall/istore-branded-magnetic-wireless-power-banks-5000-mah-charger-recalled-due-burn-hazard"
+    }
+  ],
+  "Images": [
+    {
+      "URL": "https://www.cpsc.gov/s3fs-public/iStore-bank-1.png",
+      "Caption": "Recalled iStore Magnetic Wireless Power Bank (packaging)"
+    },
+    {
+      "URL": "https://www.cpsc.gov/s3fs-public/iStore-bank-2.png",
+      "Caption": "Recalled iStore Magnetic Wireless Power Bank (front)"
+    },
+    {
+      "URL": "https://www.cpsc.gov/s3fs-public/iStore-bank-3.png",
+      "Caption": "Recalled iStore Magnetic Wireless Power Bank (back)"
+    }
+  ],
+  "Injuries": [
+    {
+      "Name": "The firm has received three reports of the wireless power banks overheating and exploding while they were charging, including one incident that resulted in a minor burn to the victim's arm. The firm received reports of property damage of about $15,000."
+    }
+  ],
+  "Manufacturers": [],
+  "Retailers": [
+    {
+      "Name": "Vending machines and stores located in various airport locations nationwide and online at iStore.co from February 2023 through May 2025 for between $46 and $65.",
+      "CompanyID": ""
+    }
+  ],
+  "Importers": [
+    {
+      "Name": "Tomauri Inc., of Ontario, Canada",
+      "CompanyID": ""
+    }
+  ],
+  "Distributors": [],
+  "SoldAtLabel": null,
+  "ManufacturerCountries": [
+    {
+      "Country": "China"
+    }
+  ],
+  "ProductUPCs": [],
+  "Hazards": [
+    {
+      "Name": "The lithium-ion battery in the recalled power banks can overheat and ignite while charging, posing fire and burn hazards to consumers.",
+      "HazardType": "",
+      "HazardTypeID": ""
+    }
+  ],
+  "Remedies": [
+    {
+      "Name": "Consumers should immediately stop using the recalled wireless portable power bank and go to the firm's website to participate in the recall. Consumers will be asked to submit two photographs via email to recall@istore.co. The first photograph should be the front of the power bank with the word \"Recalled\" and the date written on it with permanent marker. The second photograph should include the model number, which is located on the back of the power bank. A purchase receipt will be requested but will not be required to participate in the recall. Consumers should immediately dispose of the power banks in accordance with local and state hazardous waste disposal regulations."
+    }
+  ],
+  "RemedyOptions": [
+    {
+      "Option": "Refund"
+    }
+  ]
+}

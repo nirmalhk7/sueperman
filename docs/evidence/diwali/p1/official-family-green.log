@@ -1,0 +1,27 @@
+============================= test session starts ==============================
+platform darwin -- Python 3.12.13, pytest-9.2.0, pluggy-1.7.0
+rootdir: /Users/nirmalhk7/Documents/DevWorld/sueperman/services/api
+configfile: pyproject.toml
+plugins: anyio-4.16.0, asyncio-1.5.0, respx-0.23.1
+asyncio: mode=Mode.AUTO, debug=False, asyncio_default_fixture_loop_scope=function, asyncio_default_test_loop_scope=function
+collected 90 items
+
+services/api/tests/p1/test_normalizers.py .........                      [ 10%]
+services/api/tests/unit/test_brightdata_p1.py .....                      [ 15%]
+services/api/tests/unit/test_core.py .................                   [ 34%]
+services/api/tests/unit/test_gemini_budget.py .....                      [ 40%]
+services/api/tests/unit/test_live_cpsc.py .....                          [ 45%]
+services/api/tests/unit/test_openai_decision.py .........                [ 55%]
+services/api/tests/unit/test_optional_providers.py ........              [ 64%]
+services/api/tests/unit/test_receipt_photo.py ..                         [ 66%]
+services/api/tests/unit/test_telemetry.py ....                           [ 71%]
+services/api/tests/unit/test_verified_settlement.py .......              [ 78%]
+services/api/tests/diwali/test_local_core.py ...................         [100%]
+
+=============================== warnings summary ===============================
+services/api/.venv/lib/python3.12/site-packages/fastapi/testclient.py:1
+  /Users/nirmalhk7/Documents/DevWorld/sueperman/services/api/.venv/lib/python3.12/site-packages/fastapi/testclient.py:1: StarletteDeprecationWarning: Using `httpx` with `starlette.testclient` is deprecated; install `httpx2` instead.
+    from starlette.testclient import TestClient as TestClient  # noqa
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+======================== 90 passed, 1 warning in 14.74s ========================

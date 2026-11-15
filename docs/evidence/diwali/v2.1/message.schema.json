@@ -1,0 +1,794 @@
+{
+  "$comment": "Application also enforces 16 KiB UTF-8 payload, deadline ordering, correlation, authenticated identities and immutable run-scoped references.",
+  "$defs": {
+    "BuildReport": {
+      "additionalProperties": false,
+      "properties": {
+        "draft": {
+          "$ref": "#/$defs/UnsignedDraft"
+        },
+        "view": {
+          "$ref": "#/$defs/CaseView"
+        },
+        "input_digests": {
+          "$ref": "#/$defs/InputDigests"
+        }
+      },
+      "required": [
+        "draft",
+        "view",
+        "input_digests"
+      ],
+      "title": "BuildReport",
+      "type": "object"
+    },
+    "BuildRequested": {
+      "additionalProperties": false,
+      "properties": {
+        "rule_result": {
+          "const": "verified_match",
+          "title": "Rule Result",
+          "type": "string"
+        },
+        "evidence_refs": {
+          "items": {
+            "maxLength": 200,
+            "minLength": 1,
+            "pattern": "^[^\\x00-\\x1f\\x7f]+$",
+            "type": "string"
+          },
+          "maxItems": 10,
+          "minItems": 1,
+          "title": "Evidence Refs",
+          "type": "array"
+        },
+        "input_digests": {
+          "$ref": "#/$defs/InputDigests"
+        }
+      },
+      "required": [
+        "rule_result",
+        "evidence_refs",
+        "input_digests"
+      ],
+      "title": "BuildRequested",
+      "type": "object"
+    },
+    "CaseView": {
+      "additionalProperties": false,
+      "properties": {
+        "purchase_model": {
+          "anyOf": [
+            {
+              "maxLength": 100,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Purchase Model"
+        },
+        "source_models": {
+          "items": {
+            "type": "string"
+          },
+          "maxItems": 10,
+          "title": "Source Models",
+          "type": "array"
+        },
+        "source_ref": {
+          "maxLength": 200,
+          "minLength": 1,
+          "title": "Source Ref",
+          "type": "string"
+        }
+      },
+      "required": [
+        "purchase_model",
+        "source_models",
+        "source_ref"
+      ],
+      "title": "CaseView",
+      "type": "object"
+    },
+    "ComparedIdentifiers": {
+      "additionalProperties": false,
+      "properties": {
+        "purchase_model": {
+          "anyOf": [
+            {
+              "maxLength": 100,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Purchase Model"
+        },
+        "source_models": {
+          "items": {
+            "type": "string"
+          },
+          "maxItems": 10,
+          "title": "Source Models",
+          "type": "array"
+        }
+      },
+      "required": [
+        "purchase_model",
+        "source_models"
+      ],
+      "title": "ComparedIdentifiers",
+      "type": "object"
+    },
+    "FollowUpReport": {
+      "additionalProperties": false,
+      "properties": {
+        "evidence_refs": {
+          "items": {
+            "maxLength": 200,
+            "minLength": 1,
+            "pattern": "^[^\\x00-\\x1f\\x7f]+$",
+            "type": "string"
+          },
+          "maxItems": 10,
+          "title": "Evidence Refs",
+          "type": "array"
+        },
+        "unavailable_reason": {
+          "anyOf": [
+            {
+              "enum": [
+                "SOURCE_UNAVAILABLE",
+                "UNSUPPORTED_FACT"
+              ],
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Unavailable Reason"
+        }
+      },
+      "required": [
+        "evidence_refs",
+        "unavailable_reason"
+      ],
+      "title": "FollowUpReport",
+      "type": "object"
+    },
+    "FollowUpRequested": {
+      "additionalProperties": false,
+      "properties": {
+        "requested_fields": {
+          "items": {
+            "enum": [
+              "affected_models",
+              "remedy_instructions",
+              "proof_requirements",
+              "safety_instructions"
+            ],
+            "type": "string"
+          },
+          "maxItems": 2,
+          "minItems": 1,
+          "title": "Requested Fields",
+          "type": "array"
+        },
+        "evidence_refs": {
+          "items": {
+            "maxLength": 200,
+            "minLength": 1,
+            "pattern": "^[^\\x00-\\x1f\\x7f]+$",
+            "type": "string"
+          },
+          "maxItems": 10,
+          "minItems": 1,
+          "title": "Evidence Refs",
+          "type": "array"
+        }
+      },
+      "required": [
+        "requested_fields",
+        "evidence_refs"
+      ],
+      "title": "FollowUpRequested",
+      "type": "object"
+    },
+    "InputDigests": {
+      "additionalProperties": false,
+      "properties": {
+        "purchase": {
+          "pattern": "^[a-f0-9]{64}$",
+          "title": "Purchase",
+          "type": "string"
+        },
+        "evidence": {
+          "pattern": "^[a-f0-9]{64}$",
+          "title": "Evidence",
+          "type": "string"
+        }
+      },
+      "required": [
+        "purchase",
+        "evidence"
+      ],
+      "title": "InputDigests",
+      "type": "object"
+    },
+    "ResearchReport": {
+      "additionalProperties": false,
+      "properties": {
+        "candidate_refs": {
+          "items": {
+            "maxLength": 200,
+            "minLength": 1,
+            "pattern": "^[^\\x00-\\x1f\\x7f]+$",
+            "type": "string"
+          },
+          "maxItems": 10,
+          "title": "Candidate Refs",
+          "type": "array"
+        },
+        "coverage": {
+          "enum": [
+            "supported_scope",
+            "unavailable"
+          ],
+          "title": "Coverage",
+          "type": "string"
+        },
+        "truncated": {
+          "title": "Truncated",
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "candidate_refs",
+        "coverage",
+        "truncated"
+      ],
+      "title": "ResearchReport",
+      "type": "object"
+    },
+    "ResearchRequested": {
+      "additionalProperties": false,
+      "properties": {
+        "product_ref": {
+          "maxLength": 200,
+          "minLength": 1,
+          "title": "Product Ref",
+          "type": "string"
+        }
+      },
+      "required": [
+        "product_ref"
+      ],
+      "title": "ResearchRequested",
+      "type": "object"
+    },
+    "ReviewReport": {
+      "additionalProperties": false,
+      "properties": {
+        "rule_result": {
+          "enum": [
+            "verified_match",
+            "rejected",
+            "needs_review"
+          ],
+          "title": "Rule Result",
+          "type": "string"
+        },
+        "conditions": {
+          "items": {
+            "$ref": "#/$defs/RuleCondition"
+          },
+          "maxItems": 20,
+          "title": "Conditions",
+          "type": "array"
+        },
+        "compared_identifiers": {
+          "$ref": "#/$defs/ComparedIdentifiers"
+        },
+        "challenge_code": {
+          "enum": [
+            "NONE",
+            "MODEL_MISMATCH",
+            "CONDITION_FAILED",
+            "MISSING_PURCHASE_FACT",
+            "MISSING_PUBLIC_FACT"
+          ],
+          "title": "Challenge Code",
+          "type": "string"
+        },
+        "review_note": {
+          "maxLength": 1000,
+          "title": "Review Note",
+          "type": "string"
+        },
+        "requested_fields": {
+          "items": {
+            "enum": [
+              "affected_models",
+              "remedy_instructions",
+              "proof_requirements",
+              "safety_instructions"
+            ],
+            "type": "string"
+          },
+          "maxItems": 2,
+          "title": "Requested Fields",
+          "type": "array"
+        }
+      },
+      "required": [
+        "rule_result",
+        "conditions",
+        "compared_identifiers",
+        "challenge_code",
+        "review_note",
+        "requested_fields"
+      ],
+      "title": "ReviewReport",
+      "type": "object"
+    },
+    "ReviewRequested": {
+      "additionalProperties": false,
+      "properties": {
+        "product_ref": {
+          "maxLength": 200,
+          "minLength": 1,
+          "title": "Product Ref",
+          "type": "string"
+        },
+        "evidence_refs": {
+          "items": {
+            "maxLength": 200,
+            "minLength": 1,
+            "pattern": "^[^\\x00-\\x1f\\x7f]+$",
+            "type": "string"
+          },
+          "maxItems": 10,
+          "minItems": 1,
+          "title": "Evidence Refs",
+          "type": "array"
+        }
+      },
+      "required": [
+        "product_ref",
+        "evidence_refs"
+      ],
+      "title": "ReviewRequested",
+      "type": "object"
+    },
+    "RuleCondition": {
+      "additionalProperties": false,
+      "properties": {
+        "name": {
+          "enum": [
+            "official_source",
+            "brand",
+            "product_family",
+            "model_number",
+            "serial_prefix",
+            "batch",
+            "region",
+            "upc",
+            "date_purchased",
+            "unsupported_source_conditions"
+          ],
+          "title": "Name",
+          "type": "string"
+        },
+        "expected": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "items": {
+                "type": "string"
+              },
+              "type": "array"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Expected"
+        },
+        "observed": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Observed"
+        },
+        "status": {
+          "enum": [
+            "true",
+            "false",
+            "unknown"
+          ],
+          "title": "Status",
+          "type": "string"
+        },
+        "source_id": {
+          "title": "Source Id",
+          "type": "string"
+        }
+      },
+      "required": [
+        "name",
+        "expected",
+        "status",
+        "source_id"
+      ],
+      "title": "RuleCondition",
+      "type": "object"
+    },
+    "TaskFailed": {
+      "additionalProperties": false,
+      "properties": {
+        "reason_code": {
+          "enum": [
+            "SOURCE_UNAVAILABLE",
+            "DEADLINE",
+            "INVALID_RESULT",
+            "TRANSPORT_FAILED",
+            "RESTART",
+            "STALE_INPUT",
+            "BUDGET_EXHAUSTED"
+          ],
+          "title": "Reason Code",
+          "type": "string"
+        },
+        "retryable": {
+          "title": "Retryable",
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "reason_code",
+        "retryable"
+      ],
+      "title": "TaskFailed",
+      "type": "object"
+    },
+    "UnsignedDraft": {
+      "additionalProperties": false,
+      "properties": {
+        "markdown": {
+          "maxLength": 12000,
+          "minLength": 1,
+          "title": "Markdown",
+          "type": "string"
+        },
+        "status": {
+          "const": "ready_for_review",
+          "title": "Status",
+          "type": "string"
+        },
+        "approved_at": {
+          "title": "Approved At",
+          "type": "null"
+        }
+      },
+      "required": [
+        "markdown",
+        "status",
+        "approved_at"
+      ],
+      "title": "UnsignedDraft",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "oneOf": [
+    {
+      "properties": {
+        "type": {
+          "const": "ResearchRequested"
+        },
+        "payload": {
+          "$ref": "#/$defs/ResearchRequested"
+        },
+        "sender": {
+          "const": "manager"
+        },
+        "recipient": {
+          "const": "researcher"
+        }
+      }
+    },
+    {
+      "properties": {
+        "type": {
+          "const": "ResearchReport"
+        },
+        "payload": {
+          "$ref": "#/$defs/ResearchReport"
+        },
+        "sender": {
+          "const": "researcher"
+        },
+        "recipient": {
+          "const": "manager"
+        }
+      }
+    },
+    {
+      "properties": {
+        "type": {
+          "const": "ReviewRequested"
+        },
+        "payload": {
+          "$ref": "#/$defs/ReviewRequested"
+        },
+        "sender": {
+          "const": "manager"
+        },
+        "recipient": {
+          "const": "skeptic"
+        }
+      }
+    },
+    {
+      "properties": {
+        "type": {
+          "const": "ReviewReport"
+        },
+        "payload": {
+          "$ref": "#/$defs/ReviewReport"
+        },
+        "sender": {
+          "const": "skeptic"
+        },
+        "recipient": {
+          "const": "manager"
+        }
+      }
+    },
+    {
+      "properties": {
+        "type": {
+          "const": "FollowUpRequested"
+        },
+        "payload": {
+          "$ref": "#/$defs/FollowUpRequested"
+        },
+        "sender": {
+          "const": "manager"
+        },
+        "recipient": {
+          "const": "researcher"
+        }
+      }
+    },
+    {
+      "properties": {
+        "type": {
+          "const": "FollowUpReport"
+        },
+        "payload": {
+          "$ref": "#/$defs/FollowUpReport"
+        },
+        "sender": {
+          "const": "researcher"
+        },
+        "recipient": {
+          "const": "manager"
+        }
+      }
+    },
+    {
+      "properties": {
+        "type": {
+          "const": "BuildRequested"
+        },
+        "payload": {
+          "$ref": "#/$defs/BuildRequested"
+        },
+        "sender": {
+          "const": "manager"
+        },
+        "recipient": {
+          "const": "builder"
+        }
+      }
+    },
+    {
+      "properties": {
+        "type": {
+          "const": "BuildReport"
+        },
+        "payload": {
+          "$ref": "#/$defs/BuildReport"
+        },
+        "sender": {
+          "const": "builder"
+        },
+        "recipient": {
+          "const": "manager"
+        }
+      }
+    },
+    {
+      "properties": {
+        "type": {
+          "const": "TaskFailed"
+        },
+        "payload": {
+          "$ref": "#/$defs/TaskFailed"
+        },
+        "sender": {
+          "enum": [
+            "researcher",
+            "skeptic",
+            "builder"
+          ]
+        },
+        "recipient": {
+          "const": "manager"
+        }
+      }
+    }
+  ],
+  "properties": {
+    "schema_version": {
+      "const": 1,
+      "title": "Schema Version",
+      "type": "integer"
+    },
+    "message_id": {
+      "format": "uuid",
+      "title": "Message Id",
+      "type": "string"
+    },
+    "run_id": {
+      "format": "uuid",
+      "title": "Run Id",
+      "type": "string"
+    },
+    "case_id": {
+      "format": "uuid",
+      "title": "Case Id",
+      "type": "string"
+    },
+    "task_id": {
+      "format": "uuid",
+      "title": "Task Id",
+      "type": "string"
+    },
+    "correlation_id": {
+      "format": "uuid",
+      "title": "Correlation Id",
+      "type": "string"
+    },
+    "causation_id": {
+      "format": "uuid",
+      "title": "Causation Id",
+      "type": "string"
+    },
+    "expected_case_revision": {
+      "minimum": 1,
+      "title": "Expected Case Revision",
+      "type": "integer"
+    },
+    "sender": {
+      "enum": [
+        "manager",
+        "researcher",
+        "skeptic",
+        "builder"
+      ],
+      "title": "Sender",
+      "type": "string"
+    },
+    "recipient": {
+      "enum": [
+        "manager",
+        "researcher",
+        "skeptic",
+        "builder"
+      ],
+      "title": "Recipient",
+      "type": "string"
+    },
+    "type": {
+      "enum": [
+        "ResearchRequested",
+        "ResearchReport",
+        "ReviewRequested",
+        "ReviewReport",
+        "FollowUpRequested",
+        "FollowUpReport",
+        "BuildRequested",
+        "BuildReport",
+        "TaskFailed"
+      ],
+      "title": "Type",
+      "type": "string"
+    },
+    "sent_at": {
+      "format": "date-time",
+      "title": "Sent At",
+      "type": "string"
+    },
+    "deadline_at": {
+      "format": "date-time",
+      "title": "Deadline At",
+      "type": "string"
+    },
+    "source_refs": {
+      "items": {
+        "maxLength": 200,
+        "minLength": 1,
+        "pattern": "^[^\\x00-\\x1f\\x7f]+$",
+        "type": "string"
+      },
+      "maxItems": 10,
+      "title": "Source Refs",
+      "type": "array"
+    },
+    "payload": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/ResearchRequested"
+        },
+        {
+          "$ref": "#/$defs/ResearchReport"
+        },
+        {
+          "$ref": "#/$defs/ReviewRequested"
+        },
+        {
+          "$ref": "#/$defs/ReviewReport"
+        },
+        {
+          "$ref": "#/$defs/FollowUpRequested"
+        },
+        {
+          "$ref": "#/$defs/FollowUpReport"
+        },
+        {
+          "$ref": "#/$defs/BuildRequested"
+        },
+        {
+          "$ref": "#/$defs/BuildReport"
+        },
+        {
+          "$ref": "#/$defs/TaskFailed"
+        }
+      ],
+      "title": "Payload"
+    }
+  },
+  "required": [
+    "schema_version",
+    "message_id",
+    "run_id",
+    "case_id",
+    "task_id",
+    "correlation_id",
+    "causation_id",
+    "expected_case_revision",
+    "sender",
+    "recipient",
+    "type",
+    "sent_at",
+    "deadline_at",
+    "source_refs",
+    "payload"
+  ],
+  "title": "Message",
+  "type": "object"
+}

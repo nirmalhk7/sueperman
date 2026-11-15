@@ -1,0 +1,70 @@
+{
+  "spec_version": "2.1",
+  "providers": {
+    "band": {
+      "status": "NOT_STARTED",
+      "documentation_url": null,
+      "retrieved_at": null,
+      "package": null,
+      "version": null,
+      "interface": null,
+      "authorization_name": null,
+      "configuration_digest": null,
+      "timeout_seconds": 10,
+      "probe": null,
+      "blocker": "Provider gate not selected; no contract probe in V2.1"
+    },
+    "lyzr": {
+      "status": "NOT_STARTED",
+      "documentation_url": null,
+      "retrieved_at": null,
+      "package": null,
+      "version": null,
+      "interface": null,
+      "authorization_name": null,
+      "configuration_digest": null,
+      "timeout_seconds": 10,
+      "probe": null,
+      "blocker": "Provider gate not selected; no contract probe in V2.1"
+    },
+    "finch": {
+      "status": "NOT_STARTED",
+      "documentation_url": null,
+      "retrieved_at": null,
+      "package": null,
+      "version": null,
+      "interface": null,
+      "authorization_name": null,
+      "configuration_digest": null,
+      "timeout_seconds": null,
+      "probe": null,
+      "blocker": "Provider gate not selected; no contract probe in V2.1"
+    },
+    "agent37": {
+      "status": "NOT_STARTED",
+      "documentation_url": null,
+      "retrieved_at": null,
+      "package": null,
+      "version": null,
+      "interface": null,
+      "authorization_name": null,
+      "configuration_digest": null,
+      "timeout_seconds": null,
+      "probe": null,
+      "blocker": "Provider gate not selected; no contract probe in V2.1"
+    },
+    "adal": {
+      "status": "NOT_STARTED",
+      "documentation_url": null,
+      "retrieved_at": null,
+      "package": null,
+      "version": null,
+      "interface": null,
+      "authorization_name": null,
+      "configuration_digest": null,
+      "timeout_seconds": null,
+      "probe": null,
+      "blocker": "Provider gate not selected; no contract probe in V2.1"
+    }
+  }
+}

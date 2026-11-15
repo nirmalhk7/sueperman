@@ -76,6 +76,8 @@ class RunRequest(BaseModel):
     purchase_ids: list[str] = Field(min_length=1, max_length=100)
     mode: Literal["demo", "live"] = "demo"
     idempotency_key: str = Field(min_length=1, max_length=200)
+    collaboration_mode: Literal["deterministic", "local", "band"] = "deterministic"
+    fallback_of: str | None = Field(default=None, max_length=100)
 
 
 class Approval(BaseModel):
@@ -203,3 +205,20 @@ class HealthResponse(BaseModel):
     db: Literal["ok"]
     providers: list[ProviderHealth]
     demo_ready: bool
+
+
+class CollaborationRequest(BaseModel):
+    model_config = ConfigDict(extra="forbid")
+    product_ids: list[str] = Field(min_length=1, max_length=1)
+    idempotency_key: str = Field(min_length=1, max_length=200)
+    mode: Literal["replay", "live"] = "replay"
+    case_id: str | None = Field(default=None, max_length=100)
+
+
+class CollaborationAnswer(BaseModel):
+    model_config = ConfigDict(extra="forbid")
+    revision: int = Field(ge=1)
+    field: Literal["model_number", "serial_prefix", "batch", "date_purchased", "region", "brand", "upc"]
+    value: str = Field(min_length=1, max_length=100, pattern=r"^[^\x00-\x1f\x7f]+$")
+    confirmed: Literal[True]
+    idempotency_key: str = Field(min_length=1, max_length=200)

@@ -1,0 +1,22 @@
+F                                                                        [100%]
+=================================== FAILURES ===================================
+_________ test_mutation_requires_assertion_failure_and_restores_source _________
+
+tmp_path = PosixPath('/private/var/folders/k0/w3xrb_d95jn2t7nf2f0s05yr0000gp/T/pytest-of-nirmalhk7/pytest-130/test_mutation_requires_asserti0')
+
+    def test_mutation_requires_assertion_failure_and_restores_source(tmp_path):
+        module = harness()
+        path = tmp_path / "decision.py"
+        path.write_text("def allowed():\n    return False\n")
+        original = path.read_bytes()
+        test = tmp_path / "test_decision.py"
+        test.write_text("from decision import allowed\ndef test_decision(): assert allowed() is False\n")
+>       result = module.mutation_probe(tmp_path, "decision.py", "return False", "return True",
+                 ^^^^^^^^^^^^^^^^^^^^^
+                                       [str(test)], tmp_path / "probe")
+E       AttributeError: module 'verify_diwali' has no attribute 'mutation_probe'
+
+services/api/tests/diwali/test_harness.py:108: AttributeError
+=========================== short test summary info ============================
+FAILED services/api/tests/diwali/test_harness.py::test_mutation_requires_assertion_failure_and_restores_source
+1 failed in 0.05s

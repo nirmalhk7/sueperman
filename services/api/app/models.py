@@ -76,3 +76,53 @@ class AuditEvent(Entity, Base):
     run_id: Mapped[str] = mapped_column(ForeignKey("agent_runs.id"))
     seq: Mapped[int]
     __table_args__ = (UniqueConstraint("run_id", "seq"),)
+
+
+class CaseRecord(Entity, Base):
+    __tablename__ = "case_records"
+    product_id: Mapped[str] = mapped_column(ForeignKey("products.id"), index=True)
+    current_revision: Mapped[int] = mapped_column(default=0)
+
+
+class CaseRevisionRecord(Entity, Base):
+    __tablename__ = "case_revisions"
+    case_id: Mapped[str] = mapped_column(ForeignKey("case_records.id"), index=True)
+    revision: Mapped[int]
+    fingerprint: Mapped[str]
+    __table_args__ = (UniqueConstraint("case_id", "revision"),)
+
+
+class CollaborationRun(Entity, Base):
+    __tablename__ = "collaboration_runs"
+    case_id: Mapped[str] = mapped_column(ForeignKey("case_records.id"), index=True)
+    idempotency_key: Mapped[str] = mapped_column(unique=True)
+    revision: Mapped[int]
+    status: Mapped[str] = mapped_column(default="queued", index=True)
+
+
+class CollaborationTask(Entity, Base):
+    __tablename__ = "collaboration_tasks"
+    run_id: Mapped[str] = mapped_column(ForeignKey("collaboration_runs.id"), index=True)
+    deduplication_key: Mapped[str]
+    __table_args__ = (UniqueConstraint("run_id", "deduplication_key"),)
+
+
+class CollaborationEvent(Entity, Base):
+    __tablename__ = "collaboration_events"
+    run_id: Mapped[str] = mapped_column(ForeignKey("collaboration_runs.id"), index=True)
+    seq: Mapped[int]
+    __table_args__ = (UniqueConstraint("run_id", "seq"),)
+
+
+class CaseSnapshot(Entity, Base):
+    __tablename__ = "case_snapshots"
+    case_id: Mapped[str] = mapped_column(ForeignKey("case_records.id"), index=True)
+    fingerprint: Mapped[str]
+    __table_args__ = (UniqueConstraint("case_id", "fingerprint"),)
+
+
+class CaseDraft(Entity, Base):
+    __tablename__ = "case_drafts"
+    case_id: Mapped[str] = mapped_column(ForeignKey("case_records.id"), index=True)
+    revision: Mapped[int]
+    __table_args__ = (UniqueConstraint("case_id", "revision"),)

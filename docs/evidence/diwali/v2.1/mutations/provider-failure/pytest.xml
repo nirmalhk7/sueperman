@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="1" skipped="0" tests="1" time="0.470" timestamp="2026-11-14T23:56:49.220613-08:00" hostname="EXCALIBUR.local"><testcase classname="tests.diwali.test_failures" name="test_malformed_result_closes_case_without_packet" time="0.083"><failure message="AssertionError: assert 'completed' == 'failed'&#10;  &#10;  - failed&#10;  + completed">tmp_path = PosixPath('/private/var/folders/k0/w3xrb_d95jn2t7nf2f0s05yr0000gp/T/pytest-of-nirmalhk7/pytest-164/test_malformed_result_closes_c0')
+
+    @pytest.mark.asyncio
+    async def test_malformed_result_closes_case_without_packet(tmp_path):
+        module, factory, _p, run_id, _product, _recall = setup(tmp_path)
+        class Malformed(LocalTransport):
+            def exchange(self, message, context):
+                return {"status": "verified_match", "secret": "must-not-be-logged"}
+        queued(factory, run_id)
+        await execute(factory, run_id, Settings(), Malformed())
+        with factory() as session:
+            run = session.get(AgentRun, run_id)
+&gt;           assert run.status == "failed"
+E           AssertionError: assert 'completed' == 'failed'
+E             
+E             - failed
+E             + completed
+
+services/api/tests/diwali/test_failures.py:30: AssertionError</failure></testcase></testsuite></testsuites>

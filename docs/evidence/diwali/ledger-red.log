@@ -1,0 +1,84 @@
+FF                                                                       [100%]
+=================================== FAILURES ===================================
+___________ test_additive_migration_preserves_populated_v1_database ____________
+
+    def ledger():
+        try:
+>           from app.collaboration import ledger
+E           ImportError: cannot import name 'ledger' from 'app.collaboration' (/Users/nirmalhk7/Documents/DevWorld/sueperman/services/api/app/collaboration/__init__.py)
+
+services/api/tests/collaboration/test_ledger.py:11: ImportError
+
+During handling of the above exception, another exception occurred:
+
+tmp_path = PosixPath('/private/var/folders/k0/w3xrb_d95jn2t7nf2f0s05yr0000gp/T/pytest-of-nirmalhk7/pytest-74/test_additive_migration_preser0')
+
+    def test_additive_migration_preserves_populated_v1_database(tmp_path):
+        path = tmp_path / "v1.db"
+        # Real populated V1 schema, created before importing any collaboration model.
+        from app.db import database
+        from app.models import ClaimPacket, Opportunity, Product, Purchase
+        engine, factory = database(f"sqlite:///{path}")
+        with factory() as s:
+            purchase = Purchase(import_key="existing", payload={"merchant": "Private"})
+            s.add(purchase); s.flush()
+            product = Product(purchase_id=purchase.id, payload={"product": {"product_name": "Existing"}})
+            s.add(product); s.flush()
+            opp = Opportunity(product_id=product.id, kind="recall", source_id="old", official_url="old")
+            s.add(opp); s.flush()
+            packet = ClaimPacket(opportunity_id=opp.id, payload={"markdown": "User historical draft"})
+            s.add(packet); s.commit()
+        engine.dispose()
+        def rows():
+            with sqlite3.connect(path) as c:
+                return {name: c.execute(f'SELECT * FROM "{name}" ORDER BY id').fetchall()
+                        for name in ("purchases", "products", "opportunities", "claim_packets")}
+        before = rows()
+>       l = ledger()
+            ^^^^^^^^
+
+services/api/tests/collaboration/test_ledger.py:38: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    def ledger():
+        try:
+            from app.collaboration import ledger
+            return ledger
+        except ImportError:
+>           pytest.fail("V2 persistent ledger missing")
+E           Failed: V2 persistent ledger missing
+
+services/api/tests/collaboration/test_ledger.py:14: Failed
+_____ test_ledger_deduplicates_results_rejects_stale_and_preserves_history _____
+
+    def ledger():
+        try:
+>           from app.collaboration import ledger
+E           ImportError: cannot import name 'ledger' from 'app.collaboration' (/Users/nirmalhk7/Documents/DevWorld/sueperman/services/api/app/collaboration/__init__.py)
+
+services/api/tests/collaboration/test_ledger.py:11: ImportError
+
+During handling of the above exception, another exception occurred:
+
+tmp_path = PosixPath('/private/var/folders/k0/w3xrb_d95jn2t7nf2f0s05yr0000gp/T/pytest-of-nirmalhk7/pytest-74/test_ledger_deduplicates_resul0')
+
+    def test_ledger_deduplicates_results_rejects_stale_and_preserves_history(tmp_path):
+>       l = ledger()
+            ^^^^^^^^
+
+services/api/tests/collaboration/test_ledger.py:49: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    def ledger():
+        try:
+            from app.collaboration import ledger
+            return ledger
+        except ImportError:
+>           pytest.fail("V2 persistent ledger missing")
+E           Failed: V2 persistent ledger missing
+
+services/api/tests/collaboration/test_ledger.py:14: Failed
+=========================== short test summary info ============================
+FAILED services/api/tests/collaboration/test_ledger.py::test_additive_migration_preserves_populated_v1_database
+FAILED services/api/tests/collaboration/test_ledger.py::test_ledger_deduplicates_results_rejects_stale_and_preserves_history
+2 failed in 0.39s

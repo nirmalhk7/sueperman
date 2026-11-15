@@ -1,0 +1,45 @@
+FF                                                                       [100%]
+=================================== FAILURES ===================================
+_______________ test_authenticated_route_checked_before_handler ________________
+
+    def test_authenticated_route_checked_before_handler():
+        module = contract()
+        message = module.Message.model_validate(envelope())
+        registry = {"manager": "identity-m", "researcher": "identity-r",
+                    "skeptic": "identity-s", "builder": "identity-b"}
+        module.validate_delivery(message, "identity-m", "identity-r", registry)
+        with pytest.raises(ValueError, match="identity"):
+            module.validate_delivery(message, "identity-s", "identity-r", registry)
+        incomplete = registry | {"unknown": registry["builder"]}
+        del incomplete["builder"]
+>       with pytest.raises(ValueError):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE ValueError
+
+services/api/tests/diwali/test_messages.py:69: Failed
+_______________ test_references_bound_to_immutable_run_snapshot ________________
+
+    def test_references_bound_to_immutable_run_snapshot():
+        module = contract()
+        data = envelope() | {"sender": "researcher", "recipient": "manager", "type": "ResearchReport",
+                             "source_refs": ["cpsc:26-792:snapshot-1"],
+                             "payload": {"candidate_refs": ["cpsc:26-792:snapshot-1"],
+                                         "coverage": "supported_scope", "truncated": False}}
+        message = module.Message.model_validate(data)
+        snapshots = {"cpsc:26-792:snapshot-1": {"run_id": str(message.run_id), "digest": "a" * 64}}
+        module.validate_sources(message, snapshots, {"cpsc:26-792:snapshot-1": "a" * 64})
+        bad = deepcopy(snapshots)
+        bad["cpsc:26-792:snapshot-1"]["run_id"] = "another-run"
+        with pytest.raises(ValueError, match="snapshot"):
+            module.validate_sources(message, bad, {"cpsc:26-792:snapshot-1": "a" * 64})
+        with pytest.raises(ValueError, match="snapshot"):
+            module.validate_sources(message, snapshots, {"cpsc:26-792:snapshot-1": "b" * 64})
+>       with pytest.raises(ValueError, match="snapshot"):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE ValueError
+
+services/api/tests/diwali/test_messages.py:88: Failed
+=========================== short test summary info ============================
+FAILED services/api/tests/diwali/test_messages.py::test_authenticated_route_checked_before_handler
+FAILED services/api/tests/diwali/test_messages.py::test_references_bound_to_immutable_run_snapshot
+2 failed in 0.15s

@@ -1,5 +1,7 @@
+import asyncio
 import hashlib
 from contextlib import asynccontextmanager
+from datetime import UTC, datetime
 from uuid import uuid4
 
 from fastapi import FastAPI, HTTPException
@@ -8,14 +10,19 @@ from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
 from sqlalchemy import select
 
-from app.api import claims, demo, health, opportunities, runs, uploads
+from app.api import claims, collaborations, demo, health, opportunities, runs, uploads
+from app.collaboration import ledger
 from app.config import Settings
 from app.db import database
+from app.diwali import api as diwali_api
+from app.diwali import persistence as diwali_persistence
 from app.models import (
     AgentRun,
     Product,
     Purchase,
 )
+from app.p1 import api as p1_api
+from app.p1 import monitoring
 from app.providers.receipt import FixtureReceiptExtractor
 from app.telemetry import initialize_telemetry
 
@@ -24,18 +31,40 @@ def create_app(database_url=None):
     settings = Settings()
     initialize_telemetry(settings.sentry_dsn, settings.sentry_environment)
     engine, factory = database(database_url or settings.database_url)
+    ledger.migrate(engine)
 
     @asynccontextmanager
     async def lifespan(app):
+        diwali_persistence.setup_schema(engine)
         with factory() as s:
+            diwali_persistence.recover_interrupted(s)
+            ledger.recover_interrupted(s)
             for run in s.scalars(select(AgentRun).where(AgentRun.status.in_(["queued", "running"]))):
                 run.status = "partial"
                 run.payload = run.payload | {
                     "warnings": ["Run interrupted by server restart; start a new run."]
                 }
             s.commit()
-        yield
-        engine.dispose()
+        stopped = asyncio.Event()
+        app.state.p1_watch_task = None
+        if settings.p1_enabled:
+            monitoring.setup_schema(engine)
+            with factory.begin() as session:
+                monitoring.recover_interrupted(session, datetime.now(UTC))
+            if settings.p1_monitor_enabled and settings.cpsc_live_enabled:
+                app.state.p1_watch_task = asyncio.create_task(monitoring.watch_loop(
+                    factory, stopped, poll_seconds=settings.p1_monitor_poll_seconds))
+        try:
+            yield
+        finally:
+            stopped.set()
+            task = app.state.p1_watch_task
+            if task is not None:
+                try:
+                    await asyncio.wait_for(task, timeout=5)
+                except (TimeoutError, asyncio.CancelledError):
+                    task.cancel()
+            engine.dispose()
 
     app = FastAPI(title="Sueperman", lifespan=lifespan)
     app.add_middleware(
@@ -128,7 +157,10 @@ def create_app(database_url=None):
     uploads.register(app, factory, settings, import_products)
     runs.register(app, factory, settings, get)
     opportunities.register(app, factory, get)
-    claims.register(app, factory, get)
+    claims.register(app, factory, get, settings=settings)
+    collaborations.register(app, factory, settings, get)
+    diwali_api.register(app, factory, settings, get, import_products)
+    p1_api.register(app, factory, settings, get)
 
     return app
 

@@ -1,0 +1,161 @@
+============================= test session starts ==============================
+platform darwin -- Python 3.12.13, pytest-9.2.0, pluggy-1.7.0
+rootdir: /Users/nirmalhk7/Documents/DevWorld/sueperman/services/api
+configfile: pyproject.toml
+plugins: anyio-4.16.0, asyncio-1.5.0, respx-0.23.1
+asyncio: mode=Mode.AUTO, debug=False, asyncio_default_fixture_loop_scope=function, asyncio_default_test_loop_scope=function
+collected 5 items
+
+services/api/tests/p1/test_monitor_api.py FFFFF                          [100%]
+
+=================================== FAILURES ===================================
+__________________ test_disabled_p1_has_no_monitor_mutations ___________________
+
+tmp_path = PosixPath('/private/var/folders/k0/w3xrb_d95jn2t7nf2f0s05yr0000gp/T/pytest-of-nirmalhk7/pytest-177/test_disabled_p1_has_no_monito0')
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x10cecc320>
+
+    def test_disabled_p1_has_no_monitor_mutations(tmp_path, monkeypatch):
+        with app_client(tmp_path, monkeypatch, enabled=False) as client:
+            status = client.get("/api/p1/status")
+>           assert status.status_code == 200 and status.json()["enabled"] is False
+E           assert (404 == 200)
+E            +  where 404 = <Response [404 Not Found]>.status_code
+
+services/api/tests/p1/test_monitor_api.py:33: AssertionError
+_____________ test_watch_requires_operator_public_read_permission ______________
+
+tmp_path = PosixPath('/private/var/folders/k0/w3xrb_d95jn2t7nf2f0s05yr0000gp/T/pytest-of-nirmalhk7/pytest-177/test_watch_requires_operator_p0')
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x10cecc2c0>
+
+    def test_watch_requires_operator_public_read_permission(tmp_path, monkeypatch):
+        with app_client(tmp_path, monkeypatch) as client:
+            opportunity = seeded_opportunity(client)
+            path = f"/api/opportunities/{opportunity['id']}/source-monitor"
+            response = client.post(path, json={"enabled": True})
+>           assert response.status_code == 503
+E           assert 404 == 503
+E            +  where 404 = <Response [404 Not Found]>.status_code
+
+services/api/tests/p1/test_monitor_api.py:42: AssertionError
+________ test_enable_is_idempotent_disable_and_unknown_fields_are_safe _________
+
+tmp_path = PosixPath('/private/var/folders/k0/w3xrb_d95jn2t7nf2f0s05yr0000gp/T/pytest-of-nirmalhk7/pytest-177/test_enable_is_idempotent_disa0')
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x10e7cbe00>
+
+    def test_enable_is_idempotent_disable_and_unknown_fields_are_safe(tmp_path, monkeypatch):
+        with app_client(tmp_path, monkeypatch, permitted=True) as client:
+            opportunity = seeded_opportunity(client)
+            path = f"/api/opportunities/{opportunity['id']}/source-monitor"
+            first = client.post(path, json={"enabled": True})
+>           assert first.status_code == 200
+E           assert 404 == 200
+E            +  where 404 = <Response [404 Not Found]>.status_code
+
+services/api/tests/p1/test_monitor_api.py:53: AssertionError
+_______ test_scheduler_drives_due_checks_and_stops_without_an_extra_read _______
+
+graph = (Engine(sqlite:////private/var/folders/k0/w3xrb_d95jn2t7nf2f0s05yr0000gp/T/pytest-of-nirmalhk7/pytest-177/test_schedul... official required markings', 'User confirmation of lawful disposal (never prefilled)'], conditions=[], mode='replay'))
+
+    @pytest.mark.asyncio
+    async def test_scheduler_drives_due_checks_and_stops_without_an_extra_read(graph):
+        module = monitor()
+        engine, factory, _client, opportunity_id, _packet_id, record = graph
+        enable(module, engine, factory, opportunity_id)
+        stopped = asyncio.Event()
+        calls = []
+        async def checker(reference):
+            calls.append(reference)
+            stopped.set()
+            return record
+        try:
+            async with asyncio.timeout(1):
+>               await module.watch_loop(factory, stopped, checker=checker, clock=lambda: NOW, poll_seconds=0.001)
+                      ^^^^^^^^^^^^^^^^^
+E               AttributeError: module 'app.p1.monitoring' has no attribute 'watch_loop'
+
+services/api/tests/p1/test_monitor_api.py:77: AttributeError
+
+During handling of the above exception, another exception occurred:
+
+graph = (Engine(sqlite:////private/var/folders/k0/w3xrb_d95jn2t7nf2f0s05yr0000gp/T/pytest-of-nirmalhk7/pytest-177/test_schedul... official required markings', 'User confirmation of lawful disposal (never prefilled)'], conditions=[], mode='replay'))
+
+    @pytest.mark.asyncio
+    async def test_scheduler_drives_due_checks_and_stops_without_an_extra_read(graph):
+        module = monitor()
+        engine, factory, _client, opportunity_id, _packet_id, record = graph
+        enable(module, engine, factory, opportunity_id)
+        stopped = asyncio.Event()
+        calls = []
+        async def checker(reference):
+            calls.append(reference)
+            stopped.set()
+            return record
+        try:
+            async with asyncio.timeout(1):
+                await module.watch_loop(factory, stopped, checker=checker, clock=lambda: NOW, poll_seconds=0.001)
+        except AttributeError:
+>           pytest.fail("Persistent watches have no running scheduler")
+E           Failed: Persistent watches have no running scheduler
+
+services/api/tests/p1/test_monitor_api.py:79: Failed
+_________ test_public_checker_uses_registered_query_not_purchase_data __________
+
+tmp_path = PosixPath('/private/var/folders/k0/w3xrb_d95jn2t7nf2f0s05yr0000gp/T/pytest-of-nirmalhk7/pytest-177/test_public_checker_uses_regis0')
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x10e979070>
+
+    @pytest.mark.asyncio
+    async def test_public_checker_uses_registered_query_not_purchase_data(tmp_path, monkeypatch):
+        import json
+        from pathlib import Path
+        import httpx
+        import respx
+    
+        module = monitor()
+        raw = json.loads((Path(__file__).parents[1] / "fixtures/p1-recalls/26610.json").read_text())
+        with respx.mock as remote:
+            route = remote.get("https://www.saferproducts.gov/RestWebServices/Recall",
+                               params={"ProductName": "Flaunt", "format": "json"}).respond(200, json=[raw])
+            try:
+>               result = await module.fetch_public("26-610")
+                               ^^^^^^^^^^^^^^^^^^^
+E               AttributeError: module 'app.p1.monitoring' has no attribute 'fetch_public'
+
+services/api/tests/p1/test_monitor_api.py:98: AttributeError
+
+During handling of the above exception, another exception occurred:
+
+tmp_path = PosixPath('/private/var/folders/k0/w3xrb_d95jn2t7nf2f0s05yr0000gp/T/pytest-of-nirmalhk7/pytest-177/test_public_checker_uses_regis0')
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x10e979070>
+
+    @pytest.mark.asyncio
+    async def test_public_checker_uses_registered_query_not_purchase_data(tmp_path, monkeypatch):
+        import json
+        from pathlib import Path
+        import httpx
+        import respx
+    
+        module = monitor()
+        raw = json.loads((Path(__file__).parents[1] / "fixtures/p1-recalls/26610.json").read_text())
+        with respx.mock as remote:
+            route = remote.get("https://www.saferproducts.gov/RestWebServices/Recall",
+                               params={"ProductName": "Flaunt", "format": "json"}).respond(200, json=[raw])
+            try:
+                result = await module.fetch_public("26-610")
+            except AttributeError:
+>               pytest.fail("Scheduled watches cannot retrieve their official source")
+E               Failed: Scheduled watches cannot retrieve their official source
+
+services/api/tests/p1/test_monitor_api.py:100: Failed
+=============================== warnings summary ===============================
+services/api/.venv/lib/python3.12/site-packages/fastapi/testclient.py:1
+  /Users/nirmalhk7/Documents/DevWorld/sueperman/services/api/.venv/lib/python3.12/site-packages/fastapi/testclient.py:1: StarletteDeprecationWarning: Using `httpx` with `starlette.testclient` is deprecated; install `httpx2` instead.
+    from starlette.testclient import TestClient as TestClient  # noqa
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+=========================== short test summary info ============================
+FAILED services/api/tests/p1/test_monitor_api.py::test_disabled_p1_has_no_monitor_mutations
+FAILED services/api/tests/p1/test_monitor_api.py::test_watch_requires_operator_public_read_permission
+FAILED services/api/tests/p1/test_monitor_api.py::test_enable_is_idempotent_disable_and_unknown_fields_are_safe
+FAILED services/api/tests/p1/test_monitor_api.py::test_scheduler_drives_due_checks_and_stops_without_an_extra_read
+FAILED services/api/tests/p1/test_monitor_api.py::test_public_checker_uses_registered_query_not_purchase_data
+========================= 5 failed, 1 warning in 1.10s =========================

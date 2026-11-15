@@ -1,0 +1,30 @@
+{
+  "provider": "lyzr",
+  "observed_at": "2026-11-15T09:11:03.579700+00:00",
+  "scope": "existing Builder connectivity/schema test",
+  "configured_role": "Sueperman case-board Builder",
+  "required_reviewer_role": false,
+  "post_attempts": 1,
+  "retries": 0,
+  "live_inference": true,
+  "schema_valid": true,
+  "application_gate_passed": false,
+  "proof_status": "PARTIAL",
+  "request_sha256": "654156c58628f3137efcc0ca66595a78ef5f272bfd8946b6efb1d6e5f6fbd2f2",
+  "configuration_sha256": "5c15c036712afde443f7b76e7e4e0e408bd3f133cb288a80b5db2f5b9f984d75",
+  "http_status": 200,
+  "response_sha256": "7081a927e219c37f0a4d08f23965295442135c3e67f2df7e54f4cea977bb4871",
+  "model_mismatch_preserved": true,
+  "duration_seconds": 3.29,
+  "tested_tree_digest": "a89cc0cbca16c0fd0d27bf2ffe306d57e27350a405d3ee8f9e7de27c5b83f004",
+  "tested_source_sha256": {
+    "services/api/app/diwali/band_bridge.py": "282e9dc55563e48b966658ea842e4202096e73561874a6b12e9ba0c5b66a109a",
+    "services/api/app/diwali/core.py": "1c992d4a8bcc65bcd1df927a10ce50ef402fdb5baa7147af31b6fbfc7fffacd8",
+    "services/api/app/diwali/message_schema.py": "e918cf0cd24ed56c24883c3bfefbd957ea1e2dce5299fa76c172f26460a2a958",
+    "services/api/pyproject.toml": "2f846f76a6f9bc640cedbda555ddc007e67424b1429a416bc5cbe07ca140e22c",
+    "services/api/uv.lock": "f033246cd2da081c8df37b926903ceec193750d80835a5b4017d79d16b165acf",
+    "services/api/app/collaboration/contracts.py": "f319c5399d558ad01e4f6309983b487b2590d8f45297871ccdd2ba0e80b1d572",
+    "services/api/app/collaboration/skill_package.py": "3a9c4335996f97402041f9b50a21e7e98dc5357863535ad7d95fd8567a73a530"
+  },
+  "probe_script_sha256": "b03e274640774a3eaf2158331070b7df4d4c0f753059cfcd27190e207048bf33"
+}

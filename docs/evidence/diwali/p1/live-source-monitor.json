@@ -1,0 +1,183 @@
+{
+  "scope": "P1 live public CPSC and scheduled monitor; synthetic purchases only",
+  "observed_at": "2026-11-15T20:21:23.188532+00:00",
+  "paid_calls": 0,
+  "claims_submitted": 0,
+  "cases": [
+    {
+      "brand": "Flaunt",
+      "model": "E33A",
+      "run_status": "completed",
+      "outcomes": [
+        "needs_review",
+        "rejected",
+        "verified_match"
+      ],
+      "provider_modes": {
+        "receipt": "csv",
+        "recall": "cpsc",
+        "research": "disabled",
+        "decision": "rules"
+      },
+      "official_url": "https://www.cpsc.gov/Recalls/2026/Flaunt-Recalls-Magsafe-Battery-Chargers-Due-to-Risk-of-Serious-Injury-or-Death-from-Fire-and-Burn-Hazards",
+      "source_observed_at": "2026-11-15T20:21:23.412187Z",
+      "source_sha256": "c1f4035f09260e365a8971eceb17ff17f70da47ebd7c3bce4e29e58c08d94689",
+      "scheduler_observation": {
+        "id": "c534f07d-c67e-4cd1-bfcd-3bb1cc087a05",
+        "sequence": 1,
+        "status": "unchanged",
+        "observation_status": "unchanged",
+        "observed_at": "2026-11-15T20:21:24.344670+00:00",
+        "before_digest": "8f0d432da033f44b73608fadef88cfefd9eb968adf3dc333408025978a6bba35",
+        "after_digest": "8f0d432da033f44b73608fadef88cfefd9eb968adf3dc333408025978a6bba35",
+        "before": {
+          "reference": "26-610",
+          "title": "Flaunt Recalls Magsafe Battery Chargers Due to Risk of Serious Injury or Death from Fire and Burn Hazards",
+          "brand": "Flaunt",
+          "family": "power bank",
+          "models": [
+            "E33A"
+          ],
+          "official_url": "https://www.cpsc.gov/Recalls/2026/Flaunt-Recalls-Magsafe-Battery-Chargers-Due-to-Risk-of-Serious-Injury-or-Death-from-Fire-and-Burn-Hazards",
+          "fetched_at": "2026-11-15T20:21:23.412187Z",
+          "source_type": "government",
+          "publisher": "U.S. Consumer Product Safety Commission",
+          "excerpt": "This recall involves the Flaunt MagSafe Battery Charger power banks with model number E33A. \"FLAUNT\" is engraved on the front right side of the power bank and there is a small circular button in the bottom center of the front side of the power bank. The back label of the unit is marked \"FLAUNT\" and \"Model: E33A\". The power banks were sold in melon, black, lavender and white. The chargers measure 3 by 2 by 0.25 inches and weigh around 3.2 ounces.",
+          "remedy_kind": "refund",
+          "instructions": "Consumers should stop using the recalled power banks immediately and contact Flaunt for a full refund of the $65 purchase price in the form of a check or as an $80 store credit at flauntcases.com. Consumers will be asked to register at www.flauntcases.com/pages/recall and submit two photographs. One photo should show the front of the power bank with the word \"Recalled\", the consumers initials, and the registration date written on it in permanent marker. The second photo should show the model number E33A located on the back of the power bank. Consumers will receive an email with instructions on disposing the charger in accordance with local and state regulations. Note: Do not throw this recalled power bank with lithium-ion battery in the trash, the general recycling stream (e.g., street-level or curbside recycling bins), or used battery recycling boxes found at various retail and home improvement stores. Recalled lithium-ion batteries must be disposed of differently than other batteries, because they present a greater risk of fire. Your municipal household hazardous waste (HHW) collection center may accept this recalled lithium-ion battery or device for disposal. Before taking your battery or device to a HHW collection center, contact that office ahead of time and ask whether it accepts recalled lithium-ion batteries. If it does not, contact your municipality for further guidance.",
+          "safety_instructions": "Consumers should stop using the recalled power banks immediately and contact Flaunt for a full refund of the $65 purchase price in the form of a check or as an $80 store credit at flauntcases.com. Consumers will be asked to register at www.flauntcases.com/pages/recall and submit two photographs. One photo should show the front of the power bank with the word \"Recalled\", the consumers initials, and the registration date written on it in permanent marker. The second photo should show the model number E33A located on the back of the power bank. Consumers will receive an email with instructions on disposing the charger in accordance with local and state regulations. Note: Do not throw this recalled power bank with lithium-ion battery in the trash, the general recycling stream (e.g., street-level or curbside recycling bins), or used battery recycling boxes found at various retail and home improvement stores. Recalled lithium-ion batteries must be disposed of differently than other batteries, because they present a greater risk of fire. Your municipal household hazardous waste (HHW) collection center may accept this recalled lithium-ion battery or device for disposal. Before taking your battery or device to a HHW collection center, contact that office ahead of time and ask whether it accepts recalled lithium-ion batteries. If it does not, contact your municipality for further guidance.",
+          "contact_url": "https://www.flauntcases.com/pages/recall",
+          "required_documents": [
+            "Front photo with Recalled, your initials and registration date, as directed by the official notice",
+            "Back photo showing model E33A"
+          ],
+          "conditions": [],
+          "mode": "live"
+        },
+        "after": {
+          "reference": "26-610",
+          "title": "Flaunt Recalls Magsafe Battery Chargers Due to Risk of Serious Injury or Death from Fire and Burn Hazards",
+          "brand": "Flaunt",
+          "family": "power bank",
+          "models": [
+            "E33A"
+          ],
+          "official_url": "https://www.cpsc.gov/Recalls/2026/Flaunt-Recalls-Magsafe-Battery-Chargers-Due-to-Risk-of-Serious-Injury-or-Death-from-Fire-and-Burn-Hazards",
+          "fetched_at": "2026-11-15T20:21:24.341434Z",
+          "source_type": "government",
+          "publisher": "U.S. Consumer Product Safety Commission",
+          "excerpt": "This recall involves the Flaunt MagSafe Battery Charger power banks with model number E33A. \"FLAUNT\" is engraved on the front right side of the power bank and there is a small circular button in the bottom center of the front side of the power bank. The back label of the unit is marked \"FLAUNT\" and \"Model: E33A\". The power banks were sold in melon, black, lavender and white. The chargers measure 3 by 2 by 0.25 inches and weigh around 3.2 ounces.",
+          "remedy_kind": "refund",
+          "instructions": "Consumers should stop using the recalled power banks immediately and contact Flaunt for a full refund of the $65 purchase price in the form of a check or as an $80 store credit at flauntcases.com. Consumers will be asked to register at www.flauntcases.com/pages/recall and submit two photographs. One photo should show the front of the power bank with the word \"Recalled\", the consumers initials, and the registration date written on it in permanent marker. The second photo should show the model number E33A located on the back of the power bank. Consumers will receive an email with instructions on disposing the charger in accordance with local and state regulations. Note: Do not throw this recalled power bank with lithium-ion battery in the trash, the general recycling stream (e.g., street-level or curbside recycling bins), or used battery recycling boxes found at various retail and home improvement stores. Recalled lithium-ion batteries must be disposed of differently than other batteries, because they present a greater risk of fire. Your municipal household hazardous waste (HHW) collection center may accept this recalled lithium-ion battery or device for disposal. Before taking your battery or device to a HHW collection center, contact that office ahead of time and ask whether it accepts recalled lithium-ion batteries. If it does not, contact your municipality for further guidance.",
+          "safety_instructions": "Consumers should stop using the recalled power banks immediately and contact Flaunt for a full refund of the $65 purchase price in the form of a check or as an $80 store credit at flauntcases.com. Consumers will be asked to register at www.flauntcases.com/pages/recall and submit two photographs. One photo should show the front of the power bank with the word \"Recalled\", the consumers initials, and the registration date written on it in permanent marker. The second photo should show the model number E33A located on the back of the power bank. Consumers will receive an email with instructions on disposing the charger in accordance with local and state regulations. Note: Do not throw this recalled power bank with lithium-ion battery in the trash, the general recycling stream (e.g., street-level or curbside recycling bins), or used battery recycling boxes found at various retail and home improvement stores. Recalled lithium-ion batteries must be disposed of differently than other batteries, because they present a greater risk of fire. Your municipal household hazardous waste (HHW) collection center may accept this recalled lithium-ion battery or device for disposal. Before taking your battery or device to a HHW collection center, contact that office ahead of time and ask whether it accepts recalled lithium-ion batteries. If it does not, contact your municipality for further guidance.",
+          "contact_url": "https://www.flauntcases.com/pages/recall",
+          "required_documents": [
+            "Front photo with Recalled, your initials and registration date, as directed by the official notice",
+            "Back photo showing model E33A"
+          ],
+          "conditions": [],
+          "mode": "live"
+        }
+      },
+      "watch_disabled": true,
+      "local_export_preserved": true
+    },
+    {
+      "brand": "iStore",
+      "model": "IST-09991/W05",
+      "run_status": "completed",
+      "outcomes": [
+        "needs_review",
+        "rejected",
+        "verified_match"
+      ],
+      "provider_modes": {
+        "receipt": "csv",
+        "recall": "cpsc",
+        "research": "disabled",
+        "decision": "rules"
+      },
+      "official_url": "https://www.cpsc.gov/Recalls/2025/iStore-Magnetic-Wireless-Power-Banks-Recalled-Due-to-Fire-and-Burn-Hazards-Imported-by-Tomauri",
+      "source_observed_at": "2026-11-15T20:21:24.854851Z",
+      "source_sha256": "a1229f7899873ffa989f58a4c21b548d78ffb1bd4146fdf396723621fecd8cf0",
+      "scheduler_observation": {
+        "id": "b02b5efd-e80a-47d6-b56f-7159aae1ea3f",
+        "sequence": 1,
+        "status": "unchanged",
+        "observation_status": "unchanged",
+        "observed_at": "2026-11-15T20:21:25.440915+00:00",
+        "before_digest": "75e6006751af08f2d5a022163b50ee5933bac02f9d8013b4709b69b0df6ade1d",
+        "after_digest": "75e6006751af08f2d5a022163b50ee5933bac02f9d8013b4709b69b0df6ade1d",
+        "before": {
+          "reference": "25-390",
+          "title": "iStore Magnetic Wireless Power Banks Recalled Due to Fire and Burn Hazards; Imported by Tomauri",
+          "brand": "iStore",
+          "family": "power bank",
+          "models": [
+            "IST-09991/W05"
+          ],
+          "official_url": "https://www.cpsc.gov/Recalls/2025/iStore-Magnetic-Wireless-Power-Banks-Recalled-Due-to-Fire-and-Burn-Hazards-Imported-by-Tomauri",
+          "fetched_at": "2026-11-15T20:21:24.854851Z",
+          "source_type": "government",
+          "publisher": "U.S. Consumer Product Safety Commission",
+          "excerpt": "This recall involves the iStore Magnetic Wireless Power Bank, 5000 mAh portable charger. Only model number IST-09991/W05 power banks are included in the recall. The iStore logo is engraved on the front side of the power bank, and the model number is printed on the back, as shown in the photos above. Some units may also have the word \"iStore\" printed above the model number. The power banks are compatible with various mobile devices, and measure 3 inches by 2 inches by 0.25 inches and weigh around 3.2 ounces. The product was sold with a USB-C to USB-C cable that measures about 12 inches long. Note: Do not throw this recalled lithium-ion battery or device in the trash, the general recycling stream (e.g., street-level or curbside recycling bins), or used battery recycling boxes found at various retail and home improvement stores. Recalled lithium-ion batteries must be disposed of differently than other batteries, because they present a greater risk of fire. Your municipal household hazardous waste (HHW) collection center may accept this recalled lithium-ion battery or device for disposal. Before taking your battery or device to a HHW collection center, contact that office ahead of time and ask whether it accepts recalled lithium-ion batteries. If it does not, contact your municipality for further guidance.",
+          "remedy_kind": "refund",
+          "instructions": "Consumers should immediately stop using the recalled wireless portable power bank and go to the firm's website to participate in the recall. Consumers will be asked to submit two photographs via email to recall@istore.co. The first photograph should be the front of the power bank with the word \"Recalled\" and the date written on it with permanent marker. The second photograph should include the model number, which is located on the back of the power bank. A purchase receipt will be requested but will not be required to participate in the recall. Consumers should immediately dispose of the power banks in accordance with local and state hazardous waste disposal regulations.",
+          "safety_instructions": "Consumers should immediately stop using the recalled wireless portable power bank and go to the firm's website to participate in the recall. Consumers will be asked to submit two photographs via email to recall@istore.co. The first photograph should be the front of the power bank with the word \"Recalled\" and the date written on it with permanent marker. The second photograph should include the model number, which is located on the back of the power bank. A purchase receipt will be requested but will not be required to participate in the recall. Consumers should immediately dispose of the power banks in accordance with local and state hazardous waste disposal regulations.",
+          "contact_url": "https://istore.co/pages/battery-recall",
+          "required_documents": [
+            "Front photo with Recalled and date, as directed by the official notice",
+            "Back photo showing the model number"
+          ],
+          "conditions": [],
+          "mode": "live"
+        },
+        "after": {
+          "reference": "25-390",
+          "title": "iStore Magnetic Wireless Power Banks Recalled Due to Fire and Burn Hazards; Imported by Tomauri",
+          "brand": "iStore",
+          "family": "power bank",
+          "models": [
+            "IST-09991/W05"
+          ],
+          "official_url": "https://www.cpsc.gov/Recalls/2025/iStore-Magnetic-Wireless-Power-Banks-Recalled-Due-to-Fire-and-Burn-Hazards-Imported-by-Tomauri",
+          "fetched_at": "2026-11-15T20:21:25.438630Z",
+          "source_type": "government",
+          "publisher": "U.S. Consumer Product Safety Commission",
+          "excerpt": "This recall involves the iStore Magnetic Wireless Power Bank, 5000 mAh portable charger. Only model number IST-09991/W05 power banks are included in the recall. The iStore logo is engraved on the front side of the power bank, and the model number is printed on the back, as shown in the photos above. Some units may also have the word \"iStore\" printed above the model number. The power banks are compatible with various mobile devices, and measure 3 inches by 2 inches by 0.25 inches and weigh around 3.2 ounces. The product was sold with a USB-C to USB-C cable that measures about 12 inches long. Note: Do not throw this recalled lithium-ion battery or device in the trash, the general recycling stream (e.g., street-level or curbside recycling bins), or used battery recycling boxes found at various retail and home improvement stores. Recalled lithium-ion batteries must be disposed of differently than other batteries, because they present a greater risk of fire. Your municipal household hazardous waste (HHW) collection center may accept this recalled lithium-ion battery or device for disposal. Before taking your battery or device to a HHW collection center, contact that office ahead of time and ask whether it accepts recalled lithium-ion batteries. If it does not, contact your municipality for further guidance.",
+          "remedy_kind": "refund",
+          "instructions": "Consumers should immediately stop using the recalled wireless portable power bank and go to the firm's website to participate in the recall. Consumers will be asked to submit two photographs via email to recall@istore.co. The first photograph should be the front of the power bank with the word \"Recalled\" and the date written on it with permanent marker. The second photograph should include the model number, which is located on the back of the power bank. A purchase receipt will be requested but will not be required to participate in the recall. Consumers should immediately dispose of the power banks in accordance with local and state hazardous waste disposal regulations.",
+          "safety_instructions": "Consumers should immediately stop using the recalled wireless portable power bank and go to the firm's website to participate in the recall. Consumers will be asked to submit two photographs via email to recall@istore.co. The first photograph should be the front of the power bank with the word \"Recalled\" and the date written on it with permanent marker. The second photograph should include the model number, which is located on the back of the power bank. A purchase receipt will be requested but will not be required to participate in the recall. Consumers should immediately dispose of the power banks in accordance with local and state hazardous waste disposal regulations.",
+          "contact_url": "https://istore.co/pages/battery-recall",
+          "required_documents": [
+            "Front photo with Recalled and date, as directed by the official notice",
+            "Back photo showing the model number"
+          ],
+          "conditions": [],
+          "mode": "live"
+        }
+      },
+      "watch_disabled": true,
+      "local_export_preserved": true
+    }
+  ],
+  "status": "PASS",
+  "tested_tree_digest": "0bdbaa20c72aec52d5b721d13e094c49256720be22f9f53d495d3fc085e25a8b",
+  "tested_source_sha256": {
+    "services/api/app/p1/monitoring.py": "057c85a4994a75cd8ce9a3854b42e7e9a1b58db7359a085279d1742dc986c80f",
+    "services/api/app/p1/obligations.py": "c5df92fbe39e42834ecdfe65ba328cc639cfc4368f1db18fd25137ed517ad8cc",
+    "services/api/app/p1/normalizers.py": "3a99f336dfc9eae63538769a5a8483e2777ac7b6bd658e40a602771bde103e6f",
+    "services/api/app/p1/__init__.py": "ff99f2a4df56c6f6651af576d81e71b2580bd5b4e167096ab9f1184f8154f1cf",
+    "services/api/app/p1/api.py": "f39cf056d0cdc11e1dcf19fdfc1314398fd0940afdda49246f7995368b992b80",
+    "services/api/app/p1/normalizers.json": "708acba992cf5480cfc59bc048427cd93f96c501642baf66be13fb345cf55ba6",
+    "services/api/app/matching/recall.py": "218a49f501e3d3f8dd8e6bc6fb38dacb9e77851e104e04771c53b7044b6518e6",
+    "services/api/app/providers/cpsc.py": "26be96d35b2e750ecdee4d3049a58a82ac5177986661ac21e27771e8ea15b469",
+    "services/api/app/agent/orchestrator.py": "7ca02e678cdc8d213f235b97cf475168bf4fcab1debec76d7369a7fdf70d6156",
+    "services/api/app/api/claims.py": "b7de3f7faeaf82521810712125605ca985c4fb855167c483199a312caebc7518",
+    "services/api/app/main.py": "c8c7cfeb07de0c3e0ff03c980db9fd46d44692a847453ff7cf2acdd5e85d3875",
+    "services/api/app/config.py": "da0848877fccbbe2d95cc64a07ce0c4b51f9a98d1f447decbfe7994b8e0c86e7",
+    "apps/web/components/p1-controls.tsx": "ee970b5b756dcb55437d275139faedac42470cdd1c0ce4227734cbebc0d86828",
+    "apps/web/app/claims/[id]/page.tsx": "fb51fec8a6277919c872de448417a6a122fd40e00d4d87661b69b8a881abd433",
+    "apps/web/app/opportunities/[id]/page.tsx": "838b55021ce5a6d140492aa9422b59a9daefe2cff6e3875542e3136e550a4dea"
+  }
+}

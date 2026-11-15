@@ -1,0 +1,460 @@
+FFFFFFFF                                                                 [100%]
+=================================== FAILURES ===================================
+___________________________ test_duplicate_delivery ____________________________
+
+    def core():
+        try:
+>           return importlib.import_module("app.diwali.core")
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+services/api/tests/diwali/test_local_core.py:20: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+name = 'app.diwali.core', package = None
+
+    def import_module(name, package=None):
+        """Import a module.
+    
+        The 'package' argument is required when performing a relative import. It
+        specifies the package to use as the anchor point from which to resolve the
+        relative import to an absolute import.
+    
+        """
+        level = 0
+        if name.startswith('.'):
+            if not package:
+                raise TypeError("the 'package' argument is required to perform a "
+                                f"relative import for {name!r}")
+            for character in name:
+                if character != '.':
+                    break
+                level += 1
+>       return _bootstrap._gcd_import(name[level:], package, level)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       ModuleNotFoundError: No module named 'app.diwali.core'
+
+/private/tmp/sueperman-python/cpython-3.12.13-macos-aarch64-none/lib/python3.12/importlib/__init__.py:90: ModuleNotFoundError
+
+During handling of the above exception, another exception occurred:
+
+    def test_duplicate_delivery():
+>       module, state, report = researched()
+                                ^^^^^^^^^^^^
+
+services/api/tests/diwali/test_reducer.py:22: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+services/api/tests/diwali/test_reducer.py:12: in researched
+    module = core()
+             ^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    def core():
+        try:
+            return importlib.import_module("app.diwali.core")
+        except ModuleNotFoundError:
+>           pytest.fail("V2.1 four-actor local workflow is not implemented")
+E           Failed: V2.1 four-actor local workflow is not implemented
+
+services/api/tests/diwali/test_local_core.py:22: Failed
+__________________________ test_conflicting_duplicate __________________________
+
+    def core():
+        try:
+>           return importlib.import_module("app.diwali.core")
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+services/api/tests/diwali/test_local_core.py:20: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+name = 'app.diwali.core', package = None
+
+    def import_module(name, package=None):
+        """Import a module.
+    
+        The 'package' argument is required when performing a relative import. It
+        specifies the package to use as the anchor point from which to resolve the
+        relative import to an absolute import.
+    
+        """
+        level = 0
+        if name.startswith('.'):
+            if not package:
+                raise TypeError("the 'package' argument is required to perform a "
+                                f"relative import for {name!r}")
+            for character in name:
+                if character != '.':
+                    break
+                level += 1
+>       return _bootstrap._gcd_import(name[level:], package, level)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       ModuleNotFoundError: No module named 'app.diwali.core'
+
+/private/tmp/sueperman-python/cpython-3.12.13-macos-aarch64-none/lib/python3.12/importlib/__init__.py:90: ModuleNotFoundError
+
+During handling of the above exception, another exception occurred:
+
+    def test_conflicting_duplicate():
+>       module, state, report = researched()
+                                ^^^^^^^^^^^^
+
+services/api/tests/diwali/test_reducer.py:30: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+services/api/tests/diwali/test_reducer.py:12: in researched
+    module = core()
+             ^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    def core():
+        try:
+            return importlib.import_module("app.diwali.core")
+        except ModuleNotFoundError:
+>           pytest.fail("V2.1 four-actor local workflow is not implemented")
+E           Failed: V2.1 four-actor local workflow is not implemented
+
+services/api/tests/diwali/test_local_core.py:22: Failed
+__________________________ test_wrong_sender_revision __________________________
+
+    def core():
+        try:
+>           return importlib.import_module("app.diwali.core")
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+services/api/tests/diwali/test_local_core.py:20: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+name = 'app.diwali.core', package = None
+
+    def import_module(name, package=None):
+        """Import a module.
+    
+        The 'package' argument is required when performing a relative import. It
+        specifies the package to use as the anchor point from which to resolve the
+        relative import to an absolute import.
+    
+        """
+        level = 0
+        if name.startswith('.'):
+            if not package:
+                raise TypeError("the 'package' argument is required to perform a "
+                                f"relative import for {name!r}")
+            for character in name:
+                if character != '.':
+                    break
+                level += 1
+>       return _bootstrap._gcd_import(name[level:], package, level)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       ModuleNotFoundError: No module named 'app.diwali.core'
+
+/private/tmp/sueperman-python/cpython-3.12.13-macos-aarch64-none/lib/python3.12/importlib/__init__.py:90: ModuleNotFoundError
+
+During handling of the above exception, another exception occurred:
+
+    def test_wrong_sender_revision():
+>       module, state, report = researched()
+                                ^^^^^^^^^^^^
+
+services/api/tests/diwali/test_reducer.py:38: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+services/api/tests/diwali/test_reducer.py:12: in researched
+    module = core()
+             ^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    def core():
+        try:
+            return importlib.import_module("app.diwali.core")
+        except ModuleNotFoundError:
+>           pytest.fail("V2.1 four-actor local workflow is not implemented")
+E           Failed: V2.1 four-actor local workflow is not implemented
+
+services/api/tests/diwali/test_local_core.py:22: Failed
+__________________________ test_terminal_late_message __________________________
+
+    def core():
+        try:
+>           return importlib.import_module("app.diwali.core")
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+services/api/tests/diwali/test_local_core.py:20: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+name = 'app.diwali.core', package = None
+
+    def import_module(name, package=None):
+        """Import a module.
+    
+        The 'package' argument is required when performing a relative import. It
+        specifies the package to use as the anchor point from which to resolve the
+        relative import to an absolute import.
+    
+        """
+        level = 0
+        if name.startswith('.'):
+            if not package:
+                raise TypeError("the 'package' argument is required to perform a "
+                                f"relative import for {name!r}")
+            for character in name:
+                if character != '.':
+                    break
+                level += 1
+>       return _bootstrap._gcd_import(name[level:], package, level)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       ModuleNotFoundError: No module named 'app.diwali.core'
+
+/private/tmp/sueperman-python/cpython-3.12.13-macos-aarch64-none/lib/python3.12/importlib/__init__.py:90: ModuleNotFoundError
+
+During handling of the above exception, another exception occurred:
+
+    def test_terminal_late_message():
+>       module, state, report = researched()
+                                ^^^^^^^^^^^^
+
+services/api/tests/diwali/test_reducer.py:47: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+services/api/tests/diwali/test_reducer.py:12: in researched
+    module = core()
+             ^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    def core():
+        try:
+            return importlib.import_module("app.diwali.core")
+        except ModuleNotFoundError:
+>           pytest.fail("V2.1 four-actor local workflow is not implemented")
+E           Failed: V2.1 four-actor local workflow is not implemented
+
+services/api/tests/diwali/test_local_core.py:22: Failed
+___________________ test_completed_task_new_message_is_noop ____________________
+
+    def core():
+        try:
+>           return importlib.import_module("app.diwali.core")
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+services/api/tests/diwali/test_local_core.py:20: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+name = 'app.diwali.core', package = None
+
+    def import_module(name, package=None):
+        """Import a module.
+    
+        The 'package' argument is required when performing a relative import. It
+        specifies the package to use as the anchor point from which to resolve the
+        relative import to an absolute import.
+    
+        """
+        level = 0
+        if name.startswith('.'):
+            if not package:
+                raise TypeError("the 'package' argument is required to perform a "
+                                f"relative import for {name!r}")
+            for character in name:
+                if character != '.':
+                    break
+                level += 1
+>       return _bootstrap._gcd_import(name[level:], package, level)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       ModuleNotFoundError: No module named 'app.diwali.core'
+
+/private/tmp/sueperman-python/cpython-3.12.13-macos-aarch64-none/lib/python3.12/importlib/__init__.py:90: ModuleNotFoundError
+
+During handling of the above exception, another exception occurred:
+
+    def test_completed_task_new_message_is_noop():
+>       module, state, report = researched()
+                                ^^^^^^^^^^^^
+
+services/api/tests/diwali/test_reducer.py:53: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+services/api/tests/diwali/test_reducer.py:12: in researched
+    module = core()
+             ^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    def core():
+        try:
+            return importlib.import_module("app.diwali.core")
+        except ModuleNotFoundError:
+>           pytest.fail("V2.1 four-actor local workflow is not implemented")
+E           Failed: V2.1 four-actor local workflow is not implemented
+
+services/api/tests/diwali/test_local_core.py:22: Failed
+_____________________________ test_public_followup _____________________________
+
+    def core():
+        try:
+>           return importlib.import_module("app.diwali.core")
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+services/api/tests/diwali/test_local_core.py:20: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+name = 'app.diwali.core', package = None
+
+    def import_module(name, package=None):
+        """Import a module.
+    
+        The 'package' argument is required when performing a relative import. It
+        specifies the package to use as the anchor point from which to resolve the
+        relative import to an absolute import.
+    
+        """
+        level = 0
+        if name.startswith('.'):
+            if not package:
+                raise TypeError("the 'package' argument is required to perform a "
+                                f"relative import for {name!r}")
+            for character in name:
+                if character != '.':
+                    break
+                level += 1
+>       return _bootstrap._gcd_import(name[level:], package, level)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       ModuleNotFoundError: No module named 'app.diwali.core'
+
+/private/tmp/sueperman-python/cpython-3.12.13-macos-aarch64-none/lib/python3.12/importlib/__init__.py:90: ModuleNotFoundError
+
+During handling of the above exception, another exception occurred:
+
+    def test_public_followup():
+>       module, state, review = followup_state()
+                                ^^^^^^^^^^^^^^^^
+
+services/api/tests/diwali/test_reducer.py:72: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+services/api/tests/diwali/test_reducer.py:60: in followup_state
+    module = core()
+             ^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    def core():
+        try:
+            return importlib.import_module("app.diwali.core")
+        except ModuleNotFoundError:
+>           pytest.fail("V2.1 four-actor local workflow is not implemented")
+E           Failed: V2.1 four-actor local workflow is not implemented
+
+services/api/tests/diwali/test_local_core.py:22: Failed
+________________________ test_unresolved_second_review _________________________
+
+    def core():
+        try:
+>           return importlib.import_module("app.diwali.core")
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+services/api/tests/diwali/test_local_core.py:20: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+name = 'app.diwali.core', package = None
+
+    def import_module(name, package=None):
+        """Import a module.
+    
+        The 'package' argument is required when performing a relative import. It
+        specifies the package to use as the anchor point from which to resolve the
+        relative import to an absolute import.
+    
+        """
+        level = 0
+        if name.startswith('.'):
+            if not package:
+                raise TypeError("the 'package' argument is required to perform a "
+                                f"relative import for {name!r}")
+            for character in name:
+                if character != '.':
+                    break
+                level += 1
+>       return _bootstrap._gcd_import(name[level:], package, level)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       ModuleNotFoundError: No module named 'app.diwali.core'
+
+/private/tmp/sueperman-python/cpython-3.12.13-macos-aarch64-none/lib/python3.12/importlib/__init__.py:90: ModuleNotFoundError
+
+During handling of the above exception, another exception occurred:
+
+    def test_unresolved_second_review():
+>       module, state, review = followup_state()
+                                ^^^^^^^^^^^^^^^^
+
+services/api/tests/diwali/test_reducer.py:81: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+services/api/tests/diwali/test_reducer.py:60: in followup_state
+    module = core()
+             ^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    def core():
+        try:
+            return importlib.import_module("app.diwali.core")
+        except ModuleNotFoundError:
+>           pytest.fail("V2.1 four-actor local workflow is not implemented")
+E           Failed: V2.1 four-actor local workflow is not implemented
+
+services/api/tests/diwali/test_local_core.py:22: Failed
+_____________________ test_review_cannot_override_matcher ______________________
+
+    def core():
+        try:
+>           return importlib.import_module("app.diwali.core")
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+services/api/tests/diwali/test_local_core.py:20: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+name = 'app.diwali.core', package = None
+
+    def import_module(name, package=None):
+        """Import a module.
+    
+        The 'package' argument is required when performing a relative import. It
+        specifies the package to use as the anchor point from which to resolve the
+        relative import to an absolute import.
+    
+        """
+        level = 0
+        if name.startswith('.'):
+            if not package:
+                raise TypeError("the 'package' argument is required to perform a "
+                                f"relative import for {name!r}")
+            for character in name:
+                if character != '.':
+                    break
+                level += 1
+>       return _bootstrap._gcd_import(name[level:], package, level)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       ModuleNotFoundError: No module named 'app.diwali.core'
+
+/private/tmp/sueperman-python/cpython-3.12.13-macos-aarch64-none/lib/python3.12/importlib/__init__.py:90: ModuleNotFoundError
+
+During handling of the above exception, another exception occurred:
+
+    def test_review_cannot_override_matcher():
+>       module, state, review = followup_state()
+                                ^^^^^^^^^^^^^^^^
+
+services/api/tests/diwali/test_reducer.py:92: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+services/api/tests/diwali/test_reducer.py:60: in followup_state
+    module = core()
+             ^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    def core():
+        try:
+            return importlib.import_module("app.diwali.core")
+        except ModuleNotFoundError:
+>           pytest.fail("V2.1 four-actor local workflow is not implemented")
+E           Failed: V2.1 four-actor local workflow is not implemented
+
+services/api/tests/diwali/test_local_core.py:22: Failed
+=========================== short test summary info ============================
+FAILED services/api/tests/diwali/test_reducer.py::test_duplicate_delivery - F...
+FAILED services/api/tests/diwali/test_reducer.py::test_conflicting_duplicate
+FAILED services/api/tests/diwali/test_reducer.py::test_wrong_sender_revision
+FAILED services/api/tests/diwali/test_reducer.py::test_terminal_late_message
+FAILED services/api/tests/diwali/test_reducer.py::test_completed_task_new_message_is_noop
+FAILED services/api/tests/diwali/test_reducer.py::test_public_followup - Fail...
+FAILED services/api/tests/diwali/test_reducer.py::test_unresolved_second_review
+FAILED services/api/tests/diwali/test_reducer.py::test_review_cannot_override_matcher
+8 failed in 0.17s

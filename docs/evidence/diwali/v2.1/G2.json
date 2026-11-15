@@ -1,0 +1,32 @@
+{
+  "command": [
+    "/Users/nirmalhk7/Documents/DevWorld/sueperman/services/api/.venv/bin/python",
+    "-m",
+    "pytest",
+    "services/api/tests/diwali/test_local_core.py::test_five_golden_outcomes",
+    "services/api/tests/diwali/test_local_core.py::test_four_identities",
+    "services/api/tests/diwali/test_local_core.py::test_golden_traces",
+    "services/api/tests/diwali/test_local_core.py::test_transport_parity",
+    "services/api/tests/diwali/test_reducer.py::test_duplicate_delivery",
+    "services/api/tests/diwali/test_reducer.py::test_conflicting_duplicate",
+    "services/api/tests/diwali/test_reducer.py::test_wrong_sender_revision",
+    "services/api/tests/diwali/test_reducer.py::test_terminal_late_message",
+    "services/api/tests/diwali/test_local_core.py::test_missing_purchase_model",
+    "services/api/tests/diwali/test_reducer.py::test_public_followup",
+    "services/api/tests/diwali/test_reducer.py::test_unresolved_second_review",
+    "services/api/tests/diwali/test_local_core.py::test_untrusted_source",
+    "services/api/tests/diwali/test_local_core.py::test_network_denied",
+    "-q",
+    "--strict-markers",
+    "-o",
+    "xfail_strict=true",
+    "--junitxml=/Users/nirmalhk7/Documents/DevWorld/sueperman/docs/evidence/diwali/v2.1/G2/pytest.xml"
+  ],
+  "status": "PASS",
+  "exit_code": 0,
+  "duration_seconds": 0.44398887490388006,
+  "stdout_path": "/Users/nirmalhk7/Documents/DevWorld/sueperman/docs/evidence/diwali/v2.1/G2/stdout.log",
+  "stderr_path": "/Users/nirmalhk7/Documents/DevWorld/sueperman/docs/evidence/diwali/v2.1/G2/stderr.log",
+  "tests": 15,
+  "tested_tree_digest": "24536685f70c08db367eb98dc909e281b962d91d880504edb3ea1e644cd10a66"
+}

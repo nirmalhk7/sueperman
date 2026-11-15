@@ -1,0 +1,37 @@
+============================= test session starts ==============================
+platform darwin -- Python 3.12.13, pytest-9.2.0, pluggy-1.7.0
+rootdir: /Users/nirmalhk7/Documents/DevWorld/sueperman/services/api
+configfile: pyproject.toml
+plugins: anyio-4.16.0, asyncio-1.5.0, respx-0.23.1
+asyncio: mode=Mode.AUTO, debug=False, asyncio_default_fixture_loop_scope=function, asyncio_default_test_loop_scope=function
+collected 7 items / 6 deselected / 1 selected
+
+services/api/tests/diwali/test_band_bridge.py F                          [100%]
+
+=================================== FAILURES ===================================
+________ test_wrong_product_reference_cannot_run_authenticated_research ________
+
+    @pytest.mark.asyncio
+    async def test_wrong_product_reference_cannot_run_authenticated_research():
+        module = bridge()
+        from band.testing import FakeAgentTools
+        context, request = case()
+        request = Message.model_validate(request.model_dump(mode="json") | {
+            "payload": {"product_ref": "another-product"}})
+        sent = []
+        async def send(message):
+            sent.append(message)
+        adapter = module.CaseBandAdapter("researcher", registry(), "private-test-room", lambda _: context,
+            send, clock=lambda: context.started_at)
+        await adapter.on_message(platform(request), FakeAgentTools(), [], None, None,
+                                 is_session_bootstrap=False, room_id="private-test-room")
+>       assert sent == []
+E       AssertionError: assert [Message(sche...cated=False))] == []
+E         
+E         Left contains one more item: Message(schema_version=1, message_id=UUID('2c467534-8f64-5dbb-b372-5a61a91e001b'), run_id=UUID('00000000-0000-0000-000...6-792:ef2c1fe53e1965607815bbaf0a759fc6c5ba214dc720afa2854b839370f4a782'], coverage='supported_scope', truncated=False))
+E         Use -v to get more diff
+
+services/api/tests/diwali/test_band_bridge.py:136: AssertionError
+=========================== short test summary info ============================
+FAILED services/api/tests/diwali/test_band_bridge.py::test_wrong_product_reference_cannot_run_authenticated_research
+======================= 1 failed, 6 deselected in 0.65s ========================

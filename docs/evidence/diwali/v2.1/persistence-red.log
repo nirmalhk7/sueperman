@@ -1,0 +1,200 @@
+FFFF                                                                     [100%]
+=================================== FAILURES ===================================
+__________________________ test_finalization_rollback __________________________
+
+    def persistence():
+        try:
+>           return importlib.import_module("app.diwali.persistence")
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+services/api/tests/diwali/test_persistence.py:16: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+/private/tmp/sueperman-python/cpython-3.12.13-macos-aarch64-none/lib/python3.12/importlib/__init__.py:90: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+<frozen importlib._bootstrap>:1387: in _gcd_import
+    ???
+<frozen importlib._bootstrap>:1360: in _find_and_load
+    ???
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+name = 'app.diwali.persistence', import_ = <function _gcd_import at 0x104c000e0>
+
+>   ???
+E   ModuleNotFoundError: No module named 'app.diwali.persistence'
+
+<frozen importlib._bootstrap>:1324: ModuleNotFoundError
+
+During handling of the above exception, another exception occurred:
+
+tmp_path = PosixPath('/private/var/folders/k0/w3xrb_d95jn2t7nf2f0s05yr0000gp/T/pytest-of-nirmalhk7/pytest-102/test_finalization_rollback0')
+
+    def test_finalization_rollback(tmp_path):
+>       module, factory, product_id, run_id, product, recall = setup(tmp_path)
+                                                               ^^^^^^^^^^^^^^^
+
+services/api/tests/diwali/test_persistence.py:41: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+services/api/tests/diwali/test_persistence.py:22: in setup
+    module = persistence()
+             ^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    def persistence():
+        try:
+            return importlib.import_module("app.diwali.persistence")
+        except ModuleNotFoundError:
+>           pytest.fail("V2.1 transaction facade is not implemented")
+E           Failed: V2.1 transaction facade is not implemented
+
+services/api/tests/diwali/test_persistence.py:18: Failed
+__________________________ test_restart_cancels_tasks __________________________
+
+    def persistence():
+        try:
+>           return importlib.import_module("app.diwali.persistence")
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+services/api/tests/diwali/test_persistence.py:16: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+/private/tmp/sueperman-python/cpython-3.12.13-macos-aarch64-none/lib/python3.12/importlib/__init__.py:90: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+<frozen importlib._bootstrap>:1387: in _gcd_import
+    ???
+<frozen importlib._bootstrap>:1360: in _find_and_load
+    ???
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+name = 'app.diwali.persistence', import_ = <function _gcd_import at 0x104c000e0>
+
+>   ???
+E   ModuleNotFoundError: No module named 'app.diwali.persistence'
+
+<frozen importlib._bootstrap>:1324: ModuleNotFoundError
+
+During handling of the above exception, another exception occurred:
+
+tmp_path = PosixPath('/private/var/folders/k0/w3xrb_d95jn2t7nf2f0s05yr0000gp/T/pytest-of-nirmalhk7/pytest-102/test_restart_cancels_tasks0')
+
+    def test_restart_cancels_tasks(tmp_path):
+>       module, factory, product_id, run_id, product, recall = setup(tmp_path)
+                                                               ^^^^^^^^^^^^^^^
+
+services/api/tests/diwali/test_persistence.py:56: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+services/api/tests/diwali/test_persistence.py:22: in setup
+    module = persistence()
+             ^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    def persistence():
+        try:
+            return importlib.import_module("app.diwali.persistence")
+        except ModuleNotFoundError:
+>           pytest.fail("V2.1 transaction facade is not implemented")
+E           Failed: V2.1 transaction facade is not implemented
+
+services/api/tests/diwali/test_persistence.py:18: Failed
+_____________________________ test_stale_evidence ______________________________
+
+    def persistence():
+        try:
+>           return importlib.import_module("app.diwali.persistence")
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+services/api/tests/diwali/test_persistence.py:16: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+/private/tmp/sueperman-python/cpython-3.12.13-macos-aarch64-none/lib/python3.12/importlib/__init__.py:90: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+<frozen importlib._bootstrap>:1387: in _gcd_import
+    ???
+<frozen importlib._bootstrap>:1360: in _find_and_load
+    ???
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+name = 'app.diwali.persistence', import_ = <function _gcd_import at 0x104c000e0>
+
+>   ???
+E   ModuleNotFoundError: No module named 'app.diwali.persistence'
+
+<frozen importlib._bootstrap>:1324: ModuleNotFoundError
+
+During handling of the above exception, another exception occurred:
+
+tmp_path = PosixPath('/private/var/folders/k0/w3xrb_d95jn2t7nf2f0s05yr0000gp/T/pytest-of-nirmalhk7/pytest-102/test_stale_evidence0')
+
+    def test_stale_evidence(tmp_path):
+>       module, factory, product_id, run_id, product, recall = setup(tmp_path)
+                                                               ^^^^^^^^^^^^^^^
+
+services/api/tests/diwali/test_persistence.py:71: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+services/api/tests/diwali/test_persistence.py:22: in setup
+    module = persistence()
+             ^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    def persistence():
+        try:
+            return importlib.import_module("app.diwali.persistence")
+        except ModuleNotFoundError:
+>           pytest.fail("V2.1 transaction facade is not implemented")
+E           Failed: V2.1 transaction facade is not implemented
+
+services/api/tests/diwali/test_persistence.py:18: Failed
+__________________________ test_no_repeat_side_effect __________________________
+
+    def persistence():
+        try:
+>           return importlib.import_module("app.diwali.persistence")
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+services/api/tests/diwali/test_persistence.py:16: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+/private/tmp/sueperman-python/cpython-3.12.13-macos-aarch64-none/lib/python3.12/importlib/__init__.py:90: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+<frozen importlib._bootstrap>:1387: in _gcd_import
+    ???
+<frozen importlib._bootstrap>:1360: in _find_and_load
+    ???
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+name = 'app.diwali.persistence', import_ = <function _gcd_import at 0x104c000e0>
+
+>   ???
+E   ModuleNotFoundError: No module named 'app.diwali.persistence'
+
+<frozen importlib._bootstrap>:1324: ModuleNotFoundError
+
+During handling of the above exception, another exception occurred:
+
+tmp_path = PosixPath('/private/var/folders/k0/w3xrb_d95jn2t7nf2f0s05yr0000gp/T/pytest-of-nirmalhk7/pytest-102/test_no_repeat_side_effect0')
+
+    def test_no_repeat_side_effect(tmp_path):
+>       module, factory, product_id, run_id, product, recall = setup(tmp_path)
+                                                               ^^^^^^^^^^^^^^^
+
+services/api/tests/diwali/test_persistence.py:93: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+services/api/tests/diwali/test_persistence.py:22: in setup
+    module = persistence()
+             ^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    def persistence():
+        try:
+            return importlib.import_module("app.diwali.persistence")
+        except ModuleNotFoundError:
+>           pytest.fail("V2.1 transaction facade is not implemented")
+E           Failed: V2.1 transaction facade is not implemented
+
+services/api/tests/diwali/test_persistence.py:18: Failed
+=========================== short test summary info ============================
+FAILED services/api/tests/diwali/test_persistence.py::test_finalization_rollback
+FAILED services/api/tests/diwali/test_persistence.py::test_restart_cancels_tasks
+FAILED services/api/tests/diwali/test_persistence.py::test_stale_evidence - F...
+FAILED services/api/tests/diwali/test_persistence.py::test_no_repeat_side_effect
+4 failed in 0.32s

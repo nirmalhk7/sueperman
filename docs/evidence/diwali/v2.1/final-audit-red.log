@@ -1,0 +1,52 @@
+FFF                                                                      [100%]
+=================================== FAILURES ===================================
+__________ test_snapshot_reference_cannot_bind_different_source_facts __________
+
+    def test_snapshot_reference_cannot_bind_different_source_facts():
+        products, record = fixture_data()
+        first = inputs(products[0], record)
+        changed = inputs(products[0], record.model_copy(update={"instructions": "Different official remedy"}))
+>       assert set(first.sources).isdisjoint(changed.sources)
+E       AssertionError: assert False
+E        +  where False = <built-in method isdisjoint of set object at 0x10d00dee0>({'cpsc:26-792:snapshot-1': RecallRecord(reference='26-792', title='NEWDERY Power Banks Recalled Due to Fire and Burn H... official required markings', 'User confirmation of lawful disposal (never prefilled)'], conditions=[], mode='replay')})
+E        +    where <built-in method isdisjoint of set object at 0x10d00dee0> = {'cpsc:26-792:snapshot-1'}.isdisjoint
+E        +      where {'cpsc:26-792:snapshot-1'} = set({'cpsc:26-792:snapshot-1': RecallRecord(reference='26-792', title='NEWDERY Power Banks Recalled Due to Fire and Burn H... official required markings', 'User confirmation of lawful disposal (never prefilled)'], conditions=[], mode='replay')})
+E        +        where {'cpsc:26-792:snapshot-1': RecallRecord(reference='26-792', title='NEWDERY Power Banks Recalled Due to Fire and Burn H... official required markings', 'User confirmation of lawful disposal (never prefilled)'], conditions=[], mode='replay')} = CaseInput(run_id=UUID('00000000-0000-0000-0000-000000000001'), case_id=UUID('00000000-0000-0000-0000-000000000002'), p...), started_at=datetime.datetime(2026, 11, 15, 0, 0, tzinfo=datetime.timezone.utc), settlement_json='', max_followups=1).sources
+E        +    and   {'cpsc:26-792:snapshot-1': RecallRecord(reference='26-792', title='NEWDERY Power Banks Recalled Due to Fire and Burn H... official required markings', 'User confirmation of lawful disposal (never prefilled)'], conditions=[], mode='replay')} = CaseInput(run_id=UUID('00000000-0000-0000-0000-000000000001'), case_id=UUID('00000000-0000-0000-0000-000000000002'), p...), started_at=datetime.datetime(2026, 11, 15, 0, 0, tzinfo=datetime.timezone.utc), settlement_json='', max_followups=1).sources
+
+services/api/tests/diwali/test_local_core.py:193: AssertionError
+______ test_snapshot_references_resolve_after_legacy_evidence_replacement ______
+
+tmp_path = PosixPath('/private/var/folders/k0/w3xrb_d95jn2t7nf2f0s05yr0000gp/T/pytest-of-nirmalhk7/pytest-150/test_snapshot_references_resol0')
+
+    def test_snapshot_references_resolve_after_legacy_evidence_replacement(tmp_path):
+        module, factory, product_id, run_id, product, recall = setup(tmp_path)
+        from app.diwali.core import run_local
+        state = run_local(replace(inputs(product, recall), run_id=UUID(run_id), product_ref=product_id))
+        with factory.begin() as session:
+            opportunity = module.stage_finalization(session, run_id, product_id, state)
+            opportunity.payload = opportunity.payload | {"recall": recall.model_copy(
+                update={"models": ["ZHX-PB23"]}).model_dump(mode="json")}
+        with factory() as session:
+            case = session.scalar(select(module.CaseRow))
+>           snapshot = case.payload["source_snapshots"][state.source_refs[0]]
+                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E           KeyError: 'source_snapshots'
+
+services/api/tests/diwali/test_persistence.py:167: KeyError
+_________________ test_reports_saved_at_frozen_evidence_paths __________________
+
+tmp_path = PosixPath('/private/var/folders/k0/w3xrb_d95jn2t7nf2f0s05yr0000gp/T/pytest-of-nirmalhk7/pytest-150/test_reports_saved_at_frozen_e0')
+
+    def test_reports_saved_at_frozen_evidence_paths(tmp_path):
+        module = harness()
+>       module.write_reports(tmp_path, {"G1": {"status": "FAIL", "exit_code": 7}})
+        ^^^^^^^^^^^^^^^^^^^^
+E       AttributeError: module 'verify_diwali' has no attribute 'write_reports'
+
+services/api/tests/diwali/test_harness.py:117: AttributeError
+=========================== short test summary info ============================
+FAILED services/api/tests/diwali/test_local_core.py::test_snapshot_reference_cannot_bind_different_source_facts
+FAILED services/api/tests/diwali/test_persistence.py::test_snapshot_references_resolve_after_legacy_evidence_replacement
+FAILED services/api/tests/diwali/test_harness.py::test_reports_saved_at_frozen_evidence_paths
+3 failed in 0.59s

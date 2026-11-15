@@ -1,0 +1,20 @@
+F                                                                        [100%]
+=================================== FAILURES ===================================
+__________________________ test_five_golden_outcomes ___________________________
+
+    def test_five_golden_outcomes():
+        module = core()
+        products, recall = fixture_data()
+        expected = json.loads((ROOT / "harness/diwali/expected.json").read_text())
+        results = [module.run_local(inputs(product, recall)) for product in products]
+        for result, want in zip(results, expected["cases"], strict=True):
+>           assert result.outcome == want["outcome"]
+E           AssertionError: assert 'verified_match' == 'rejected'
+E             
+E             - rejected
+E             + verified_match
+
+services/api/tests/diwali/test_local_core.py:46: AssertionError
+=========================== short test summary info ============================
+FAILED services/api/tests/diwali/test_local_core.py::test_five_golden_outcomes
+1 failed in 0.14s

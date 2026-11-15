@@ -1,0 +1,43 @@
+{
+  "version": 1,
+  "notices": [
+    {
+      "number": "26610",
+      "raw_sha256": "a43efd15d09f10cf4caa0fcddf5fee633ee0e642e16326de1f384f44831f1169",
+      "brand": "Flaunt",
+      "family": "power bank",
+      "models": [
+        "E33A"
+      ],
+      "contact_url": "https://www.flauntcases.com/pages/recall",
+      "required_documents": [
+        "Front photo with Recalled, your initials and registration date, as directed by the official notice",
+        "Back photo showing model E33A"
+      ],
+      "official_url": "https://www.cpsc.gov/Recalls/2026/Flaunt-Recalls-Magsafe-Battery-Chargers-Due-to-Risk-of-Serious-Injury-or-Death-from-Fire-and-Burn-Hazards",
+      "reviewed_at": "2026-11-15",
+      "rule_version": "p1-2",
+      "family_aliases": [
+        "battery charger"
+      ]
+    },
+    {
+      "number": "25390",
+      "raw_sha256": "34a2c5692753e0bd4df948bde7637d396775a80ed8fbf4e0add322a4dad13a0b",
+      "brand": "iStore",
+      "family": "power bank",
+      "models": [
+        "IST-09991/W05"
+      ],
+      "contact_url": "https://istore.co/pages/battery-recall",
+      "required_documents": [
+        "Front photo with Recalled and date, as directed by the official notice",
+        "Back photo showing the model number"
+      ],
+      "official_url": "https://www.cpsc.gov/Recalls/2025/iStore-Magnetic-Wireless-Power-Banks-Recalled-Due-to-Fire-and-Burn-Hazards-Imported-by-Tomauri",
+      "reviewed_at": "2026-11-15",
+      "rule_version": "p1-2",
+      "family_aliases": []
+    }
+  ]
+}

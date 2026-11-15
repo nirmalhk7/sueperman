@@ -7,7 +7,9 @@ from app.config import ROOT
 from app.models import (
     AgentRun,
     AuditEvent,
+    CaseRecord,
     ClaimPacket,
+    CollaborationRun,
     EligibilityAssessment,
     Opportunity,
     Product,
@@ -25,6 +27,12 @@ def register(app, factory, settings, import_products):
         with factory() as s:
             if s.scalar(select(AgentRun).where(AgentRun.status.in_(["running", "queued"]))):
                 raise HTTPException(409, "Wait for active run before reset")
+            if s.scalar(
+                select(CollaborationRun).where(
+                    CollaborationRun.status.in_(["queued", "investigating", "challenging", "building"])
+                )
+            ):
+                raise HTTPException(409, "Wait for active team run before reset")
             demo_models: list[type[Any]] = [
                 AuditEvent,
                 ClaimPacket,
@@ -36,6 +44,12 @@ def register(app, factory, settings, import_products):
                 Purchase,
             ]
             for model in demo_models:
-                s.execute(delete(model).where(model.demo.is_(True)))
+                query = delete(model).where(model.demo.is_(True))
+                # Retain products referenced by immutable team case history.
+                if model is Product:
+                    query = query.where(Product.id.not_in(select(CaseRecord.product_id)))
+                elif model is Purchase:
+                    query = query.where(Purchase.id.not_in(select(Product.purchase_id)))
+                s.execute(query)
             s.commit()
             return import_products(s, (ROOT / "demo/orders.csv").read_bytes(), demo=True)

@@ -1,0 +1,17 @@
+F                                                                        [100%]
+=================================== FAILURES ===================================
+_________________________ test_missing_purchase_model __________________________
+
+    def test_missing_purchase_model():
+        products, recall = fixture_data()
+        result = core().run_local(inputs(products[3], recall))
+>       assert result.outcome == "needs_review"
+E       AssertionError: assert 'verified_match' == 'needs_review'
+E         
+E         - needs_review
+E         + verified_match
+
+services/api/tests/diwali/test_local_core.py:99: AssertionError
+=========================== short test summary info ============================
+FAILED services/api/tests/diwali/test_local_core.py::test_missing_purchase_model
+1 failed in 0.15s

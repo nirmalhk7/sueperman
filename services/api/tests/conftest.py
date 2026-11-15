@@ -23,5 +23,7 @@ def offline_provider_environment(monkeypatch):
         "GEMINI_ENABLED",
         "BRIGHTDATA_ENABLED",
         "SYSTEM_ONE_ENABLED",
+        "P1_ENABLED",
+        "P1_MONITOR_ENABLED",
     ]:
         monkeypatch.setenv(key, "false")

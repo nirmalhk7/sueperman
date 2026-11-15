@@ -1,0 +1,102 @@
+FFFFF.                                                                   [100%]
+=================================== FAILURES ===================================
+_________________________ test_proof_requires_artifact _________________________
+
+tmp_path = PosixPath('/private/var/folders/k0/w3xrb_d95jn2t7nf2f0s05yr0000gp/T/pytest-of-nirmalhk7/pytest-94/test_proof_requires_artifact0')
+
+    def test_proof_requires_artifact(tmp_path):
+        claimed = {"status": "PROVEN", "configured": True, "enabled": True}
+>       assert harness().proof_status("band", claimed, tmp_path, "tree") == "NOT_STARTED"
+               ^^^^^^^^^
+
+services/api/tests/diwali/test_harness.py:24: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    def harness():
+        path = ROOT / "scripts/verify_diwali.py"
+        if not path.exists():
+>           pytest.fail("Executable V2.1 gate verifier is not implemented")
+E           Failed: Executable V2.1 gate verifier is not implemented
+
+services/api/tests/diwali/test_harness.py:15: Failed
+____________________________ test_skips_cannot_pass ____________________________
+
+tmp_path = PosixPath('/private/var/folders/k0/w3xrb_d95jn2t7nf2f0s05yr0000gp/T/pytest-of-nirmalhk7/pytest-94/test_skips_cannot_pass0')
+
+    def test_skips_cannot_pass(tmp_path):
+>       module = harness()
+                 ^^^^^^^^^
+
+services/api/tests/diwali/test_harness.py:30: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    def harness():
+        path = ROOT / "scripts/verify_diwali.py"
+        if not path.exists():
+>           pytest.fail("Executable V2.1 gate verifier is not implemented")
+E           Failed: Executable V2.1 gate verifier is not implemented
+
+services/api/tests/diwali/test_harness.py:15: Failed
+____________________ test_missing_required_node_is_blocked _____________________
+
+tmp_path = PosixPath('/private/var/folders/k0/w3xrb_d95jn2t7nf2f0s05yr0000gp/T/pytest-of-nirmalhk7/pytest-94/test_missing_required_node_is_0')
+
+    def test_missing_required_node_is_blocked(tmp_path):
+>       result = harness().run_pytest([str(tmp_path / "missing.py")], tmp_path, tmp_path / "evidence")
+                 ^^^^^^^^^
+
+services/api/tests/diwali/test_harness.py:46: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    def harness():
+        path = ROOT / "scripts/verify_diwali.py"
+        if not path.exists():
+>           pytest.fail("Executable V2.1 gate verifier is not implemented")
+E           Failed: Executable V2.1 gate verifier is not implemented
+
+services/api/tests/diwali/test_harness.py:15: Failed
+________________ test_deliberate_violation_changes_exit_status _________________
+
+tmp_path = PosixPath('/private/var/folders/k0/w3xrb_d95jn2t7nf2f0s05yr0000gp/T/pytest-of-nirmalhk7/pytest-94/test_deliberate_violation_chan0')
+
+    def test_deliberate_violation_changes_exit_status(tmp_path):
+        path = tmp_path / "test_outcome.py"
+        path.write_text("def test_outcome(): assert 'verified_match' == 'verified_match'\n")
+>       module = harness()
+                 ^^^^^^^^^
+
+services/api/tests/diwali/test_harness.py:53: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    def harness():
+        path = ROOT / "scripts/verify_diwali.py"
+        if not path.exists():
+>           pytest.fail("Executable V2.1 gate verifier is not implemented")
+E           Failed: Executable V2.1 gate verifier is not implemented
+
+services/api/tests/diwali/test_harness.py:15: Failed
+___________________________ test_baseline_integrity ____________________________
+
+tmp_path = PosixPath('/private/var/folders/k0/w3xrb_d95jn2t7nf2f0s05yr0000gp/T/pytest-of-nirmalhk7/pytest-94/test_baseline_integrity0')
+
+    def test_baseline_integrity(tmp_path):
+>       module = harness()
+                 ^^^^^^^^^
+
+services/api/tests/diwali/test_harness.py:60: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    def harness():
+        path = ROOT / "scripts/verify_diwali.py"
+        if not path.exists():
+>           pytest.fail("Executable V2.1 gate verifier is not implemented")
+E           Failed: Executable V2.1 gate verifier is not implemented
+
+services/api/tests/diwali/test_harness.py:15: Failed
+=========================== short test summary info ============================
+FAILED services/api/tests/diwali/test_harness.py::test_proof_requires_artifact
+FAILED services/api/tests/diwali/test_harness.py::test_skips_cannot_pass - Fa...
+FAILED services/api/tests/diwali/test_harness.py::test_missing_required_node_is_blocked
+FAILED services/api/tests/diwali/test_harness.py::test_deliberate_violation_changes_exit_status
+FAILED services/api/tests/diwali/test_harness.py::test_baseline_integrity - F...
+5 failed, 1 passed in 0.06s

@@ -1,0 +1,270 @@
+EE                                                                       [100%]
+==================================== ERRORS ====================================
+______________ ERROR at setup of test_browser_error_empty_states _______________
+
+tmp_path_factory = TempPathFactory(_given_basetemp=None, _trace=<pluggy._tracing.TagTracerSub object at 0x10b3d9fa0>, _basetemp=PosixPath...ders/k0/w3xrb_d95jn2t7nf2f0s05yr0000gp/T/pytest-of-nirmalhk7/pytest-117'), _retention_count=3, _retention_policy='all')
+
+    @pytest.fixture(scope="module")
+    def browser_env(tmp_path_factory):
+        folder = tmp_path_factory.mktemp("diwali-browser")
+        web = folder / "web"
+        web.mkdir()
+        source = ROOT / "apps/web"
+        for directory in ("app", "components", "lib", "public", "tests"):
+            if (source / directory).exists():
+                shutil.copytree(source / directory, web / directory)
+        for path in source.iterdir():
+            if path.is_file() and path.name.endswith((".ts", ".mjs", ".json")) and not path.name.endswith("tsbuildinfo"):
+                shutil.copy2(path, web / path.name)
+        (web / "node_modules").symlink_to(source / "node_modules", target_is_directory=True)
+        api_port, web_port = free_port(), free_port()
+        env = os.environ | {"DATABASE_URL": f"sqlite:///{folder}/browser.db", "DIWALI_ENABLED": "true",
+            "SENTRY_DSN": "", "SENTRY_AUTH_TOKEN": "", "NEXT_PUBLIC_SENTRY_DSN": "",
+            "PYTHONPATH": str(ROOT / "services/api"), "API_URL": f"http://127.0.0.1:{api_port}",
+            "NEXT_PUBLIC_API_BASE_URL": f"http://127.0.0.1:{api_port}",
+            "WEB_URL": f"http://127.0.0.1:{web_port}", "FRONTEND_ORIGIN": f"http://127.0.0.1:{web_port}"}
+        for key in ("OPENAI_ENABLED", "OPENAI_RECEIPT_ENABLED", "GEMINI_ENABLED", "BRIGHTDATA_ENABLED",
+                    "CPSC_LIVE_ENABLED", "SYSTEM_ONE_ENABLED", "SETTLEMENT_LIVE_ENABLED", "BAND_ENABLED",
+                    "LYZR_ENABLED", "AGENT37_ENABLED", "DIWALI_LIVE_AUTHORIZED"):
+            env[key] = "false"
+        logs = ROOT / "docs/evidence/diwali/v2.1/browser"
+        logs.mkdir(parents=True, exist_ok=True)
+        processes = []
+        streams = []
+        try:
+            for name, command, cwd, url in [
+                ("api", [sys.executable, "-m", "uvicorn", "app.main:app", "--host", "127.0.0.1", "--port", str(api_port)],
+                 folder, env["API_URL"] + "/api/health"),
+                ("web", ["node", str(source / "node_modules/next/dist/bin/next"), "dev", "--webpack", "--hostname", "127.0.0.1", "--port", str(web_port)],
+                 web, env["WEB_URL"]),
+            ]:
+                stream = (logs / f"{name}.log").open("w")
+                streams.append(stream)
+                process = subprocess.Popen(command, cwd=cwd, env=env, stdout=stream, stderr=stream, start_new_session=True)
+                processes.append(process)
+                deadline = time.monotonic() + 60
+                while True:
+                    try:
+>                       with urlopen(url, timeout=2) as response:
+                             ^^^^^^^^^^^^^^^^^^^^^^^
+
+services/api/tests/diwali/test_ui.py:66: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+/private/tmp/sueperman-python/cpython-3.12.13-macos-aarch64-none/lib/python3.12/urllib/request.py:215: in urlopen
+    return opener.open(url, data, timeout)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+/private/tmp/sueperman-python/cpython-3.12.13-macos-aarch64-none/lib/python3.12/urllib/request.py:521: in open
+    response = meth(req, response)
+               ^^^^^^^^^^^^^^^^^^^
+/private/tmp/sueperman-python/cpython-3.12.13-macos-aarch64-none/lib/python3.12/urllib/request.py:630: in http_response
+    response = self.parent.error(
+/private/tmp/sueperman-python/cpython-3.12.13-macos-aarch64-none/lib/python3.12/urllib/request.py:559: in error
+    return self._call_chain(*args)
+           ^^^^^^^^^^^^^^^^^^^^^^^
+/private/tmp/sueperman-python/cpython-3.12.13-macos-aarch64-none/lib/python3.12/urllib/request.py:492: in _call_chain
+    result = func(*args)
+             ^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <urllib.request.HTTPDefaultErrorHandler object at 0x10b44c200>
+req = <urllib.request.Request object at 0x105057710>
+fp = <http.client.HTTPResponse object at 0x10b44c5e0>, code = 500
+msg = 'Internal Server Error'
+hdrs = <http.client.HTTPMessage object at 0x10b44ca40>
+
+    def http_error_default(self, req, fp, code, msg, hdrs):
+>       raise HTTPError(req.full_url, code, msg, hdrs, fp)
+E       urllib.error.HTTPError: HTTP Error 500: Internal Server Error
+
+/private/tmp/sueperman-python/cpython-3.12.13-macos-aarch64-none/lib/python3.12/urllib/request.py:639: HTTPError
+
+During handling of the above exception, another exception occurred:
+
+tmp_path_factory = TempPathFactory(_given_basetemp=None, _trace=<pluggy._tracing.TagTracerSub object at 0x10b3d9fa0>, _basetemp=PosixPath...ders/k0/w3xrb_d95jn2t7nf2f0s05yr0000gp/T/pytest-of-nirmalhk7/pytest-117'), _retention_count=3, _retention_policy='all')
+
+    @pytest.fixture(scope="module")
+    def browser_env(tmp_path_factory):
+        folder = tmp_path_factory.mktemp("diwali-browser")
+        web = folder / "web"
+        web.mkdir()
+        source = ROOT / "apps/web"
+        for directory in ("app", "components", "lib", "public", "tests"):
+            if (source / directory).exists():
+                shutil.copytree(source / directory, web / directory)
+        for path in source.iterdir():
+            if path.is_file() and path.name.endswith((".ts", ".mjs", ".json")) and not path.name.endswith("tsbuildinfo"):
+                shutil.copy2(path, web / path.name)
+        (web / "node_modules").symlink_to(source / "node_modules", target_is_directory=True)
+        api_port, web_port = free_port(), free_port()
+        env = os.environ | {"DATABASE_URL": f"sqlite:///{folder}/browser.db", "DIWALI_ENABLED": "true",
+            "SENTRY_DSN": "", "SENTRY_AUTH_TOKEN": "", "NEXT_PUBLIC_SENTRY_DSN": "",
+            "PYTHONPATH": str(ROOT / "services/api"), "API_URL": f"http://127.0.0.1:{api_port}",
+            "NEXT_PUBLIC_API_BASE_URL": f"http://127.0.0.1:{api_port}",
+            "WEB_URL": f"http://127.0.0.1:{web_port}", "FRONTEND_ORIGIN": f"http://127.0.0.1:{web_port}"}
+        for key in ("OPENAI_ENABLED", "OPENAI_RECEIPT_ENABLED", "GEMINI_ENABLED", "BRIGHTDATA_ENABLED",
+                    "CPSC_LIVE_ENABLED", "SYSTEM_ONE_ENABLED", "SETTLEMENT_LIVE_ENABLED", "BAND_ENABLED",
+                    "LYZR_ENABLED", "AGENT37_ENABLED", "DIWALI_LIVE_AUTHORIZED"):
+            env[key] = "false"
+        logs = ROOT / "docs/evidence/diwali/v2.1/browser"
+        logs.mkdir(parents=True, exist_ok=True)
+        processes = []
+        streams = []
+        try:
+            for name, command, cwd, url in [
+                ("api", [sys.executable, "-m", "uvicorn", "app.main:app", "--host", "127.0.0.1", "--port", str(api_port)],
+                 folder, env["API_URL"] + "/api/health"),
+                ("web", ["node", str(source / "node_modules/next/dist/bin/next"), "dev", "--webpack", "--hostname", "127.0.0.1", "--port", str(web_port)],
+                 web, env["WEB_URL"]),
+            ]:
+                stream = (logs / f"{name}.log").open("w")
+                streams.append(stream)
+                process = subprocess.Popen(command, cwd=cwd, env=env, stdout=stream, stderr=stream, start_new_session=True)
+                processes.append(process)
+                deadline = time.monotonic() + 60
+                while True:
+                    try:
+                        with urlopen(url, timeout=2) as response:
+                            if response.status == 200:
+                                break
+                    except (URLError, TimeoutError):
+                        if process.poll() is not None or time.monotonic() >= deadline:
+>                           pytest.fail(f"Task-owned {name} server unavailable; inspect {logs / (name + '.log')}")
+E                           Failed: Task-owned web server unavailable; inspect /Users/nirmalhk7/Documents/DevWorld/sueperman/docs/evidence/diwali/v2.1/browser/web.log
+
+services/api/tests/diwali/test_ui.py:71: Failed
+________________ ERROR at setup of test_browser_packet_workflow ________________
+
+tmp_path_factory = TempPathFactory(_given_basetemp=None, _trace=<pluggy._tracing.TagTracerSub object at 0x10b3d9fa0>, _basetemp=PosixPath...ders/k0/w3xrb_d95jn2t7nf2f0s05yr0000gp/T/pytest-of-nirmalhk7/pytest-117'), _retention_count=3, _retention_policy='all')
+
+    @pytest.fixture(scope="module")
+    def browser_env(tmp_path_factory):
+        folder = tmp_path_factory.mktemp("diwali-browser")
+        web = folder / "web"
+        web.mkdir()
+        source = ROOT / "apps/web"
+        for directory in ("app", "components", "lib", "public", "tests"):
+            if (source / directory).exists():
+                shutil.copytree(source / directory, web / directory)
+        for path in source.iterdir():
+            if path.is_file() and path.name.endswith((".ts", ".mjs", ".json")) and not path.name.endswith("tsbuildinfo"):
+                shutil.copy2(path, web / path.name)
+        (web / "node_modules").symlink_to(source / "node_modules", target_is_directory=True)
+        api_port, web_port = free_port(), free_port()
+        env = os.environ | {"DATABASE_URL": f"sqlite:///{folder}/browser.db", "DIWALI_ENABLED": "true",
+            "SENTRY_DSN": "", "SENTRY_AUTH_TOKEN": "", "NEXT_PUBLIC_SENTRY_DSN": "",
+            "PYTHONPATH": str(ROOT / "services/api"), "API_URL": f"http://127.0.0.1:{api_port}",
+            "NEXT_PUBLIC_API_BASE_URL": f"http://127.0.0.1:{api_port}",
+            "WEB_URL": f"http://127.0.0.1:{web_port}", "FRONTEND_ORIGIN": f"http://127.0.0.1:{web_port}"}
+        for key in ("OPENAI_ENABLED", "OPENAI_RECEIPT_ENABLED", "GEMINI_ENABLED", "BRIGHTDATA_ENABLED",
+                    "CPSC_LIVE_ENABLED", "SYSTEM_ONE_ENABLED", "SETTLEMENT_LIVE_ENABLED", "BAND_ENABLED",
+                    "LYZR_ENABLED", "AGENT37_ENABLED", "DIWALI_LIVE_AUTHORIZED"):
+            env[key] = "false"
+        logs = ROOT / "docs/evidence/diwali/v2.1/browser"
+        logs.mkdir(parents=True, exist_ok=True)
+        processes = []
+        streams = []
+        try:
+            for name, command, cwd, url in [
+                ("api", [sys.executable, "-m", "uvicorn", "app.main:app", "--host", "127.0.0.1", "--port", str(api_port)],
+                 folder, env["API_URL"] + "/api/health"),
+                ("web", ["node", str(source / "node_modules/next/dist/bin/next"), "dev", "--webpack", "--hostname", "127.0.0.1", "--port", str(web_port)],
+                 web, env["WEB_URL"]),
+            ]:
+                stream = (logs / f"{name}.log").open("w")
+                streams.append(stream)
+                process = subprocess.Popen(command, cwd=cwd, env=env, stdout=stream, stderr=stream, start_new_session=True)
+                processes.append(process)
+                deadline = time.monotonic() + 60
+                while True:
+                    try:
+>                       with urlopen(url, timeout=2) as response:
+                             ^^^^^^^^^^^^^^^^^^^^^^^
+
+services/api/tests/diwali/test_ui.py:66: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+/private/tmp/sueperman-python/cpython-3.12.13-macos-aarch64-none/lib/python3.12/urllib/request.py:215: in urlopen
+    return opener.open(url, data, timeout)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+/private/tmp/sueperman-python/cpython-3.12.13-macos-aarch64-none/lib/python3.12/urllib/request.py:521: in open
+    response = meth(req, response)
+               ^^^^^^^^^^^^^^^^^^^
+/private/tmp/sueperman-python/cpython-3.12.13-macos-aarch64-none/lib/python3.12/urllib/request.py:630: in http_response
+    response = self.parent.error(
+/private/tmp/sueperman-python/cpython-3.12.13-macos-aarch64-none/lib/python3.12/urllib/request.py:559: in error
+    return self._call_chain(*args)
+           ^^^^^^^^^^^^^^^^^^^^^^^
+/private/tmp/sueperman-python/cpython-3.12.13-macos-aarch64-none/lib/python3.12/urllib/request.py:492: in _call_chain
+    result = func(*args)
+             ^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <urllib.request.HTTPDefaultErrorHandler object at 0x10b44c200>
+req = <urllib.request.Request object at 0x105057710>
+fp = <http.client.HTTPResponse object at 0x10b44c5e0>, code = 500
+msg = 'Internal Server Error'
+hdrs = <http.client.HTTPMessage object at 0x10b44ca40>
+
+    def http_error_default(self, req, fp, code, msg, hdrs):
+>       raise HTTPError(req.full_url, code, msg, hdrs, fp)
+E       urllib.error.HTTPError: HTTP Error 500: Internal Server Error
+
+/private/tmp/sueperman-python/cpython-3.12.13-macos-aarch64-none/lib/python3.12/urllib/request.py:639: HTTPError
+
+During handling of the above exception, another exception occurred:
+
+tmp_path_factory = TempPathFactory(_given_basetemp=None, _trace=<pluggy._tracing.TagTracerSub object at 0x10b3d9fa0>, _basetemp=PosixPath...ders/k0/w3xrb_d95jn2t7nf2f0s05yr0000gp/T/pytest-of-nirmalhk7/pytest-117'), _retention_count=3, _retention_policy='all')
+
+    @pytest.fixture(scope="module")
+    def browser_env(tmp_path_factory):
+        folder = tmp_path_factory.mktemp("diwali-browser")
+        web = folder / "web"
+        web.mkdir()
+        source = ROOT / "apps/web"
+        for directory in ("app", "components", "lib", "public", "tests"):
+            if (source / directory).exists():
+                shutil.copytree(source / directory, web / directory)
+        for path in source.iterdir():
+            if path.is_file() and path.name.endswith((".ts", ".mjs", ".json")) and not path.name.endswith("tsbuildinfo"):
+                shutil.copy2(path, web / path.name)
+        (web / "node_modules").symlink_to(source / "node_modules", target_is_directory=True)
+        api_port, web_port = free_port(), free_port()
+        env = os.environ | {"DATABASE_URL": f"sqlite:///{folder}/browser.db", "DIWALI_ENABLED": "true",
+            "SENTRY_DSN": "", "SENTRY_AUTH_TOKEN": "", "NEXT_PUBLIC_SENTRY_DSN": "",
+            "PYTHONPATH": str(ROOT / "services/api"), "API_URL": f"http://127.0.0.1:{api_port}",
+            "NEXT_PUBLIC_API_BASE_URL": f"http://127.0.0.1:{api_port}",
+            "WEB_URL": f"http://127.0.0.1:{web_port}", "FRONTEND_ORIGIN": f"http://127.0.0.1:{web_port}"}
+        for key in ("OPENAI_ENABLED", "OPENAI_RECEIPT_ENABLED", "GEMINI_ENABLED", "BRIGHTDATA_ENABLED",
+                    "CPSC_LIVE_ENABLED", "SYSTEM_ONE_ENABLED", "SETTLEMENT_LIVE_ENABLED", "BAND_ENABLED",
+                    "LYZR_ENABLED", "AGENT37_ENABLED", "DIWALI_LIVE_AUTHORIZED"):
+            env[key] = "false"
+        logs = ROOT / "docs/evidence/diwali/v2.1/browser"
+        logs.mkdir(parents=True, exist_ok=True)
+        processes = []
+        streams = []
+        try:
+            for name, command, cwd, url in [
+                ("api", [sys.executable, "-m", "uvicorn", "app.main:app", "--host", "127.0.0.1", "--port", str(api_port)],
+                 folder, env["API_URL"] + "/api/health"),
+                ("web", ["node", str(source / "node_modules/next/dist/bin/next"), "dev", "--webpack", "--hostname", "127.0.0.1", "--port", str(web_port)],
+                 web, env["WEB_URL"]),
+            ]:
+                stream = (logs / f"{name}.log").open("w")
+                streams.append(stream)
+                process = subprocess.Popen(command, cwd=cwd, env=env, stdout=stream, stderr=stream, start_new_session=True)
+                processes.append(process)
+                deadline = time.monotonic() + 60
+                while True:
+                    try:
+                        with urlopen(url, timeout=2) as response:
+                            if response.status == 200:
+                                break
+                    except (URLError, TimeoutError):
+                        if process.poll() is not None or time.monotonic() >= deadline:
+>                           pytest.fail(f"Task-owned {name} server unavailable; inspect {logs / (name + '.log')}")
+E                           Failed: Task-owned web server unavailable; inspect /Users/nirmalhk7/Documents/DevWorld/sueperman/docs/evidence/diwali/v2.1/browser/web.log
+
+services/api/tests/diwali/test_ui.py:71: Failed
+=========================== short test summary info ============================
+ERROR services/api/tests/diwali/test_ui.py::test_browser_error_empty_states
+ERROR services/api/tests/diwali/test_ui.py::test_browser_packet_workflow - Fa...
+2 errors in 61.67s (0:01:01)

@@ -1,0 +1,13 @@
+# Scope and remaining work
+
+The current invocation targets offline G0–G3. The machine-readable handoff and executable gate report determine verified status. Previous `v2-status.md`, W0–W6 runbook and original sponsor notes describe the earlier provisional implementation; they are retained unchanged and are not this V2.1 gate plan.
+
+Local recorded-source tests do not prove provider execution or model quality. Separate authorized probes now establish BAND SDK transport/reducer consumption for five synthetic cases, one Lyzr Builder inference, and fresh Finch candidate delivery/hash verification. These are partial evidence, not completed application gates. BAND remains unavailable at application admission. SDK 8.1.0 is pinned; its additive dependency change still needs integration with the frozen lock integrity audit. The single Lyzr inference authorization was consumed; further inference requires applicable authorization. No compute provisioning, push, publication or deployment occurred. The existing Lyzr Builder agent does not satisfy the new Skeptic reviewer assignment. The generic downloaded Finch skill does not satisfy the new authored-package assignment or model-invocation requirement.
+
+The app remains the existing unauthenticated modular monolith, not a multi-user privacy service. New collaboration accepts synthetic demo input only. No real private receipt is sent to a sponsor. Approval remains local and confers no eligibility, payment, submission or refund guarantee. Source coverage remains the baseline supported notice; competing/unsupported facts require review.
+
+The default-off operator reset needs an isolated database and explicit operator configuration. Existing V1 behavior is preserved. Captured local transport data is read-only test material; it does not establish that a previous live collaboration happened.
+
+Three existing browser tests in `p1-live.e2e.ts` require explicit opt-in for paid Gemini/public-source runs. They are outside the selected offline provider scope and must remain reported as unexecuted if skipped. Every mapped mandatory G0–G3 node must actually execute without skip/xfail. No live-provider success is inferred from the offline suite.
+
+Next target after verified G3 is G4 BAND, followed by G5 Lyzr review. G6/G7 add Finch/Agent37 evidence separately. G8/G9 require real footage, AdaL output and publication authorization; the owner's AdaL deferral remains visible. Existing film/slides and other protected user changes must remain untouched.

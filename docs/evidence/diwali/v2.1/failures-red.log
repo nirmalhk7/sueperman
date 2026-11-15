@@ -1,0 +1,75 @@
+FFF.                                                                     [100%]
+=================================== FAILURES ===================================
+_______________ test_malformed_result_closes_case_without_packet _______________
+
+tmp_path = PosixPath('/private/var/folders/k0/w3xrb_d95jn2t7nf2f0s05yr0000gp/T/pytest-of-nirmalhk7/pytest-119/test_malformed_result_closes_c0')
+
+    @pytest.mark.asyncio
+    async def test_malformed_result_closes_case_without_packet(tmp_path):
+        module, factory, _p, run_id, _product, _recall = setup(tmp_path)
+        class Malformed(LocalTransport):
+            def exchange(self, message, context):
+                return {"status": "verified_match", "secret": "must-not-be-logged"}
+        queued(factory, run_id)
+        await execute(factory, run_id, Settings(), Malformed())
+        with factory() as session:
+            run = session.get(AgentRun, run_id)
+            assert run.status == "failed"
+            case = session.scalar(select(module.CaseRow))
+>           assert case.phase == "DONE"
+E           AssertionError: assert 'RESEARCHING' == 'DONE'
+E             
+E             - DONE
+E             + RESEARCHING
+
+services/api/tests/diwali/test_failures.py:30: AssertionError
+____________________ test_task_deadline_rejects_late_result ____________________
+
+tmp_path = PosixPath('/private/var/folders/k0/w3xrb_d95jn2t7nf2f0s05yr0000gp/T/pytest-of-nirmalhk7/pytest-119/test_task_deadline_rejects_lat0')
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x10b887d70>
+
+    @pytest.mark.asyncio
+    async def test_task_deadline_rejects_late_result(tmp_path, monkeypatch):
+        module, factory, _p, run_id, _product, _recall = setup(tmp_path)
+        elapsed = [0.0]
+        monkeypatch.setattr("app.diwali.coordinator.monotonic", lambda: elapsed[0])
+        class Late(LocalTransport):
+            def exchange(self, message, context):
+                elapsed[0] += 11
+                return super().exchange(message, context)
+        queued(factory, run_id)
+        await execute(factory, run_id, Settings(), Late())
+        with factory() as session:
+>           assert session.get(AgentRun, run_id).status == "failed"
+E           AssertionError: assert 'completed' == 'failed'
+E             
+E             - failed
+E             + completed
+
+services/api/tests/diwali/test_failures.py:50: AssertionError
+______________ test_finalization_error_preserves_accepted_reports ______________
+
+tmp_path = PosixPath('/private/var/folders/k0/w3xrb_d95jn2t7nf2f0s05yr0000gp/T/pytest-of-nirmalhk7/pytest-119/test_finalization_error_preser0')
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x10c5f2180>
+
+    @pytest.mark.asyncio
+    async def test_finalization_error_preserves_accepted_reports(tmp_path, monkeypatch):
+        module, factory, _p, run_id, _product, _recall = setup(tmp_path)
+        def fail(*args):
+            raise RuntimeError("private provider detail")
+        monkeypatch.setattr("app.diwali.coordinator.stage_finalization", fail)
+        queued(factory, run_id)
+        await execute(factory, run_id, Settings())
+        with factory() as session:
+>           assert session.get(AgentRun, run_id).status == "partial"
+E           AssertionError: assert 'failed' == 'partial'
+E             
+E             - partial
+E             + failed
+
+services/api/tests/diwali/test_failures.py:64: AssertionError
+=========================== short test summary info ============================
+FAILED services/api/tests/diwali/test_failures.py::test_malformed_result_closes_case_without_packet
+FAILED services/api/tests/diwali/test_failures.py::test_task_deadline_rejects_late_result
+FAILED services/api/tests/diwali/test_failures.py::test_finalization_error_preserves_accepted_reports
+3 failed, 1 passed in 1.03s

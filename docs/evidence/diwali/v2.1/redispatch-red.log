@@ -1,0 +1,36 @@
+F                                                                        [100%]
+=================================== FAILURES ===================================
+_____________________ test_completed_run_cannot_redispatch _____________________
+
+tmp_path = PosixPath('/private/var/folders/k0/w3xrb_d95jn2t7nf2f0s05yr0000gp/T/pytest-of-nirmalhk7/pytest-111/test_completed_run_cannot_redi0')
+
+    @pytest.mark.asyncio
+    async def test_completed_run_cannot_redispatch(tmp_path):
+        from app.config import Settings
+        from app.diwali.coordinator import execute
+        from app.diwali.core import LocalTransport
+        _module, factory, _product_id, run_id, _product, _recall = setup(tmp_path)
+        class ObservedTransport(LocalTransport):
+            def __init__(self):
+                super().__init__()
+                self.exchanges = 0
+            def exchange(self, message, context):
+                self.exchanges += 1
+                return super().exchange(message, context)
+        transport = ObservedTransport()
+        with factory.begin() as session:
+            session.get(AgentRun, run_id).status = "queued"
+        await execute(factory, run_id, Settings(), transport)
+        await execute(factory, run_id, Settings(), transport)
+        assert transport.exchanges == 3
+        with factory() as session:
+>           assert session.get(AgentRun, run_id).status == "completed"
+E           AssertionError: assert 'partial' == 'completed'
+E             
+E             - completed
+E             + partial
+
+services/api/tests/diwali/test_persistence.py:127: AssertionError
+=========================== short test summary info ============================
+FAILED services/api/tests/diwali/test_persistence.py::test_completed_run_cannot_redispatch
+1 failed in 0.34s

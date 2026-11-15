@@ -6,13 +6,16 @@ import {
   api,
   post,
   type Audit,
+  type DiwaliMessage,
   type Health,
   type Imported,
   type Opportunity,
   type Product,
   type Run,
 } from "@/lib/api";
+import { TeamStart } from "./collaborations/team";
 import { opportunityLabel, sourceLabel } from "@/lib/labels";
+import { DiwaliAgentTimeline } from "@/components/diwali-agent-timeline";
 
 export function Opportunities({ items }: { items: Opportunity[] }) {
   return (
@@ -56,6 +59,8 @@ export function RunResults({ id }: { id: string }) {
   const [events, setEvents] = useState<Audit[]>([]);
   const [items, setItems] = useState<Opportunity[]>([]);
   const [error, setError] = useState("");
+  const [messages, setMessages] = useState<DiwaliMessage[]>([]);
+  const [timelineError, setTimelineError] = useState("");
   useEffect(() => {
     let active = true;
     let timer: ReturnType<typeof setTimeout>;
@@ -69,6 +74,14 @@ export function RunResults({ id }: { id: string }) {
         if (!active) return;
         setRun(r);
         setEvents(e);
+        if (r.collaboration_mode && r.collaboration_mode !== "deterministic") {
+          try {
+            const page = await api<{ items: DiwaliMessage[] }>(`/runs/${id}/agent-messages`);
+            if (active) { setMessages(page.items); setTimelineError(""); }
+          } catch (err) {
+            if (active) setTimelineError((err as Error).message);
+          }
+        }
         if (["completed", "partial", "failed"].includes(r.status)) {
           const o = await api<Opportunity[]>(`/opportunities?run_id=${id}`);
           if (active) setItems(o);
@@ -136,6 +149,7 @@ export function RunResults({ id }: { id: string }) {
               </div>
             )}
           </section>
+          <DiwaliAgentTimeline run={run} messages={messages} error={timelineError} />
           <Opportunities items={items} />
           <section className="section" id="activity">
             <h2>Activity</h2>
@@ -215,6 +229,8 @@ export function Dashboard() {
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState("");
   const [mode, setMode] = useState<"demo" | "live">("demo");
+  const [collaborationMode, setCollaborationMode] = useState<"deterministic" | "local" | "band">("deterministic");
+  const [diwaliEnabled, setDiwaliEnabled] = useState(false);
   const [uploadMessage, setUploadMessage] = useState("");
   async function refresh() {
     setProducts(await api<Product[]>("/products"));
@@ -229,6 +245,8 @@ export function Dashboard() {
     void api<Health>("/health")
       .then(setHealth)
       .catch(() => {});
+    void api<{ enabled: boolean }>("/integrations/diwali/status")
+      .then(status => setDiwaliEnabled(status.enabled)).catch(() => {});
   }, []);
   async function demo() {
     setBusy(true);
@@ -269,6 +287,7 @@ export function Dashboard() {
       const r = await post<Run>("/runs", {
         purchase_ids: products.map((p) => p.purchase_id),
         mode,
+        ...(collaborationMode !== "deterministic" ? { collaboration_mode: collaborationMode } : {}),
         idempotency_key: crypto.randomUUID(),
       });
       localStorage.setItem("sueperman-last-run", r.run_id);
@@ -290,6 +309,12 @@ export function Dashboard() {
             before taking action.
           </p>
           <div className="actions">
+            <label>Workflow <select data-testid="diwali-mode" aria-label="Collaboration mode"
+              value={collaborationMode} onChange={e => setCollaborationMode(e.target.value as typeof collaborationMode)}>
+              <option value="deterministic">Existing workflow</option>
+              <option value="local" disabled={!diwaliEnabled}>Local agent test</option>
+              <option value="band" disabled>BAND collaboration</option>
+            </select></label>
             <button disabled={busy || !products.length} onClick={start}>
               Check my purchases
             </button>
@@ -393,6 +418,7 @@ export function Dashboard() {
                       <span className="small">
                         {p.product.brand} · {p.product.merchant}
                       </span>
+                      {p.demo && <TeamStart productId={p.id} />}
                     </td>
                     <td className="mono">
                       {p.product.model_number || "Missing model number"}

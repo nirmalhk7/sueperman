@@ -1,0 +1,225 @@
+FFFFFFF                                                                  [100%]
+=================================== FAILURES ===================================
+_______ test_task_rejects_commands_unknown_roles_and_unbounded_deadlines _______
+
+    def contracts():
+        try:
+>           from app.collaboration import contracts
+E           ModuleNotFoundError: No module named 'app.collaboration'
+
+services/api/tests/collaboration/test_contracts.py:10: ModuleNotFoundError
+
+During handling of the above exception, another exception occurred:
+
+    def test_task_rejects_commands_unknown_roles_and_unbounded_deadlines():
+>       c = contracts()
+            ^^^^^^^^^^^
+
+services/api/tests/collaboration/test_contracts.py:17: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    def contracts():
+        try:
+            from app.collaboration import contracts
+            return contracts
+        except ImportError:
+>           pytest.fail("V2 strict collaboration contracts missing")
+E           Failed: V2 strict collaboration contracts missing
+
+services/api/tests/collaboration/test_contracts.py:13: Failed
+_____ test_snapshot_rejects_untrusted_urls[http://www.cpsc.gov/Recalls/x] ______
+
+    def contracts():
+        try:
+>           from app.collaboration import contracts
+E           ModuleNotFoundError: No module named 'app.collaboration'
+
+services/api/tests/collaboration/test_contracts.py:10: ModuleNotFoundError
+
+During handling of the above exception, another exception occurred:
+
+url = 'http://www.cpsc.gov/Recalls/x'
+
+    @pytest.mark.parametrize("url", ["http://www.cpsc.gov/Recalls/x", "https://www.cpsc.gov.evil.test/Recalls/x",
+                                     "https://user:pass@www.cpsc.gov/Recalls/x", "https://127.0.0.1/x",
+                                     "https://www.cpsc.gov:444/Recalls/x"])
+    def test_snapshot_rejects_untrusted_urls(url):
+>       c = contracts()
+            ^^^^^^^^^^^
+
+services/api/tests/collaboration/test_contracts.py:31: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    def contracts():
+        try:
+            from app.collaboration import contracts
+            return contracts
+        except ImportError:
+>           pytest.fail("V2 strict collaboration contracts missing")
+E           Failed: V2 strict collaboration contracts missing
+
+services/api/tests/collaboration/test_contracts.py:13: Failed
+_ test_snapshot_rejects_untrusted_urls[https://www.cpsc.gov.evil.test/Recalls/x] _
+
+    def contracts():
+        try:
+>           from app.collaboration import contracts
+E           ModuleNotFoundError: No module named 'app.collaboration'
+
+services/api/tests/collaboration/test_contracts.py:10: ModuleNotFoundError
+
+During handling of the above exception, another exception occurred:
+
+url = 'https://www.cpsc.gov.evil.test/Recalls/x'
+
+    @pytest.mark.parametrize("url", ["http://www.cpsc.gov/Recalls/x", "https://www.cpsc.gov.evil.test/Recalls/x",
+                                     "https://user:pass@www.cpsc.gov/Recalls/x", "https://127.0.0.1/x",
+                                     "https://www.cpsc.gov:444/Recalls/x"])
+    def test_snapshot_rejects_untrusted_urls(url):
+>       c = contracts()
+            ^^^^^^^^^^^
+
+services/api/tests/collaboration/test_contracts.py:31: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    def contracts():
+        try:
+            from app.collaboration import contracts
+            return contracts
+        except ImportError:
+>           pytest.fail("V2 strict collaboration contracts missing")
+E           Failed: V2 strict collaboration contracts missing
+
+services/api/tests/collaboration/test_contracts.py:13: Failed
+_ test_snapshot_rejects_untrusted_urls[https://user:pass@www.cpsc.gov/Recalls/x] _
+
+    def contracts():
+        try:
+>           from app.collaboration import contracts
+E           ModuleNotFoundError: No module named 'app.collaboration'
+
+services/api/tests/collaboration/test_contracts.py:10: ModuleNotFoundError
+
+During handling of the above exception, another exception occurred:
+
+url = 'https://user:pass@www.cpsc.gov/Recalls/x'
+
+    @pytest.mark.parametrize("url", ["http://www.cpsc.gov/Recalls/x", "https://www.cpsc.gov.evil.test/Recalls/x",
+                                     "https://user:pass@www.cpsc.gov/Recalls/x", "https://127.0.0.1/x",
+                                     "https://www.cpsc.gov:444/Recalls/x"])
+    def test_snapshot_rejects_untrusted_urls(url):
+>       c = contracts()
+            ^^^^^^^^^^^
+
+services/api/tests/collaboration/test_contracts.py:31: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    def contracts():
+        try:
+            from app.collaboration import contracts
+            return contracts
+        except ImportError:
+>           pytest.fail("V2 strict collaboration contracts missing")
+E           Failed: V2 strict collaboration contracts missing
+
+services/api/tests/collaboration/test_contracts.py:13: Failed
+__________ test_snapshot_rejects_untrusted_urls[https://127.0.0.1/x] ___________
+
+    def contracts():
+        try:
+>           from app.collaboration import contracts
+E           ModuleNotFoundError: No module named 'app.collaboration'
+
+services/api/tests/collaboration/test_contracts.py:10: ModuleNotFoundError
+
+During handling of the above exception, another exception occurred:
+
+url = 'https://127.0.0.1/x'
+
+    @pytest.mark.parametrize("url", ["http://www.cpsc.gov/Recalls/x", "https://www.cpsc.gov.evil.test/Recalls/x",
+                                     "https://user:pass@www.cpsc.gov/Recalls/x", "https://127.0.0.1/x",
+                                     "https://www.cpsc.gov:444/Recalls/x"])
+    def test_snapshot_rejects_untrusted_urls(url):
+>       c = contracts()
+            ^^^^^^^^^^^
+
+services/api/tests/collaboration/test_contracts.py:31: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    def contracts():
+        try:
+            from app.collaboration import contracts
+            return contracts
+        except ImportError:
+>           pytest.fail("V2 strict collaboration contracts missing")
+E           Failed: V2 strict collaboration contracts missing
+
+services/api/tests/collaboration/test_contracts.py:13: Failed
+___ test_snapshot_rejects_untrusted_urls[https://www.cpsc.gov:444/Recalls/x] ___
+
+    def contracts():
+        try:
+>           from app.collaboration import contracts
+E           ModuleNotFoundError: No module named 'app.collaboration'
+
+services/api/tests/collaboration/test_contracts.py:10: ModuleNotFoundError
+
+During handling of the above exception, another exception occurred:
+
+url = 'https://www.cpsc.gov:444/Recalls/x'
+
+    @pytest.mark.parametrize("url", ["http://www.cpsc.gov/Recalls/x", "https://www.cpsc.gov.evil.test/Recalls/x",
+                                     "https://user:pass@www.cpsc.gov/Recalls/x", "https://127.0.0.1/x",
+                                     "https://www.cpsc.gov:444/Recalls/x"])
+    def test_snapshot_rejects_untrusted_urls(url):
+>       c = contracts()
+            ^^^^^^^^^^^
+
+services/api/tests/collaboration/test_contracts.py:31: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    def contracts():
+        try:
+            from app.collaboration import contracts
+            return contracts
+        except ImportError:
+>           pytest.fail("V2 strict collaboration contracts missing")
+E           Failed: V2 strict collaboration contracts missing
+
+services/api/tests/collaboration/test_contracts.py:13: Failed
+_________ test_result_rejects_foreign_citations_and_unsupported_claims _________
+
+    def contracts():
+        try:
+>           from app.collaboration import contracts
+E           ModuleNotFoundError: No module named 'app.collaboration'
+
+services/api/tests/collaboration/test_contracts.py:10: ModuleNotFoundError
+
+During handling of the above exception, another exception occurred:
+
+    def test_result_rejects_foreign_citations_and_unsupported_claims():
+>       c = contracts()
+            ^^^^^^^^^^^
+
+services/api/tests/collaboration/test_contracts.py:39: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    def contracts():
+        try:
+            from app.collaboration import contracts
+            return contracts
+        except ImportError:
+>           pytest.fail("V2 strict collaboration contracts missing")
+E           Failed: V2 strict collaboration contracts missing
+
+services/api/tests/collaboration/test_contracts.py:13: Failed
+=========================== short test summary info ============================
+FAILED services/api/tests/collaboration/test_contracts.py::test_task_rejects_commands_unknown_roles_and_unbounded_deadlines
+FAILED services/api/tests/collaboration/test_contracts.py::test_snapshot_rejects_untrusted_urls[http://www.cpsc.gov/Recalls/x]
+FAILED services/api/tests/collaboration/test_contracts.py::test_snapshot_rejects_untrusted_urls[https://www.cpsc.gov.evil.test/Recalls/x]
+FAILED services/api/tests/collaboration/test_contracts.py::test_snapshot_rejects_untrusted_urls[https://user:pass@www.cpsc.gov/Recalls/x]
+FAILED services/api/tests/collaboration/test_contracts.py::test_snapshot_rejects_untrusted_urls[https://127.0.0.1/x]
+FAILED services/api/tests/collaboration/test_contracts.py::test_snapshot_rejects_untrusted_urls[https://www.cpsc.gov:444/Recalls/x]
+FAILED services/api/tests/collaboration/test_contracts.py::test_result_rejects_foreign_citations_and_unsupported_claims
+7 failed in 0.08s

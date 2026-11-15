@@ -1,0 +1,29 @@
+F                                                                        [100%]
+=================================== FAILURES ===================================
+____________________________ test_skips_cannot_pass ____________________________
+
+tmp_path = PosixPath('/private/var/folders/k0/w3xrb_d95jn2t7nf2f0s05yr0000gp/T/pytest-of-nirmalhk7/pytest-97/test_skips_cannot_pass0')
+
+    def test_skips_cannot_pass(tmp_path):
+        module = harness()
+        path = tmp_path / "test_required.py"
+        for source in [
+            "import pytest\n@pytest.mark.skip(reason='missing')\ndef test_required(): pass\n",
+            "import pytest\n@pytest.mark.xfail(reason='broken')\ndef test_required(): assert False\n",
+            "import pytest\n@pytest.mark.xfail(reason='unexpected pass')\ndef test_required(): pass\n",
+            "# zero tests\n",
+            "def test_required(): assert False\n",
+        ]:
+            path.write_text(source)
+            result = module.run_pytest([str(path)], tmp_path, tmp_path / "evidence")
+>           assert result["status"] == "FAIL", result
+E           AssertionError: {'command': ['/Users/nirmalhk7/Documents/DevWorld/sueperman/services/api/.venv/bin/python', '-m', 'pytest', '/private/...ed.py', '-q', '--strict-markers', ...], 'status': 'PASS', 'exit_code': 0, 'duration_seconds': 0.27770083397626877, ...}
+E           assert 'PASS' == 'FAIL'
+E             
+E             - FAIL
+E             + PASS
+
+services/api/tests/diwali/test_harness.py:40: AssertionError
+=========================== short test summary info ============================
+FAILED services/api/tests/diwali/test_harness.py::test_skips_cannot_pass - As...
+1 failed in 0.88s

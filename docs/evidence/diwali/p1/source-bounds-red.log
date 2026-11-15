@@ -1,0 +1,67 @@
+============================= test session starts ==============================
+platform darwin -- Python 3.12.13, pytest-9.2.0, pluggy-1.7.0
+rootdir: /Users/nirmalhk7/Documents/DevWorld/sueperman/services/api
+configfile: pyproject.toml
+plugins: anyio-4.16.0, asyncio-1.5.0, respx-0.23.1
+asyncio: mode=Mode.AUTO, debug=False, asyncio_default_fixture_loop_scope=function, asyncio_default_test_loop_scope=function
+collected 15 items / 13 deselected / 2 selected
+
+services/api/tests/p1/test_normalizers.py F                              [ 50%]
+services/api/tests/p1/test_monitoring.py F                               [100%]
+
+=================================== FAILURES ===================================
+______ test_conflicting_duplicate_notice_cannot_hide_changed_restriction _______
+
+tmp_path = PosixPath('/private/var/folders/k0/w3xrb_d95jn2t7nf2f0s05yr0000gp/T/pytest-of-nirmalhk7/pytest-179/test_conflicting_duplicate_not0')
+
+    @pytest.mark.asyncio
+    async def test_conflicting_duplicate_notice_cannot_hide_changed_restriction(tmp_path):
+        from app.providers.errors import ProviderUnavailable
+        row = captured("26610")
+        conflicting = row | {"Description": row["Description"] + " Only serial ABC100 is included."}
+        async with httpx.AsyncClient(transport=httpx.MockTransport(
+                lambda _: httpx.Response(200, json=[row, conflicting]))) as client:
+            source = CPSCRecallSource(client=client, cache_dir=tmp_path, reviewed_notices=True)
+>           with pytest.raises(ProviderUnavailable):
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E           Failed: DID NOT RAISE ProviderUnavailable
+
+services/api/tests/p1/test_normalizers.py:78: Failed
+_____ test_at_most_five_active_watches_and_existing_watch_can_be_disabled ______
+
+graph = (Engine(sqlite:////private/var/folders/k0/w3xrb_d95jn2t7nf2f0s05yr0000gp/T/pytest-of-nirmalhk7/pytest-179/test_at_most... official required markings', 'User confirmation of lawful disposal (never prefilled)'], conditions=[], mode='replay'))
+
+    def test_at_most_five_active_watches_and_existing_watch_can_be_disabled(graph):
+        module = monitor()
+        engine, factory, _client, opportunity_id, _packet_id, _record = graph
+        module.setup_schema(engine)
+        with factory.begin() as s:
+            original = s.get(Opportunity, opportunity_id)
+            product = s.get(Product, original.product_id)
+            ids = []
+            for _ in range(6):
+                clone = Product(purchase_id=product.purchase_id, payload=product.payload, demo=True)
+                s.add(clone)
+                s.flush()
+                opportunity = Opportunity(product_id=clone.id, kind="recall", source_id=original.source_id,
+                    official_url=original.official_url, payload=original.payload, demo=True)
+                s.add(opportunity)
+                s.flush()
+                ids.append(opportunity.id)
+            for identifier in ids[:5]:
+                module.set_watch(s, identifier, enabled=True, observed_at=NOW)
+>           with pytest.raises(ValueError, match="Five"):
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E           Failed: DID NOT RAISE ValueError
+
+services/api/tests/p1/test_monitoring.py:182: Failed
+=============================== warnings summary ===============================
+services/api/.venv/lib/python3.12/site-packages/fastapi/testclient.py:1
+  /Users/nirmalhk7/Documents/DevWorld/sueperman/services/api/.venv/lib/python3.12/site-packages/fastapi/testclient.py:1: StarletteDeprecationWarning: Using `httpx` with `starlette.testclient` is deprecated; install `httpx2` instead.
+    from starlette.testclient import TestClient as TestClient  # noqa
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+=========================== short test summary info ============================
+FAILED services/api/tests/p1/test_normalizers.py::test_conflicting_duplicate_notice_cannot_hide_changed_restriction
+FAILED services/api/tests/p1/test_monitoring.py::test_at_most_five_active_watches_and_existing_watch_can_be_disabled
+================= 2 failed, 13 deselected, 1 warning in 1.10s ==================

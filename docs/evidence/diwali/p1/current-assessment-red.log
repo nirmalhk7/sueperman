@@ -1,0 +1,43 @@
+============================= test session starts ==============================
+platform darwin -- Python 3.12.13, pytest-9.2.0, pluggy-1.7.0
+rootdir: /Users/nirmalhk7/Documents/DevWorld/sueperman/services/api
+configfile: pyproject.toml
+plugins: anyio-4.16.0, asyncio-1.5.0, respx-0.23.1
+asyncio: mode=Mode.AUTO, debug=False, asyncio_default_fixture_loop_scope=function, asyncio_default_test_loop_scope=function
+collected 8 items / 7 deselected / 1 selected
+
+services/api/tests/p1/test_monitoring.py F                               [100%]
+
+=================================== FAILURES ===================================
+________ test_changed_source_revokes_export_and_retains_both_snapshots _________
+
+graph = (Engine(sqlite:////private/var/folders/k0/w3xrb_d95jn2t7nf2f0s05yr0000gp/T/pytest-of-nirmalhk7/pytest-191/test_changed... official required markings', 'User confirmation of lawful disposal (never prefilled)'], conditions=[], mode='replay'))
+
+    @pytest.mark.asyncio
+    async def test_changed_source_revokes_export_and_retains_both_snapshots(graph):
+        module = monitor()
+        engine, factory, client, opportunity_id, packet_id, record = graph
+        enable(module, engine, factory, opportunity_id)
+        changed = record.model_copy(update={"models": ["ZHX-PB23"], "fetched_at": NOW})
+        async def checker(reference):
+            return changed
+        assert await module.check_due(factory, checker, clock=lambda: NOW) == ["changed"]
+        assert client.post(f"/api/claim-packets/{packet_id}/export").status_code == 409
+        assert client.post(f"/api/claim-packets/{packet_id}/approve-local", json={"confirmed": True}).status_code == 409
+        detail = client.get(f"/api/opportunities/{opportunity_id}").json()
+>       assert detail["assessment"]["outcome"] == "uncertain"
+E       AssertionError: assert 'eligible_candidate' == 'uncertain'
+E         
+E         - uncertain
+E         + eligible_candidate
+
+services/api/tests/p1/test_monitoring.py:65: AssertionError
+=============================== warnings summary ===============================
+services/api/.venv/lib/python3.12/site-packages/fastapi/testclient.py:1
+  /Users/nirmalhk7/Documents/DevWorld/sueperman/services/api/.venv/lib/python3.12/site-packages/fastapi/testclient.py:1: StarletteDeprecationWarning: Using `httpx` with `starlette.testclient` is deprecated; install `httpx2` instead.
+    from starlette.testclient import TestClient as TestClient  # noqa
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+=========================== short test summary info ============================
+FAILED services/api/tests/p1/test_monitoring.py::test_changed_source_revokes_export_and_retains_both_snapshots
+================== 1 failed, 7 deselected, 1 warning in 0.47s ==================

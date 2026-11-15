@@ -1,0 +1,36 @@
+{
+  "sources": [
+    {
+      "reference": "26610",
+      "official_notice": "https://www.cpsc.gov/Recalls/2026/Flaunt-Recalls-Magsafe-Battery-Chargers-Due-to-Risk-of-Serious-Injury-or-Death-from-Fire-and-Burn-Hazards",
+      "api_url": "https://www.saferproducts.gov/RestWebServices/Recall",
+      "query": {
+        "ProductName": "Flaunt",
+        "format": "json"
+      },
+      "http_status": 200,
+      "captured_at": "2026-11-15T09:21:19.082440+00:00",
+      "capture_scope": "Exact selected official API row, not entire HTTP response",
+      "fixture_sha256": "4fc6b9a79add0ce4fc10d99826262c37315262bb0fd1b8c3a31799eed5f0009b",
+      "canonical_record_sha256": "a43efd15d09f10cf4caa0fcddf5fee633ee0e642e16326de1f384f44831f1169",
+      "normalizer_version": "p1-1",
+      "live_application_execution": false
+    },
+    {
+      "reference": "25390",
+      "official_notice": "https://www.cpsc.gov/Recalls/2025/iStore-Magnetic-Wireless-Power-Banks-Recalled-Due-to-Fire-and-Burn-Hazards-Imported-by-Tomauri",
+      "api_url": "https://www.saferproducts.gov/RestWebServices/Recall",
+      "query": {
+        "ProductName": "iStore",
+        "format": "json"
+      },
+      "http_status": 200,
+      "captured_at": "2026-11-15T09:22:37.458019+00:00",
+      "capture_scope": "Exact selected official API row, not entire HTTP response",
+      "fixture_sha256": "4c43aac32bcaad98c5f3e8435a15d664f8c697780995d08cb999acb6b3094c8a",
+      "canonical_record_sha256": "34a2c5692753e0bd4df948bde7637d396775a80ed8fbf4e0add322a4dad13a0b",
+      "normalizer_version": "p1-1",
+      "live_application_execution": false
+    }
+  ]
+}

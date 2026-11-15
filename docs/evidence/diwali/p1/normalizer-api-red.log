@@ -1,0 +1,83 @@
+============================= test session starts ==============================
+platform darwin -- Python 3.12.13, pytest-9.2.0, pluggy-1.7.0
+rootdir: /Users/nirmalhk7/Documents/DevWorld/sueperman/services/api
+configfile: pyproject.toml
+plugins: anyio-4.16.0, asyncio-1.5.0, respx-0.23.1
+asyncio: mode=Mode.AUTO, debug=False, asyncio_default_fixture_loop_scope=function, asyncio_default_test_loop_scope=function
+collected 2 items
+
+services/api/tests/p1/test_api_normalizers.py FF                         [100%]
+
+=================================== FAILURES ===================================
+_ test_p1_live_import_uses_reviewed_normalizer_and_local_export[26610-Flaunt-E33A] _
+
+tmp_path = PosixPath('/private/var/folders/k0/w3xrb_d95jn2t7nf2f0s05yr0000gp/T/pytest-of-nirmalhk7/pytest-172/test_p1_live_import_uses_revie0')
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x10a6ee990>
+number = '26610', brand = 'Flaunt', model = 'E33A'
+
+    @pytest.mark.parametrize("number,brand,model", [("26610", "Flaunt", "E33A"),
+                                                   ("25390", "iStore", "IST-09991/W05")])
+    def test_p1_live_import_uses_reviewed_normalizer_and_local_export(tmp_path, monkeypatch, number, brand, model):
+        monkeypatch.setenv("P1_ENABLED", "true")
+        monkeypatch.setenv("CPSC_LIVE_ENABLED", "true")
+        monkeypatch.setenv("DATABASE_URL", f"sqlite:///{tmp_path}/default.db")
+        from app.main import create_app
+    
+        row = json.loads((Path(__file__).parents[1] / f"fixtures/p1-recalls/{number}.json").read_text())
+        csv = ("order_id,purchased_at,merchant,product_name,brand,model_number,upc\n"
+               f"P1-SYNTHETIC,2024-09-01,Demo shop,Magnetic power bank,{brand},{model},\n").encode()
+        with respx.mock as remote, TestClient(create_app(database_url=f"sqlite:///{tmp_path}/test.db")) as client:
+            remote.get("https://www.saferproducts.gov/RestWebServices/Recall").respond(200, json=[row])
+            uploaded = client.post("/api/uploads/purchases", files={"file": ("p1.csv", csv, "text/csv")})
+            assert uploaded.status_code == 200
+            run = client.post("/api/runs", json={"purchase_ids": uploaded.json()["purchase_ids"],
+                "mode": "live", "idempotency_key": "p1-normalizer"})
+            assert run.status_code == 200
+            run_id = run.json()["run_id"]
+            completed = client.get(f"/api/runs/{run_id}").json()
+            assert completed["status"] == "completed"
+>           assert completed["summary"]["verified_matches"] == 1
+E           assert 0 == 1
+
+services/api/tests/p1/test_api_normalizers.py:33: AssertionError
+_ test_p1_live_import_uses_reviewed_normalizer_and_local_export[25390-iStore-IST-09991/W05] _
+
+tmp_path = PosixPath('/private/var/folders/k0/w3xrb_d95jn2t7nf2f0s05yr0000gp/T/pytest-of-nirmalhk7/pytest-172/test_p1_live_import_uses_revie1')
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x10a6eebd0>
+number = '25390', brand = 'iStore', model = 'IST-09991/W05'
+
+    @pytest.mark.parametrize("number,brand,model", [("26610", "Flaunt", "E33A"),
+                                                   ("25390", "iStore", "IST-09991/W05")])
+    def test_p1_live_import_uses_reviewed_normalizer_and_local_export(tmp_path, monkeypatch, number, brand, model):
+        monkeypatch.setenv("P1_ENABLED", "true")
+        monkeypatch.setenv("CPSC_LIVE_ENABLED", "true")
+        monkeypatch.setenv("DATABASE_URL", f"sqlite:///{tmp_path}/default.db")
+        from app.main import create_app
+    
+        row = json.loads((Path(__file__).parents[1] / f"fixtures/p1-recalls/{number}.json").read_text())
+        csv = ("order_id,purchased_at,merchant,product_name,brand,model_number,upc\n"
+               f"P1-SYNTHETIC,2024-09-01,Demo shop,Magnetic power bank,{brand},{model},\n").encode()
+        with respx.mock as remote, TestClient(create_app(database_url=f"sqlite:///{tmp_path}/test.db")) as client:
+            remote.get("https://www.saferproducts.gov/RestWebServices/Recall").respond(200, json=[row])
+            uploaded = client.post("/api/uploads/purchases", files={"file": ("p1.csv", csv, "text/csv")})
+            assert uploaded.status_code == 200
+            run = client.post("/api/runs", json={"purchase_ids": uploaded.json()["purchase_ids"],
+                "mode": "live", "idempotency_key": "p1-normalizer"})
+            assert run.status_code == 200
+            run_id = run.json()["run_id"]
+            completed = client.get(f"/api/runs/{run_id}").json()
+            assert completed["status"] == "completed"
+>           assert completed["summary"]["verified_matches"] == 1
+E           assert 0 == 1
+
+services/api/tests/p1/test_api_normalizers.py:33: AssertionError
+=============================== warnings summary ===============================
+services/api/.venv/lib/python3.12/site-packages/fastapi/testclient.py:1
+  /Users/nirmalhk7/Documents/DevWorld/sueperman/services/api/.venv/lib/python3.12/site-packages/fastapi/testclient.py:1: StarletteDeprecationWarning: Using `httpx` with `starlette.testclient` is deprecated; install `httpx2` instead.
+    from starlette.testclient import TestClient as TestClient  # noqa
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+=========================== short test summary info ============================
+FAILED services/api/tests/p1/test_api_normalizers.py::test_p1_live_import_uses_reviewed_normalizer_and_local_export[26610-Flaunt-E33A]
+FAILED services/api/tests/p1/test_api_normalizers.py::test_p1_live_import_uses_reviewed_normalizer_and_local_export[25390-iStore-IST-09991/W05]
+========================= 2 failed, 1 warning in 1.01s =========================

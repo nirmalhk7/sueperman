@@ -1,0 +1,42 @@
+FF                                                                       [100%]
+=================================== FAILURES ===================================
+___________________ test_public_followup_facts_are_consumed ____________________
+
+    def test_public_followup_facts_are_consumed():
+        module = core()
+        products, complete = fixture_data()
+        missing = complete.model_copy(update={"models": []})
+        context = replace(inputs(products[0], missing), records_json=(missing.model_dump_json(), complete.model_dump_json()))
+        state, commands = module.reduce_case(module.CaseState(context), module.Start())
+        request = commands[0].message
+        # Recorded source adapter initially supplies only the incomplete snapshot.
+        first_ref, second_ref = context.sources
+        report = module.reply(request, "ResearchReport", {"candidate_refs": [first_ref],
+            "coverage": "supported_scope", "truncated": False}, [first_ref])
+        state, commands = module.reduce_case(state, report)
+        state, commands = module.reduce_case(state, module.actor_reply(commands[0].message, context))
+        followup = module.reply(commands[0].message, "FollowUpReport",
+            {"evidence_refs": [second_ref], "unavailable_reason": None}, [second_ref])
+        state, commands = module.reduce_case(state, followup)
+        state, commands = module.reduce_case(state, module.actor_reply(commands[0].message, context))
+>       assert state.phase == "BUILDING"
+E       AssertionError: assert 'DONE' == 'BUILDING'
+E         
+E         - BUILDING
+E         + DONE
+
+services/api/tests/diwali/test_reducer.py:133: AssertionError
+___________________ test_review_must_cite_assigned_snapshot ____________________
+
+    def test_review_must_cite_assigned_snapshot():
+        module, state, review = followup_state()
+        uncited = review.model_copy(update={"source_refs": []})
+>       with pytest.raises(ValueError, match="assigned snapshot"):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE ValueError
+
+services/api/tests/diwali/test_reducer.py:141: Failed
+=========================== short test summary info ============================
+FAILED services/api/tests/diwali/test_reducer.py::test_public_followup_facts_are_consumed
+FAILED services/api/tests/diwali/test_reducer.py::test_review_must_cite_assigned_snapshot
+2 failed in 0.17s

@@ -1,0 +1,1227 @@
+FFFFFFFFFFFFFFFFFFFFFF                                                   [100%]
+=================================== FAILURES ===================================
+_________________ test_closed_message_accepts_research_request _________________
+
+    def contract():
+        try:
+>           return importlib.import_module("app.diwali.message_schema")
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+services/api/tests/diwali/test_messages.py:12: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+/private/tmp/sueperman-python/cpython-3.12.13-macos-aarch64-none/lib/python3.12/importlib/__init__.py:90: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+<frozen importlib._bootstrap>:1387: in _gcd_import
+    ???
+<frozen importlib._bootstrap>:1360: in _find_and_load
+    ???
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+name = 'app.diwali.message_schema'
+import_ = <function _gcd_import at 0x104b6c0e0>
+
+>   ???
+E   ModuleNotFoundError: No module named 'app.diwali.message_schema'
+
+<frozen importlib._bootstrap>:1324: ModuleNotFoundError
+
+During handling of the above exception, another exception occurred:
+
+    def test_closed_message_accepts_research_request():
+>       message = contract().Message.model_validate(envelope())
+                  ^^^^^^^^^^
+
+services/api/tests/diwali/test_messages.py:34: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    def contract():
+        try:
+            return importlib.import_module("app.diwali.message_schema")
+        except ModuleNotFoundError:
+>           pytest.fail("V2.1 closed message contract is not implemented")
+E           Failed: V2.1 closed message contract is not implemented
+
+services/api/tests/diwali/test_messages.py:14: Failed
+___________________ test_invalid_envelope_rejected[change0] ____________________
+
+    def contract():
+        try:
+>           return importlib.import_module("app.diwali.message_schema")
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+services/api/tests/diwali/test_messages.py:12: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+/private/tmp/sueperman-python/cpython-3.12.13-macos-aarch64-none/lib/python3.12/importlib/__init__.py:90: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+<frozen importlib._bootstrap>:1387: in _gcd_import
+    ???
+<frozen importlib._bootstrap>:1360: in _find_and_load
+    ???
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+name = 'app.diwali.message_schema'
+import_ = <function _gcd_import at 0x104b6c0e0>
+
+>   ???
+E   ModuleNotFoundError: No module named 'app.diwali.message_schema'
+
+<frozen importlib._bootstrap>:1324: ModuleNotFoundError
+
+During handling of the above exception, another exception occurred:
+
+change = {'sender': 'scout'}
+
+    @pytest.mark.parametrize("change", [
+        {"sender": "scout"}, {"recipient": "builder"}, {"type": "ChallengeRaised"},
+        {"mode": "live"}, {"expected_case_revision": 0},
+        {"sent_at": "2026-11-15T00:00:00"}, {"deadline_at": "2026-11-14T00:00:00Z"},
+        {"payload": {"product_ref": "product-1", "eligible": True}},
+        {"message_id": "not-a-uuid"},
+    ])
+    def test_invalid_envelope_rejected(change):
+        with pytest.raises(ValidationError):
+>           contract().Message.model_validate(envelope() | change)
+            ^^^^^^^^^^
+
+services/api/tests/diwali/test_messages.py:48: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    def contract():
+        try:
+            return importlib.import_module("app.diwali.message_schema")
+        except ModuleNotFoundError:
+>           pytest.fail("V2.1 closed message contract is not implemented")
+E           Failed: V2.1 closed message contract is not implemented
+
+services/api/tests/diwali/test_messages.py:14: Failed
+___________________ test_invalid_envelope_rejected[change1] ____________________
+
+    def contract():
+        try:
+>           return importlib.import_module("app.diwali.message_schema")
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+services/api/tests/diwali/test_messages.py:12: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+/private/tmp/sueperman-python/cpython-3.12.13-macos-aarch64-none/lib/python3.12/importlib/__init__.py:90: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+<frozen importlib._bootstrap>:1387: in _gcd_import
+    ???
+<frozen importlib._bootstrap>:1360: in _find_and_load
+    ???
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+name = 'app.diwali.message_schema'
+import_ = <function _gcd_import at 0x104b6c0e0>
+
+>   ???
+E   ModuleNotFoundError: No module named 'app.diwali.message_schema'
+
+<frozen importlib._bootstrap>:1324: ModuleNotFoundError
+
+During handling of the above exception, another exception occurred:
+
+change = {'recipient': 'builder'}
+
+    @pytest.mark.parametrize("change", [
+        {"sender": "scout"}, {"recipient": "builder"}, {"type": "ChallengeRaised"},
+        {"mode": "live"}, {"expected_case_revision": 0},
+        {"sent_at": "2026-11-15T00:00:00"}, {"deadline_at": "2026-11-14T00:00:00Z"},
+        {"payload": {"product_ref": "product-1", "eligible": True}},
+        {"message_id": "not-a-uuid"},
+    ])
+    def test_invalid_envelope_rejected(change):
+        with pytest.raises(ValidationError):
+>           contract().Message.model_validate(envelope() | change)
+            ^^^^^^^^^^
+
+services/api/tests/diwali/test_messages.py:48: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    def contract():
+        try:
+            return importlib.import_module("app.diwali.message_schema")
+        except ModuleNotFoundError:
+>           pytest.fail("V2.1 closed message contract is not implemented")
+E           Failed: V2.1 closed message contract is not implemented
+
+services/api/tests/diwali/test_messages.py:14: Failed
+___________________ test_invalid_envelope_rejected[change2] ____________________
+
+    def contract():
+        try:
+>           return importlib.import_module("app.diwali.message_schema")
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+services/api/tests/diwali/test_messages.py:12: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+/private/tmp/sueperman-python/cpython-3.12.13-macos-aarch64-none/lib/python3.12/importlib/__init__.py:90: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+<frozen importlib._bootstrap>:1387: in _gcd_import
+    ???
+<frozen importlib._bootstrap>:1360: in _find_and_load
+    ???
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+name = 'app.diwali.message_schema'
+import_ = <function _gcd_import at 0x104b6c0e0>
+
+>   ???
+E   ModuleNotFoundError: No module named 'app.diwali.message_schema'
+
+<frozen importlib._bootstrap>:1324: ModuleNotFoundError
+
+During handling of the above exception, another exception occurred:
+
+change = {'type': 'ChallengeRaised'}
+
+    @pytest.mark.parametrize("change", [
+        {"sender": "scout"}, {"recipient": "builder"}, {"type": "ChallengeRaised"},
+        {"mode": "live"}, {"expected_case_revision": 0},
+        {"sent_at": "2026-11-15T00:00:00"}, {"deadline_at": "2026-11-14T00:00:00Z"},
+        {"payload": {"product_ref": "product-1", "eligible": True}},
+        {"message_id": "not-a-uuid"},
+    ])
+    def test_invalid_envelope_rejected(change):
+        with pytest.raises(ValidationError):
+>           contract().Message.model_validate(envelope() | change)
+            ^^^^^^^^^^
+
+services/api/tests/diwali/test_messages.py:48: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    def contract():
+        try:
+            return importlib.import_module("app.diwali.message_schema")
+        except ModuleNotFoundError:
+>           pytest.fail("V2.1 closed message contract is not implemented")
+E           Failed: V2.1 closed message contract is not implemented
+
+services/api/tests/diwali/test_messages.py:14: Failed
+___________________ test_invalid_envelope_rejected[change3] ____________________
+
+    def contract():
+        try:
+>           return importlib.import_module("app.diwali.message_schema")
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+services/api/tests/diwali/test_messages.py:12: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+/private/tmp/sueperman-python/cpython-3.12.13-macos-aarch64-none/lib/python3.12/importlib/__init__.py:90: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+<frozen importlib._bootstrap>:1387: in _gcd_import
+    ???
+<frozen importlib._bootstrap>:1360: in _find_and_load
+    ???
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+name = 'app.diwali.message_schema'
+import_ = <function _gcd_import at 0x104b6c0e0>
+
+>   ???
+E   ModuleNotFoundError: No module named 'app.diwali.message_schema'
+
+<frozen importlib._bootstrap>:1324: ModuleNotFoundError
+
+During handling of the above exception, another exception occurred:
+
+change = {'mode': 'live'}
+
+    @pytest.mark.parametrize("change", [
+        {"sender": "scout"}, {"recipient": "builder"}, {"type": "ChallengeRaised"},
+        {"mode": "live"}, {"expected_case_revision": 0},
+        {"sent_at": "2026-11-15T00:00:00"}, {"deadline_at": "2026-11-14T00:00:00Z"},
+        {"payload": {"product_ref": "product-1", "eligible": True}},
+        {"message_id": "not-a-uuid"},
+    ])
+    def test_invalid_envelope_rejected(change):
+        with pytest.raises(ValidationError):
+>           contract().Message.model_validate(envelope() | change)
+            ^^^^^^^^^^
+
+services/api/tests/diwali/test_messages.py:48: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    def contract():
+        try:
+            return importlib.import_module("app.diwali.message_schema")
+        except ModuleNotFoundError:
+>           pytest.fail("V2.1 closed message contract is not implemented")
+E           Failed: V2.1 closed message contract is not implemented
+
+services/api/tests/diwali/test_messages.py:14: Failed
+___________________ test_invalid_envelope_rejected[change4] ____________________
+
+    def contract():
+        try:
+>           return importlib.import_module("app.diwali.message_schema")
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+services/api/tests/diwali/test_messages.py:12: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+/private/tmp/sueperman-python/cpython-3.12.13-macos-aarch64-none/lib/python3.12/importlib/__init__.py:90: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+<frozen importlib._bootstrap>:1387: in _gcd_import
+    ???
+<frozen importlib._bootstrap>:1360: in _find_and_load
+    ???
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+name = 'app.diwali.message_schema'
+import_ = <function _gcd_import at 0x104b6c0e0>
+
+>   ???
+E   ModuleNotFoundError: No module named 'app.diwali.message_schema'
+
+<frozen importlib._bootstrap>:1324: ModuleNotFoundError
+
+During handling of the above exception, another exception occurred:
+
+change = {'expected_case_revision': 0}
+
+    @pytest.mark.parametrize("change", [
+        {"sender": "scout"}, {"recipient": "builder"}, {"type": "ChallengeRaised"},
+        {"mode": "live"}, {"expected_case_revision": 0},
+        {"sent_at": "2026-11-15T00:00:00"}, {"deadline_at": "2026-11-14T00:00:00Z"},
+        {"payload": {"product_ref": "product-1", "eligible": True}},
+        {"message_id": "not-a-uuid"},
+    ])
+    def test_invalid_envelope_rejected(change):
+        with pytest.raises(ValidationError):
+>           contract().Message.model_validate(envelope() | change)
+            ^^^^^^^^^^
+
+services/api/tests/diwali/test_messages.py:48: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    def contract():
+        try:
+            return importlib.import_module("app.diwali.message_schema")
+        except ModuleNotFoundError:
+>           pytest.fail("V2.1 closed message contract is not implemented")
+E           Failed: V2.1 closed message contract is not implemented
+
+services/api/tests/diwali/test_messages.py:14: Failed
+___________________ test_invalid_envelope_rejected[change5] ____________________
+
+    def contract():
+        try:
+>           return importlib.import_module("app.diwali.message_schema")
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+services/api/tests/diwali/test_messages.py:12: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+/private/tmp/sueperman-python/cpython-3.12.13-macos-aarch64-none/lib/python3.12/importlib/__init__.py:90: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+<frozen importlib._bootstrap>:1387: in _gcd_import
+    ???
+<frozen importlib._bootstrap>:1360: in _find_and_load
+    ???
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+name = 'app.diwali.message_schema'
+import_ = <function _gcd_import at 0x104b6c0e0>
+
+>   ???
+E   ModuleNotFoundError: No module named 'app.diwali.message_schema'
+
+<frozen importlib._bootstrap>:1324: ModuleNotFoundError
+
+During handling of the above exception, another exception occurred:
+
+change = {'sent_at': '2026-11-15T00:00:00'}
+
+    @pytest.mark.parametrize("change", [
+        {"sender": "scout"}, {"recipient": "builder"}, {"type": "ChallengeRaised"},
+        {"mode": "live"}, {"expected_case_revision": 0},
+        {"sent_at": "2026-11-15T00:00:00"}, {"deadline_at": "2026-11-14T00:00:00Z"},
+        {"payload": {"product_ref": "product-1", "eligible": True}},
+        {"message_id": "not-a-uuid"},
+    ])
+    def test_invalid_envelope_rejected(change):
+        with pytest.raises(ValidationError):
+>           contract().Message.model_validate(envelope() | change)
+            ^^^^^^^^^^
+
+services/api/tests/diwali/test_messages.py:48: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    def contract():
+        try:
+            return importlib.import_module("app.diwali.message_schema")
+        except ModuleNotFoundError:
+>           pytest.fail("V2.1 closed message contract is not implemented")
+E           Failed: V2.1 closed message contract is not implemented
+
+services/api/tests/diwali/test_messages.py:14: Failed
+___________________ test_invalid_envelope_rejected[change6] ____________________
+
+    def contract():
+        try:
+>           return importlib.import_module("app.diwali.message_schema")
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+services/api/tests/diwali/test_messages.py:12: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+/private/tmp/sueperman-python/cpython-3.12.13-macos-aarch64-none/lib/python3.12/importlib/__init__.py:90: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+<frozen importlib._bootstrap>:1387: in _gcd_import
+    ???
+<frozen importlib._bootstrap>:1360: in _find_and_load
+    ???
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+name = 'app.diwali.message_schema'
+import_ = <function _gcd_import at 0x104b6c0e0>
+
+>   ???
+E   ModuleNotFoundError: No module named 'app.diwali.message_schema'
+
+<frozen importlib._bootstrap>:1324: ModuleNotFoundError
+
+During handling of the above exception, another exception occurred:
+
+change = {'deadline_at': '2026-11-14T00:00:00Z'}
+
+    @pytest.mark.parametrize("change", [
+        {"sender": "scout"}, {"recipient": "builder"}, {"type": "ChallengeRaised"},
+        {"mode": "live"}, {"expected_case_revision": 0},
+        {"sent_at": "2026-11-15T00:00:00"}, {"deadline_at": "2026-11-14T00:00:00Z"},
+        {"payload": {"product_ref": "product-1", "eligible": True}},
+        {"message_id": "not-a-uuid"},
+    ])
+    def test_invalid_envelope_rejected(change):
+        with pytest.raises(ValidationError):
+>           contract().Message.model_validate(envelope() | change)
+            ^^^^^^^^^^
+
+services/api/tests/diwali/test_messages.py:48: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    def contract():
+        try:
+            return importlib.import_module("app.diwali.message_schema")
+        except ModuleNotFoundError:
+>           pytest.fail("V2.1 closed message contract is not implemented")
+E           Failed: V2.1 closed message contract is not implemented
+
+services/api/tests/diwali/test_messages.py:14: Failed
+___________________ test_invalid_envelope_rejected[change7] ____________________
+
+    def contract():
+        try:
+>           return importlib.import_module("app.diwali.message_schema")
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+services/api/tests/diwali/test_messages.py:12: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+/private/tmp/sueperman-python/cpython-3.12.13-macos-aarch64-none/lib/python3.12/importlib/__init__.py:90: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+<frozen importlib._bootstrap>:1387: in _gcd_import
+    ???
+<frozen importlib._bootstrap>:1360: in _find_and_load
+    ???
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+name = 'app.diwali.message_schema'
+import_ = <function _gcd_import at 0x104b6c0e0>
+
+>   ???
+E   ModuleNotFoundError: No module named 'app.diwali.message_schema'
+
+<frozen importlib._bootstrap>:1324: ModuleNotFoundError
+
+During handling of the above exception, another exception occurred:
+
+change = {'payload': {'product_ref': 'product-1', 'eligible': True}}
+
+    @pytest.mark.parametrize("change", [
+        {"sender": "scout"}, {"recipient": "builder"}, {"type": "ChallengeRaised"},
+        {"mode": "live"}, {"expected_case_revision": 0},
+        {"sent_at": "2026-11-15T00:00:00"}, {"deadline_at": "2026-11-14T00:00:00Z"},
+        {"payload": {"product_ref": "product-1", "eligible": True}},
+        {"message_id": "not-a-uuid"},
+    ])
+    def test_invalid_envelope_rejected(change):
+        with pytest.raises(ValidationError):
+>           contract().Message.model_validate(envelope() | change)
+            ^^^^^^^^^^
+
+services/api/tests/diwali/test_messages.py:48: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    def contract():
+        try:
+            return importlib.import_module("app.diwali.message_schema")
+        except ModuleNotFoundError:
+>           pytest.fail("V2.1 closed message contract is not implemented")
+E           Failed: V2.1 closed message contract is not implemented
+
+services/api/tests/diwali/test_messages.py:14: Failed
+___________________ test_invalid_envelope_rejected[change8] ____________________
+
+    def contract():
+        try:
+>           return importlib.import_module("app.diwali.message_schema")
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+services/api/tests/diwali/test_messages.py:12: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+/private/tmp/sueperman-python/cpython-3.12.13-macos-aarch64-none/lib/python3.12/importlib/__init__.py:90: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+<frozen importlib._bootstrap>:1387: in _gcd_import
+    ???
+<frozen importlib._bootstrap>:1360: in _find_and_load
+    ???
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+name = 'app.diwali.message_schema'
+import_ = <function _gcd_import at 0x104b6c0e0>
+
+>   ???
+E   ModuleNotFoundError: No module named 'app.diwali.message_schema'
+
+<frozen importlib._bootstrap>:1324: ModuleNotFoundError
+
+During handling of the above exception, another exception occurred:
+
+change = {'message_id': 'not-a-uuid'}
+
+    @pytest.mark.parametrize("change", [
+        {"sender": "scout"}, {"recipient": "builder"}, {"type": "ChallengeRaised"},
+        {"mode": "live"}, {"expected_case_revision": 0},
+        {"sent_at": "2026-11-15T00:00:00"}, {"deadline_at": "2026-11-14T00:00:00Z"},
+        {"payload": {"product_ref": "product-1", "eligible": True}},
+        {"message_id": "not-a-uuid"},
+    ])
+    def test_invalid_envelope_rejected(change):
+        with pytest.raises(ValidationError):
+>           contract().Message.model_validate(envelope() | change)
+            ^^^^^^^^^^
+
+services/api/tests/diwali/test_messages.py:48: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    def contract():
+        try:
+            return importlib.import_module("app.diwali.message_schema")
+        except ModuleNotFoundError:
+>           pytest.fail("V2.1 closed message contract is not implemented")
+E           Failed: V2.1 closed message contract is not implemented
+
+services/api/tests/diwali/test_messages.py:14: Failed
+___________________________ test_payload_utf8_limit ____________________________
+
+    def contract():
+        try:
+>           return importlib.import_module("app.diwali.message_schema")
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+services/api/tests/diwali/test_messages.py:12: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+/private/tmp/sueperman-python/cpython-3.12.13-macos-aarch64-none/lib/python3.12/importlib/__init__.py:90: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+<frozen importlib._bootstrap>:1387: in _gcd_import
+    ???
+<frozen importlib._bootstrap>:1360: in _find_and_load
+    ???
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+name = 'app.diwali.message_schema'
+import_ = <function _gcd_import at 0x104b6c0e0>
+
+>   ???
+E   ModuleNotFoundError: No module named 'app.diwali.message_schema'
+
+<frozen importlib._bootstrap>:1324: ModuleNotFoundError
+
+During handling of the above exception, another exception occurred:
+
+    def test_payload_utf8_limit():
+        data = envelope()
+        data["payload"] = {"product_ref": "界" * 6000}
+        with pytest.raises(ValidationError):
+>           contract().Message.model_validate(data)
+            ^^^^^^^^^^
+
+services/api/tests/diwali/test_messages.py:55: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    def contract():
+        try:
+            return importlib.import_module("app.diwali.message_schema")
+        except ModuleNotFoundError:
+>           pytest.fail("V2.1 closed message contract is not implemented")
+E           Failed: V2.1 closed message contract is not implemented
+
+services/api/tests/diwali/test_messages.py:14: Failed
+_______________ test_authenticated_route_checked_before_handler ________________
+
+    def contract():
+        try:
+>           return importlib.import_module("app.diwali.message_schema")
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+services/api/tests/diwali/test_messages.py:12: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+/private/tmp/sueperman-python/cpython-3.12.13-macos-aarch64-none/lib/python3.12/importlib/__init__.py:90: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+<frozen importlib._bootstrap>:1387: in _gcd_import
+    ???
+<frozen importlib._bootstrap>:1360: in _find_and_load
+    ???
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+name = 'app.diwali.message_schema'
+import_ = <function _gcd_import at 0x104b6c0e0>
+
+>   ???
+E   ModuleNotFoundError: No module named 'app.diwali.message_schema'
+
+<frozen importlib._bootstrap>:1324: ModuleNotFoundError
+
+During handling of the above exception, another exception occurred:
+
+    def test_authenticated_route_checked_before_handler():
+>       module = contract()
+                 ^^^^^^^^^^
+
+services/api/tests/diwali/test_messages.py:59: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    def contract():
+        try:
+            return importlib.import_module("app.diwali.message_schema")
+        except ModuleNotFoundError:
+>           pytest.fail("V2.1 closed message contract is not implemented")
+E           Failed: V2.1 closed message contract is not implemented
+
+services/api/tests/diwali/test_messages.py:14: Failed
+_______________ test_references_bound_to_immutable_run_snapshot ________________
+
+    def contract():
+        try:
+>           return importlib.import_module("app.diwali.message_schema")
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+services/api/tests/diwali/test_messages.py:12: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+/private/tmp/sueperman-python/cpython-3.12.13-macos-aarch64-none/lib/python3.12/importlib/__init__.py:90: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+<frozen importlib._bootstrap>:1387: in _gcd_import
+    ???
+<frozen importlib._bootstrap>:1360: in _find_and_load
+    ???
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+name = 'app.diwali.message_schema'
+import_ = <function _gcd_import at 0x104b6c0e0>
+
+>   ???
+E   ModuleNotFoundError: No module named 'app.diwali.message_schema'
+
+<frozen importlib._bootstrap>:1324: ModuleNotFoundError
+
+During handling of the above exception, another exception occurred:
+
+    def test_references_bound_to_immutable_run_snapshot():
+>       module = contract()
+                 ^^^^^^^^^^
+
+services/api/tests/diwali/test_messages.py:69: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    def contract():
+        try:
+            return importlib.import_module("app.diwali.message_schema")
+        except ModuleNotFoundError:
+>           pytest.fail("V2.1 closed message contract is not implemented")
+E           Failed: V2.1 closed message contract is not implemented
+
+services/api/tests/diwali/test_messages.py:14: Failed
+___________________ test_report_cannot_add_uncited_candidate ___________________
+
+    def contract():
+        try:
+>           return importlib.import_module("app.diwali.message_schema")
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+services/api/tests/diwali/test_messages.py:12: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+/private/tmp/sueperman-python/cpython-3.12.13-macos-aarch64-none/lib/python3.12/importlib/__init__.py:90: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+<frozen importlib._bootstrap>:1387: in _gcd_import
+    ???
+<frozen importlib._bootstrap>:1360: in _find_and_load
+    ???
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+name = 'app.diwali.message_schema'
+import_ = <function _gcd_import at 0x104b6c0e0>
+
+>   ???
+E   ModuleNotFoundError: No module named 'app.diwali.message_schema'
+
+<frozen importlib._bootstrap>:1324: ModuleNotFoundError
+
+During handling of the above exception, another exception occurred:
+
+    def test_report_cannot_add_uncited_candidate():
+        data = envelope() | {"sender": "researcher", "recipient": "manager", "type": "ResearchReport",
+                             "payload": {"candidate_refs": ["invented"], "coverage": "supported_scope",
+                                         "truncated": False}}
+        with pytest.raises(ValidationError):
+>           contract().Message.model_validate(data)
+            ^^^^^^^^^^
+
+services/api/tests/diwali/test_messages.py:90: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    def contract():
+        try:
+            return importlib.import_module("app.diwali.message_schema")
+        except ModuleNotFoundError:
+>           pytest.fail("V2.1 closed message contract is not implemented")
+E           Failed: V2.1 closed message contract is not implemented
+
+services/api/tests/diwali/test_messages.py:14: Failed
+________ test_closed_payloads[ReviewRequested-manager-skeptic-payload0] ________
+
+    def contract():
+        try:
+>           return importlib.import_module("app.diwali.message_schema")
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+services/api/tests/diwali/test_messages.py:12: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+/private/tmp/sueperman-python/cpython-3.12.13-macos-aarch64-none/lib/python3.12/importlib/__init__.py:90: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+<frozen importlib._bootstrap>:1387: in _gcd_import
+    ???
+<frozen importlib._bootstrap>:1360: in _find_and_load
+    ???
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+name = 'app.diwali.message_schema'
+import_ = <function _gcd_import at 0x104b6c0e0>
+
+>   ???
+E   ModuleNotFoundError: No module named 'app.diwali.message_schema'
+
+<frozen importlib._bootstrap>:1324: ModuleNotFoundError
+
+During handling of the above exception, another exception occurred:
+
+kind = 'ReviewRequested', sender = 'manager', recipient = 'skeptic'
+payload = {'product_ref': 'p1', 'evidence_refs': ['s1']}
+
+    @pytest.mark.parametrize("kind,sender,recipient,payload", [
+        ("ReviewRequested", "manager", "skeptic", {"product_ref": "p1", "evidence_refs": ["s1"]}),
+        ("ReviewReport", "skeptic", "manager", {"rule_result": "rejected", "conditions": [],
+            "compared_identifiers": {"purchase_model": "ZHX-PB23", "source_models": ["ZHX-PB22"]},
+            "challenge_code": "MODEL_MISMATCH", "review_note": "", "requested_fields": []}),
+        ("FollowUpRequested", "manager", "researcher", {"requested_fields": ["affected_models"],
+                                                           "evidence_refs": ["s1"]}),
+        ("FollowUpReport", "researcher", "manager", {"evidence_refs": [],
+                                                     "unavailable_reason": "SOURCE_UNAVAILABLE"}),
+        ("BuildRequested", "manager", "builder", {"rule_result": "verified_match", "evidence_refs": ["s1"],
+            "input_digests": {"purchase": "a" * 64, "evidence": "b" * 64}}),
+        ("BuildReport", "builder", "manager", {"draft": {"markdown": "Source-cited unsigned draft",
+            "status": "ready_for_review", "approved_at": None}, "view": {"purchase_model": "ZHX-PB22",
+            "source_models": ["ZHX-PB22"], "source_ref": "s1"},
+            "input_digests": {"purchase": "a" * 64, "evidence": "b" * 64}}),
+        ("TaskFailed", "researcher", "manager", {"reason_code": "SOURCE_UNAVAILABLE", "retryable": False}),
+    ])
+    def test_closed_payloads(kind, sender, recipient, payload):
+        data = envelope() | {"type": kind, "sender": sender, "recipient": recipient,
+                             "source_refs": ["s1"], "payload": payload}
+>       message = contract().Message.model_validate(data)
+                  ^^^^^^^^^^
+
+services/api/tests/diwali/test_messages.py:113: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    def contract():
+        try:
+            return importlib.import_module("app.diwali.message_schema")
+        except ModuleNotFoundError:
+>           pytest.fail("V2.1 closed message contract is not implemented")
+E           Failed: V2.1 closed message contract is not implemented
+
+services/api/tests/diwali/test_messages.py:14: Failed
+_________ test_closed_payloads[ReviewReport-skeptic-manager-payload1] __________
+
+    def contract():
+        try:
+>           return importlib.import_module("app.diwali.message_schema")
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+services/api/tests/diwali/test_messages.py:12: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+/private/tmp/sueperman-python/cpython-3.12.13-macos-aarch64-none/lib/python3.12/importlib/__init__.py:90: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+<frozen importlib._bootstrap>:1387: in _gcd_import
+    ???
+<frozen importlib._bootstrap>:1360: in _find_and_load
+    ???
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+name = 'app.diwali.message_schema'
+import_ = <function _gcd_import at 0x104b6c0e0>
+
+>   ???
+E   ModuleNotFoundError: No module named 'app.diwali.message_schema'
+
+<frozen importlib._bootstrap>:1324: ModuleNotFoundError
+
+During handling of the above exception, another exception occurred:
+
+kind = 'ReviewReport', sender = 'skeptic', recipient = 'manager'
+payload = {'rule_result': 'rejected', 'conditions': [], 'compared_identifiers': {'purchase_model': 'ZHX-PB23', 'source_models': ['ZHX-PB22']}, 'challenge_code': 'MODEL_MISMATCH', ...}
+
+    @pytest.mark.parametrize("kind,sender,recipient,payload", [
+        ("ReviewRequested", "manager", "skeptic", {"product_ref": "p1", "evidence_refs": ["s1"]}),
+        ("ReviewReport", "skeptic", "manager", {"rule_result": "rejected", "conditions": [],
+            "compared_identifiers": {"purchase_model": "ZHX-PB23", "source_models": ["ZHX-PB22"]},
+            "challenge_code": "MODEL_MISMATCH", "review_note": "", "requested_fields": []}),
+        ("FollowUpRequested", "manager", "researcher", {"requested_fields": ["affected_models"],
+                                                           "evidence_refs": ["s1"]}),
+        ("FollowUpReport", "researcher", "manager", {"evidence_refs": [],
+                                                     "unavailable_reason": "SOURCE_UNAVAILABLE"}),
+        ("BuildRequested", "manager", "builder", {"rule_result": "verified_match", "evidence_refs": ["s1"],
+            "input_digests": {"purchase": "a" * 64, "evidence": "b" * 64}}),
+        ("BuildReport", "builder", "manager", {"draft": {"markdown": "Source-cited unsigned draft",
+            "status": "ready_for_review", "approved_at": None}, "view": {"purchase_model": "ZHX-PB22",
+            "source_models": ["ZHX-PB22"], "source_ref": "s1"},
+            "input_digests": {"purchase": "a" * 64, "evidence": "b" * 64}}),
+        ("TaskFailed", "researcher", "manager", {"reason_code": "SOURCE_UNAVAILABLE", "retryable": False}),
+    ])
+    def test_closed_payloads(kind, sender, recipient, payload):
+        data = envelope() | {"type": kind, "sender": sender, "recipient": recipient,
+                             "source_refs": ["s1"], "payload": payload}
+>       message = contract().Message.model_validate(data)
+                  ^^^^^^^^^^
+
+services/api/tests/diwali/test_messages.py:113: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    def contract():
+        try:
+            return importlib.import_module("app.diwali.message_schema")
+        except ModuleNotFoundError:
+>           pytest.fail("V2.1 closed message contract is not implemented")
+E           Failed: V2.1 closed message contract is not implemented
+
+services/api/tests/diwali/test_messages.py:14: Failed
+_____ test_closed_payloads[FollowUpRequested-manager-researcher-payload2] ______
+
+    def contract():
+        try:
+>           return importlib.import_module("app.diwali.message_schema")
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+services/api/tests/diwali/test_messages.py:12: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+/private/tmp/sueperman-python/cpython-3.12.13-macos-aarch64-none/lib/python3.12/importlib/__init__.py:90: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+<frozen importlib._bootstrap>:1387: in _gcd_import
+    ???
+<frozen importlib._bootstrap>:1360: in _find_and_load
+    ???
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+name = 'app.diwali.message_schema'
+import_ = <function _gcd_import at 0x104b6c0e0>
+
+>   ???
+E   ModuleNotFoundError: No module named 'app.diwali.message_schema'
+
+<frozen importlib._bootstrap>:1324: ModuleNotFoundError
+
+During handling of the above exception, another exception occurred:
+
+kind = 'FollowUpRequested', sender = 'manager', recipient = 'researcher'
+payload = {'requested_fields': ['affected_models'], 'evidence_refs': ['s1']}
+
+    @pytest.mark.parametrize("kind,sender,recipient,payload", [
+        ("ReviewRequested", "manager", "skeptic", {"product_ref": "p1", "evidence_refs": ["s1"]}),
+        ("ReviewReport", "skeptic", "manager", {"rule_result": "rejected", "conditions": [],
+            "compared_identifiers": {"purchase_model": "ZHX-PB23", "source_models": ["ZHX-PB22"]},
+            "challenge_code": "MODEL_MISMATCH", "review_note": "", "requested_fields": []}),
+        ("FollowUpRequested", "manager", "researcher", {"requested_fields": ["affected_models"],
+                                                           "evidence_refs": ["s1"]}),
+        ("FollowUpReport", "researcher", "manager", {"evidence_refs": [],
+                                                     "unavailable_reason": "SOURCE_UNAVAILABLE"}),
+        ("BuildRequested", "manager", "builder", {"rule_result": "verified_match", "evidence_refs": ["s1"],
+            "input_digests": {"purchase": "a" * 64, "evidence": "b" * 64}}),
+        ("BuildReport", "builder", "manager", {"draft": {"markdown": "Source-cited unsigned draft",
+            "status": "ready_for_review", "approved_at": None}, "view": {"purchase_model": "ZHX-PB22",
+            "source_models": ["ZHX-PB22"], "source_ref": "s1"},
+            "input_digests": {"purchase": "a" * 64, "evidence": "b" * 64}}),
+        ("TaskFailed", "researcher", "manager", {"reason_code": "SOURCE_UNAVAILABLE", "retryable": False}),
+    ])
+    def test_closed_payloads(kind, sender, recipient, payload):
+        data = envelope() | {"type": kind, "sender": sender, "recipient": recipient,
+                             "source_refs": ["s1"], "payload": payload}
+>       message = contract().Message.model_validate(data)
+                  ^^^^^^^^^^
+
+services/api/tests/diwali/test_messages.py:113: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    def contract():
+        try:
+            return importlib.import_module("app.diwali.message_schema")
+        except ModuleNotFoundError:
+>           pytest.fail("V2.1 closed message contract is not implemented")
+E           Failed: V2.1 closed message contract is not implemented
+
+services/api/tests/diwali/test_messages.py:14: Failed
+_______ test_closed_payloads[FollowUpReport-researcher-manager-payload3] _______
+
+    def contract():
+        try:
+>           return importlib.import_module("app.diwali.message_schema")
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+services/api/tests/diwali/test_messages.py:12: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+/private/tmp/sueperman-python/cpython-3.12.13-macos-aarch64-none/lib/python3.12/importlib/__init__.py:90: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+<frozen importlib._bootstrap>:1387: in _gcd_import
+    ???
+<frozen importlib._bootstrap>:1360: in _find_and_load
+    ???
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+name = 'app.diwali.message_schema'
+import_ = <function _gcd_import at 0x104b6c0e0>
+
+>   ???
+E   ModuleNotFoundError: No module named 'app.diwali.message_schema'
+
+<frozen importlib._bootstrap>:1324: ModuleNotFoundError
+
+During handling of the above exception, another exception occurred:
+
+kind = 'FollowUpReport', sender = 'researcher', recipient = 'manager'
+payload = {'evidence_refs': [], 'unavailable_reason': 'SOURCE_UNAVAILABLE'}
+
+    @pytest.mark.parametrize("kind,sender,recipient,payload", [
+        ("ReviewRequested", "manager", "skeptic", {"product_ref": "p1", "evidence_refs": ["s1"]}),
+        ("ReviewReport", "skeptic", "manager", {"rule_result": "rejected", "conditions": [],
+            "compared_identifiers": {"purchase_model": "ZHX-PB23", "source_models": ["ZHX-PB22"]},
+            "challenge_code": "MODEL_MISMATCH", "review_note": "", "requested_fields": []}),
+        ("FollowUpRequested", "manager", "researcher", {"requested_fields": ["affected_models"],
+                                                           "evidence_refs": ["s1"]}),
+        ("FollowUpReport", "researcher", "manager", {"evidence_refs": [],
+                                                     "unavailable_reason": "SOURCE_UNAVAILABLE"}),
+        ("BuildRequested", "manager", "builder", {"rule_result": "verified_match", "evidence_refs": ["s1"],
+            "input_digests": {"purchase": "a" * 64, "evidence": "b" * 64}}),
+        ("BuildReport", "builder", "manager", {"draft": {"markdown": "Source-cited unsigned draft",
+            "status": "ready_for_review", "approved_at": None}, "view": {"purchase_model": "ZHX-PB22",
+            "source_models": ["ZHX-PB22"], "source_ref": "s1"},
+            "input_digests": {"purchase": "a" * 64, "evidence": "b" * 64}}),
+        ("TaskFailed", "researcher", "manager", {"reason_code": "SOURCE_UNAVAILABLE", "retryable": False}),
+    ])
+    def test_closed_payloads(kind, sender, recipient, payload):
+        data = envelope() | {"type": kind, "sender": sender, "recipient": recipient,
+                             "source_refs": ["s1"], "payload": payload}
+>       message = contract().Message.model_validate(data)
+                  ^^^^^^^^^^
+
+services/api/tests/diwali/test_messages.py:113: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    def contract():
+        try:
+            return importlib.import_module("app.diwali.message_schema")
+        except ModuleNotFoundError:
+>           pytest.fail("V2.1 closed message contract is not implemented")
+E           Failed: V2.1 closed message contract is not implemented
+
+services/api/tests/diwali/test_messages.py:14: Failed
+________ test_closed_payloads[BuildRequested-manager-builder-payload4] _________
+
+    def contract():
+        try:
+>           return importlib.import_module("app.diwali.message_schema")
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+services/api/tests/diwali/test_messages.py:12: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+/private/tmp/sueperman-python/cpython-3.12.13-macos-aarch64-none/lib/python3.12/importlib/__init__.py:90: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+<frozen importlib._bootstrap>:1387: in _gcd_import
+    ???
+<frozen importlib._bootstrap>:1360: in _find_and_load
+    ???
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+name = 'app.diwali.message_schema'
+import_ = <function _gcd_import at 0x104b6c0e0>
+
+>   ???
+E   ModuleNotFoundError: No module named 'app.diwali.message_schema'
+
+<frozen importlib._bootstrap>:1324: ModuleNotFoundError
+
+During handling of the above exception, another exception occurred:
+
+kind = 'BuildRequested', sender = 'manager', recipient = 'builder'
+payload = {'rule_result': 'verified_match', 'evidence_refs': ['s1'], 'input_digests': {'purchase': 'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa', 'evidence': 'bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb'}}
+
+    @pytest.mark.parametrize("kind,sender,recipient,payload", [
+        ("ReviewRequested", "manager", "skeptic", {"product_ref": "p1", "evidence_refs": ["s1"]}),
+        ("ReviewReport", "skeptic", "manager", {"rule_result": "rejected", "conditions": [],
+            "compared_identifiers": {"purchase_model": "ZHX-PB23", "source_models": ["ZHX-PB22"]},
+            "challenge_code": "MODEL_MISMATCH", "review_note": "", "requested_fields": []}),
+        ("FollowUpRequested", "manager", "researcher", {"requested_fields": ["affected_models"],
+                                                           "evidence_refs": ["s1"]}),
+        ("FollowUpReport", "researcher", "manager", {"evidence_refs": [],
+                                                     "unavailable_reason": "SOURCE_UNAVAILABLE"}),
+        ("BuildRequested", "manager", "builder", {"rule_result": "verified_match", "evidence_refs": ["s1"],
+            "input_digests": {"purchase": "a" * 64, "evidence": "b" * 64}}),
+        ("BuildReport", "builder", "manager", {"draft": {"markdown": "Source-cited unsigned draft",
+            "status": "ready_for_review", "approved_at": None}, "view": {"purchase_model": "ZHX-PB22",
+            "source_models": ["ZHX-PB22"], "source_ref": "s1"},
+            "input_digests": {"purchase": "a" * 64, "evidence": "b" * 64}}),
+        ("TaskFailed", "researcher", "manager", {"reason_code": "SOURCE_UNAVAILABLE", "retryable": False}),
+    ])
+    def test_closed_payloads(kind, sender, recipient, payload):
+        data = envelope() | {"type": kind, "sender": sender, "recipient": recipient,
+                             "source_refs": ["s1"], "payload": payload}
+>       message = contract().Message.model_validate(data)
+                  ^^^^^^^^^^
+
+services/api/tests/diwali/test_messages.py:113: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    def contract():
+        try:
+            return importlib.import_module("app.diwali.message_schema")
+        except ModuleNotFoundError:
+>           pytest.fail("V2.1 closed message contract is not implemented")
+E           Failed: V2.1 closed message contract is not implemented
+
+services/api/tests/diwali/test_messages.py:14: Failed
+__________ test_closed_payloads[BuildReport-builder-manager-payload5] __________
+
+    def contract():
+        try:
+>           return importlib.import_module("app.diwali.message_schema")
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+services/api/tests/diwali/test_messages.py:12: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+/private/tmp/sueperman-python/cpython-3.12.13-macos-aarch64-none/lib/python3.12/importlib/__init__.py:90: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+<frozen importlib._bootstrap>:1387: in _gcd_import
+    ???
+<frozen importlib._bootstrap>:1360: in _find_and_load
+    ???
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+name = 'app.diwali.message_schema'
+import_ = <function _gcd_import at 0x104b6c0e0>
+
+>   ???
+E   ModuleNotFoundError: No module named 'app.diwali.message_schema'
+
+<frozen importlib._bootstrap>:1324: ModuleNotFoundError
+
+During handling of the above exception, another exception occurred:
+
+kind = 'BuildReport', sender = 'builder', recipient = 'manager'
+payload = {'draft': {'markdown': 'Source-cited unsigned draft', 'status': 'ready_for_review', 'approved_at': None}, 'view': {'pu...aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa', 'evidence': 'bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb'}}
+
+    @pytest.mark.parametrize("kind,sender,recipient,payload", [
+        ("ReviewRequested", "manager", "skeptic", {"product_ref": "p1", "evidence_refs": ["s1"]}),
+        ("ReviewReport", "skeptic", "manager", {"rule_result": "rejected", "conditions": [],
+            "compared_identifiers": {"purchase_model": "ZHX-PB23", "source_models": ["ZHX-PB22"]},
+            "challenge_code": "MODEL_MISMATCH", "review_note": "", "requested_fields": []}),
+        ("FollowUpRequested", "manager", "researcher", {"requested_fields": ["affected_models"],
+                                                           "evidence_refs": ["s1"]}),
+        ("FollowUpReport", "researcher", "manager", {"evidence_refs": [],
+                                                     "unavailable_reason": "SOURCE_UNAVAILABLE"}),
+        ("BuildRequested", "manager", "builder", {"rule_result": "verified_match", "evidence_refs": ["s1"],
+            "input_digests": {"purchase": "a" * 64, "evidence": "b" * 64}}),
+        ("BuildReport", "builder", "manager", {"draft": {"markdown": "Source-cited unsigned draft",
+            "status": "ready_for_review", "approved_at": None}, "view": {"purchase_model": "ZHX-PB22",
+            "source_models": ["ZHX-PB22"], "source_ref": "s1"},
+            "input_digests": {"purchase": "a" * 64, "evidence": "b" * 64}}),
+        ("TaskFailed", "researcher", "manager", {"reason_code": "SOURCE_UNAVAILABLE", "retryable": False}),
+    ])
+    def test_closed_payloads(kind, sender, recipient, payload):
+        data = envelope() | {"type": kind, "sender": sender, "recipient": recipient,
+                             "source_refs": ["s1"], "payload": payload}
+>       message = contract().Message.model_validate(data)
+                  ^^^^^^^^^^
+
+services/api/tests/diwali/test_messages.py:113: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    def contract():
+        try:
+            return importlib.import_module("app.diwali.message_schema")
+        except ModuleNotFoundError:
+>           pytest.fail("V2.1 closed message contract is not implemented")
+E           Failed: V2.1 closed message contract is not implemented
+
+services/api/tests/diwali/test_messages.py:14: Failed
+_________ test_closed_payloads[TaskFailed-researcher-manager-payload6] _________
+
+    def contract():
+        try:
+>           return importlib.import_module("app.diwali.message_schema")
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+services/api/tests/diwali/test_messages.py:12: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+/private/tmp/sueperman-python/cpython-3.12.13-macos-aarch64-none/lib/python3.12/importlib/__init__.py:90: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+<frozen importlib._bootstrap>:1387: in _gcd_import
+    ???
+<frozen importlib._bootstrap>:1360: in _find_and_load
+    ???
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+name = 'app.diwali.message_schema'
+import_ = <function _gcd_import at 0x104b6c0e0>
+
+>   ???
+E   ModuleNotFoundError: No module named 'app.diwali.message_schema'
+
+<frozen importlib._bootstrap>:1324: ModuleNotFoundError
+
+During handling of the above exception, another exception occurred:
+
+kind = 'TaskFailed', sender = 'researcher', recipient = 'manager'
+payload = {'reason_code': 'SOURCE_UNAVAILABLE', 'retryable': False}
+
+    @pytest.mark.parametrize("kind,sender,recipient,payload", [
+        ("ReviewRequested", "manager", "skeptic", {"product_ref": "p1", "evidence_refs": ["s1"]}),
+        ("ReviewReport", "skeptic", "manager", {"rule_result": "rejected", "conditions": [],
+            "compared_identifiers": {"purchase_model": "ZHX-PB23", "source_models": ["ZHX-PB22"]},
+            "challenge_code": "MODEL_MISMATCH", "review_note": "", "requested_fields": []}),
+        ("FollowUpRequested", "manager", "researcher", {"requested_fields": ["affected_models"],
+                                                           "evidence_refs": ["s1"]}),
+        ("FollowUpReport", "researcher", "manager", {"evidence_refs": [],
+                                                     "unavailable_reason": "SOURCE_UNAVAILABLE"}),
+        ("BuildRequested", "manager", "builder", {"rule_result": "verified_match", "evidence_refs": ["s1"],
+            "input_digests": {"purchase": "a" * 64, "evidence": "b" * 64}}),
+        ("BuildReport", "builder", "manager", {"draft": {"markdown": "Source-cited unsigned draft",
+            "status": "ready_for_review", "approved_at": None}, "view": {"purchase_model": "ZHX-PB22",
+            "source_models": ["ZHX-PB22"], "source_ref": "s1"},
+            "input_digests": {"purchase": "a" * 64, "evidence": "b" * 64}}),
+        ("TaskFailed", "researcher", "manager", {"reason_code": "SOURCE_UNAVAILABLE", "retryable": False}),
+    ])
+    def test_closed_payloads(kind, sender, recipient, payload):
+        data = envelope() | {"type": kind, "sender": sender, "recipient": recipient,
+                             "source_refs": ["s1"], "payload": payload}
+>       message = contract().Message.model_validate(data)
+                  ^^^^^^^^^^
+
+services/api/tests/diwali/test_messages.py:113: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    def contract():
+        try:
+            return importlib.import_module("app.diwali.message_schema")
+        except ModuleNotFoundError:
+>           pytest.fail("V2.1 closed message contract is not implemented")
+E           Failed: V2.1 closed message contract is not implemented
+
+services/api/tests/diwali/test_messages.py:14: Failed
+____________ test_build_request_cannot_accept_unverified_assessment ____________
+
+    def contract():
+        try:
+>           return importlib.import_module("app.diwali.message_schema")
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+services/api/tests/diwali/test_messages.py:12: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+/private/tmp/sueperman-python/cpython-3.12.13-macos-aarch64-none/lib/python3.12/importlib/__init__.py:90: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+<frozen importlib._bootstrap>:1387: in _gcd_import
+    ???
+<frozen importlib._bootstrap>:1360: in _find_and_load
+    ???
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+name = 'app.diwali.message_schema'
+import_ = <function _gcd_import at 0x104b6c0e0>
+
+>   ???
+E   ModuleNotFoundError: No module named 'app.diwali.message_schema'
+
+<frozen importlib._bootstrap>:1324: ModuleNotFoundError
+
+During handling of the above exception, another exception occurred:
+
+    def test_build_request_cannot_accept_unverified_assessment():
+        data = envelope() | {"type": "BuildRequested", "recipient": "builder", "source_refs": ["s1"],
+            "payload": {"rule_result": "needs_review", "evidence_refs": ["s1"],
+                        "input_digests": {"purchase": "a" * 64, "evidence": "b" * 64}}}
+        with pytest.raises(ValidationError):
+>           contract().Message.model_validate(data)
+            ^^^^^^^^^^
+
+services/api/tests/diwali/test_messages.py:125: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    def contract():
+        try:
+            return importlib.import_module("app.diwali.message_schema")
+        except ModuleNotFoundError:
+>           pytest.fail("V2.1 closed message contract is not implemented")
+E           Failed: V2.1 closed message contract is not implemented
+
+services/api/tests/diwali/test_messages.py:14: Failed
+=========================== short test summary info ============================
+FAILED services/api/tests/diwali/test_messages.py::test_closed_message_accepts_research_request
+FAILED services/api/tests/diwali/test_messages.py::test_invalid_envelope_rejected[change0]
+FAILED services/api/tests/diwali/test_messages.py::test_invalid_envelope_rejected[change1]
+FAILED services/api/tests/diwali/test_messages.py::test_invalid_envelope_rejected[change2]
+FAILED services/api/tests/diwali/test_messages.py::test_invalid_envelope_rejected[change3]
+FAILED services/api/tests/diwali/test_messages.py::test_invalid_envelope_rejected[change4]
+FAILED services/api/tests/diwali/test_messages.py::test_invalid_envelope_rejected[change5]
+FAILED services/api/tests/diwali/test_messages.py::test_invalid_envelope_rejected[change6]
+FAILED services/api/tests/diwali/test_messages.py::test_invalid_envelope_rejected[change7]
+FAILED services/api/tests/diwali/test_messages.py::test_invalid_envelope_rejected[change8]
+FAILED services/api/tests/diwali/test_messages.py::test_payload_utf8_limit - ...
+FAILED services/api/tests/diwali/test_messages.py::test_authenticated_route_checked_before_handler
+FAILED services/api/tests/diwali/test_messages.py::test_references_bound_to_immutable_run_snapshot
+FAILED services/api/tests/diwali/test_messages.py::test_report_cannot_add_uncited_candidate
+FAILED services/api/tests/diwali/test_messages.py::test_closed_payloads[ReviewRequested-manager-skeptic-payload0]
+FAILED services/api/tests/diwali/test_messages.py::test_closed_payloads[ReviewReport-skeptic-manager-payload1]
+FAILED services/api/tests/diwali/test_messages.py::test_closed_payloads[FollowUpRequested-manager-researcher-payload2]
+FAILED services/api/tests/diwali/test_messages.py::test_closed_payloads[FollowUpReport-researcher-manager-payload3]
+FAILED services/api/tests/diwali/test_messages.py::test_closed_payloads[BuildRequested-manager-builder-payload4]
+FAILED services/api/tests/diwali/test_messages.py::test_closed_payloads[BuildReport-builder-manager-payload5]
+FAILED services/api/tests/diwali/test_messages.py::test_closed_payloads[TaskFailed-researcher-manager-payload6]
+FAILED services/api/tests/diwali/test_messages.py::test_build_request_cannot_accept_unverified_assessment
+22 failed in 0.19s

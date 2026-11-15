@@ -1,0 +1,79 @@
+........FF                                                               [100%]
+=================================== FAILURES ===================================
+_________ test_unknown_notice_and_changed_restrictions_require_review __________
+
+    @pytest.mark.asyncio
+    async def test_unknown_notice_and_changed_restrictions_require_review():
+        r = roles()
+        product = ProductInput(product_name="Power Bank", brand="NEWDERY", model_number="ZHX-PB22")
+        recall = await r.scout(product)
+        for changed in ({"reference": "99-999"}, {"excerpt": recall.excerpt + " Only batch X is affected."}):
+            challenge = r.skeptic(product, recall.model_copy(update=changed))
+>           assert challenge.status == "needs_review"
+E           AssertionError: assert 'verified_match' == 'needs_review'
+E             
+E             - needs_review
+E             + verified_match
+
+services/api/tests/collaboration/test_guards.py:72: AssertionError
+____ test_builder_rejects_agent_pass_assertions_for_false_or_unknown_gates _____
+
+    @pytest.mark.asyncio
+    async def test_builder_rejects_agent_pass_assertions_for_false_or_unknown_gates():
+        r = roles()
+        from app.collaboration.contracts import CaseResult, Finding
+        for model in ("ZHX-PB23", None):
+            product = ProductInput(product_name="Power Bank", brand="NEWDERY", model_number=model)
+            recall = await r.scout(product)
+            fabricated = CaseResult(task_id="task", case_id="case", revision=1, provider="offline_rules",
+                                     mode="replay", status="completed", source_refs=["26-792"],
+                                     findings=[Finding(code="condition_passed", condition="model_number",
+                                                       source_ref="26-792")])
+            with pytest.raises(ValueError, match="challenge"):
+>               r.builder(product, recall, fabricated)
+
+services/api/tests/collaboration/test_guards.py:89: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+services/api/app/collaboration/roles.py:51: in builder
+    false = [c for c in challenge.conditions if c.status == "false"]
+                        ^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = CaseResult(schema_version=1, task_id='task', case_id='case', revision=1, provider='offline_rules', mode='replay', stat...'model_number', source_ref='26-792')], missing_conditions=[], source_refs=['26-792'], provider_ref=None, duration_ms=0)
+item = 'conditions'
+
+    def __getattr__(self, item: str) -> Any:
+        private_attributes = object.__getattribute__(self, '__private_attributes__')
+        if item in private_attributes:
+            attribute = private_attributes[item]
+            if hasattr(attribute, '__get__'):
+                return attribute.__get__(self, type(self))  # type: ignore
+    
+            try:
+                # Note: self.__pydantic_private__ cannot be None if self.__private_attributes__ has items
+                return self.__pydantic_private__[item]  # type: ignore
+            except KeyError as exc:
+                raise AttributeError(f'{type(self).__name__!r} object has no attribute {item!r}') from exc
+        else:
+            # `__pydantic_extra__` can fail to be set if the model is not yet fully initialized.
+            # See `BaseModel.__repr_args__` for more details
+            try:
+                pydantic_extra = object.__getattribute__(self, '__pydantic_extra__')
+            except AttributeError:
+                pydantic_extra = None
+    
+            if pydantic_extra and item in pydantic_extra:
+                return pydantic_extra[item]
+            else:
+                if hasattr(self.__class__, item):
+                    return super().__getattribute__(item)  # Raises AttributeError if appropriate
+                else:
+                    # this is the current error
+>                   raise AttributeError(f'{type(self).__name__!r} object has no attribute {item!r}')
+E                   AttributeError: 'CaseResult' object has no attribute 'conditions'
+
+services/api/.venv/lib/python3.12/site-packages/pydantic/main.py:1110: AttributeError
+=========================== short test summary info ============================
+FAILED services/api/tests/collaboration/test_guards.py::test_unknown_notice_and_changed_restrictions_require_review
+FAILED services/api/tests/collaboration/test_guards.py::test_builder_rejects_agent_pass_assertions_for_false_or_unknown_gates
+2 failed, 8 passed in 0.23s

@@ -1,0 +1,38 @@
+FF                                                                       [100%]
+=================================== FAILURES ===================================
+_________________ test_unavailable_research_is_not_a_no_match __________________
+
+    def test_unavailable_research_is_not_a_no_match():
+        module, state, report = researched()
+        unavailable = report.model_copy(update={"source_refs": [], "payload": report.payload.model_copy(
+            update={"candidate_refs": [], "coverage": "unavailable"})})
+        final, _ = module.reduce_case(state, unavailable)
+>       assert final.outcome is None
+E       AssertionError: assert 'no_match' is None
+E        +  where 'no_match' = CaseState(context=CaseInput(run_id=UUID('00000000-0000-0000-0000-000000000001'), case_id=UUID('00000000-0000-0000-0000...followups=0, draft=None, compared_identifiers=None, challenge_code='NONE', question_field=None, notes=(), failure=None).outcome
+
+services/api/tests/diwali/test_reducer.py:112: AssertionError
+_________________________ test_proof_requires_artifact _________________________
+
+tmp_path = PosixPath('/private/var/folders/k0/w3xrb_d95jn2t7nf2f0s05yr0000gp/T/pytest-of-nirmalhk7/pytest-121/test_proof_requires_artifact0')
+
+    def test_proof_requires_artifact(tmp_path):
+        claimed = {"status": "PROVEN", "configured": True, "enabled": True}
+        assert harness().proof_status("band", claimed, tmp_path, "tree") == "NOT_STARTED"
+        claimed["artifact"] = "missing.json"
+        assert harness().proof_status("band", claimed, tmp_path, "tree") != "PROVEN"
+        receipt = {"provider": "band", "tested_tree_digest": "tree", "consumed": True,
+                   "observed_at": "2026-11-15T00:00:00Z", "source_run": "fake", "invocation": "fake",
+                   "configuration_digest": "fake", "evidence_digest": "fake"}
+        (tmp_path / "missing.json").write_text(json.dumps(receipt))
+>       assert harness().proof_status("band", claimed, tmp_path, "tree") != "PROVEN"
+E       AssertionError: assert 'PROVEN' != 'PROVEN'
+E        +  where 'PROVEN' = <function proof_status at 0x1099c4860>('band', {'status': 'PROVEN', 'configured': True, 'enabled': True, 'artifact': 'missing.json'}, PosixPath('/private/var/folders/k0/w3xrb_d95jn2t7nf2f0s05yr0000gp/T/pytest-of-nirmalhk7/pytest-121/test_proof_requires_artifact0'), 'tree')
+E        +    where <function proof_status at 0x1099c4860> = <module 'verify_diwali' from '/Users/nirmalhk7/Documents/DevWorld/sueperman/scripts/verify_diwali.py'>.proof_status
+E        +      where <module 'verify_diwali' from '/Users/nirmalhk7/Documents/DevWorld/sueperman/scripts/verify_diwali.py'> = harness()
+
+services/api/tests/diwali/test_harness.py:31: AssertionError
+=========================== short test summary info ============================
+FAILED services/api/tests/diwali/test_reducer.py::test_unavailable_research_is_not_a_no_match
+FAILED services/api/tests/diwali/test_harness.py::test_proof_requires_artifact
+2 failed in 0.26s

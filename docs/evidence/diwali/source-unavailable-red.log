@@ -1,0 +1,146 @@
+F                                                                        [100%]
+=================================== FAILURES ===================================
+_ test_unavailable_recorded_source_admits_a_partial_case_instead_of_server_error _
+
+client = <starlette.testclient.TestClient object at 0x10bf140b0>
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x10a2024b0>
+
+    def test_unavailable_recorded_source_admits_a_partial_case_instead_of_server_error(client, monkeypatch):
+        def unavailable():
+            raise OSError("recorded source absent")
+        monkeypatch.setattr("app.collaboration.roles.load_recall", unavailable)
+>       created, _ = start(client)
+                     ^^^^^^^^^^^^^
+
+services/api/tests/collaboration/test_collaboration_workflow.py:339: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+services/api/tests/collaboration/test_collaboration_workflow.py:27: in start
+    response = c.post(
+services/api/.venv/lib/python3.12/site-packages/httpx/_client.py:1144: in post
+    return self.request(
+services/api/.venv/lib/python3.12/site-packages/starlette/testclient.py:518: in request
+    return super().request(
+services/api/.venv/lib/python3.12/site-packages/httpx/_client.py:825: in request
+    return self.send(request, auth=auth, follow_redirects=follow_redirects)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+services/api/.venv/lib/python3.12/site-packages/httpx/_client.py:928: in send
+    raise exc
+services/api/.venv/lib/python3.12/site-packages/httpx/_client.py:922: in send
+    response.read()
+services/api/.venv/lib/python3.12/site-packages/httpx/_models.py:881: in read
+    self._content = b"".join(self.iter_bytes())
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+services/api/.venv/lib/python3.12/site-packages/httpx/_models.py:897: in iter_bytes
+    for raw_bytes in self.iter_raw():
+                     ^^^^^^^^^^^^^^^
+services/api/.venv/lib/python3.12/site-packages/httpx/_models.py:951: in iter_raw
+    for raw_stream_bytes in self.stream:
+                            ^^^^^^^^^^^
+services/api/.venv/lib/python3.12/site-packages/httpx/_client.py:153: in __iter__
+    for chunk in self._stream:
+                 ^^^^^^^^^^^^
+services/api/.venv/lib/python3.12/site-packages/starlette/testclient.py:384: in iter_body
+    exit_stack.close()
+/private/tmp/sueperman-python/cpython-3.12.13-macos-aarch64-none/lib/python3.12/contextlib.py:618: in close
+    self.__exit__(None, None, None)
+/private/tmp/sueperman-python/cpython-3.12.13-macos-aarch64-none/lib/python3.12/contextlib.py:610: in __exit__
+    raise exc_details[1]
+/private/tmp/sueperman-python/cpython-3.12.13-macos-aarch64-none/lib/python3.12/contextlib.py:595: in __exit__
+    if cb(*exc_details):
+       ^^^^^^^^^^^^^^^^
+services/api/.venv/lib/python3.12/site-packages/starlette/testclient.py:399: in close_app
+    raise exception
+services/api/.venv/lib/python3.12/site-packages/anyio/from_thread.py:272: in _call_func
+    retval = await retval_or_awaitable
+             ^^^^^^^^^^^^^^^^^^^^^^^^^
+services/api/.venv/lib/python3.12/site-packages/starlette/testclient.py:366: in run_app
+    await self.app(scope, receive, send)
+services/api/.venv/lib/python3.12/site-packages/fastapi/applications.py:1194: in __call__
+    await super().__call__(scope, receive, send)
+services/api/.venv/lib/python3.12/site-packages/starlette/applications.py:96: in __call__
+    await self.middleware_stack(scope, receive, send)
+services/api/.venv/lib/python3.12/site-packages/starlette/middleware/errors.py:186: in __call__
+    raise exc
+services/api/.venv/lib/python3.12/site-packages/starlette/middleware/errors.py:164: in __call__
+    await self.app(scope, receive, _send)
+services/api/.venv/lib/python3.12/site-packages/fastapi/telemetry/_asgi.py:151: in __call__
+    await self.app(scope, receive, send)
+services/api/.venv/lib/python3.12/site-packages/starlette/middleware/base.py:203: in __call__
+    response = await self.dispatch_func(request, call_next)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+services/api/app/main.py:63: in restrict_mutations
+    return await call_next(request)
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+services/api/.venv/lib/python3.12/site-packages/starlette/middleware/base.py:179: in call_next
+    raise app_exc from app_exc.__cause__ or app_exc.__context__
+services/api/.venv/lib/python3.12/site-packages/starlette/middleware/base.py:149: in coro
+    await self.app(scope, receive_or_disconnect, send_no_error)
+services/api/.venv/lib/python3.12/site-packages/starlette/middleware/cors.py:91: in __call__
+    await self.simple_response(scope, receive, send, request_headers=headers)
+services/api/.venv/lib/python3.12/site-packages/starlette/middleware/cors.py:149: in simple_response
+    await self.app(scope, receive, send)
+services/api/.venv/lib/python3.12/site-packages/starlette/middleware/exceptions.py:63: in __call__
+    await wrap_app_handling_exceptions(self.app, conn)(scope, receive, send)
+services/api/.venv/lib/python3.12/site-packages/starlette/_exception_handler.py:53: in wrapped_app
+    raise exc
+services/api/.venv/lib/python3.12/site-packages/starlette/_exception_handler.py:42: in wrapped_app
+    await app(scope, receive, sender)
+services/api/.venv/lib/python3.12/site-packages/fastapi/middleware/asyncexitstack.py:18: in __call__
+    await self.app(scope, receive, send)
+services/api/.venv/lib/python3.12/site-packages/starlette/routing.py:683: in __call__
+    await self.middleware_stack(scope, receive, send)
+services/api/.venv/lib/python3.12/site-packages/fastapi/routing.py:2811: in app
+    await route.handle(scope, receive, send)
+services/api/.venv/lib/python3.12/site-packages/fastapi/routing.py:1330: in handle
+    await super().handle(scope, receive, send)
+services/api/.venv/lib/python3.12/site-packages/starlette/routing.py:289: in handle
+    await self.app(scope, receive, send)
+services/api/.venv/lib/python3.12/site-packages/fastapi/routing.py:166: in app
+    await wrap_app_handling_exceptions(app, request)(scope, receive, send)
+services/api/.venv/lib/python3.12/site-packages/starlette/_exception_handler.py:53: in wrapped_app
+    raise exc
+services/api/.venv/lib/python3.12/site-packages/starlette/_exception_handler.py:42: in wrapped_app
+    await app(scope, receive, sender)
+services/api/.venv/lib/python3.12/site-packages/fastapi/routing.py:152: in app
+    response = await f(request)
+               ^^^^^^^^^^^^^^^^
+services/api/.venv/lib/python3.12/site-packages/fastapi/routing.py:745: in app
+    raw_response = await run_endpoint_function(
+services/api/.venv/lib/python3.12/site-packages/fastapi/routing.py:374: in run_endpoint_function
+    return await run_in_threadpool(
+services/api/.venv/lib/python3.12/site-packages/starlette/concurrency.py:34: in run_in_threadpool
+    return await anyio.to_thread.run_sync(func)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+services/api/.venv/lib/python3.12/site-packages/anyio/to_thread.py:65: in run_sync
+    return await get_async_backend().run_sync_in_worker_thread(
+services/api/.venv/lib/python3.12/site-packages/anyio/_backends/_asyncio.py:2779: in run_sync_in_worker_thread
+    return await future
+           ^^^^^^^^^^^^
+services/api/.venv/lib/python3.12/site-packages/anyio/_backends/_asyncio.py:1124: in run
+    result = context.run(func, *args)
+             ^^^^^^^^^^^^^^^^^^^^^^^^
+services/api/.venv/lib/python3.12/site-packages/fastapi/telemetry/_api.py:244: in _run_sync_endpoint
+    return function(**arguments)
+           ^^^^^^^^^^^^^^^^^^^^^
+services/api/app/api/collaborations.py:54: in start
+    run = controller.begin(s, case, body.idempotency_key, body.mode)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+services/api/app/collaboration/controller.py:57: in begin
+    recall = roles.load_recall() if mode == "replay" else None
+             ^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    def unavailable():
+>       raise OSError("recorded source absent")
+E       OSError: recorded source absent
+
+services/api/tests/collaboration/test_collaboration_workflow.py:337: OSError
+=============================== warnings summary ===============================
+services/api/.venv/lib/python3.12/site-packages/fastapi/testclient.py:1
+  /Users/nirmalhk7/Documents/DevWorld/sueperman/services/api/.venv/lib/python3.12/site-packages/fastapi/testclient.py:1: StarletteDeprecationWarning: Using `httpx` with `starlette.testclient` is deprecated; install `httpx2` instead.
+    from starlette.testclient import TestClient as TestClient  # noqa
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+=========================== short test summary info ============================
+FAILED services/api/tests/collaboration/test_collaboration_workflow.py::test_unavailable_recorded_source_admits_a_partial_case_instead_of_server_error
+1 failed, 19 deselected, 1 warning in 0.98s

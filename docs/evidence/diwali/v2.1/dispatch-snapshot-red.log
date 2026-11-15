@@ -1,0 +1,17 @@
+F                                                                        [100%]
+=================================== FAILURES ===================================
+___________ test_transport_rejects_unknown_snapshot_before_dispatch ____________
+
+    def test_transport_rejects_unknown_snapshot_before_dispatch():
+        module = core()
+        context = inputs(fixture_data()[0][0], fixture_data()[1])
+        _state, commands = module.reduce_case(module.CaseState(context), module.Start())
+        request = commands[0].message.model_copy(update={"source_refs": ["cpsc:26-792:invented"]})
+>       with pytest.raises(ValueError, match="snapshot"):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE ValueError
+
+services/api/tests/diwali/test_local_core.py:201: Failed
+=========================== short test summary info ============================
+FAILED services/api/tests/diwali/test_local_core.py::test_transport_rejects_unknown_snapshot_before_dispatch
+1 failed in 0.18s

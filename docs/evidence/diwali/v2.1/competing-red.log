@@ -1,0 +1,63 @@
+F                                                                        [100%]
+=================================== FAILURES ===================================
+___________ test_competing_candidates_finalize_review_without_packet ___________
+
+tmp_path = PosixPath('/private/var/folders/k0/w3xrb_d95jn2t7nf2f0s05yr0000gp/T/pytest-of-nirmalhk7/pytest-132/test_competing_candidates_fina0')
+
+    def test_competing_candidates_finalize_review_without_packet(tmp_path):
+        module, factory, product_id, run_id, product, recall = setup(tmp_path)
+        from app.diwali.core import run_local
+        changed = recall.model_copy(update={"instructions": "Changed official terms"})
+        context = replace(inputs(product, recall), run_id=UUID(run_id), product_ref=product_id,
+                          records_json=(recall.model_dump_json(), changed.model_dump_json()))
+        state = run_local(context)
+        assert state.outcome == "needs_review"
+        with factory.begin() as session:
+>           module.stage_finalization(session, run_id, product_id, state)
+
+services/api/tests/diwali/test_persistence.py:139: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+session = <sqlalchemy.orm.session.Session object at 0x10ce2d460>
+run_id = '43323711-f4bb-4b55-81a5-c2f1cb924520'
+product_id = '071a17e5-8f57-4095-afa5-cd2817343e1d'
+state = LocalResult(context=CaseInput(run_id=UUID('43323711-f4bb-4b55-81a5-c2f1cb924520'), case_id=UUID('00000000-0000-0000-00...est-manager', 'researcher': 'local-test-researcher', 'skeptic': 'local-test-skeptic', 'builder': 'local-test-builder'})
+
+    def stage_finalization(session, run_id, product_id, state):
+        """Stage domain rows plus final case/audit state in the caller's transaction."""
+        run = session.get(AgentRun, run_id)
+        entity = session.get(Product, product_id)
+        if str(state.context.run_id) != run_id or state.context.product_ref != product_id:
+            raise ValueError("Finalization references another run or product")
+        case = session.scalar(select(CaseRow).where(CaseRow.run_id == run_id, CaseRow.product_id == product_id))
+        if case is not None and case.phase == "DONE":
+            identifier = case.payload.get("opportunity_id")
+            return session.get(Opportunity, identifier) if identifier else None
+        if case is None:
+            case = CaseRow(id=str(state.context.case_id), run_id=run_id, product_id=product_id,
+                           phase="FINALIZING", revision=state.revision, demo=True, payload={})
+            session.add(case)
+        frozen = {"frozen_purchase": state.context.product.model_dump(mode="json"),
+                  "frozen_evidence": [r.model_dump(mode="json") for r in state.context.records],
+                  "input_digests": state.context.input_digests.model_dump(), "outcome": state.outcome,
+                  "active_evidence_digest": digest(state.context.sources[state.source_refs[0]].model_dump(mode="json"))
+                  if state.source_refs else None,
+                  "question_field": state.question_field, "failure": state.failure,
+                  "challenge_code": state.challenge_code}
+        current = ProductInput.model_validate(entity.payload["product"])
+        if digest(current.model_dump(mode="json")) != state.context.input_digests.purchase:
+            case.payload = case.payload | frozen | {"outcome": "needs_review", "failure": "STALE_INPUT"}
+            case.phase = "DONE"
+            return None
+        opportunity = None
+        if state.source_refs and state.outcome in {"verified_match", "rejected", "needs_review"}:
+            record = state.context.sources[state.source_refs[0]]
+            result = match_recall(current, record)
+            if result.status != state.outcome:
+>               raise ValueError("Final outcome differs from authoritative matcher")
+E               ValueError: Final outcome differs from authoritative matcher
+
+services/api/app/diwali/persistence.py:125: ValueError
+=========================== short test summary info ============================
+FAILED services/api/tests/diwali/test_persistence.py::test_competing_candidates_finalize_review_without_packet
+1 failed in 0.52s

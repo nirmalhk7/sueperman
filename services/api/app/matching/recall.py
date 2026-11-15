@@ -1,6 +1,7 @@
 from datetime import date
 
 from app.matching.normalize import normalize_model, normalize_text
+from app.p1.normalizers import additional_families
 from app.schemas import Condition, MatchResult, ProductInput, RecallRecord
 from app.security.source_policy import official_cpsc
 
@@ -24,8 +25,10 @@ def match_recall(product: ProductInput, recall: RecallRecord) -> MatchResult:
     brand = normalize_text(product.brand)
     check("brand", recall.brand, product.brand, brand == normalize_text(recall.brand) if brand else None)
     family = normalize_text(recall.family).rstrip("s")
+    families = (family, *additional_families(recall.reference, normalize_text(recall.brand), family))
     check(
-        "product_family", recall.family, product.product_name, family in normalize_text(product.product_name)
+        "product_family", list(families) if len(families) > 1 else recall.family, product.product_name,
+        any(candidate in normalize_text(product.product_name) for candidate in families)
     )
     model = normalize_model(product.model_number)
     check(

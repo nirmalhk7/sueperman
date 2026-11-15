@@ -1,0 +1,29 @@
+FF                                                                       [100%]
+=================================== FAILURES ===================================
+_________________ test_source_model_scope_cannot_be_rewritten __________________
+
+    def test_source_model_scope_cannot_be_rewritten():
+        products, recall = fixture_data()
+        changed = recall.model_copy(update={"models": ["ZHX-PB23"]})
+        result = core().run_local(inputs(products[1], changed))
+>       assert result.outcome != "verified_match"
+E       AssertionError: assert 'verified_match' != 'verified_match'
+E        +  where 'verified_match' = LocalResult(context=CaseInput(run_id=UUID('00000000-0000-0000-0000-000000000001'), case_id=UUID('00000000-0000-0000-00...est-manager', 'researcher': 'local-test-researcher', 'skeptic': 'local-test-skeptic', 'builder': 'local-test-builder'}).outcome
+
+services/api/tests/diwali/test_local_core.py:144: AssertionError
+__________________ test_failure_must_come_from_assigned_actor __________________
+
+    def test_failure_must_come_from_assigned_actor():
+        module, state, report = researched()
+        failed = report.model_copy(update={"sender": "skeptic", "type": "TaskFailed",
+            "payload": module.failure_reply(module.request(state, "ResearchRequested",
+                {"product_ref": "p"}, "RESEARCHING")[1][0].message, "INVALID_RESULT").payload})
+>       with pytest.raises(ValueError, match="assigned actor"):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE ValueError
+
+services/api/tests/diwali/test_reducer.py:104: Failed
+=========================== short test summary info ============================
+FAILED services/api/tests/diwali/test_local_core.py::test_source_model_scope_cannot_be_rewritten
+FAILED services/api/tests/diwali/test_reducer.py::test_failure_must_come_from_assigned_actor
+2 failed in 0.16s

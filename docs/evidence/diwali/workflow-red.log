@@ -1,0 +1,225 @@
+FFFFFFFF                                                                 [100%]
+=================================== FAILURES ===================================
+_ test_offline_team_handoffs_change_board_without_sponsor_credit[0-ready_for_review-None] _
+
+client = <starlette.testclient.TestClient object at 0x10ab8c1d0>, index = 0
+status = 'ready_for_review', question = None
+
+    @pytest.mark.parametrize("index,status,question", [(0, "ready_for_review", None),
+                                                       (1, "rejected", None),
+                                                       (3, "needs_information", "model_number")])
+    def test_offline_team_handoffs_change_board_without_sponsor_credit(client, index, status, question):
+>       created, _ = start(client, index)
+                     ^^^^^^^^^^^^^^^^^^^^
+
+services/api/tests/collaboration/test_workflow.py:30: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+c = <starlette.testclient.TestClient object at 0x10ab8c1d0>, index = 0
+key = 'team', mode = 'replay'
+
+    def start(c, index=0, key="team", mode="replay"):
+        seed = c.post("/api/demo/reset").json()
+        products = c.get("/api/products").json()
+        product = next(p for p in products if p["id"] == seed["product_ids"][index])
+        response = c.post("/api/collaborations", json={"product_ids": [product["id"]],
+                                                      "idempotency_key": key, "mode": mode})
+>       assert response.status_code == 200, response.text
+E       AssertionError: {"detail":"Not Found"}
+E       assert 404 == 200
+E        +  where 404 = <Response [404 Not Found]>.status_code
+
+services/api/tests/collaboration/test_workflow.py:22: AssertionError
+_ test_offline_team_handoffs_change_board_without_sponsor_credit[1-rejected-None] _
+
+client = <starlette.testclient.TestClient object at 0x10ac3dd90>, index = 1
+status = 'rejected', question = None
+
+    @pytest.mark.parametrize("index,status,question", [(0, "ready_for_review", None),
+                                                       (1, "rejected", None),
+                                                       (3, "needs_information", "model_number")])
+    def test_offline_team_handoffs_change_board_without_sponsor_credit(client, index, status, question):
+>       created, _ = start(client, index)
+                     ^^^^^^^^^^^^^^^^^^^^
+
+services/api/tests/collaboration/test_workflow.py:30: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+c = <starlette.testclient.TestClient object at 0x10ac3dd90>, index = 1
+key = 'team', mode = 'replay'
+
+    def start(c, index=0, key="team", mode="replay"):
+        seed = c.post("/api/demo/reset").json()
+        products = c.get("/api/products").json()
+        product = next(p for p in products if p["id"] == seed["product_ids"][index])
+        response = c.post("/api/collaborations", json={"product_ids": [product["id"]],
+                                                      "idempotency_key": key, "mode": mode})
+>       assert response.status_code == 200, response.text
+E       AssertionError: {"detail":"Not Found"}
+E       assert 404 == 200
+E        +  where 404 = <Response [404 Not Found]>.status_code
+
+services/api/tests/collaboration/test_workflow.py:22: AssertionError
+_ test_offline_team_handoffs_change_board_without_sponsor_credit[3-needs_information-model_number] _
+
+client = <starlette.testclient.TestClient object at 0x10ad053a0>, index = 3
+status = 'needs_information', question = 'model_number'
+
+    @pytest.mark.parametrize("index,status,question", [(0, "ready_for_review", None),
+                                                       (1, "rejected", None),
+                                                       (3, "needs_information", "model_number")])
+    def test_offline_team_handoffs_change_board_without_sponsor_credit(client, index, status, question):
+>       created, _ = start(client, index)
+                     ^^^^^^^^^^^^^^^^^^^^
+
+services/api/tests/collaboration/test_workflow.py:30: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+c = <starlette.testclient.TestClient object at 0x10ad053a0>, index = 3
+key = 'team', mode = 'replay'
+
+    def start(c, index=0, key="team", mode="replay"):
+        seed = c.post("/api/demo/reset").json()
+        products = c.get("/api/products").json()
+        product = next(p for p in products if p["id"] == seed["product_ids"][index])
+        response = c.post("/api/collaborations", json={"product_ids": [product["id"]],
+                                                      "idempotency_key": key, "mode": mode})
+>       assert response.status_code == 200, response.text
+E       AssertionError: {"detail":"Not Found"}
+E       assert 404 == 200
+E        +  where 404 = <Response [404 Not Found]>.status_code
+
+services/api/tests/collaboration/test_workflow.py:22: AssertionError
+___ test_answers_are_explicit_revision_checked_and_do_not_modify_v1_product ____
+
+client = <starlette.testclient.TestClient object at 0x10aced790>
+
+    def test_answers_are_explicit_revision_checked_and_do_not_modify_v1_product(client):
+>       created, product = start(client, 3)
+                           ^^^^^^^^^^^^^^^^
+
+services/api/tests/collaboration/test_workflow.py:55: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+c = <starlette.testclient.TestClient object at 0x10aced790>, index = 3
+key = 'team', mode = 'replay'
+
+    def start(c, index=0, key="team", mode="replay"):
+        seed = c.post("/api/demo/reset").json()
+        products = c.get("/api/products").json()
+        product = next(p for p in products if p["id"] == seed["product_ids"][index])
+        response = c.post("/api/collaborations", json={"product_ids": [product["id"]],
+                                                      "idempotency_key": key, "mode": mode})
+>       assert response.status_code == 200, response.text
+E       AssertionError: {"detail":"Not Found"}
+E       assert 404 == 200
+E        +  where 404 = <Response [404 Not Found]>.status_code
+
+services/api/tests/collaboration/test_workflow.py:22: AssertionError
+_____ test_replay_is_idempotent_and_draft_requires_current_local_approval ______
+
+client = <starlette.testclient.TestClient object at 0x10adb14f0>
+
+    def test_replay_is_idempotent_and_draft_requires_current_local_approval(client):
+>       created, product = start(client)
+                           ^^^^^^^^^^^^^
+
+services/api/tests/collaboration/test_workflow.py:75: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+c = <starlette.testclient.TestClient object at 0x10adb14f0>, index = 0
+key = 'team', mode = 'replay'
+
+    def start(c, index=0, key="team", mode="replay"):
+        seed = c.post("/api/demo/reset").json()
+        products = c.get("/api/products").json()
+        product = next(p for p in products if p["id"] == seed["product_ids"][index])
+        response = c.post("/api/collaborations", json={"product_ids": [product["id"]],
+                                                      "idempotency_key": key, "mode": mode})
+>       assert response.status_code == 200, response.text
+E       AssertionError: {"detail":"Not Found"}
+E       assert 404 == 200
+E        +  where 404 = <Response [404 Not Found]>.status_code
+
+services/api/tests/collaboration/test_workflow.py:22: AssertionError
+___ test_live_unavailable_returns_partial_without_replayed_sponsor_outcomes ____
+
+client = <starlette.testclient.TestClient object at 0x10ad888c0>
+
+    def test_live_unavailable_returns_partial_without_replayed_sponsor_outcomes(client):
+>       created, _ = start(client, mode="live")
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+services/api/tests/collaboration/test_workflow.py:95: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+c = <starlette.testclient.TestClient object at 0x10ad888c0>, index = 0
+key = 'team', mode = 'live'
+
+    def start(c, index=0, key="team", mode="replay"):
+        seed = c.post("/api/demo/reset").json()
+        products = c.get("/api/products").json()
+        product = next(p for p in products if p["id"] == seed["product_ids"][index])
+        response = c.post("/api/collaborations", json={"product_ids": [product["id"]],
+                                                      "idempotency_key": key, "mode": mode})
+>       assert response.status_code == 200, response.text
+E       AssertionError: {"detail":"Not Found"}
+E       assert 404 == 200
+E        +  where 404 = <Response [404 Not Found]>.status_code
+
+services/api/tests/collaboration/test_workflow.py:22: AssertionError
+_________ test_public_team_rejects_private_imports_and_unconfirmed_ocr _________
+
+client = <starlette.testclient.TestClient object at 0x10ae69dc0>
+
+    def test_public_team_rejects_private_imports_and_unconfirmed_ocr(client):
+        raw = b"product_name,brand,model_number\nPower Bank,NEWDERY,ZHX-PB22\n"
+        imported = client.post("/api/uploads/purchases", files={"file": ("a.csv", raw, "text/csv")}).json()
+        response = client.post("/api/collaborations", json={"product_ids": imported["product_ids"],
+                                                          "idempotency_key": "private"})
+>       assert response.status_code == 422
+E       assert 404 == 422
+E        +  where 404 = <Response [404 Not Found]>.status_code
+
+services/api/tests/collaboration/test_workflow.py:110: AssertionError
+_______ test_restart_marks_unconfirmed_tasks_partial_without_redelivery ________
+
+tmp_path = PosixPath('/private/var/folders/k0/w3xrb_d95jn2t7nf2f0s05yr0000gp/T/pytest-of-nirmalhk7/pytest-76/test_restart_marks_unconfirmed0')
+
+    def test_restart_marks_unconfirmed_tasks_partial_without_redelivery(tmp_path):
+        from app.db import database
+        from app.models import CaseRecord, CollaborationRun, Product, Purchase
+        from app.main import create_app
+        url = f"sqlite:///{tmp_path}/restart.db"
+        engine, factory = database(url)
+        with factory() as s:
+            purchase = Purchase(import_key="restart"); s.add(purchase); s.flush()
+            product = Product(purchase_id=purchase.id); s.add(product); s.flush()
+            case = CaseRecord(product_id=product.id, current_revision=1); s.add(case); s.flush()
+            run = CollaborationRun(case_id=case.id, revision=1, idempotency_key="restart",
+                                   status="challenging", payload={"mode": "replay", "warnings": []})
+            s.add(run); s.commit(); run_id = run.id
+        engine.dispose()
+        with TestClient(create_app(database_url=url)) as c:
+            result = c.get(f"/api/collaborations/{run_id}")
+>           assert result.status_code == 200
+E           assert 404 == 200
+E            +  where 404 = <Response [404 Not Found]>.status_code
+
+services/api/tests/collaboration/test_workflow.py:129: AssertionError
+=============================== warnings summary ===============================
+services/api/.venv/lib/python3.12/site-packages/fastapi/testclient.py:1
+  /Users/nirmalhk7/Documents/DevWorld/sueperman/services/api/.venv/lib/python3.12/site-packages/fastapi/testclient.py:1: StarletteDeprecationWarning: Using `httpx` with `starlette.testclient` is deprecated; install `httpx2` instead.
+    from starlette.testclient import TestClient as TestClient  # noqa
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+=========================== short test summary info ============================
+FAILED services/api/tests/collaboration/test_workflow.py::test_offline_team_handoffs_change_board_without_sponsor_credit[0-ready_for_review-None]
+FAILED services/api/tests/collaboration/test_workflow.py::test_offline_team_handoffs_change_board_without_sponsor_credit[1-rejected-None]
+FAILED services/api/tests/collaboration/test_workflow.py::test_offline_team_handoffs_change_board_without_sponsor_credit[3-needs_information-model_number]
+FAILED services/api/tests/collaboration/test_workflow.py::test_answers_are_explicit_revision_checked_and_do_not_modify_v1_product
+FAILED services/api/tests/collaboration/test_workflow.py::test_replay_is_idempotent_and_draft_requires_current_local_approval
+FAILED services/api/tests/collaboration/test_workflow.py::test_live_unavailable_returns_partial_without_replayed_sponsor_outcomes
+FAILED services/api/tests/collaboration/test_workflow.py::test_public_team_rejects_private_imports_and_unconfirmed_ocr
+FAILED services/api/tests/collaboration/test_workflow.py::test_restart_marks_unconfirmed_tasks_partial_without_redelivery
+8 failed, 1 warning in 2.20s

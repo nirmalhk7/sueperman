@@ -30,8 +30,9 @@ class CPSCRecallSource:
     provider_name = "cpsc"
     mode = "live"
 
-    def __init__(self, client=None, cache_dir=None):
+    def __init__(self, client=None, cache_dir=None, *, reviewed_notices=False):
         self.client = client
+        self.reviewed_notices = reviewed_notices
         self.cache_dir = cache_dir or ROOT / "uploads/cpsc-cache"
         self._cache = {}
         self.truncated = False
@@ -89,15 +90,26 @@ class CPSCRecallSource:
                 json.dumps({"fetched_at": fetched_at.isoformat(), "response": data})
             )
             records = []
-            seen = set()
+            seen: dict[str, dict] = {}
             for row in data:
-                identity = (row["RecallID"], row["RecallNumber"])
+                if "RecallID" not in row:
+                    raise ValueError("Missing CPSC identity")
+                identity = row["RecallNumber"]
                 if identity in seen:
+                    if seen[identity] != row:
+                        raise ValueError("Conflicting official records for one recall")
                     continue
-                seen.add(identity)
+                seen[identity] = row
                 url, description = row["URL"], row["Description"]
                 if not official_cpsc(url):
                     raise ValueError("Untrusted CPSC citation")
+                if self.reviewed_notices:
+                    from app.p1.normalizers import normalize_reviewed
+
+                    reviewed = normalize_reviewed(row, fetched_at)
+                    if reviewed is not None:
+                        records.append(reviewed)
+                        continue
                 number = row["RecallNumber"]
                 reference = number[:2] + "-" + number[2:]
                 supported = (

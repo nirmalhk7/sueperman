@@ -1,0 +1,392 @@
+============================= test session starts ==============================
+platform darwin -- Python 3.12.13, pytest-9.2.0, pluggy-1.7.0
+rootdir: /Users/nirmalhk7/Documents/DevWorld/sueperman/services/api
+configfile: pyproject.toml
+plugins: anyio-4.16.0, asyncio-1.5.0, respx-0.23.1
+asyncio: mode=Mode.AUTO, debug=False, asyncio_default_fixture_loop_scope=function, asyncio_default_test_loop_scope=function
+collected 7 items
+
+services/api/tests/diwali/test_band_bridge.py F......                    [100%]
+
+=================================== FAILURES ===================================
+_________ test_sdk_sender_addresses_exact_recipient_without_post_retry _________
+
+self = <band_rest.agent_api_messages.raw_client.AsyncRawAgentApiMessagesClient object at 0x108e36ed0>
+chat_id = 'private-test-room'
+message = ChatMessageRequest(attachment_ids=None, content='{"schema_version":1,"message_id":"f8ec8a0a-b789-542e-a457-c02d657c945...entions=[ChatMessageRequestMentionsItem(handle=None, id='00000000-0000-0000-0000-000000000015', kind=None, name=None)])
+request_options = {'max_retries': 0, 'timeout_in_seconds': 1}
+
+    async def create_agent_chat_message(
+        self, chat_id: str, *, message: ChatMessageRequest, request_options: typing.Optional[RequestOptions] = None
+    ) -> AsyncHttpResponse[CreateAgentChatMessageResponse]:
+        """
+        Creates a new text message in a chat room. The agent must be a participant in the room.
+    
+        This endpoint only supports `text` message type. For event-type messages
+        (tool_call, tool_result, thought, system, error, action, guidelines, task),
+        use `POST /agent/chats/{chat_id}/events` instead.
+    
+        Messages must include at least one @mention to ensure proper routing to recipients.
+    
+        Files already stored in the room can be shown with the message by listing
+        their ids in `attachment_ids`. The field is optional and omitting it leaves
+        message behaviour unchanged. Every id must name a file in this chat room; if
+        any does not, the whole message is refused with `422` (`unknown_attachment`)
+        and nothing is written.
+    
+        Example request:
+        ```json
+        {
+          "message": {
+            "content": "@task.owner I have completed the analysis",
+            "mentions": [
+              {"id": "user-uuid", "handle": "task.owner", "name": "Task Owner"}
+            ],
+            "attachment_ids": ["3fa85f64-5717-4562-b3fc-2c963f66afa6"]
+          }
+        }
+        ```
+    
+        Parameters
+        ----------
+        chat_id : str
+            Chat Room ID
+    
+        message : ChatMessageRequest
+    
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+    
+        Returns
+        -------
+        AsyncHttpResponse[CreateAgentChatMessageResponse]
+            Message sent
+        """
+        _response = await self._client_wrapper.httpx_client.request(
+            f"api/v1/agent/chats/{jsonable_encoder(chat_id)}/messages",
+            method="POST",
+            json={
+                "message": convert_and_respect_annotation_metadata(
+                    object_=message, annotation=ChatMessageRequest, direction="write"
+                ),
+            },
+            headers={
+                "content-type": "application/json",
+            },
+            request_options=request_options,
+            omit=OMIT,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                _data = typing.cast(
+                    CreateAgentChatMessageResponse,
+                    parse_obj_as(
+                        type_=CreateAgentChatMessageResponse,  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+                return AsyncHttpResponse(response=_response, data=_data)
+            if _response.status_code == 401:
+                raise UnauthorizedError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        Error,
+                        parse_obj_as(
+                            type_=Error,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 403:
+                raise ForbiddenError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        Error,
+                        parse_obj_as(
+                            type_=Error,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 404:
+                raise NotFoundError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        Error,
+                        parse_obj_as(
+                            type_=Error,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 422:
+                raise UnprocessableEntityError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 503:
+                raise ServiceUnavailableError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        Error,
+>                       parse_obj_as(
+                            type_=Error,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+
+services/api/.venv/lib/python3.12/site-packages/band_rest/agent_api_messages/raw_client.py:1213: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+services/api/.venv/lib/python3.12/site-packages/band_rest/core/pydantic_utilities.py:346: in parse_obj_as
+    return adapter.validate_python(dealiased_object)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = TypeAdapter(Error), object = {'error': 'injected temporary failure'}
+strict = None, extra = None, from_attributes = None, context = None
+experimental_allow_partial = False, by_alias = None, by_name = None
+
+    def validate_python(
+        self,
+        object: Any,
+        /,
+        *,
+        strict: bool | None = None,
+        extra: ExtraValues | None = None,
+        from_attributes: bool | None = None,
+        context: Any | None = None,
+        experimental_allow_partial: bool | Literal['off', 'on', 'trailing-strings'] = False,
+        by_alias: bool | None = None,
+        by_name: bool | None = None,
+    ) -> T:
+        """Validate a Python object against the model.
+    
+        A [`ValidationError`][pydantic_core.ValidationError] reports the rejected locations and values.
+        If you record validations with [Logfire](../integrations/logfire.md), the complete object and trace
+        context are retained alongside the error — `TypeAdapter` validations are captured the same way as
+        model validations (see [Troubleshooting validation errors](../errors/troubleshooting.md)).
+    
+        Args:
+            object: The Python object to validate against the model.
+            strict: Whether to strictly check types.
+            extra: Whether to ignore, allow, or forbid extra data during model validation.
+                See the [`extra` configuration value][pydantic.ConfigDict.extra] for details.
+            from_attributes: Whether to extract data from object attributes.
+            context: Additional context to pass to the validator.
+            experimental_allow_partial: **Experimental** whether to enable
+                [partial validation](../concepts/experimental.md#partial-validation), e.g. to process streams.
+                * False / 'off': Default behavior, no partial validation.
+                * True / 'on': Enable partial validation.
+                * 'trailing-strings': Enable partial validation and allow trailing strings in the input.
+            by_alias: Whether to use the field's alias when validating against the provided input data.
+            by_name: Whether to use the field's name when validating against the provided input data.
+    
+        !!! note
+            When using `TypeAdapter` with a Pydantic `dataclass`, the use of the `from_attributes`
+            argument is not supported.
+    
+        Returns:
+            The validated object.
+        """
+        if by_alias is False and by_name is not True:
+            raise PydanticUserError(
+                'At least one of `by_alias` or `by_name` must be set to True.',
+                code='validate-by-alias-and-name-false',
+            )
+    
+>       return self.validator.validate_python(
+            object,
+            strict=strict,
+            extra=extra,
+            from_attributes=from_attributes,
+            context=context,
+            allow_partial=experimental_allow_partial,
+            by_alias=by_alias,
+            by_name=by_name,
+        )
+E       pydantic_core._pydantic_core.ValidationError: 1 validation error for Error
+E       error
+E         Input should be a valid dictionary or instance of ErrorError [type=model_type, input_value='injected temporary failure', input_type=str]
+E           For further information visit https://errors.pydantic.dev/2.14/v/model_type
+
+services/api/.venv/lib/python3.12/site-packages/pydantic/type_adapter.py:410: ValidationError
+
+The above exception was the direct cause of the following exception:
+
+    @pytest.mark.asyncio
+    async def test_sdk_sender_addresses_exact_recipient_without_post_retry():
+        module = bridge()
+        from band.client.rest import AsyncRestClient
+        from band_rest.core.api_error import ApiError
+        _context, wire = case()
+        requests = []
+        def receive(request):
+            requests.append(request)
+            return httpx.Response(503, json={"error": "injected temporary failure"})
+        async with httpx.AsyncClient(transport=httpx.MockTransport(receive)) as http:
+            rest = AsyncRestClient(api_key="offline-test-key", base_url="https://band.example.test", httpx_client=http,
+                                   follow_redirects=False)
+            with pytest.raises(ApiError):
+>               await module.send_wire(rest, "private-test-room", wire, registry(), timeout=1)
+
+services/api/tests/diwali/test_band_bridge.py:56: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+services/api/app/diwali/band_bridge.py:25: in send_wire
+    result = await rest.agent_api_messages.create_agent_chat_message(chat_id=room_id, message=request,
+services/api/.venv/lib/python3.12/site-packages/band_rest/agent_api_messages/client.py:779: in create_agent_chat_message
+    _response = await self._raw_client.create_agent_chat_message(
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <band_rest.agent_api_messages.raw_client.AsyncRawAgentApiMessagesClient object at 0x108e36ed0>
+chat_id = 'private-test-room'
+message = ChatMessageRequest(attachment_ids=None, content='{"schema_version":1,"message_id":"f8ec8a0a-b789-542e-a457-c02d657c945...entions=[ChatMessageRequestMentionsItem(handle=None, id='00000000-0000-0000-0000-000000000015', kind=None, name=None)])
+request_options = {'max_retries': 0, 'timeout_in_seconds': 1}
+
+    async def create_agent_chat_message(
+        self, chat_id: str, *, message: ChatMessageRequest, request_options: typing.Optional[RequestOptions] = None
+    ) -> AsyncHttpResponse[CreateAgentChatMessageResponse]:
+        """
+        Creates a new text message in a chat room. The agent must be a participant in the room.
+    
+        This endpoint only supports `text` message type. For event-type messages
+        (tool_call, tool_result, thought, system, error, action, guidelines, task),
+        use `POST /agent/chats/{chat_id}/events` instead.
+    
+        Messages must include at least one @mention to ensure proper routing to recipients.
+    
+        Files already stored in the room can be shown with the message by listing
+        their ids in `attachment_ids`. The field is optional and omitting it leaves
+        message behaviour unchanged. Every id must name a file in this chat room; if
+        any does not, the whole message is refused with `422` (`unknown_attachment`)
+        and nothing is written.
+    
+        Example request:
+        ```json
+        {
+          "message": {
+            "content": "@task.owner I have completed the analysis",
+            "mentions": [
+              {"id": "user-uuid", "handle": "task.owner", "name": "Task Owner"}
+            ],
+            "attachment_ids": ["3fa85f64-5717-4562-b3fc-2c963f66afa6"]
+          }
+        }
+        ```
+    
+        Parameters
+        ----------
+        chat_id : str
+            Chat Room ID
+    
+        message : ChatMessageRequest
+    
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+    
+        Returns
+        -------
+        AsyncHttpResponse[CreateAgentChatMessageResponse]
+            Message sent
+        """
+        _response = await self._client_wrapper.httpx_client.request(
+            f"api/v1/agent/chats/{jsonable_encoder(chat_id)}/messages",
+            method="POST",
+            json={
+                "message": convert_and_respect_annotation_metadata(
+                    object_=message, annotation=ChatMessageRequest, direction="write"
+                ),
+            },
+            headers={
+                "content-type": "application/json",
+            },
+            request_options=request_options,
+            omit=OMIT,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                _data = typing.cast(
+                    CreateAgentChatMessageResponse,
+                    parse_obj_as(
+                        type_=CreateAgentChatMessageResponse,  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+                return AsyncHttpResponse(response=_response, data=_data)
+            if _response.status_code == 401:
+                raise UnauthorizedError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        Error,
+                        parse_obj_as(
+                            type_=Error,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 403:
+                raise ForbiddenError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        Error,
+                        parse_obj_as(
+                            type_=Error,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 404:
+                raise NotFoundError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        Error,
+                        parse_obj_as(
+                            type_=Error,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 422:
+                raise UnprocessableEntityError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 503:
+                raise ServiceUnavailableError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        Error,
+                        parse_obj_as(
+                            type_=Error,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        except ValidationError as e:
+>           raise ParsingError(
+                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
+            )
+E           band_rest.core.parse_error.ParsingError: headers: {'content-length': '38', 'content-type': 'application/json'}, status_code: 503, body: {'error': 'injected temporary failure'}, cause: 1 validation error for Error
+E           error
+E             Input should be a valid dictionary or instance of ErrorError [type=model_type, input_value='injected temporary failure', input_type=str]
+E               For further information visit https://errors.pydantic.dev/2.14/v/model_type
+
+services/api/.venv/lib/python3.12/site-packages/band_rest/agent_api_messages/raw_client.py:1223: ParsingError
+=========================== short test summary info ============================
+FAILED services/api/tests/diwali/test_band_bridge.py::test_sdk_sender_addresses_exact_recipient_without_post_retry
+========================= 1 failed, 6 passed in 0.45s ==========================

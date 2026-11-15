@@ -1,0 +1,24 @@
+{
+  "frozen_fixtures_oracles_and_other_protected_files": "PASS",
+  "scope_extensions": [
+    {
+      "path": ".env.example",
+      "reason": "Owner-requested P1 adds only default-off feature examples; every pre-existing byte preserved",
+      "baseline_sha256": "5b5ded69278475a9c2c2d7e372ad5b9003972bfb7551f3cf1d19e7975c413f11",
+      "current_sha256": "b554fa8535462dec73988084b53f8ee24f042127add97897b3b468555dbdc9fb"
+    },
+    {
+      "path": "services/api/uv.lock",
+      "reason": "Pre-existing BAND SDK pin from P0; unchanged by P1",
+      "matches_pre_p1_live_probe": true
+    },
+    {
+      "path": "README.md",
+      "reason": "Owner-requested P1 adds usage documentation; every pre-existing byte preserved",
+      "baseline_sha256": "191462a08e69add9505e649a8259adbf1d54462065a1cac11bb927bd885033ce",
+      "current_sha256": "2fb16e4e90a25e1f0c53753bc3742c97349ac018d4f5fbae154df16f41a23f68"
+    }
+  ],
+  "p1_dependency_changes": false,
+  "p0_baseline_gate_passed": false
+}

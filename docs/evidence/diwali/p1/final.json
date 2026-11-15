@@ -1,0 +1,159 @@
+{
+  "goal": "move to P1. Satisfy all parts of P1",
+  "status": "PASS",
+  "verified_at": "2026-11-15T20:26:46.134049+00:00",
+  "tested_tree_digest": "0bdbaa20c72aec52d5b721d13e094c49256720be22f9f53d495d3fc085e25a8b",
+  "normalizer_rule_version": "p1-2",
+  "requirements": [
+    {
+      "requirement": "Additional tested recall normalizers",
+      "status": "PASS",
+      "notices": [
+        "26-610 / E33A",
+        "25-390 / IST-09991/W05"
+      ],
+      "tests": [
+        "test_normalizers.py",
+        "test_api_normalizers.py",
+        "p1.e2e.ts"
+      ],
+      "live_evidence": "live-source-monitor.json"
+    },
+    {
+      "requirement": "Scheduled source-change monitoring",
+      "status": "PASS",
+      "tests": [
+        "test_monitoring.py",
+        "test_monitor_api.py",
+        "p1.e2e.ts"
+      ],
+      "live_evidence": "live-source-monitor.json",
+      "limits": "Five opt-in daily watches, sequential bounded public reads, active-run deferral, stale/fault revocation, one FastAPI worker"
+    },
+    {
+      "requirement": "Obligation completion aids",
+      "status": "PASS",
+      "tests": [
+        "test_obligations.py",
+        "p1.e2e.ts"
+      ],
+      "runtime_evidence": "restart-readiness.json",
+      "limits": "Self-reported readiness only; no proof verification, declarations or submissions"
+    }
+  ],
+  "verification": {
+    "backend_tests": 268,
+    "frontend_unit_tests": 11,
+    "p1_browser_scenarios": 4,
+    "other_browser_scenarios": 11,
+    "pre_existing_paid_v1_browser_checks_not_run": 3,
+    "commands": [
+      {
+        "command": [
+          "make",
+          "test"
+        ],
+        "status": "PASS",
+        "exit_code": 0,
+        "stdout_path": "/Users/nirmalhk7/Documents/DevWorld/sueperman/docs/evidence/diwali/p1/regressions/test/stdout.log",
+        "stderr_path": "/Users/nirmalhk7/Documents/DevWorld/sueperman/docs/evidence/diwali/p1/regressions/test/stderr.log",
+        "duration_seconds": 93.70473120792303
+      },
+      {
+        "command": [
+          "make",
+          "lint"
+        ],
+        "status": "PASS",
+        "exit_code": 0,
+        "stdout_path": "/Users/nirmalhk7/Documents/DevWorld/sueperman/docs/evidence/diwali/p1/regressions/lint/stdout.log",
+        "stderr_path": "/Users/nirmalhk7/Documents/DevWorld/sueperman/docs/evidence/diwali/p1/regressions/lint/stderr.log",
+        "duration_seconds": 3.1523948329268023
+      },
+      {
+        "command": [
+          "make",
+          "typecheck"
+        ],
+        "status": "PASS",
+        "exit_code": 0,
+        "stdout_path": "/Users/nirmalhk7/Documents/DevWorld/sueperman/docs/evidence/diwali/p1/regressions/typecheck/stdout.log",
+        "stderr_path": "/Users/nirmalhk7/Documents/DevWorld/sueperman/docs/evidence/diwali/p1/regressions/typecheck/stderr.log",
+        "duration_seconds": 3.0313251249026507
+      },
+      {
+        "command": [
+          "make",
+          "build"
+        ],
+        "status": "PASS",
+        "exit_code": 0,
+        "stdout_path": "/Users/nirmalhk7/Documents/DevWorld/sueperman/docs/evidence/diwali/p1/regressions/build/stdout.log",
+        "stderr_path": "/Users/nirmalhk7/Documents/DevWorld/sueperman/docs/evidence/diwali/p1/regressions/build/stderr.log",
+        "duration_seconds": 21.366480291006155
+      },
+      {
+        "command": [
+          "make",
+          "smoke"
+        ],
+        "status": "PASS",
+        "exit_code": 0,
+        "stdout_path": "/Users/nirmalhk7/Documents/DevWorld/sueperman/docs/evidence/diwali/p1/regressions/smoke/stdout.log",
+        "stderr_path": "/Users/nirmalhk7/Documents/DevWorld/sueperman/docs/evidence/diwali/p1/regressions/smoke/stderr.log",
+        "duration_seconds": 0.2736073340056464
+      },
+      {
+        "command": [
+          "make",
+          "e2e"
+        ],
+        "status": "PASS",
+        "exit_code": 0,
+        "stdout_path": "/Users/nirmalhk7/Documents/DevWorld/sueperman/docs/evidence/diwali/p1/regressions/e2e/stdout.log",
+        "stderr_path": "/Users/nirmalhk7/Documents/DevWorld/sueperman/docs/evidence/diwali/p1/regressions/e2e/stderr.log",
+        "duration_seconds": 13.27086491708178
+      }
+    ],
+    "diff_check": "PASS",
+    "baseline_audit": "baseline-audit.json"
+  },
+  "default_flags": {
+    "P1_ENABLED": false,
+    "P1_MONITOR_ENABLED": false
+  },
+  "task_owned_server_ports_closed": [
+    8000,
+    3012
+  ],
+  "credentials": "Ignored .env remains mode 0600; unchanged by P1",
+  "paid_calls": 0,
+  "claims_submitted": 0,
+  "unmet_p1_requirements": [],
+  "p0_release_complete": false,
+  "remaining_p0": [
+    "BAND application integration and SDK lock audit",
+    "Lyzr reviewer configuration/integration",
+    "Required authored Finch package/publication/invocation",
+    "Agent37 funding/integration",
+    "Owner-deferred AdaL and release assets"
+  ],
+  "deployment_performed": false,
+  "source_hashes": {
+    "services/api/app/p1/monitoring.py": "057c85a4994a75cd8ce9a3854b42e7e9a1b58db7359a085279d1742dc986c80f",
+    "services/api/app/p1/obligations.py": "c5df92fbe39e42834ecdfe65ba328cc639cfc4368f1db18fd25137ed517ad8cc",
+    "services/api/app/p1/normalizers.py": "3a99f336dfc9eae63538769a5a8483e2777ac7b6bd658e40a602771bde103e6f",
+    "services/api/app/p1/__init__.py": "ff99f2a4df56c6f6651af576d81e71b2580bd5b4e167096ab9f1184f8154f1cf",
+    "services/api/app/p1/api.py": "f39cf056d0cdc11e1dcf19fdfc1314398fd0940afdda49246f7995368b992b80",
+    "services/api/app/p1/normalizers.json": "708acba992cf5480cfc59bc048427cd93f96c501642baf66be13fb345cf55ba6",
+    "services/api/app/matching/recall.py": "218a49f501e3d3f8dd8e6bc6fb38dacb9e77851e104e04771c53b7044b6518e6",
+    "services/api/app/providers/cpsc.py": "26be96d35b2e750ecdee4d3049a58a82ac5177986661ac21e27771e8ea15b469",
+    "services/api/app/agent/orchestrator.py": "7ca02e678cdc8d213f235b97cf475168bf4fcab1debec76d7369a7fdf70d6156",
+    "services/api/app/api/claims.py": "b7de3f7faeaf82521810712125605ca985c4fb855167c483199a312caebc7518",
+    "services/api/app/main.py": "c8c7cfeb07de0c3e0ff03c980db9fd46d44692a847453ff7cf2acdd5e85d3875",
+    "services/api/app/config.py": "da0848877fccbbe2d95cc64a07ce0c4b51f9a98d1f447decbfe7994b8e0c86e7",
+    "apps/web/components/p1-controls.tsx": "ee970b5b756dcb55437d275139faedac42470cdd1c0ce4227734cbebc0d86828",
+    "apps/web/app/claims/[id]/page.tsx": "fb51fec8a6277919c872de448417a6a122fd40e00d4d87661b69b8a881abd433",
+    "apps/web/app/opportunities/[id]/page.tsx": "838b55021ce5a6d140492aa9422b59a9daefe2cff6e3875542e3136e550a4dea"
+  }
+}

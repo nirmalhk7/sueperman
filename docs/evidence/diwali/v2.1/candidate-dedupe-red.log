@@ -1,0 +1,23 @@
+F                                                                        [100%]
+=================================== FAILURES ===================================
+___________ test_candidate_reordering_does_not_change_review_outcome ___________
+
+    def test_candidate_reordering_does_not_change_review_outcome():
+        from dataclasses import replace
+        products, recall = fixture_data()
+        context = inputs(products[0], recall)
+        # Repeated captures of identical facts are one candidate, regardless of input order.
+        duplicate = recall.model_copy(update={"fetched_at": recall.fetched_at.replace(hour=18)})
+        for records in [(recall, duplicate), (duplicate, recall)]:
+            case = replace(context, records_json=tuple(r.model_dump_json() for r in records))
+            result = core().run_local(case)
+>           assert result.outcome == "verified_match"
+E           AssertionError: assert 'needs_review' == 'verified_match'
+E             
+E             - verified_match
+E             + needs_review
+
+services/api/tests/diwali/test_local_core.py:157: AssertionError
+=========================== short test summary info ============================
+FAILED services/api/tests/diwali/test_local_core.py::test_candidate_reordering_does_not_change_review_outcome
+1 failed in 0.20s

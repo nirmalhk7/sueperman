@@ -1,0 +1,18 @@
+F                                                                        [100%]
+=================================== FAILURES ===================================
+__________ test_exported_json_schema_enforces_type_payload_and_route ___________
+
+    def test_exported_json_schema_enforces_type_payload_and_route():
+        from jsonschema import Draft202012Validator
+        from jsonschema.exceptions import ValidationError as SchemaValidationError
+        validator = Draft202012Validator(contract().Message.model_json_schema())
+        validator.validate(envelope())
+        wrong_payload = envelope() | {"payload": {"reason_code": "SOURCE_UNAVAILABLE", "retryable": False}}
+>       with pytest.raises(SchemaValidationError):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE ValidationError
+
+services/api/tests/diwali/test_messages.py:135: Failed
+=========================== short test summary info ============================
+FAILED services/api/tests/diwali/test_messages.py::test_exported_json_schema_enforces_type_payload_and_route
+1 failed in 0.16s
