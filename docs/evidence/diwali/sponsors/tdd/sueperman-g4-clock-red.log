@@ -1,0 +1,28 @@
+F                                                                        [100%]
+=================================== FAILURES ===================================
+_______________ test_each_stage_gets_its_own_ten_second_deadline _______________
+
+    def test_each_stage_gets_its_own_ten_second_deadline():
+        products, recall = fixture_data()
+        context = inputs(products[0], recall)
+        state, commands = reduce_case(CaseState(context), Start())
+        request = commands[0].message
+        transport = LocalTransport()
+        for elapsed, wanted_type in [(6, "ReviewRequested"), (12, "BuildRequested")]:
+            response = transport.exchange(request, context)
+            observed = context.started_at + timedelta(seconds=elapsed)
+            try:
+                state, commands = reduce_case(state, response, observed_at=observed)
+            except TypeError:
+                # The old reducer always dated every task from the case start.
+                state, commands = reduce_case(state, response)
+            request = commands[0].message
+            assert request.type == wanted_type
+>           assert request.sent_at == observed
+E           AssertionError: assert datetime.datetime(2026, 11, 15, 0, 0, tzinfo=datetime.timezone.utc) == datetime.datetime(2026, 11, 15, 0, 0, 6, tzinfo=datetime.timezone.utc)
+E            +  where datetime.datetime(2026, 11, 15, 0, 0, tzinfo=datetime.timezone.utc) = Message(schema_version=1, message_id=UUID('507efa0b-3b16-5b65-9aff-24248473c39b'), run_id=UUID('00000000-0000-0000-000...f='synthetic-product', evidence_refs=['cpsc:26-792:ef2c1fe53e1965607815bbaf0a759fc6c5ba214dc720afa2854b839370f4a782'])).sent_at
+
+services/api/tests/diwali/test_remote_workflow.py:26: AssertionError
+=========================== short test summary info ============================
+FAILED services/api/tests/diwali/test_remote_workflow.py::test_each_stage_gets_its_own_ten_second_deadline
+1 failed in 0.18s

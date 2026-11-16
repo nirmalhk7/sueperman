@@ -1,5 +1,11 @@
 import type { DiwaliMessage } from "@/lib/api";
 
+export function diwaliTransportLabel(actual?: string | null, requested?: string): string {
+  if (actual === "band") return "BAND LIVE";
+  if (actual === "local") return "LOCAL TEST";
+  return requested === "band" ? "BAND NOT STARTED" : "LOCAL TEST";
+}
+
 export function DiwaliCaseEvidence({ messages }: { messages: DiwaliMessage[] }) {
   const reviews = [...new Map(messages.filter(m => m.type === "ReviewReport")
     .map(m => [m.case_id, m])).values()];

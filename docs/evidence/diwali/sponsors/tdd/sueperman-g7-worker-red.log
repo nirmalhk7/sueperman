@@ -1,0 +1,233 @@
+FFFFF                                                                    [100%]
+=================================== FAILURES ===================================
+____ test_worker_reads_only_fixed_public_query_and_returns_validated_record ____
+
+    def worker():
+        try:
+>           return importlib.import_module("app.diwali.research_worker")
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+services/api/tests/diwali/test_public_worker.py:13: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+/private/tmp/sueperman-python/cpython-3.12.13-macos-aarch64-none/lib/python3.12/importlib/__init__.py:90: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+<frozen importlib._bootstrap>:1387: in _gcd_import
+    ???
+<frozen importlib._bootstrap>:1360: in _find_and_load
+    ???
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+name = 'app.diwali.research_worker'
+import_ = <function _gcd_import at 0x104e8c0e0>
+
+>   ???
+E   ModuleNotFoundError: No module named 'app.diwali.research_worker'
+
+<frozen importlib._bootstrap>:1324: ModuleNotFoundError
+
+During handling of the above exception, another exception occurred:
+
+    async def test_worker_reads_only_fixed_public_query_and_returns_validated_record():
+>       module = worker()
+                 ^^^^^^^^
+
+services/api/tests/diwali/test_public_worker.py:19: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    def worker():
+        try:
+            return importlib.import_module("app.diwali.research_worker")
+        except ModuleNotFoundError:
+>           pytest.fail("Bounded public-source worker is not implemented")
+E           Failed: Bounded public-source worker is not implemented
+
+services/api/tests/diwali/test_public_worker.py:15: Failed
+___ test_worker_rejects_arbitrary_source_without_network[https://evil.test] ____
+
+    def worker():
+        try:
+>           return importlib.import_module("app.diwali.research_worker")
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+services/api/tests/diwali/test_public_worker.py:13: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+/private/tmp/sueperman-python/cpython-3.12.13-macos-aarch64-none/lib/python3.12/importlib/__init__.py:90: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+<frozen importlib._bootstrap>:1387: in _gcd_import
+    ???
+<frozen importlib._bootstrap>:1360: in _find_and_load
+    ???
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+name = 'app.diwali.research_worker'
+import_ = <function _gcd_import at 0x104e8c0e0>
+
+>   ???
+E   ModuleNotFoundError: No module named 'app.diwali.research_worker'
+
+<frozen importlib._bootstrap>:1324: ModuleNotFoundError
+
+During handling of the above exception, another exception occurred:
+
+reference = 'https://evil.test'
+
+    @pytest.mark.parametrize("reference", ["https://evil.test", "http://127.0.0.1", "unknown-recall"])
+    async def test_worker_rejects_arbitrary_source_without_network(reference):
+>       module = worker()
+                 ^^^^^^^^
+
+services/api/tests/diwali/test_public_worker.py:40: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    def worker():
+        try:
+            return importlib.import_module("app.diwali.research_worker")
+        except ModuleNotFoundError:
+>           pytest.fail("Bounded public-source worker is not implemented")
+E           Failed: Bounded public-source worker is not implemented
+
+services/api/tests/diwali/test_public_worker.py:15: Failed
+____ test_worker_rejects_arbitrary_source_without_network[http://127.0.0.1] ____
+
+    def worker():
+        try:
+>           return importlib.import_module("app.diwali.research_worker")
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+services/api/tests/diwali/test_public_worker.py:13: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+/private/tmp/sueperman-python/cpython-3.12.13-macos-aarch64-none/lib/python3.12/importlib/__init__.py:90: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+<frozen importlib._bootstrap>:1387: in _gcd_import
+    ???
+<frozen importlib._bootstrap>:1360: in _find_and_load
+    ???
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+name = 'app.diwali.research_worker'
+import_ = <function _gcd_import at 0x104e8c0e0>
+
+>   ???
+E   ModuleNotFoundError: No module named 'app.diwali.research_worker'
+
+<frozen importlib._bootstrap>:1324: ModuleNotFoundError
+
+During handling of the above exception, another exception occurred:
+
+reference = 'http://127.0.0.1'
+
+    @pytest.mark.parametrize("reference", ["https://evil.test", "http://127.0.0.1", "unknown-recall"])
+    async def test_worker_rejects_arbitrary_source_without_network(reference):
+>       module = worker()
+                 ^^^^^^^^
+
+services/api/tests/diwali/test_public_worker.py:40: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    def worker():
+        try:
+            return importlib.import_module("app.diwali.research_worker")
+        except ModuleNotFoundError:
+>           pytest.fail("Bounded public-source worker is not implemented")
+E           Failed: Bounded public-source worker is not implemented
+
+services/api/tests/diwali/test_public_worker.py:15: Failed
+_____ test_worker_rejects_arbitrary_source_without_network[unknown-recall] _____
+
+    def worker():
+        try:
+>           return importlib.import_module("app.diwali.research_worker")
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+services/api/tests/diwali/test_public_worker.py:13: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+/private/tmp/sueperman-python/cpython-3.12.13-macos-aarch64-none/lib/python3.12/importlib/__init__.py:90: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+<frozen importlib._bootstrap>:1387: in _gcd_import
+    ???
+<frozen importlib._bootstrap>:1360: in _find_and_load
+    ???
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+name = 'app.diwali.research_worker'
+import_ = <function _gcd_import at 0x104e8c0e0>
+
+>   ???
+E   ModuleNotFoundError: No module named 'app.diwali.research_worker'
+
+<frozen importlib._bootstrap>:1324: ModuleNotFoundError
+
+During handling of the above exception, another exception occurred:
+
+reference = 'unknown-recall'
+
+    @pytest.mark.parametrize("reference", ["https://evil.test", "http://127.0.0.1", "unknown-recall"])
+    async def test_worker_rejects_arbitrary_source_without_network(reference):
+>       module = worker()
+                 ^^^^^^^^
+
+services/api/tests/diwali/test_public_worker.py:40: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    def worker():
+        try:
+            return importlib.import_module("app.diwali.research_worker")
+        except ModuleNotFoundError:
+>           pytest.fail("Bounded public-source worker is not implemented")
+E           Failed: Bounded public-source worker is not implemented
+
+services/api/tests/diwali/test_public_worker.py:15: Failed
+__________________ test_worker_source_outage_has_one_attempt ___________________
+
+    def worker():
+        try:
+>           return importlib.import_module("app.diwali.research_worker")
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+services/api/tests/diwali/test_public_worker.py:13: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+/private/tmp/sueperman-python/cpython-3.12.13-macos-aarch64-none/lib/python3.12/importlib/__init__.py:90: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+<frozen importlib._bootstrap>:1387: in _gcd_import
+    ???
+<frozen importlib._bootstrap>:1360: in _find_and_load
+    ???
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+name = 'app.diwali.research_worker'
+import_ = <function _gcd_import at 0x104e8c0e0>
+
+>   ???
+E   ModuleNotFoundError: No module named 'app.diwali.research_worker'
+
+<frozen importlib._bootstrap>:1324: ModuleNotFoundError
+
+During handling of the above exception, another exception occurred:
+
+    async def test_worker_source_outage_has_one_attempt():
+>       module = worker()
+                 ^^^^^^^^
+
+services/api/tests/diwali/test_public_worker.py:49: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    def worker():
+        try:
+            return importlib.import_module("app.diwali.research_worker")
+        except ModuleNotFoundError:
+>           pytest.fail("Bounded public-source worker is not implemented")
+E           Failed: Bounded public-source worker is not implemented
+
+services/api/tests/diwali/test_public_worker.py:15: Failed
+=========================== short test summary info ============================
+FAILED services/api/tests/diwali/test_public_worker.py::test_worker_reads_only_fixed_public_query_and_returns_validated_record
+FAILED services/api/tests/diwali/test_public_worker.py::test_worker_rejects_arbitrary_source_without_network[https://evil.test]
+FAILED services/api/tests/diwali/test_public_worker.py::test_worker_rejects_arbitrary_source_without_network[http://127.0.0.1]
+FAILED services/api/tests/diwali/test_public_worker.py::test_worker_rejects_arbitrary_source_without_network[unknown-recall]
+FAILED services/api/tests/diwali/test_public_worker.py::test_worker_source_outage_has_one_attempt
+5 failed in 0.06s

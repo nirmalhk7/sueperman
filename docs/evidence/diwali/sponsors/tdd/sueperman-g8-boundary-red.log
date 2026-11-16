@@ -1,0 +1,18 @@
+.F...                                                                    [100%]
+=================================== FAILURES ===================================
+__________ test_overlong_square_or_silent_export_cannot_pass[kwargs0] __________
+
+tmp_path = PosixPath('/private/var/folders/k0/w3xrb_d95jn2t7nf2f0s05yr0000gp/T/pytest-of-nirmalhk7/pytest-251/test_overlong_square_or_silent0')
+kwargs = {'seconds': 120}
+
+    @pytest.mark.parametrize("kwargs", [{"seconds":120}, {"seconds":121}, {"size":"144x144"}, {"audio":False}])
+    def test_overlong_square_or_silent_export_cannot_pass(tmp_path, kwargs):
+        module = validator()
+>       with pytest.raises(ValueError):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE ValueError
+
+services/api/tests/diwali/test_video_evidence.py:42: Failed
+=========================== short test summary info ============================
+FAILED services/api/tests/diwali/test_video_evidence.py::test_overlong_square_or_silent_export_cannot_pass[kwargs0]
+1 failed, 4 passed in 0.64s

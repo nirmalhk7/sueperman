@@ -4,6 +4,8 @@ from sqlalchemy.exc import IntegrityError
 
 from app.agent.orchestrator import execute, run_view
 from app.db import view
+from app.diwali.band_settings import credentials as band_credentials
+from app.diwali.band_settings import validate_synthetic
 from app.diwali.coordinator import execute as execute_diwali
 from app.models import (
     AgentRun,
@@ -32,15 +34,24 @@ def register(app, factory, settings, get):
                 if not settings.diwali_enabled:
                     raise HTTPException(403, "Diwali collaboration disabled")
                 if body.collaboration_mode == "band":
-                    raise HTTPException(503, "BAND transport contract is not verified")
+                    try:
+                        from app.diwali.band_bridge import BandTransport
+                        BandTransport(band_credentials(settings))
+                    except (ValueError, OSError, TypeError, KeyError):
+                        raise HTTPException(503, "Bounded operator BAND configuration unavailable") from None
                 if body.mode != "demo" or len(body.purchase_ids) > 5:
                     raise HTTPException(422, "Local collaboration requires at most five synthetic demo purchases")
                 if len(body.purchase_ids) != len(set(body.purchase_ids)):
                     raise HTTPException(422, "One case per unique purchase is required")
             for identifier in body.purchase_ids:
                 purchase = get(s, Purchase, identifier)
-                if body.collaboration_mode == "local" and not purchase.demo:
+                if body.collaboration_mode != "deterministic" and not purchase.demo:
                     raise HTTPException(422, "Local collaboration accepts synthetic demo data only")
+            if body.collaboration_mode == "band":
+                try:
+                    validate_synthetic(s, body.purchase_ids)
+                except (ValueError, KeyError):
+                    raise HTTPException(422, "BAND accepts exact synthetic fixture content only") from None
             if s.scalar(select(AgentRun).where(AgentRun.status.in_(["queued", "running"]))):
                 raise HTTPException(409, "A run is already active; wait before retrying")
             run = AgentRun(
@@ -58,7 +69,7 @@ def register(app, factory, settings, get):
             )
             if body.collaboration_mode != "deterministic":
                 run.payload = run.payload | {"collaboration_mode": body.collaboration_mode,
-                    "actual_transport": "local", "source_mode": "recorded", "reviewer_mode": "rules"}
+                    "actual_transport": "local" if body.collaboration_mode == "local" else None, "source_mode": "recorded", "reviewer_mode": "rules"}
             if body.fallback_of is not None:
                 get(s, AgentRun, body.fallback_of)
                 run.payload = run.payload | {"fallback_of": body.fallback_of}
@@ -68,7 +79,7 @@ def register(app, factory, settings, get):
             except IntegrityError:
                 s.rollback()
                 raise HTTPException(409, "Duplicate run trigger") from None
-            background.add_task(execute_diwali if body.collaboration_mode == "local" else execute,
+            background.add_task(execute_diwali if body.collaboration_mode != "deterministic" else execute,
                                 factory, run.id, settings)
             return run_view(run)
 

@@ -1,0 +1,43 @@
+{
+  "provider": "band",
+  "scope": "bounded application run; five synthetic purchases; recorded CPSC",
+  "source_mode": "recorded",
+  "reviewer_mode": "rules",
+  "observed_at": "2026-11-16T03:50:24.310436+00:00",
+  "tested_tree_digest": "843c81172651cd4e9cfbbb7bda7ab2051f11b1b0da879e2f5be3e22298c23e4e",
+  "inference_calls": 0,
+  "provisioning_calls": 0,
+  "automatic_retries": 0,
+  "proof_status": "IMPLEMENTED_UNVERIFIED",
+  "application_gate_passed": false,
+  "attempts": 1,
+  "database": "/var/folders/k0/w3xrb_d95jn2t7nf2f0s05yr0000gp/T/sueperman-band-app-2vro_p09/live.db",
+  "admission_status": 200,
+  "source_run": "9d2dc7a8-afa9-4a10-b016-3708af4f09a1",
+  "run_status": "failed",
+  "actual_transport": "band",
+  "summary": {},
+  "warnings": [
+    "DEADLINE: explicit new run required"
+  ],
+  "messages": [],
+  "cases": [
+    {
+      "outcome": null,
+      "failure": "DEADLINE"
+    }
+  ],
+  "invocations": [],
+  "unsigned_packets": true,
+  "runtime_source_sha256": {
+    "services/api/app/diwali/coordinator.py": "f91e3cd823b1cd0f3206b6a134546c05992e575bd9ae3ba2f7aa9f42d16ba6f4",
+    "services/api/app/diwali/persistence.py": "e7446c0cdbedbb8962504401aae2ccfe6f348bd4f1959290ba192756a70c5734",
+    "services/api/app/diwali/__init__.py": "546bd6ee7afef7bb49920429539dd0e6cf8697daed2e16225180db6f05b064dd",
+    "services/api/app/diwali/core.py": "2ff18c8532fc30a7a15bdb82e904b7cab34a65c30c5fb0282626b22386de48f9",
+    "services/api/app/diwali/api.py": "05db19b1bbb995a8c96ffaddaf5655a5ff853799c0fc5729dc64081297f7b275",
+    "services/api/app/diwali/legacy_bridge.py": "e397bbba315accd17af59a572b4de105a536149371c48b4258c552e55ebdf59a",
+    "services/api/app/diwali/band_bridge.py": "b1169f5eabbff565a08c6f49d2830ac5c6cbd6d0434b4a68eb9f52994e2ec196",
+    "services/api/app/diwali/band_settings.py": "3fb6533b60b79c5749d73b735a6d1d349389d6598997d1b612d3686a0414d430",
+    "services/api/app/diwali/message_schema.py": "e918cf0cd24ed56c24883c3bfefbd957ea1e2dce5299fa76c172f26460a2a958"
+  }
+}

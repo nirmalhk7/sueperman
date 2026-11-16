@@ -19,4 +19,4 @@ E           revision: 3 != 2
 services/api/tests/diwali/test_reducer.py:24: AssertionError
 =========================== short test summary info ============================
 FAILED services/api/tests/diwali/test_reducer.py::test_duplicate_delivery - A...
-1 failed in 0.15s
+1 failed in 0.78s

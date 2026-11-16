@@ -1,0 +1,280 @@
+FFFFFF                                                                   [100%]
+=================================== FAILURES ===================================
+_ test_owned_worker_uses_documented_auth_returns_validated_source_and_deletes __
+
+    def adapter():
+        try:
+>           return importlib.import_module("app.diwali.agent37_worker")
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+services/api/tests/diwali/test_agent37_worker.py:13: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+/private/tmp/sueperman-python/cpython-3.12.13-macos-aarch64-none/lib/python3.12/importlib/__init__.py:90: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+<frozen importlib._bootstrap>:1387: in _gcd_import
+    ???
+<frozen importlib._bootstrap>:1360: in _find_and_load
+    ???
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+name = 'app.diwali.agent37_worker'
+import_ = <function _gcd_import at 0x10282c0e0>
+
+>   ???
+E   ModuleNotFoundError: No module named 'app.diwali.agent37_worker'
+
+<frozen importlib._bootstrap>:1324: ModuleNotFoundError
+
+During handling of the above exception, another exception occurred:
+
+    async def test_owned_worker_uses_documented_auth_returns_validated_source_and_deletes():
+>       module = adapter()
+                 ^^^^^^^^^
+
+services/api/tests/diwali/test_agent37_worker.py:19: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    def adapter():
+        try:
+            return importlib.import_module("app.diwali.agent37_worker")
+        except ModuleNotFoundError:
+>           pytest.fail("Pinned Agent37 public-worker adapter is not implemented")
+E           Failed: Pinned Agent37 public-worker adapter is not implemented
+
+services/api/tests/diwali/test_agent37_worker.py:15: Failed
+_______ test_worker_failure_has_one_attempt_and_no_invented_source[exit] _______
+
+    def adapter():
+        try:
+>           return importlib.import_module("app.diwali.agent37_worker")
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+services/api/tests/diwali/test_agent37_worker.py:13: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+/private/tmp/sueperman-python/cpython-3.12.13-macos-aarch64-none/lib/python3.12/importlib/__init__.py:90: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+<frozen importlib._bootstrap>:1387: in _gcd_import
+    ???
+<frozen importlib._bootstrap>:1360: in _find_and_load
+    ???
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+name = 'app.diwali.agent37_worker'
+import_ = <function _gcd_import at 0x10282c0e0>
+
+>   ???
+E   ModuleNotFoundError: No module named 'app.diwali.agent37_worker'
+
+<frozen importlib._bootstrap>:1324: ModuleNotFoundError
+
+During handling of the above exception, another exception occurred:
+
+fault = 'exit'
+
+    @pytest.mark.parametrize("fault", ["exit", "truncated", "pin", "outage"])
+    async def test_worker_failure_has_one_attempt_and_no_invented_source(fault):
+>       module = adapter()
+                 ^^^^^^^^^
+
+services/api/tests/diwali/test_agent37_worker.py:54: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    def adapter():
+        try:
+            return importlib.import_module("app.diwali.agent37_worker")
+        except ModuleNotFoundError:
+>           pytest.fail("Pinned Agent37 public-worker adapter is not implemented")
+E           Failed: Pinned Agent37 public-worker adapter is not implemented
+
+services/api/tests/diwali/test_agent37_worker.py:15: Failed
+____ test_worker_failure_has_one_attempt_and_no_invented_source[truncated] _____
+
+    def adapter():
+        try:
+>           return importlib.import_module("app.diwali.agent37_worker")
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+services/api/tests/diwali/test_agent37_worker.py:13: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+/private/tmp/sueperman-python/cpython-3.12.13-macos-aarch64-none/lib/python3.12/importlib/__init__.py:90: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+<frozen importlib._bootstrap>:1387: in _gcd_import
+    ???
+<frozen importlib._bootstrap>:1360: in _find_and_load
+    ???
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+name = 'app.diwali.agent37_worker'
+import_ = <function _gcd_import at 0x10282c0e0>
+
+>   ???
+E   ModuleNotFoundError: No module named 'app.diwali.agent37_worker'
+
+<frozen importlib._bootstrap>:1324: ModuleNotFoundError
+
+During handling of the above exception, another exception occurred:
+
+fault = 'truncated'
+
+    @pytest.mark.parametrize("fault", ["exit", "truncated", "pin", "outage"])
+    async def test_worker_failure_has_one_attempt_and_no_invented_source(fault):
+>       module = adapter()
+                 ^^^^^^^^^
+
+services/api/tests/diwali/test_agent37_worker.py:54: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    def adapter():
+        try:
+            return importlib.import_module("app.diwali.agent37_worker")
+        except ModuleNotFoundError:
+>           pytest.fail("Pinned Agent37 public-worker adapter is not implemented")
+E           Failed: Pinned Agent37 public-worker adapter is not implemented
+
+services/api/tests/diwali/test_agent37_worker.py:15: Failed
+_______ test_worker_failure_has_one_attempt_and_no_invented_source[pin] ________
+
+    def adapter():
+        try:
+>           return importlib.import_module("app.diwali.agent37_worker")
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+services/api/tests/diwali/test_agent37_worker.py:13: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+/private/tmp/sueperman-python/cpython-3.12.13-macos-aarch64-none/lib/python3.12/importlib/__init__.py:90: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+<frozen importlib._bootstrap>:1387: in _gcd_import
+    ???
+<frozen importlib._bootstrap>:1360: in _find_and_load
+    ???
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+name = 'app.diwali.agent37_worker'
+import_ = <function _gcd_import at 0x10282c0e0>
+
+>   ???
+E   ModuleNotFoundError: No module named 'app.diwali.agent37_worker'
+
+<frozen importlib._bootstrap>:1324: ModuleNotFoundError
+
+During handling of the above exception, another exception occurred:
+
+fault = 'pin'
+
+    @pytest.mark.parametrize("fault", ["exit", "truncated", "pin", "outage"])
+    async def test_worker_failure_has_one_attempt_and_no_invented_source(fault):
+>       module = adapter()
+                 ^^^^^^^^^
+
+services/api/tests/diwali/test_agent37_worker.py:54: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    def adapter():
+        try:
+            return importlib.import_module("app.diwali.agent37_worker")
+        except ModuleNotFoundError:
+>           pytest.fail("Pinned Agent37 public-worker adapter is not implemented")
+E           Failed: Pinned Agent37 public-worker adapter is not implemented
+
+services/api/tests/diwali/test_agent37_worker.py:15: Failed
+______ test_worker_failure_has_one_attempt_and_no_invented_source[outage] ______
+
+    def adapter():
+        try:
+>           return importlib.import_module("app.diwali.agent37_worker")
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+services/api/tests/diwali/test_agent37_worker.py:13: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+/private/tmp/sueperman-python/cpython-3.12.13-macos-aarch64-none/lib/python3.12/importlib/__init__.py:90: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+<frozen importlib._bootstrap>:1387: in _gcd_import
+    ???
+<frozen importlib._bootstrap>:1360: in _find_and_load
+    ???
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+name = 'app.diwali.agent37_worker'
+import_ = <function _gcd_import at 0x10282c0e0>
+
+>   ???
+E   ModuleNotFoundError: No module named 'app.diwali.agent37_worker'
+
+<frozen importlib._bootstrap>:1324: ModuleNotFoundError
+
+During handling of the above exception, another exception occurred:
+
+fault = 'outage'
+
+    @pytest.mark.parametrize("fault", ["exit", "truncated", "pin", "outage"])
+    async def test_worker_failure_has_one_attempt_and_no_invented_source(fault):
+>       module = adapter()
+                 ^^^^^^^^^
+
+services/api/tests/diwali/test_agent37_worker.py:54: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    def adapter():
+        try:
+            return importlib.import_module("app.diwali.agent37_worker")
+        except ModuleNotFoundError:
+>           pytest.fail("Pinned Agent37 public-worker adapter is not implemented")
+E           Failed: Pinned Agent37 public-worker adapter is not implemented
+
+services/api/tests/diwali/test_agent37_worker.py:15: Failed
+__________ test_cannot_execute_or_delete_unowned_or_injected_instance __________
+
+    def adapter():
+        try:
+>           return importlib.import_module("app.diwali.agent37_worker")
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+services/api/tests/diwali/test_agent37_worker.py:13: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+/private/tmp/sueperman-python/cpython-3.12.13-macos-aarch64-none/lib/python3.12/importlib/__init__.py:90: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+<frozen importlib._bootstrap>:1387: in _gcd_import
+    ???
+<frozen importlib._bootstrap>:1360: in _find_and_load
+    ???
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+name = 'app.diwali.agent37_worker'
+import_ = <function _gcd_import at 0x10282c0e0>
+
+>   ???
+E   ModuleNotFoundError: No module named 'app.diwali.agent37_worker'
+
+<frozen importlib._bootstrap>:1324: ModuleNotFoundError
+
+During handling of the above exception, another exception occurred:
+
+    def test_cannot_execute_or_delete_unowned_or_injected_instance():
+>       module = adapter()
+                 ^^^^^^^^^
+
+services/api/tests/diwali/test_agent37_worker.py:74: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    def adapter():
+        try:
+            return importlib.import_module("app.diwali.agent37_worker")
+        except ModuleNotFoundError:
+>           pytest.fail("Pinned Agent37 public-worker adapter is not implemented")
+E           Failed: Pinned Agent37 public-worker adapter is not implemented
+
+services/api/tests/diwali/test_agent37_worker.py:15: Failed
+=========================== short test summary info ============================
+FAILED services/api/tests/diwali/test_agent37_worker.py::test_owned_worker_uses_documented_auth_returns_validated_source_and_deletes
+FAILED services/api/tests/diwali/test_agent37_worker.py::test_worker_failure_has_one_attempt_and_no_invented_source[exit]
+FAILED services/api/tests/diwali/test_agent37_worker.py::test_worker_failure_has_one_attempt_and_no_invented_source[truncated]
+FAILED services/api/tests/diwali/test_agent37_worker.py::test_worker_failure_has_one_attempt_and_no_invented_source[pin]
+FAILED services/api/tests/diwali/test_agent37_worker.py::test_worker_failure_has_one_attempt_and_no_invented_source[outage]
+FAILED services/api/tests/diwali/test_agent37_worker.py::test_cannot_execute_or_delete_unowned_or_injected_instance
+6 failed in 0.07s

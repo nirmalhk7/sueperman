@@ -1,0 +1,17 @@
+{
+  "provider": "lyzr",
+  "action": "create private evidence reviewer",
+  "observed_at": "2026-11-16T04:38:34.334387+00:00",
+  "create_attempts": 1,
+  "inference_calls": 0,
+  "retries": 0,
+  "configuration_request_sha256": "30ab22fb5a55ff91a525fe545721f2a1194deb95c57eb64c61cd81944fffe3d4",
+  "created": true,
+  "verified": true,
+  "create_status": 200,
+  "agent_id": "6afa88ca38ae2ab3d61e016d",
+  "verify_status": 200,
+  "configuration_sha256": "3219afe184df6c97e4f821c53b7656c3ab6df4a27f23028f29fbb2a42f6cd37d",
+  "private_config_path": "/var/folders/k0/w3xrb_d95jn2t7nf2f0s05yr0000gp/T/sueperman-lyzr-profile-uxq62ubr/created-reviewer.json",
+  "reviewer_id_saved_ignored_env": true
+}

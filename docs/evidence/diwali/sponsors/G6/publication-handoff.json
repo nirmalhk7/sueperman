@@ -1,0 +1,24 @@
+{
+  "url": "https://www.finchtech.ai/finchip/listing?section=create",
+  "wallet_binding_observed": "Connected / account owner",
+  "metadata_prepared_in_open_browser": true,
+  "server_draft_persistence_verified": false,
+  "license": "MIT",
+  "price_eth": "0",
+  "delivery_choice": "Public",
+  "source_files": [
+    "LICENSE",
+    "SKILL.md",
+    "examples.json",
+    "manifest.json",
+    "rules.md"
+  ],
+  "files_uploaded": false,
+  "published": false,
+  "listing_url": null,
+  "wallet_signature_performed": false,
+  "payment_performed": false,
+  "blocker": "ChatGPT browser extension requires Allow access to file URLs for fileChooser.setFiles",
+  "owner_action": "Enable upload permission or manually select the five reviewed files; stop before signing/payment",
+  "screenshot": "finch-upload-handoff.jpg"
+}

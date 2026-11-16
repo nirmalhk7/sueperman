@@ -1,0 +1,44 @@
+$ node --import tsx --test tests/*.test.ts
+✔ API request respects local default base (145.046375ms)
+✔ API request respects "" base (139.259417ms)
+✔ API request respects "https://app.example.test" base (139.6855ms)
+✖ failed BAND startup never claims local fallback or live delivery (1.447709ms)
+✔ browser events keep readable stack locations but drop uploaded facts and credentials (0.870083ms)
+✔ trace attributes cannot retain request bodies or URL parameters (0.186708ms)
+✔ privacy filtering preserves source-map debug IDs needed for readable stacks (0.091292ms)
+✔ streamed spans scrub URL names and request attributes before export (5.044625ms)
+✔ replay correlation survives filtering while user tags are removed (0.435958ms)
+✔ simulation label takes priority over candidate status (0.50575ms)
+✔ real settlement labels identify public sources and keep eligibility uncertain (9.87725ms)
+✔ failed settlement verification never keeps a live-verified badge (1.531375ms)
+ℹ tests 12
+ℹ suites 0
+ℹ pass 11
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 633.565541
+
+✖ failing tests:
+
+test at tests/diwali-labels.test.ts:2:952
+✖ failed BAND startup never claims local fallback or live delivery (1.447709ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+  
+  + 'LOCAL TEST'
+  - 'BAND NOT STARTED'
+  
+      at TestContext.<anonymous> (/Users/nirmalhk7/Documents/DevWorld/sueperman/apps/web/tests/diwali-labels.test.ts:9:10)
+      at Test.runInAsyncScope (node:async_hooks:214:14)
+      at Test.run (node:internal/test_runner/test:1062:25)
+      at Test.start (node:internal/test_runner/test:959:17)
+      at startSubtestAfterBootstrap (node:internal/test_runner/harness:332:17) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 'LOCAL TEST',
+    expected: 'BAND NOT STARTED',
+    operator: 'strictEqual'
+  }
+[ELIFECYCLE] Test failed. See above for more details.

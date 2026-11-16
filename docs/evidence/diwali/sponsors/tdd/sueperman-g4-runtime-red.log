@@ -1,0 +1,20 @@
+........F                                                                [100%]
+=================================== FAILURES ===================================
+_____ test_runtime_uses_authenticated_receipt_and_refuses_repeat_dispatch ______
+
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x10724ac60>
+
+    @pytest.mark.asyncio
+    async def test_runtime_uses_authenticated_receipt_and_refuses_repeat_dispatch(monkeypatch):
+        from band.testing import FakeAgentTools
+    
+        module = bridge()
+        context, request = case()
+        if not hasattr(module, "BandTransport"):
+>           pytest.fail("BAND transport cannot exchange a persisted coordinator task")
+E           Failed: BAND transport cannot exchange a persisted coordinator task
+
+services/api/tests/diwali/test_band_bridge.py:195: Failed
+=========================== short test summary info ============================
+FAILED services/api/tests/diwali/test_band_bridge.py::test_runtime_uses_authenticated_receipt_and_refuses_repeat_dispatch
+1 failed, 8 passed in 0.53s

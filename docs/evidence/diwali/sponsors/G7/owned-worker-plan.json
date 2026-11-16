@@ -1,0 +1,45 @@
+{
+  "provider": "agent37",
+  "status": "PREPARED_NOT_EXECUTED",
+  "create": {
+    "method": "POST",
+    "url": "https://api.agent37.com/v1/instances",
+    "json": {
+      "template": "agent37-base"
+    },
+    "authorization": "Bearer workspace key; server-side only",
+    "max_attempts": 1
+  },
+  "execution": {
+    "method": "POST",
+    "url": "https://sandbox.agent37.app/v1/instances/{owned_id}/exec",
+    "worker_sha256": "43ad0a24a213169a3d44795483876238edcb234c15b750dc4a3f85b52ee331db",
+    "source": "services/api/app/diwali/agent37_worker.py::WORKER_SOURCE",
+    "public_query": "CPSC NEWDERY recall 26-792 only",
+    "private_input": false,
+    "managed_model_calls": 0,
+    "background": false,
+    "max_attempts": 1
+  },
+  "cleanup": [
+    {
+      "method": "DELETE",
+      "url": "https://api.agent37.com/v1/instances/{owned_id}",
+      "expected": {
+        "deleted": true
+      }
+    },
+    {
+      "method": "GET",
+      "url": "https://api.agent37.com/v1/instances/{owned_id}",
+      "expected_status": 404
+    }
+  ],
+  "task_execution_window_seconds": 120,
+  "request_timeout_seconds": 10,
+  "resources": "documented default base sandbox; inspect returned resources before execution",
+  "funding": "existing credits only; no top-up/payment API; refuse if automatic top-up enabled",
+  "unknown_provisioning_outcome": "Do not provision a replacement; reconcile against saved pre-create owned-instance inventory and report incomplete cleanup if ownership ambiguous.",
+  "billing_limit": "Application deadlines are not a provider-enforced dollar cap.",
+  "authorization_required": true
+}

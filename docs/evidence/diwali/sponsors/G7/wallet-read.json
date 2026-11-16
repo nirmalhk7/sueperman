@@ -1,0 +1,21 @@
+{
+  "provider": "agent37",
+  "method": "GET",
+  "endpoint": "https://api.agent37.com/v1/billing",
+  "attempts": 1,
+  "provisioning_calls": 0,
+  "observed_at": "2026-11-16T04:33:53.652633+00:00",
+  "status": 200,
+  "wallet_fields": {
+    "balance_usd": 10
+  },
+  "auto_top_up_enabled": false,
+  "field_names": [
+    "auto_top_up",
+    "balance_usd",
+    "instance_limit",
+    "memory_limit_gb",
+    "past_due",
+    "tier"
+  ]
+}

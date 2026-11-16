@@ -1,0 +1,68 @@
+{
+  "observed_date_utc": "2026-11-16",
+  "scope": "Supplement to frozen harness lock; captured contracts, not full sponsor proof",
+  "band": {
+    "documentation": [
+      "https://docs.band.ai/reference/sdk",
+      "https://docs.band.ai/advanced/creating-adapters"
+    ],
+    "package": "band-sdk",
+    "version": "8.1.0",
+    "core_version": "6.1.1",
+    "authorization": "per-agent API key",
+    "business_attempts": 1,
+    "reconnect": false,
+    "receipt": "G4/application-live.json"
+  },
+  "lyzr": {
+    "documentation": "https://docs.lyzr.ai/enterprise/api/agents/chat",
+    "method": "POST",
+    "endpoint": "https://agent-prod.studio.lyzr.ai/v3/inference/chat/",
+    "authorization_header": "x-api-key",
+    "request_fields": [
+      "user_id",
+      "agent_id",
+      "session_id",
+      "message"
+    ],
+    "response_field": "response (JSON string validated against Advice)",
+    "model": "gpt-6-luna",
+    "timeout_seconds": 10,
+    "business_attempts": 1,
+    "receipt": "G5/combined-live.json"
+  },
+  "agent37": {
+    "documentation": [
+      "https://www.agent37.com/docs/quickstart.md",
+      "https://www.agent37.com/docs/agents-api/exec.md",
+      "https://www.agent37.com/docs/agents-api/instances.md",
+      "https://www.agent37.com/docs/agents-api/billing.md"
+    ],
+    "create": "POST https://api.agent37.com/v1/instances",
+    "exec": "POST https://sandbox.agent37.app/v1/instances/{owned_id}/exec",
+    "delete": "DELETE https://api.agent37.com/v1/instances/{owned_id}",
+    "verify_deletion": "GET same owned instance returns 404",
+    "api_authorization": "Bearer",
+    "exec_authorization_header": "X-Agent37-Key",
+    "exec_response_fields": [
+      "exit_code",
+      "stdout",
+      "stderr",
+      "truncated"
+    ],
+    "business_attempts": 1,
+    "receipt": "G7/owned-worker-live.json",
+    "application_a2a_integrated": false
+  },
+  "finch": {
+    "publication_url": "https://www.finchtech.ai/finchip/listing",
+    "listing_url": null,
+    "delivered_version": null,
+    "delivered_sha256": null,
+    "blocker": "Browser extension file upload permission; no publication or delivery yet"
+  },
+  "adal": {
+    "export": null,
+    "blocker": "Real footage/project/MP4 absent; validator only"
+  }
+}

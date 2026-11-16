@@ -1,10 +1,10 @@
 API_URL=http://localhost:8000 WEB_URL=http://localhost:3012 bash scripts/smoke_test.sh
 {"db":"ok","providers":[{"name":"csv","configured":true,"enabled":true,"healthy":true},{"name":"openai_receipts","configured":true,"enabled":false,"healthy":null},{"name":"cpsc","configured":true,"enabled":false,"healthy":null},{"name":"brightdata","configured":true,"enabled":false,"healthy":null},{"name":"gemini","configured":true,"enabled":false,"healthy":null},{"name":"openai","configured":true,"enabled":false,"healthy":null}],"demo_ready":true}{
-  "id": "386b410b-270a-4af4-9bf1-eaf0f3064be2",
-  "created_at": "2026-11-16T03:22:55.032747Z",
-  "updated_at": "2026-11-16T03:22:55.061777Z",
+  "id": "07767266-c35b-42b7-9c35-cae37bf2fd80",
+  "created_at": "2026-11-16T05:09:23.837235Z",
+  "updated_at": "2026-11-16T05:09:23.862864Z",
   "demo": true,
-  "run_id": "386b410b-270a-4af4-9bf1-eaf0f3064be2",
+  "run_id": "07767266-c35b-42b7-9c35-cae37bf2fd80",
   "mode": "demo",
   "status": "completed",
   "summary": {
@@ -24,19 +24,19 @@ API_URL=http://localhost:8000 WEB_URL=http://localhost:3012 bash scripts/smoke_t
   },
   "warnings": [],
   "opportunities": [
-    "ecb27b47-d5e8-4849-ab19-479394b93e2f",
-    "e83d60b0-b324-45fc-819f-663a049481d8",
-    "5e8ab31d-0a6b-4d26-9bc7-cb3bb5a89e17",
-    "ce25db57-15bf-45f1-a5f3-9d3933e2f03d"
+    "7e95e9d3-61e8-49d2-adc1-07c9fc932315",
+    "6c6f46c7-278f-4a2d-8c70-19f58f364be5",
+    "f2e8488c-403f-40b2-9026-075f6d9b0ad7",
+    "956282d3-f744-49e7-92b9-a55ac6c2cb6b"
   ],
-  "events_url": "/api/runs/386b410b-270a-4af4-9bf1-eaf0f3064be2/events",
+  "events_url": "/api/runs/07767266-c35b-42b7-9c35-cae37bf2fd80/events",
   "purchase_ids": [
-    "48742d00-ae10-4239-ad63-cbc65fc846c8",
-    "f4d0aa77-1b04-40a2-b7ac-aa8830104009",
-    "af090d07-2e10-4541-9f28-9f55433e5e0e",
-    "4806701c-4daa-4b20-bacc-5e7cb8f30b96",
-    "ee6120dc-b868-41eb-9843-67385b7ce2c6"
+    "31e9bc33-0e51-41f3-8fff-01f2f272864e",
+    "9f4f0d71-9e67-423c-b104-963ccb28cc00",
+    "5aa1c7b0-9810-4dce-b1fe-7b10091c2be7",
+    "abf60c18-2675-48bd-967b-3e6558054ed9",
+    "3023dbe2-b58e-440a-b7cd-af4e69c7c91e"
   ],
-  "started_at": "2026-11-16T03:22:55.032155+00:00",
-  "completed_at": "2026-11-16T03:22:55.061520+00:00"
+  "started_at": "2026-11-16T05:09:23.836668+00:00",
+  "completed_at": "2026-11-16T05:09:23.862624+00:00"
 }

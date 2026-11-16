@@ -1,0 +1,96 @@
+.FF                                                                      [100%]
+=================================== FAILURES ===================================
+__ test_async_transport_consumes_outcome_and_commits_no_session_across_await ___
+
+tmp_path = PosixPath('/private/var/folders/k0/w3xrb_d95jn2t7nf2f0s05yr0000gp/T/pytest-of-nirmalhk7/pytest-234/test_async_transport_consumes_0')
+
+    async def test_async_transport_consumes_outcome_and_commits_no_session_across_await(tmp_path):
+        import asyncio
+        from sqlalchemy import select
+        from test_persistence import setup
+    
+        from app.config import Settings
+        from app.diwali.coordinator import execute
+        from app.diwali.persistence import InvocationRow, MessageRow
+        from app.models import AgentRun, ClaimPacket
+    
+        module, factory, _product_id, run_id, _product, _recall = setup(tmp_path)
+        with factory.begin() as session:
+            run = session.get(AgentRun, run_id)
+            run.status = "queued"
+            run.payload = run.payload | {"collaboration_mode": "band"}
+    
+        class OfflineBandBoundary(LocalTransport):
+            mode = "band"
+            last_receipt = None
+    
+            async def exchange(self, message, context):
+                with factory.begin() as independent:
+                    independent.connection().exec_driver_sql("BEGIN IMMEDIATE")
+                await asyncio.sleep(0)
+                result = super().exchange(message, context)
+                self.last_receipt = {"request_id": f"platform-request-{message.type}",
+                    "result_id": f"platform-result-{message.type}", "authenticated_sender": self.identities[message.recipient]}
+                return result
+    
+        await execute(factory, run_id, Settings(_env_file=None), transport=OfflineBandBoundary())
+        with factory() as session:
+            run = session.get(AgentRun, run_id)
+>           assert run.status == "completed", run.payload
+E           AssertionError: {'collaboration_mode': 'band', 'purchase_ids': ['cfbef18b-3b68-48ed-8eef-3c99ceea4a4b'], 'opportunities': [], 'warnings': ['INVALID_RESULT: explicit new run required'], ...}
+E           assert 'failed' == 'completed'
+E             
+E             - completed
+E             + failed
+
+services/api/tests/diwali/test_remote_workflow.py:62: AssertionError
+___________ test_async_timeout_is_one_attempt_without_local_fallback ___________
+
+tmp_path = PosixPath('/private/var/folders/k0/w3xrb_d95jn2t7nf2f0s05yr0000gp/T/pytest-of-nirmalhk7/pytest-234/test_async_timeout_is_one_atte0')
+
+    async def test_async_timeout_is_one_attempt_without_local_fallback(tmp_path):
+        import asyncio
+        from sqlalchemy import select
+        from test_persistence import setup
+    
+        from app.config import Settings
+        from app.diwali.coordinator import execute
+        from app.models import AgentRun, ClaimPacket
+    
+        _module, factory, _product_id, run_id, _product, _recall = setup(tmp_path)
+        with factory.begin() as session:
+            session.get(AgentRun, run_id).status = "queued"
+    
+        class OfflineTimeout(LocalTransport):
+            mode = "band"
+            attempts = 0
+    
+            async def exchange(self, message, context):
+                self.attempts += 1
+                await asyncio.sleep(10)
+    
+        transport = OfflineTimeout()
+        await execute(factory, run_id, Settings(_env_file=None, diwali_remote_task_seconds=0.01), transport=transport)
+>       assert transport.attempts == 1
+E       assert 0 == 1
+E        +  where 0 = <test_remote_workflow.test_async_timeout_is_one_attempt_without_local_fallback.<locals>.OfflineTimeout object at 0x108ebc9b0>.attempts
+
+services/api/tests/diwali/test_remote_workflow.py:98: AssertionError
+=============================== warnings summary ===============================
+tests/diwali/test_remote_workflow.py::test_async_transport_consumes_outcome_and_commits_no_session_across_await
+  /Users/nirmalhk7/Documents/DevWorld/sueperman/services/api/tests/diwali/test_remote_workflow.py:59: RuntimeWarning: coroutine 'test_async_transport_consumes_outcome_and_commits_no_session_across_await.<locals>.OfflineBandBoundary.exchange' was never awaited
+    await execute(factory, run_id, Settings(_env_file=None), transport=OfflineBandBoundary())
+  Enable tracemalloc to get traceback where the object was allocated.
+  See https://docs.pytest.org/en/stable/how-to/capture-warnings.html#resource-warnings for more info.
+
+tests/diwali/test_remote_workflow.py::test_async_timeout_is_one_attempt_without_local_fallback
+  /Users/nirmalhk7/Documents/DevWorld/sueperman/services/api/tests/diwali/test_remote_workflow.py:97: RuntimeWarning: coroutine 'test_async_timeout_is_one_attempt_without_local_fallback.<locals>.OfflineTimeout.exchange' was never awaited
+    await execute(factory, run_id, Settings(_env_file=None, diwali_remote_task_seconds=0.01), transport=transport)
+  Enable tracemalloc to get traceback where the object was allocated.
+  See https://docs.pytest.org/en/stable/how-to/capture-warnings.html#resource-warnings for more info.
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+=========================== short test summary info ============================
+FAILED services/api/tests/diwali/test_remote_workflow.py::test_async_transport_consumes_outcome_and_commits_no_session_across_await
+FAILED services/api/tests/diwali/test_remote_workflow.py::test_async_timeout_is_one_attempt_without_local_fallback
+2 failed, 1 passed, 2 warnings in 0.52s

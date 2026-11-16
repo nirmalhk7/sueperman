@@ -1,0 +1,67 @@
+FF                                                                       [100%]
+=================================== FAILURES ===================================
+_ test_band_operator_run_uses_async_transport_once_and_reports_distinct_source_mode _
+
+operator = (<starlette.testclient.TestClient object at 0x10e35ee10>, {'purchase_ids': ['5bb4c2ff-fe22-4515-90c3-7fc8b99e479b', 'a...T/pytest-of-nirmalhk7/pytest-236/test_band_operator_run_uses_as0/operator.db), autoflush=True, expire_on_commit=False))
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x10cbcc140>
+
+    def test_band_operator_run_uses_async_transport_once_and_reports_distinct_source_mode(operator, monkeypatch):
+        from app.diwali import band_bridge
+        client, seed, _factory = operator
+        calls = []
+    
+        class OfflineBandTransport(LocalTransport):
+            mode = "band"
+            last_receipt = None
+    
+            def __init__(self, credentials):
+                super().__init__()
+    
+            async def __aenter__(self):
+                calls.append("start")
+                return self
+    
+            async def __aexit__(self, *args):
+                calls.append("close")
+    
+            async def exchange(self, message, context):
+                self.last_receipt = {"request_id": str(message.message_id), "result_id": str(message.task_id),
+                                     "authenticated_sender": self.identities[message.recipient]}
+                return super().exchange(message, context)
+    
+        monkeypatch.setattr(band_bridge, "BandTransport", OfflineBandTransport, raising=False)
+        body = {"purchase_ids": seed["purchase_ids"], "mode": "demo", "collaboration_mode": "band",
+                "idempotency_key": "operator-band"}
+        response = client.post("/api/runs", json=body)
+>       assert response.status_code == 200, response.text
+E       AssertionError: {"code":"503","message":"BAND transport contract is not verified","trace_id":"511e108d-7b82-4182-9eb8-ba5cf9ac03fa"}
+E       assert 503 == 200
+E        +  where 503 = <Response [503 Service Unavailable]>.status_code
+
+services/api/tests/diwali/test_band_api.py:61: AssertionError
+___________ test_modified_synthetic_purchase_cannot_be_sent_to_band ____________
+
+operator = (<starlette.testclient.TestClient object at 0x10edde810>, {'purchase_ids': ['b337a893-5987-4a10-b48a-290d37649749', '4...T/pytest-of-nirmalhk7/pytest-236/test_modified_synthetic_purcha0/operator.db), autoflush=True, expire_on_commit=False))
+
+    def test_modified_synthetic_purchase_cannot_be_sent_to_band(operator):
+        client, seed, factory = operator
+        with factory.begin() as session:
+            product = session.scalar(select(Product))
+            product.payload = product.payload | {"product": product.payload["product"] | {"brand": "Private test data"}}
+        response = client.post("/api/runs", json={"purchase_ids": seed["purchase_ids"], "mode": "demo",
+            "collaboration_mode": "band", "idempotency_key": "modified-fixture"})
+>       assert response.status_code == 422
+E       assert 503 == 422
+E        +  where 503 = <Response [503 Service Unavailable]>.status_code
+
+services/api/tests/diwali/test_band_api.py:86: AssertionError
+=============================== warnings summary ===============================
+services/api/.venv/lib/python3.12/site-packages/fastapi/testclient.py:1
+  /Users/nirmalhk7/Documents/DevWorld/sueperman/services/api/.venv/lib/python3.12/site-packages/fastapi/testclient.py:1: StarletteDeprecationWarning: Using `httpx` with `starlette.testclient` is deprecated; install `httpx2` instead.
+    from starlette.testclient import TestClient as TestClient  # noqa
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+=========================== short test summary info ============================
+FAILED services/api/tests/diwali/test_band_api.py::test_band_operator_run_uses_async_transport_once_and_reports_distinct_source_mode
+FAILED services/api/tests/diwali/test_band_api.py::test_modified_synthetic_purchase_cannot_be_sent_to_band
+2 failed, 1 warning in 1.51s

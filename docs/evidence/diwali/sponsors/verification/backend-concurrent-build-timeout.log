@@ -1,0 +1,88 @@
+services/api/.venv/bin/pytest services/api/tests -q
+........................................................................ [ 20%]
+........................................................................ [ 40%]
+........................................................................ [ 60%]
+........................................................................ [ 80%]
+.E...................................................................... [100%]
+==================================== ERRORS ====================================
+_________________ ERROR at setup of test_p1_browser_acceptance _________________
+
+tmp_path_factory = TempPathFactory(_given_basetemp=None, _trace=<pluggy._tracing.TagTracerSub object at 0x106fc8830>, _basetemp=PosixPath...ders/k0/w3xrb_d95jn2t7nf2f0s05yr0000gp/T/pytest-of-nirmalhk7/pytest-276'), _retention_count=3, _retention_policy='all')
+
+    @pytest.fixture(scope="module")
+    def p1_browser_env(tmp_path_factory):
+        folder = tmp_path_factory.mktemp("p1-browser")
+        web = folder / "web"
+        web.mkdir()
+        source = ROOT / "apps/web"
+        for directory in ("app", "components", "lib", "public", "tests"):
+            if (source / directory).exists():
+                shutil.copytree(source / directory, web / directory)
+        for path in source.iterdir():
+            if path.is_file() and path.name.endswith((".ts", ".mjs", ".json")) and not path.name.endswith("tsbuildinfo"):
+                shutil.copy2(path, web / path.name)
+        (web / "node_modules").symlink_to(source / "node_modules", target_is_directory=True)
+        api_port, web_port = free_port(), free_port()
+        env = os.environ | {"DATABASE_URL": f"sqlite:///{folder}/browser.db", "DIWALI_ENABLED": "true", "P1_ENABLED": "true", "P1_MONITOR_ENABLED": "true",
+            "P1_MONITOR_POLL_SECONDS": "1",
+            "SENTRY_DSN": "", "SENTRY_AUTH_TOKEN": "", "NEXT_PUBLIC_SENTRY_DSN": "",
+            "PYTHONPATH": str(ROOT / "services/api"), "API_URL": f"http://127.0.0.1:{api_port}",
+            "NEXT_PUBLIC_API_BASE_URL": f"http://127.0.0.1:{api_port}",
+            "WEB_URL": f"http://127.0.0.1:{web_port}", "FRONTEND_ORIGIN": f"http://127.0.0.1:{web_port}"}
+        for key in ("OPENAI_ENABLED", "OPENAI_RECEIPT_ENABLED", "GEMINI_ENABLED", "BRIGHTDATA_ENABLED",
+                    "SYSTEM_ONE_ENABLED", "SETTLEMENT_LIVE_ENABLED", "BAND_ENABLED",
+                    "LYZR_ENABLED", "AGENT37_ENABLED", "DIWALI_LIVE_AUTHORIZED"):
+            env[key] = "false"
+        env["CPSC_LIVE_ENABLED"] = "true"
+        env["P1_BROWSER_CONTROL"] = str(folder / "source-state.json")
+        (folder / "source-state.json").write_text('{"mode":"unchanged"}')
+        env["PYTHONPATH"] += os.pathsep + str(folder)
+        (folder / "p1_test_server.py").write_text(SERVER)
+        logs = ROOT / "docs/evidence/diwali/p1/browser"
+        logs.mkdir(parents=True, exist_ok=True)
+        env["DIWALI_EVIDENCE_DIR"] = str(logs)
+        processes = []
+        streams = []
+        try:
+>           build = subprocess.run(["node", str(source / "node_modules/next/dist/bin/next"), "build", "--webpack"],
+                cwd=web, env=env, capture_output=True, text=True, timeout=180, check=False)
+
+services/api/tests/p1/test_p1_browser.py:62: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+/private/tmp/sueperman-python/cpython-3.12.13-macos-aarch64-none/lib/python3.12/subprocess.py:550: in run
+    stdout, stderr = process.communicate(input, timeout=timeout)
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+/private/tmp/sueperman-python/cpython-3.12.13-macos-aarch64-none/lib/python3.12/subprocess.py:1209: in communicate
+    stdout, stderr = self._communicate(input, endtime, timeout)
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+/private/tmp/sueperman-python/cpython-3.12.13-macos-aarch64-none/lib/python3.12/subprocess.py:2116: in _communicate
+    self._check_timeout(endtime, orig_timeout, stdout, stderr)
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <Popen: returncode: -9 args: ['node', '/Users/nirmalhk7/Documents/DevWorld/s...>
+endtime = 846558.259183166, orig_timeout = 180
+stdout_seq = [b'\xe2\x96\xb2 Next.js 16.4.6 (webpack)\n', b'\xe2\x9c\x93 Running next.config.ts took 1573ms\n', b'- Experiments (use with caution):\n  \xc2\xb7 clientTraceMetadata\n\n', b'  Creating an optimized production build ...\n']
+stderr_seq = [], skip_check_and_raise = False
+
+    def _check_timeout(self, endtime, orig_timeout, stdout_seq, stderr_seq,
+                       skip_check_and_raise=False):
+        """Convenience for checking if a timeout has expired."""
+        if endtime is None:
+            return
+        if skip_check_and_raise or _time() > endtime:
+>           raise TimeoutExpired(
+                    self.args, orig_timeout,
+                    output=b''.join(stdout_seq) if stdout_seq else None,
+                    stderr=b''.join(stderr_seq) if stderr_seq else None)
+E           subprocess.TimeoutExpired: Command '['node', '/Users/nirmalhk7/Documents/DevWorld/sueperman/apps/web/node_modules/next/dist/bin/next', 'build', '--webpack']' timed out after 180 seconds
+
+/private/tmp/sueperman-python/cpython-3.12.13-macos-aarch64-none/lib/python3.12/subprocess.py:1253: TimeoutExpired
+=============================== warnings summary ===============================
+services/api/.venv/lib/python3.12/site-packages/fastapi/testclient.py:1
+  /Users/nirmalhk7/Documents/DevWorld/sueperman/services/api/.venv/lib/python3.12/site-packages/fastapi/testclient.py:1: StarletteDeprecationWarning: Using `httpx` with `starlette.testclient` is deprecated; install `httpx2` instead.
+    from starlette.testclient import TestClient as TestClient  # noqa
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+=========================== short test summary info ============================
+ERROR services/api/tests/p1/test_p1_browser.py::test_p1_browser_acceptance - ...
+359 passed, 1 warning, 1 error in 274.02s (0:04:34)

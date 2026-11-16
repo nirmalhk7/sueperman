@@ -1,0 +1,14 @@
+{
+  "method": "GET",
+  "endpoint_profile": "documented v3 agent metadata",
+  "status": 200,
+  "attempts": 1,
+  "inference_calls": 0,
+  "profile_path": "/var/folders/k0/w3xrb_d95jn2t7nf2f0s05yr0000gp/T/sueperman-lyzr-profile-uxq62ubr/profile.json",
+  "name": "Sueperman Builder",
+  "model": "gpt-6-luna",
+  "provider": "OpenAI",
+  "tool_count": 0,
+  "has_llm_credential": true,
+  "configuration_sha256": "40f808557b3b4359c3483bf7dacfe69a59db02b9054f427a59eed58b4459d930"
+}

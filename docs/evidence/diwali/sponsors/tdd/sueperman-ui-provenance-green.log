@@ -1,0 +1,21 @@
+$ node --import tsx --test tests/*.test.ts
+✔ API request respects local default base (147.933166ms)
+✔ API request respects "" base (140.277875ms)
+✔ API request respects "https://app.example.test" base (136.172875ms)
+✔ failed BAND startup never claims local fallback or live delivery (0.46625ms)
+✔ browser events keep readable stack locations but drop uploaded facts and credentials (0.987041ms)
+✔ trace attributes cannot retain request bodies or URL parameters (0.206709ms)
+✔ privacy filtering preserves source-map debug IDs needed for readable stacks (0.099334ms)
+✔ streamed spans scrub URL names and request attributes before export (4.19875ms)
+✔ replay correlation survives filtering while user tags are removed (0.161667ms)
+✔ simulation label takes priority over candidate status (0.754083ms)
+✔ real settlement labels identify public sources and keep eligibility uncertain (9.906667ms)
+✔ failed settlement verification never keeps a live-verified badge (1.305375ms)
+ℹ tests 12
+ℹ suites 0
+ℹ pass 12
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 642.294667

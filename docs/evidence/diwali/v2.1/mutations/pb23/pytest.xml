@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="1" skipped="0" tests="1" time="0.174" timestamp="2026-11-15T19:20:40.982730-08:00" hostname="EXCALIBUR.local"><testcase classname="tests.diwali.test_local_core" name="test_five_golden_outcomes" time="0.042"><failure message="AssertionError: assert 'verified_match' == 'rejected'&#10;  &#10;  - rejected&#10;  + verified_match">def test_five_golden_outcomes():
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="1" skipped="0" tests="1" time="0.150" timestamp="2026-11-15T21:06:51.035960-08:00" hostname="EXCALIBUR.local"><testcase classname="tests.diwali.test_local_core" name="test_five_golden_outcomes" time="0.035"><failure message="AssertionError: assert 'verified_match' == 'rejected'&#10;  &#10;  - rejected&#10;  + verified_match">def test_five_golden_outcomes():
         module = core()
         products, recall = fixture_data()
         expected = json.loads((ROOT / "harness/diwali/expected.json").read_text())

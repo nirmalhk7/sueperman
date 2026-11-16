@@ -1,44 +1,44 @@
-INFO:     Started server process [58002]
+INFO:     Started server process [62420]
 INFO:     Waiting for application startup.
 INFO:     Application startup complete.
-INFO:     Uvicorn running on http://127.0.0.1:55380 (Press CTRL+C to quit)
-INFO:     127.0.0.1:55410 - "GET /api/health HTTP/1.1" 200 OK
-INFO:     127.0.0.1:55415 - "POST /api/demo/reset HTTP/1.1" 200 OK
-INFO:     127.0.0.1:55415 - "POST /api/runs HTTP/1.1" 200 OK
-INFO:     127.0.0.1:55423 - "GET /api/runs/0658239b-f7f7-4c26-948d-de0c7fb31152 HTTP/1.1" 200 OK
-INFO:     127.0.0.1:55424 - "GET /api/runs/0658239b-f7f7-4c26-948d-de0c7fb31152/events HTTP/1.1" 200 OK
-INFO:     127.0.0.1:55424 - "GET /api/opportunities?run_id=0658239b-f7f7-4c26-948d-de0c7fb31152 HTTP/1.1" 200 OK
-INFO:     127.0.0.1:55424 - "GET /api/runs/0658239b-f7f7-4c26-948d-de0c7fb31152 HTTP/1.1" 200 OK
-INFO:     127.0.0.1:55423 - "GET /api/runs/0658239b-f7f7-4c26-948d-de0c7fb31152/events HTTP/1.1" 200 OK
-INFO:     127.0.0.1:55423 - "GET /api/opportunities?run_id=0658239b-f7f7-4c26-948d-de0c7fb31152 HTTP/1.1" 200 OK
-INFO:     127.0.0.1:55423 - "GET /api/runs/0658239b-f7f7-4c26-948d-de0c7fb31152/events HTTP/1.1" 200 OK
-INFO:     127.0.0.1:55415 - "GET /api/runs/0658239b-f7f7-4c26-948d-de0c7fb31152 HTTP/1.1" 200 OK
-INFO:     127.0.0.1:55423 - "GET /api/opportunities?run_id=0658239b-f7f7-4c26-948d-de0c7fb31152 HTTP/1.1" 200 OK
-INFO:     127.0.0.1:55423 - "POST /api/runs HTTP/1.1" 200 OK
-INFO:     127.0.0.1:55423 - "GET /api/runs/e9e59084-0895-4d5b-9b99-3c94bf2725c1 HTTP/1.1" 200 OK
-INFO:     127.0.0.1:55424 - "GET /api/runs/e9e59084-0895-4d5b-9b99-3c94bf2725c1/events HTTP/1.1" 200 OK
-INFO:     127.0.0.1:55424 - "GET /api/opportunities?run_id=e9e59084-0895-4d5b-9b99-3c94bf2725c1 HTTP/1.1" 200 OK
-INFO:     127.0.0.1:55440 - "GET /api/integrations/diwali/status HTTP/1.1" 200 OK
-INFO:     127.0.0.1:55439 - "GET /api/health HTTP/1.1" 200 OK
-INFO:     127.0.0.1:55438 - "GET /api/products HTTP/1.1" 200 OK
-INFO:     127.0.0.1:55438 - "POST /api/demo/reset HTTP/1.1" 200 OK
-INFO:     127.0.0.1:55438 - "GET /api/products HTTP/1.1" 200 OK
-INFO:     127.0.0.1:55438 - "OPTIONS /api/runs HTTP/1.1" 200 OK
-INFO:     127.0.0.1:55439 - "POST /api/runs HTTP/1.1" 200 OK
-INFO:     127.0.0.1:55439 - "GET /api/runs/7230bb05-b526-412c-aace-0f69eef4b7d2 HTTP/1.1" 200 OK
-INFO:     127.0.0.1:55438 - "GET /api/runs/7230bb05-b526-412c-aace-0f69eef4b7d2/events HTTP/1.1" 200 OK
-INFO:     127.0.0.1:55438 - "GET /api/runs/7230bb05-b526-412c-aace-0f69eef4b7d2/agent-messages HTTP/1.1" 200 OK
-INFO:     127.0.0.1:55438 - "GET /api/opportunities?run_id=7230bb05-b526-412c-aace-0f69eef4b7d2 HTTP/1.1" 200 OK
-INFO:     127.0.0.1:55438 - "GET /api/opportunities/41141f69-929d-4a22-b047-87050d4e88aa HTTP/1.1" 200 OK
-INFO:     127.0.0.1:55438 - "GET /api/p1/status HTTP/1.1" 200 OK
-INFO:     127.0.0.1:55438 - "POST /api/opportunities/41141f69-929d-4a22-b047-87050d4e88aa/claim-packet HTTP/1.1" 200 OK
-INFO:     127.0.0.1:55438 - "GET /api/claim-packets/21774316-0f12-4f56-a3ee-013691addeed HTTP/1.1" 200 OK
-INFO:     127.0.0.1:55438 - "GET /api/p1/status HTTP/1.1" 200 OK
-INFO:     127.0.0.1:55438 - "OPTIONS /api/claim-packets/21774316-0f12-4f56-a3ee-013691addeed/approve-local HTTP/1.1" 200 OK
-INFO:     127.0.0.1:55439 - "POST /api/claim-packets/21774316-0f12-4f56-a3ee-013691addeed/approve-local HTTP/1.1" 200 OK
-INFO:     127.0.0.1:55439 - "POST /api/claim-packets/21774316-0f12-4f56-a3ee-013691addeed/export HTTP/1.1" 200 OK
-INFO:     127.0.0.1:55439 - "GET /api/claim-packets/21774316-0f12-4f56-a3ee-013691addeed HTTP/1.1" 200 OK
+INFO:     Uvicorn running on http://127.0.0.1:60895 (Press CTRL+C to quit)
+INFO:     127.0.0.1:60978 - "GET /api/health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60983 - "POST /api/demo/reset HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60983 - "POST /api/runs HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60990 - "GET /api/runs/e22b9af1-539d-4dc1-96ad-e9523d69912e HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60991 - "GET /api/runs/e22b9af1-539d-4dc1-96ad-e9523d69912e/events HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60991 - "GET /api/opportunities?run_id=e22b9af1-539d-4dc1-96ad-e9523d69912e HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60991 - "GET /api/runs/e22b9af1-539d-4dc1-96ad-e9523d69912e HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60990 - "GET /api/runs/e22b9af1-539d-4dc1-96ad-e9523d69912e/events HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60990 - "GET /api/opportunities?run_id=e22b9af1-539d-4dc1-96ad-e9523d69912e HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60990 - "GET /api/runs/e22b9af1-539d-4dc1-96ad-e9523d69912e/events HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60983 - "GET /api/runs/e22b9af1-539d-4dc1-96ad-e9523d69912e HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60990 - "GET /api/opportunities?run_id=e22b9af1-539d-4dc1-96ad-e9523d69912e HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60990 - "POST /api/runs HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60990 - "GET /api/runs/5defc294-a8cd-417f-885f-35ef7065dd0a HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60991 - "GET /api/runs/5defc294-a8cd-417f-885f-35ef7065dd0a/events HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60991 - "GET /api/opportunities?run_id=5defc294-a8cd-417f-885f-35ef7065dd0a HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61002 - "GET /api/integrations/diwali/status HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61001 - "GET /api/health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61000 - "GET /api/products HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61000 - "POST /api/demo/reset HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61000 - "GET /api/products HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61000 - "OPTIONS /api/runs HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61001 - "POST /api/runs HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61001 - "GET /api/runs/7ff80ddf-9264-4a02-b01e-6dab448672c6 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61000 - "GET /api/runs/7ff80ddf-9264-4a02-b01e-6dab448672c6/events HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61000 - "GET /api/runs/7ff80ddf-9264-4a02-b01e-6dab448672c6/agent-messages HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61000 - "GET /api/opportunities?run_id=7ff80ddf-9264-4a02-b01e-6dab448672c6 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61000 - "GET /api/opportunities/a9464e1f-3f8c-4a47-8299-4661d84af210 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61000 - "GET /api/p1/status HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61000 - "POST /api/opportunities/a9464e1f-3f8c-4a47-8299-4661d84af210/claim-packet HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61000 - "GET /api/claim-packets/aa4d8bb3-f994-420c-826b-3d7e5f124213 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61000 - "GET /api/p1/status HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61000 - "OPTIONS /api/claim-packets/aa4d8bb3-f994-420c-826b-3d7e5f124213/approve-local HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61001 - "POST /api/claim-packets/aa4d8bb3-f994-420c-826b-3d7e5f124213/approve-local HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61001 - "POST /api/claim-packets/aa4d8bb3-f994-420c-826b-3d7e5f124213/export HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61001 - "GET /api/claim-packets/aa4d8bb3-f994-420c-826b-3d7e5f124213 HTTP/1.1" 200 OK
 INFO:     Shutting down
 INFO:     Waiting for application shutdown.
 INFO:     Application shutdown complete.
-INFO:     Finished server process [58002]
+INFO:     Finished server process [62420]

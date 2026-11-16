@@ -1,0 +1,29 @@
+........F                                                                [100%]
+=================================== FAILURES ===================================
+_______ test_configured_finch_requires_actual_reviewed_delivery_metadata _______
+
+tmp_path = PosixPath('/private/var/folders/k0/w3xrb_d95jn2t7nf2f0s05yr0000gp/T/pytest-of-nirmalhk7/pytest-246/test_configured_finch_requires0')
+
+    def test_configured_finch_requires_actual_reviewed_delivery_metadata(tmp_path):
+        from types import SimpleNamespace
+    
+        module = auditor()
+        data = module.build_package()
+        path = tmp_path / "auditor.zip"
+        path.write_bytes(data)
+        config = SimpleNamespace(finch_skill_path=str(path), finch_skill_sha256=hashlib.sha256(data).hexdigest(),
+                                 finch_delivery_file="")
+        if not hasattr(module, "load_configured_skill"):
+>           pytest.fail("Enabled Finch does not enforce a reviewed delivery before reviewer use")
+E           Failed: Enabled Finch does not enforce a reviewed delivery before reviewer use
+
+services/api/tests/diwali/test_finch_auditor.py:84: Failed
+=============================== warnings summary ===============================
+tests/diwali/test_finch_auditor.py::test_tampered_or_executable_archive_is_rejected[duplicate]
+  /private/tmp/sueperman-python/cpython-3.12.13-macos-aarch64-none/lib/python3.12/zipfile/__init__.py:1624: UserWarning: Duplicate name: 'SKILL.md'
+    return self._open_to_write(zinfo, force_zip64=force_zip64)
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+=========================== short test summary info ============================
+FAILED services/api/tests/diwali/test_finch_auditor.py::test_configured_finch_requires_actual_reviewed_delivery_metadata
+1 failed, 8 passed, 1 warning in 0.18s

@@ -4,6 +4,7 @@ import hashlib
 import json
 from dataclasses import dataclass, replace
 from datetime import date, datetime, timedelta
+from functools import partial
 from typing import Literal
 from urllib.parse import urlsplit
 from uuid import UUID, uuid5
@@ -107,8 +108,11 @@ class CaseState:
     failure: str | None = None
 
 
-def request(state, kind, payload, phase, refs=(), cause=None):
+def request(state, kind, payload, phase, refs=(), cause=None, *, observed_at=None):
     context = state.context
+    issued_at = observed_at or context.started_at
+    if issued_at < context.started_at:
+        raise ValueError("Task time precedes case start")
     if state.next_task >= len(context.task_ids):
         raise ValueError("Task budget exhausted")
     task = context.task_ids[state.next_task]
@@ -120,7 +124,7 @@ def request(state, kind, payload, phase, refs=(), cause=None):
         "case_id": context.case_id, "task_id": task, "correlation_id": context.case_id,
         "causation_id": cause or context.case_id, "expected_case_revision": revision,
         "sender": "manager", "recipient": actor, "type": kind,
-        "sent_at": context.started_at, "deadline_at": context.started_at + timedelta(seconds=10),
+        "sent_at": issued_at, "deadline_at": issued_at + timedelta(seconds=10),
         "source_refs": list(refs), "payload": payload,
     })
     return replace(state, phase=phase, revision=revision, pending_task=task,
@@ -224,12 +228,13 @@ def failure_reply(request_message, reason):
     return reply(request_message, "TaskFailed", {"reason_code": reason, "retryable": False}, [])
 
 
-def reduce_case(state: CaseState, accepted_message: Message | Start | Finalized):
+def reduce_case(state: CaseState, accepted_message: Message | Start | Finalized, *, observed_at=None):
     """Return prospective state and commands, without I/O or implicit time/ID reads."""
+    schedule = partial(request, observed_at=observed_at)
     if isinstance(accepted_message, Start):
         if state.phase != "NEW":
             raise ValueError("Case already started")
-        return request(state, "ResearchRequested", {"product_ref": state.context.product_ref}, "RESEARCHING")
+        return schedule(state, "ResearchRequested", {"product_ref": state.context.product_ref}, "RESEARCHING")
     if isinstance(accepted_message, Finalized):
         if state.phase != "FINALIZING":
             raise ValueError("No pending finalization")
@@ -282,7 +287,7 @@ def reduce_case(state: CaseState, accepted_message: Message | Start | Finalized)
         if len(candidates) != 1 or message.payload.truncated:
             return replace(state, phase="DONE", outcome="needs_review", revision=state.revision + 1), (
                 Command(audit="CaseFinalized", finalize=True),)
-        return request(state, "ReviewRequested", {"product_ref": state.context.product_ref,
+        return schedule(state, "ReviewRequested", {"product_ref": state.context.product_ref,
                        "evidence_refs": candidates}, "REVIEWING", candidates, message.message_id)
     if isinstance(message.payload, ReviewReport):
         review = message.payload
@@ -301,12 +306,12 @@ def reduce_case(state: CaseState, accepted_message: Message | Start | Finalized)
         if review.rule_result == "needs_review":
             allowed = [f for f in review.requested_fields if f in authoritative.requested_fields]
             if allowed and state.followups < state.context.max_followups:
-                return request(replace(state, followups=1, followup_fields=tuple(allowed)), "FollowUpRequested",
+                return schedule(replace(state, followups=1, followup_fields=tuple(allowed)), "FollowUpRequested",
                                {"requested_fields": allowed, "evidence_refs": list(state.source_refs)},
                                "FOLLOWUP", state.source_refs, message.message_id)
             return replace(state, phase="DONE", outcome="needs_review", revision=state.revision + 1), (
                 Command(audit="CaseFinalized", finalize=True),)
-        return request(state, "BuildRequested", {"rule_result": "verified_match",
+        return schedule(state, "BuildRequested", {"rule_result": "verified_match",
                        "evidence_refs": list(state.source_refs),
                        "input_digests": state.context.input_digests.model_dump()}, "BUILDING",
                        state.source_refs, message.message_id)
@@ -324,7 +329,7 @@ def reduce_case(state: CaseState, accepted_message: Message | Start | Finalized)
                         or any(before[k] != after[k] for k in before if k not in fields)):
                     raise ValueError("Follow-up changed unrequested or untrusted source facts")
             state = replace(state, source_refs=tuple(new_refs))
-        return request(state, "ReviewRequested", {"product_ref": state.context.product_ref,
+        return schedule(state, "ReviewRequested", {"product_ref": state.context.product_ref,
                        "evidence_refs": list(state.source_refs)}, "REVIEWING", state.source_refs,
                        message.message_id)
     if not isinstance(message.payload, BuildReport):

@@ -20,7 +20,7 @@
         "evidence": "docs/evidence/diwali/v2.1/baseline-typecheck.log"
       }
     ],
-    "tested_tree_digest": "36cb5ab5e7df9e821ee63ecff1f801ec89b29cf8cf766b5af30c4d59b40da6b7"
+    "tested_tree_digest": "0a424226b5bfcdbacd2282426c9d3d572956e236bbe1368cff64189e74fda8c1"
   },
   "G1": {
     "command": [
@@ -40,11 +40,11 @@
     ],
     "status": "PASS",
     "exit_code": 0,
-    "duration_seconds": 5.54374195903074,
+    "duration_seconds": 4.8595341249601915,
     "stdout_path": "/Users/nirmalhk7/Documents/DevWorld/sueperman/docs/evidence/diwali/v2.1/G1/stdout.log",
     "stderr_path": "/Users/nirmalhk7/Documents/DevWorld/sueperman/docs/evidence/diwali/v2.1/G1/stderr.log",
     "tests": 34,
-    "tested_tree_digest": "36cb5ab5e7df9e821ee63ecff1f801ec89b29cf8cf766b5af30c4d59b40da6b7"
+    "tested_tree_digest": "0a424226b5bfcdbacd2282426c9d3d572956e236bbe1368cff64189e74fda8c1"
   },
   "G2": {
     "command": [
@@ -72,11 +72,11 @@
     ],
     "status": "PASS",
     "exit_code": 0,
-    "duration_seconds": 0.43888500006869435,
+    "duration_seconds": 0.440751584013924,
     "stdout_path": "/Users/nirmalhk7/Documents/DevWorld/sueperman/docs/evidence/diwali/v2.1/G2/stdout.log",
     "stderr_path": "/Users/nirmalhk7/Documents/DevWorld/sueperman/docs/evidence/diwali/v2.1/G2/stderr.log",
     "tests": 15,
-    "tested_tree_digest": "36cb5ab5e7df9e821ee63ecff1f801ec89b29cf8cf766b5af30c4d59b40da6b7"
+    "tested_tree_digest": "0a424226b5bfcdbacd2282426c9d3d572956e236bbe1368cff64189e74fda8c1"
   },
   "G3": {
     "command": [
@@ -102,7 +102,7 @@
     ],
     "status": "PASS",
     "exit_code": 0,
-    "duration_seconds": 38.9998273330275,
+    "duration_seconds": 27.49773187492974,
     "stdout_path": "/Users/nirmalhk7/Documents/DevWorld/sueperman/docs/evidence/diwali/v2.1/G3/stdout.log",
     "stderr_path": "/Users/nirmalhk7/Documents/DevWorld/sueperman/docs/evidence/diwali/v2.1/G3/stderr.log",
     "tests": 11,
@@ -127,7 +127,7 @@
           ],
           "status": "FAIL",
           "exit_code": 1,
-          "duration_seconds": 0.5511158750159666,
+          "duration_seconds": 0.5099599169334397,
           "stdout_path": "/Users/nirmalhk7/Documents/DevWorld/sueperman/docs/evidence/diwali/v2.1/mutations/pb23/stdout.log",
           "stderr_path": "/Users/nirmalhk7/Documents/DevWorld/sueperman/docs/evidence/diwali/v2.1/mutations/pb23/stderr.log",
           "tests": 1
@@ -154,7 +154,7 @@
           ],
           "status": "FAIL",
           "exit_code": 1,
-          "duration_seconds": 0.44953116693068296,
+          "duration_seconds": 0.5933771249838173,
           "stdout_path": "/Users/nirmalhk7/Documents/DevWorld/sueperman/docs/evidence/diwali/v2.1/mutations/unknown/stdout.log",
           "stderr_path": "/Users/nirmalhk7/Documents/DevWorld/sueperman/docs/evidence/diwali/v2.1/mutations/unknown/stderr.log",
           "tests": 1
@@ -181,7 +181,7 @@
           ],
           "status": "FAIL",
           "exit_code": 1,
-          "duration_seconds": 1.435597291099839,
+          "duration_seconds": 2.698549250024371,
           "stdout_path": "/Users/nirmalhk7/Documents/DevWorld/sueperman/docs/evidence/diwali/v2.1/mutations/approval/stdout.log",
           "stderr_path": "/Users/nirmalhk7/Documents/DevWorld/sueperman/docs/evidence/diwali/v2.1/mutations/approval/stderr.log",
           "tests": 1
@@ -208,7 +208,7 @@
           ],
           "status": "FAIL",
           "exit_code": 1,
-          "duration_seconds": 0.4394609580049291,
+          "duration_seconds": 1.3659665409941226,
           "stdout_path": "/Users/nirmalhk7/Documents/DevWorld/sueperman/docs/evidence/diwali/v2.1/mutations/duplicate/stdout.log",
           "stderr_path": "/Users/nirmalhk7/Documents/DevWorld/sueperman/docs/evidence/diwali/v2.1/mutations/duplicate/stderr.log",
           "tests": 1
@@ -235,7 +235,7 @@
           ],
           "status": "FAIL",
           "exit_code": 1,
-          "duration_seconds": 0.8693397080060095,
+          "duration_seconds": 1.0094884589780122,
           "stdout_path": "/Users/nirmalhk7/Documents/DevWorld/sueperman/docs/evidence/diwali/v2.1/mutations/provider-failure/stdout.log",
           "stderr_path": "/Users/nirmalhk7/Documents/DevWorld/sueperman/docs/evidence/diwali/v2.1/mutations/provider-failure/stderr.log",
           "tests": 1
@@ -262,7 +262,7 @@
           ],
           "status": "FAIL",
           "exit_code": 1,
-          "duration_seconds": 1.3869200000772253,
+          "duration_seconds": 1.4520547080319375,
           "stdout_path": "/Users/nirmalhk7/Documents/DevWorld/sueperman/docs/evidence/diwali/v2.1/mutations/false-band/stdout.log",
           "stderr_path": "/Users/nirmalhk7/Documents/DevWorld/sueperman/docs/evidence/diwali/v2.1/mutations/false-band/stderr.log",
           "tests": 1
@@ -280,7 +280,7 @@
         "exit_code": 0,
         "stdout_path": "/Users/nirmalhk7/Documents/DevWorld/sueperman/docs/evidence/diwali/v2.1/regressions/test/stdout.log",
         "stderr_path": "/Users/nirmalhk7/Documents/DevWorld/sueperman/docs/evidence/diwali/v2.1/regressions/test/stderr.log",
-        "duration_seconds": 102.24728891602717
+        "duration_seconds": 111.73680112499278
       },
       {
         "command": [
@@ -291,7 +291,7 @@
         "exit_code": 0,
         "stdout_path": "/Users/nirmalhk7/Documents/DevWorld/sueperman/docs/evidence/diwali/v2.1/regressions/lint/stdout.log",
         "stderr_path": "/Users/nirmalhk7/Documents/DevWorld/sueperman/docs/evidence/diwali/v2.1/regressions/lint/stderr.log",
-        "duration_seconds": 3.1014954169513658
+        "duration_seconds": 2.9721852079965174
       },
       {
         "command": [
@@ -302,7 +302,7 @@
         "exit_code": 0,
         "stdout_path": "/Users/nirmalhk7/Documents/DevWorld/sueperman/docs/evidence/diwali/v2.1/regressions/typecheck/stdout.log",
         "stderr_path": "/Users/nirmalhk7/Documents/DevWorld/sueperman/docs/evidence/diwali/v2.1/regressions/typecheck/stderr.log",
-        "duration_seconds": 2.2354304579785094
+        "duration_seconds": 3.152896999963559
       },
       {
         "command": [
@@ -313,7 +313,7 @@
         "exit_code": 0,
         "stdout_path": "/Users/nirmalhk7/Documents/DevWorld/sueperman/docs/evidence/diwali/v2.1/regressions/build/stdout.log",
         "stderr_path": "/Users/nirmalhk7/Documents/DevWorld/sueperman/docs/evidence/diwali/v2.1/regressions/build/stderr.log",
-        "duration_seconds": 19.55767683405429
+        "duration_seconds": 25.319934958941303
       },
       {
         "command": [
@@ -324,7 +324,7 @@
         "exit_code": 0,
         "stdout_path": "/Users/nirmalhk7/Documents/DevWorld/sueperman/docs/evidence/diwali/v2.1/regressions/smoke/stdout.log",
         "stderr_path": "/Users/nirmalhk7/Documents/DevWorld/sueperman/docs/evidence/diwali/v2.1/regressions/smoke/stderr.log",
-        "duration_seconds": 0.24095825001131743
+        "duration_seconds": 0.2457971250405535
       },
       {
         "command": [
@@ -335,9 +335,9 @@
         "exit_code": 0,
         "stdout_path": "/Users/nirmalhk7/Documents/DevWorld/sueperman/docs/evidence/diwali/v2.1/regressions/e2e/stdout.log",
         "stderr_path": "/Users/nirmalhk7/Documents/DevWorld/sueperman/docs/evidence/diwali/v2.1/regressions/e2e/stderr.log",
-        "duration_seconds": 12.074079458019696
+        "duration_seconds": 15.777333291945979
       }
     ],
-    "tested_tree_digest": "36cb5ab5e7df9e821ee63ecff1f801ec89b29cf8cf766b5af30c4d59b40da6b7"
+    "tested_tree_digest": "0a424226b5bfcdbacd2282426c9d3d572956e236bbe1368cff64189e74fda8c1"
   }
 }

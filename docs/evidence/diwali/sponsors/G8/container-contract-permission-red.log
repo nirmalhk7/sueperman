@@ -1,0 +1,13 @@
+PASS: image supports exact synthetic preflight without credentials or live calls
+ Network sueperman-contract-41915_default Creating 
+ Volume sueperman-contract-41915_demo-state Creating 
+ Volume sueperman-contract-41915_demo-state Creating 
+ Network sueperman-contract-41915_default Creating 
+ Volume sueperman-contract-41915_demo-state Created 
+ Volume sueperman-contract-41915_demo-state Created 
+ Network sueperman-contract-41915_default Created 
+ Network sueperman-contract-41915_default Created 
+ Container sueperman-contract-41915-api-run-056faf4634fa Creating 
+ Container sueperman-contract-41915-api-run-056faf4634fa Created 
+/srv/app/services/api/.venv/lib/python3.12/site-packages/fastapi/testclient.py:1: StarletteDeprecationWarning: Using `httpx` with `starlette.testclient` is deprecated; install `httpx2` instead.
+  from starlette.testclient import TestClient as TestClient  # noqa

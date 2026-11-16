@@ -1,5 +1,7 @@
 # V2 verified status — November 14, 2026 (America/Los_Angeles)
 
+Historical checkpoint. Current sponsor status and remaining requirements: [DIWALI_SPONSOR_STATUS.md](DIWALI_SPONSOR_STATUS.md).
+
 **P0 incomplete.** A deterministic offline vertical slice is implemented. W0 feasibility was checked, but five sponsor handshakes are blocked. W1 is implemented; W2 has strict ingress/role and package-pin boundaries only, with no vendor adapters. W3/W4 work offline. W5 has no live proof or deployment. W6 has no AdaL assets. This provisional offline progress does not establish the sponsor architecture.
 
 ## Account setup update

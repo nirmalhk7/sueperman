@@ -14,4 +14,4 @@ E         + verified_match
 services/api/tests/diwali/test_local_core.py:99: AssertionError
 =========================== short test summary info ============================
 FAILED services/api/tests/diwali/test_local_core.py::test_missing_purchase_model
-1 failed in 0.15s
+1 failed in 0.18s

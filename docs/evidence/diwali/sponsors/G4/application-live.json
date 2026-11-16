@@ -1,0 +1,726 @@
+{
+  "provider": "band",
+  "scope": "bounded application run; five synthetic purchases; recorded CPSC",
+  "source_mode": "recorded",
+  "reviewer_mode": "rules",
+  "observed_at": "2026-11-16T03:52:12.149278+00:00",
+  "tested_tree_digest": "9bace784edae382829975edc8e557fd9f22bfb8d9c28e8139ab7e7dfb99711c4",
+  "inference_calls": 0,
+  "provisioning_calls": 0,
+  "automatic_retries": 0,
+  "proof_status": "PARTIAL",
+  "application_gate_passed": true,
+  "attempts": 1,
+  "database": "/var/folders/k0/w3xrb_d95jn2t7nf2f0s05yr0000gp/T/sueperman-band-app-_fxqq3b1/live.db",
+  "admission_status": 200,
+  "source_run": "3b31165a-c559-402b-92e4-d93b973f9237",
+  "run_status": "completed",
+  "actual_transport": "band",
+  "summary": {
+    "products_scanned": 5,
+    "verified_matches": 1,
+    "rejected": 1,
+    "needs_review": 1,
+    "simulated_settlements": 1,
+    "prepared_packets": 1
+  },
+  "warnings": [],
+  "messages": [
+    {
+      "seq": 1,
+      "transport": "band",
+      "schema_version": 1,
+      "message_id": "173c1025-7221-5f96-aba4-294c13baee93",
+      "run_id": "3b31165a-c559-402b-92e4-d93b973f9237",
+      "case_id": "2dec6d17-8244-41e0-9444-26dbaf6c6826",
+      "task_id": "6e529a99-cf64-4859-9041-55f90d3b8b84",
+      "correlation_id": "2dec6d17-8244-41e0-9444-26dbaf6c6826",
+      "causation_id": "2dec6d17-8244-41e0-9444-26dbaf6c6826",
+      "expected_case_revision": 1,
+      "sender": "manager",
+      "recipient": "researcher",
+      "type": "ResearchRequested",
+      "sent_at": "2026-11-16T03:52:13.798044Z",
+      "deadline_at": "2026-11-16T03:52:23.798044Z",
+      "source_refs": [],
+      "payload": {
+        "product_ref": "7a6316e1-2233-4880-950c-86eab5edb4d6"
+      }
+    },
+    {
+      "seq": 2,
+      "transport": "band",
+      "schema_version": 1,
+      "message_id": "3175c075-79f4-5af0-aa8c-ce311c121d1b",
+      "run_id": "3b31165a-c559-402b-92e4-d93b973f9237",
+      "case_id": "2dec6d17-8244-41e0-9444-26dbaf6c6826",
+      "task_id": "6e529a99-cf64-4859-9041-55f90d3b8b84",
+      "correlation_id": "2dec6d17-8244-41e0-9444-26dbaf6c6826",
+      "causation_id": "173c1025-7221-5f96-aba4-294c13baee93",
+      "expected_case_revision": 1,
+      "sender": "researcher",
+      "recipient": "manager",
+      "type": "ResearchReport",
+      "sent_at": "2026-11-16T03:52:14.777468Z",
+      "deadline_at": "2026-11-16T03:52:23.798044Z",
+      "source_refs": [
+        "cpsc:26-792:ef2c1fe53e1965607815bbaf0a759fc6c5ba214dc720afa2854b839370f4a782"
+      ],
+      "payload": {
+        "candidate_refs": [
+          "cpsc:26-792:ef2c1fe53e1965607815bbaf0a759fc6c5ba214dc720afa2854b839370f4a782"
+        ],
+        "coverage": "supported_scope",
+        "truncated": false
+      }
+    },
+    {
+      "seq": 3,
+      "transport": "band",
+      "schema_version": 1,
+      "message_id": "508d4bcb-6cac-5f15-b337-5620774bea7f",
+      "run_id": "3b31165a-c559-402b-92e4-d93b973f9237",
+      "case_id": "2dec6d17-8244-41e0-9444-26dbaf6c6826",
+      "task_id": "994d7a81-d632-4d95-b224-aea1d4599307",
+      "correlation_id": "2dec6d17-8244-41e0-9444-26dbaf6c6826",
+      "causation_id": "3175c075-79f4-5af0-aa8c-ce311c121d1b",
+      "expected_case_revision": 2,
+      "sender": "manager",
+      "recipient": "skeptic",
+      "type": "ReviewRequested",
+      "sent_at": "2026-11-16T03:52:15.285995Z",
+      "deadline_at": "2026-11-16T03:52:25.285995Z",
+      "source_refs": [
+        "cpsc:26-792:ef2c1fe53e1965607815bbaf0a759fc6c5ba214dc720afa2854b839370f4a782"
+      ],
+      "payload": {
+        "product_ref": "7a6316e1-2233-4880-950c-86eab5edb4d6",
+        "evidence_refs": [
+          "cpsc:26-792:ef2c1fe53e1965607815bbaf0a759fc6c5ba214dc720afa2854b839370f4a782"
+        ]
+      }
+    },
+    {
+      "seq": 4,
+      "transport": "band",
+      "schema_version": 1,
+      "message_id": "ec81837a-c602-5cbd-b104-3284949f6d01",
+      "run_id": "3b31165a-c559-402b-92e4-d93b973f9237",
+      "case_id": "2dec6d17-8244-41e0-9444-26dbaf6c6826",
+      "task_id": "994d7a81-d632-4d95-b224-aea1d4599307",
+      "correlation_id": "2dec6d17-8244-41e0-9444-26dbaf6c6826",
+      "causation_id": "508d4bcb-6cac-5f15-b337-5620774bea7f",
+      "expected_case_revision": 2,
+      "sender": "skeptic",
+      "recipient": "manager",
+      "type": "ReviewReport",
+      "sent_at": "2026-11-16T03:52:15.720280Z",
+      "deadline_at": "2026-11-16T03:52:25.285995Z",
+      "source_refs": [
+        "cpsc:26-792:ef2c1fe53e1965607815bbaf0a759fc6c5ba214dc720afa2854b839370f4a782"
+      ],
+      "payload": {
+        "rule_result": "verified_match",
+        "conditions": [
+          {
+            "name": "official_source",
+            "expected": "CPSC HTTPS recall notice",
+            "observed": "https://www.cpsc.gov/Recalls/2026/NEWDERY-Power-Banks-Recalled-Due-to-Fire-and-Burn-Hazards-Risk-of-Serious-Injury-Sold-on-Amazon",
+            "status": "true",
+            "source_id": "26-792"
+          },
+          {
+            "name": "brand",
+            "expected": "NEWDERY",
+            "observed": "NEWDERY",
+            "status": "true",
+            "source_id": "26-792"
+          },
+          {
+            "name": "product_family",
+            "expected": "power bank",
+            "observed": "Portable Power Bank",
+            "status": "true",
+            "source_id": "26-792"
+          },
+          {
+            "name": "model_number",
+            "expected": [
+              "ZHX-PB22"
+            ],
+            "observed": "ZHX-PB22",
+            "status": "true",
+            "source_id": "26-792"
+          }
+        ],
+        "compared_identifiers": {
+          "purchase_model": "ZHX-PB22",
+          "source_models": [
+            "ZHX-PB22"
+          ]
+        },
+        "challenge_code": "NONE",
+        "review_note": "",
+        "requested_fields": []
+      }
+    },
+    {
+      "seq": 5,
+      "transport": "band",
+      "schema_version": 1,
+      "message_id": "b4457d83-0523-5169-bda9-dedf4c887e21",
+      "run_id": "3b31165a-c559-402b-92e4-d93b973f9237",
+      "case_id": "2dec6d17-8244-41e0-9444-26dbaf6c6826",
+      "task_id": "257ebebf-edad-4658-847b-468c1398663f",
+      "correlation_id": "2dec6d17-8244-41e0-9444-26dbaf6c6826",
+      "causation_id": "ec81837a-c602-5cbd-b104-3284949f6d01",
+      "expected_case_revision": 3,
+      "sender": "manager",
+      "recipient": "builder",
+      "type": "BuildRequested",
+      "sent_at": "2026-11-16T03:52:16.040129Z",
+      "deadline_at": "2026-11-16T03:52:26.040129Z",
+      "source_refs": [
+        "cpsc:26-792:ef2c1fe53e1965607815bbaf0a759fc6c5ba214dc720afa2854b839370f4a782"
+      ],
+      "payload": {
+        "rule_result": "verified_match",
+        "evidence_refs": [
+          "cpsc:26-792:ef2c1fe53e1965607815bbaf0a759fc6c5ba214dc720afa2854b839370f4a782"
+        ],
+        "input_digests": {
+          "purchase": "4a36ed73fc7fe6de5127701c4574806cb15fd00f1b50d93c5b4639fe1de35009",
+          "evidence": "c8800a4f58f68e45d031075f6d1c8494c9d27464e68ca70144dbfee2e375e3fb"
+        }
+      }
+    },
+    {
+      "seq": 6,
+      "transport": "band",
+      "schema_version": 1,
+      "message_id": "369d546b-5494-5666-98aa-8947127c1390",
+      "run_id": "3b31165a-c559-402b-92e4-d93b973f9237",
+      "case_id": "2dec6d17-8244-41e0-9444-26dbaf6c6826",
+      "task_id": "257ebebf-edad-4658-847b-468c1398663f",
+      "correlation_id": "2dec6d17-8244-41e0-9444-26dbaf6c6826",
+      "causation_id": "b4457d83-0523-5169-bda9-dedf4c887e21",
+      "expected_case_revision": 3,
+      "sender": "builder",
+      "recipient": "manager",
+      "type": "BuildReport",
+      "sent_at": "2026-11-16T03:52:16.478637Z",
+      "deadline_at": "2026-11-16T03:52:26.040129Z",
+      "source_refs": [
+        "cpsc:26-792:ef2c1fe53e1965607815bbaf0a759fc6c5ba214dc720afa2854b839370f4a782"
+      ],
+      "payload": {
+        "draft": {
+          "markdown": "# Recall remedy draft\n\nLocal draft only; not an external submission.\nVerify official terms and submit requests yourself. No refund is guaranteed.\n\n## Verified product facts\n{'product_name': 'Portable Power Bank', 'brand': 'NEWDERY', 'model_number': 'ZHX-PB22'}\n\n## Official instructions\nStop using the recalled power bank immediately. Contact NEWDERY for full-refund instructions. CPSC requires a photo showing model number, serial number, the word \u201crecalled\u201d and your last name written in permanent marker, plus confirmation of lawful disposal. Sueperman does not attest disposal or provide your name.\n\n## Safety\nDo not put this recalled lithium-ion device in trash, curbside recycling, or retail battery boxes. Contact your municipal household hazardous waste collection center before visiting; ask whether it accepts recalled lithium-ion batteries. If not, ask your municipality for guidance.\n\n## Missing evidence \u2014 user must provide\n- [ ] Photo of power bank with model and serial number and official required markings\n- [ ] User confirmation of lawful disposal (never prefilled)\n\nNo user declarations, signature, name, serial number or disposal attestation supplied.\n\nSource: https://www.cpsc.gov/Recalls/2026/NEWDERY-Power-Banks-Recalled-Due-to-Fire-and-Burn-Hazards-Risk-of-Serious-Injury-Sold-on-Amazon\nObserved: 2026-11-13T17:48:00+00:00\nMode: OFFLINE REPLAY of a real published recall",
+          "status": "ready_for_review",
+          "approved_at": null
+        },
+        "view": {
+          "purchase_model": "ZHX-PB22",
+          "source_models": [
+            "ZHX-PB22"
+          ],
+          "source_ref": "cpsc:26-792:ef2c1fe53e1965607815bbaf0a759fc6c5ba214dc720afa2854b839370f4a782"
+        },
+        "input_digests": {
+          "purchase": "4a36ed73fc7fe6de5127701c4574806cb15fd00f1b50d93c5b4639fe1de35009",
+          "evidence": "c8800a4f58f68e45d031075f6d1c8494c9d27464e68ca70144dbfee2e375e3fb"
+        }
+      }
+    },
+    {
+      "seq": 7,
+      "transport": "band",
+      "schema_version": 1,
+      "message_id": "60cb3b80-5d72-5177-8f6c-1aee5a41db82",
+      "run_id": "3b31165a-c559-402b-92e4-d93b973f9237",
+      "case_id": "de6d4495-9ed1-4d15-a834-ffee3384026f",
+      "task_id": "c0b6b95a-3948-4e38-b6c5-357333c530ce",
+      "correlation_id": "de6d4495-9ed1-4d15-a834-ffee3384026f",
+      "causation_id": "de6d4495-9ed1-4d15-a834-ffee3384026f",
+      "expected_case_revision": 1,
+      "sender": "manager",
+      "recipient": "researcher",
+      "type": "ResearchRequested",
+      "sent_at": "2026-11-16T03:52:16.805722Z",
+      "deadline_at": "2026-11-16T03:52:26.805722Z",
+      "source_refs": [],
+      "payload": {
+        "product_ref": "d9f46762-0a41-435e-9c96-90018368eb14"
+      }
+    },
+    {
+      "seq": 8,
+      "transport": "band",
+      "schema_version": 1,
+      "message_id": "825bd4c3-6dfe-5773-a586-23cfae6d0556",
+      "run_id": "3b31165a-c559-402b-92e4-d93b973f9237",
+      "case_id": "de6d4495-9ed1-4d15-a834-ffee3384026f",
+      "task_id": "c0b6b95a-3948-4e38-b6c5-357333c530ce",
+      "correlation_id": "de6d4495-9ed1-4d15-a834-ffee3384026f",
+      "causation_id": "60cb3b80-5d72-5177-8f6c-1aee5a41db82",
+      "expected_case_revision": 1,
+      "sender": "researcher",
+      "recipient": "manager",
+      "type": "ResearchReport",
+      "sent_at": "2026-11-16T03:52:17.076741Z",
+      "deadline_at": "2026-11-16T03:52:26.805722Z",
+      "source_refs": [
+        "cpsc:26-792:ef2c1fe53e1965607815bbaf0a759fc6c5ba214dc720afa2854b839370f4a782"
+      ],
+      "payload": {
+        "candidate_refs": [
+          "cpsc:26-792:ef2c1fe53e1965607815bbaf0a759fc6c5ba214dc720afa2854b839370f4a782"
+        ],
+        "coverage": "supported_scope",
+        "truncated": false
+      }
+    },
+    {
+      "seq": 9,
+      "transport": "band",
+      "schema_version": 1,
+      "message_id": "2ac04b16-2d14-5746-927c-68167895dd50",
+      "run_id": "3b31165a-c559-402b-92e4-d93b973f9237",
+      "case_id": "de6d4495-9ed1-4d15-a834-ffee3384026f",
+      "task_id": "f96dc0b3-b145-493e-8820-61146a78ad13",
+      "correlation_id": "de6d4495-9ed1-4d15-a834-ffee3384026f",
+      "causation_id": "825bd4c3-6dfe-5773-a586-23cfae6d0556",
+      "expected_case_revision": 2,
+      "sender": "manager",
+      "recipient": "skeptic",
+      "type": "ReviewRequested",
+      "sent_at": "2026-11-16T03:52:17.316654Z",
+      "deadline_at": "2026-11-16T03:52:27.316654Z",
+      "source_refs": [
+        "cpsc:26-792:ef2c1fe53e1965607815bbaf0a759fc6c5ba214dc720afa2854b839370f4a782"
+      ],
+      "payload": {
+        "product_ref": "d9f46762-0a41-435e-9c96-90018368eb14",
+        "evidence_refs": [
+          "cpsc:26-792:ef2c1fe53e1965607815bbaf0a759fc6c5ba214dc720afa2854b839370f4a782"
+        ]
+      }
+    },
+    {
+      "seq": 10,
+      "transport": "band",
+      "schema_version": 1,
+      "message_id": "0f99e2e6-9caf-5b2c-897a-cd12bb78745f",
+      "run_id": "3b31165a-c559-402b-92e4-d93b973f9237",
+      "case_id": "de6d4495-9ed1-4d15-a834-ffee3384026f",
+      "task_id": "f96dc0b3-b145-493e-8820-61146a78ad13",
+      "correlation_id": "de6d4495-9ed1-4d15-a834-ffee3384026f",
+      "causation_id": "2ac04b16-2d14-5746-927c-68167895dd50",
+      "expected_case_revision": 2,
+      "sender": "skeptic",
+      "recipient": "manager",
+      "type": "ReviewReport",
+      "sent_at": "2026-11-16T03:52:17.604182Z",
+      "deadline_at": "2026-11-16T03:52:27.316654Z",
+      "source_refs": [
+        "cpsc:26-792:ef2c1fe53e1965607815bbaf0a759fc6c5ba214dc720afa2854b839370f4a782"
+      ],
+      "payload": {
+        "rule_result": "rejected",
+        "conditions": [
+          {
+            "name": "official_source",
+            "expected": "CPSC HTTPS recall notice",
+            "observed": "https://www.cpsc.gov/Recalls/2026/NEWDERY-Power-Banks-Recalled-Due-to-Fire-and-Burn-Hazards-Risk-of-Serious-Injury-Sold-on-Amazon",
+            "status": "true",
+            "source_id": "26-792"
+          },
+          {
+            "name": "brand",
+            "expected": "NEWDERY",
+            "observed": "NEWDERY",
+            "status": "true",
+            "source_id": "26-792"
+          },
+          {
+            "name": "product_family",
+            "expected": "power bank",
+            "observed": "Portable Power Bank",
+            "status": "true",
+            "source_id": "26-792"
+          },
+          {
+            "name": "model_number",
+            "expected": [
+              "ZHX-PB22"
+            ],
+            "observed": "ZHX-PB23",
+            "status": "false",
+            "source_id": "26-792"
+          }
+        ],
+        "compared_identifiers": {
+          "purchase_model": "ZHX-PB23",
+          "source_models": [
+            "ZHX-PB22"
+          ]
+        },
+        "challenge_code": "MODEL_MISMATCH",
+        "review_note": "",
+        "requested_fields": []
+      }
+    },
+    {
+      "seq": 11,
+      "transport": "band",
+      "schema_version": 1,
+      "message_id": "16e945fc-82f4-5c59-822f-a823a1044a28",
+      "run_id": "3b31165a-c559-402b-92e4-d93b973f9237",
+      "case_id": "8aa4bc05-1cf6-4c27-8eef-6f741d702900",
+      "task_id": "c431bb97-f662-4155-9d68-d8630777953c",
+      "correlation_id": "8aa4bc05-1cf6-4c27-8eef-6f741d702900",
+      "causation_id": "8aa4bc05-1cf6-4c27-8eef-6f741d702900",
+      "expected_case_revision": 1,
+      "sender": "manager",
+      "recipient": "researcher",
+      "type": "ResearchRequested",
+      "sent_at": "2026-11-16T03:52:17.905803Z",
+      "deadline_at": "2026-11-16T03:52:27.905803Z",
+      "source_refs": [],
+      "payload": {
+        "product_ref": "0ac27304-ec9c-4e5c-a7b8-4d69e1832576"
+      }
+    },
+    {
+      "seq": 12,
+      "transport": "band",
+      "schema_version": 1,
+      "message_id": "61741799-d599-5276-a0fa-51d1978d0bcd",
+      "run_id": "3b31165a-c559-402b-92e4-d93b973f9237",
+      "case_id": "8aa4bc05-1cf6-4c27-8eef-6f741d702900",
+      "task_id": "c431bb97-f662-4155-9d68-d8630777953c",
+      "correlation_id": "8aa4bc05-1cf6-4c27-8eef-6f741d702900",
+      "causation_id": "16e945fc-82f4-5c59-822f-a823a1044a28",
+      "expected_case_revision": 1,
+      "sender": "researcher",
+      "recipient": "manager",
+      "type": "ResearchReport",
+      "sent_at": "2026-11-16T03:52:18.142830Z",
+      "deadline_at": "2026-11-16T03:52:27.905803Z",
+      "source_refs": [],
+      "payload": {
+        "candidate_refs": [],
+        "coverage": "supported_scope",
+        "truncated": false
+      }
+    },
+    {
+      "seq": 13,
+      "transport": "band",
+      "schema_version": 1,
+      "message_id": "527f9469-9533-5d26-ac0c-e164aa1ad29c",
+      "run_id": "3b31165a-c559-402b-92e4-d93b973f9237",
+      "case_id": "2ee0e2cd-a154-45a4-a8d8-f3a8dcc6a016",
+      "task_id": "1f048b00-468c-481b-89b9-4f8e69042ec6",
+      "correlation_id": "2ee0e2cd-a154-45a4-a8d8-f3a8dcc6a016",
+      "causation_id": "2ee0e2cd-a154-45a4-a8d8-f3a8dcc6a016",
+      "expected_case_revision": 1,
+      "sender": "manager",
+      "recipient": "researcher",
+      "type": "ResearchRequested",
+      "sent_at": "2026-11-16T03:52:18.428541Z",
+      "deadline_at": "2026-11-16T03:52:28.428541Z",
+      "source_refs": [],
+      "payload": {
+        "product_ref": "c121b018-4ad3-422d-b646-c1d78eff5150"
+      }
+    },
+    {
+      "seq": 14,
+      "transport": "band",
+      "schema_version": 1,
+      "message_id": "39b8fa66-8877-5e94-9f09-d57e9e1f4d16",
+      "run_id": "3b31165a-c559-402b-92e4-d93b973f9237",
+      "case_id": "2ee0e2cd-a154-45a4-a8d8-f3a8dcc6a016",
+      "task_id": "1f048b00-468c-481b-89b9-4f8e69042ec6",
+      "correlation_id": "2ee0e2cd-a154-45a4-a8d8-f3a8dcc6a016",
+      "causation_id": "527f9469-9533-5d26-ac0c-e164aa1ad29c",
+      "expected_case_revision": 1,
+      "sender": "researcher",
+      "recipient": "manager",
+      "type": "ResearchReport",
+      "sent_at": "2026-11-16T03:52:18.672821Z",
+      "deadline_at": "2026-11-16T03:52:28.428541Z",
+      "source_refs": [
+        "cpsc:26-792:ef2c1fe53e1965607815bbaf0a759fc6c5ba214dc720afa2854b839370f4a782"
+      ],
+      "payload": {
+        "candidate_refs": [
+          "cpsc:26-792:ef2c1fe53e1965607815bbaf0a759fc6c5ba214dc720afa2854b839370f4a782"
+        ],
+        "coverage": "supported_scope",
+        "truncated": false
+      }
+    },
+    {
+      "seq": 15,
+      "transport": "band",
+      "schema_version": 1,
+      "message_id": "639e98d9-312b-51fa-8b65-03028b174fa2",
+      "run_id": "3b31165a-c559-402b-92e4-d93b973f9237",
+      "case_id": "2ee0e2cd-a154-45a4-a8d8-f3a8dcc6a016",
+      "task_id": "9a8578dd-6d5e-4d7a-9c4b-aa1439dede66",
+      "correlation_id": "2ee0e2cd-a154-45a4-a8d8-f3a8dcc6a016",
+      "causation_id": "39b8fa66-8877-5e94-9f09-d57e9e1f4d16",
+      "expected_case_revision": 2,
+      "sender": "manager",
+      "recipient": "skeptic",
+      "type": "ReviewRequested",
+      "sent_at": "2026-11-16T03:52:18.910686Z",
+      "deadline_at": "2026-11-16T03:52:28.910686Z",
+      "source_refs": [
+        "cpsc:26-792:ef2c1fe53e1965607815bbaf0a759fc6c5ba214dc720afa2854b839370f4a782"
+      ],
+      "payload": {
+        "product_ref": "c121b018-4ad3-422d-b646-c1d78eff5150",
+        "evidence_refs": [
+          "cpsc:26-792:ef2c1fe53e1965607815bbaf0a759fc6c5ba214dc720afa2854b839370f4a782"
+        ]
+      }
+    },
+    {
+      "seq": 16,
+      "transport": "band",
+      "schema_version": 1,
+      "message_id": "26a83425-f000-568f-aacd-3ba2aa4624ba",
+      "run_id": "3b31165a-c559-402b-92e4-d93b973f9237",
+      "case_id": "2ee0e2cd-a154-45a4-a8d8-f3a8dcc6a016",
+      "task_id": "9a8578dd-6d5e-4d7a-9c4b-aa1439dede66",
+      "correlation_id": "2ee0e2cd-a154-45a4-a8d8-f3a8dcc6a016",
+      "causation_id": "639e98d9-312b-51fa-8b65-03028b174fa2",
+      "expected_case_revision": 2,
+      "sender": "skeptic",
+      "recipient": "manager",
+      "type": "ReviewReport",
+      "sent_at": "2026-11-16T03:52:19.189452Z",
+      "deadline_at": "2026-11-16T03:52:28.910686Z",
+      "source_refs": [
+        "cpsc:26-792:ef2c1fe53e1965607815bbaf0a759fc6c5ba214dc720afa2854b839370f4a782"
+      ],
+      "payload": {
+        "rule_result": "needs_review",
+        "conditions": [
+          {
+            "name": "official_source",
+            "expected": "CPSC HTTPS recall notice",
+            "observed": "https://www.cpsc.gov/Recalls/2026/NEWDERY-Power-Banks-Recalled-Due-to-Fire-and-Burn-Hazards-Risk-of-Serious-Injury-Sold-on-Amazon",
+            "status": "true",
+            "source_id": "26-792"
+          },
+          {
+            "name": "brand",
+            "expected": "NEWDERY",
+            "observed": "NEWDERY",
+            "status": "true",
+            "source_id": "26-792"
+          },
+          {
+            "name": "product_family",
+            "expected": "power bank",
+            "observed": "Portable Power Bank",
+            "status": "true",
+            "source_id": "26-792"
+          },
+          {
+            "name": "model_number",
+            "expected": [
+              "ZHX-PB22"
+            ],
+            "observed": null,
+            "status": "unknown",
+            "source_id": "26-792"
+          }
+        ],
+        "compared_identifiers": {
+          "purchase_model": null,
+          "source_models": [
+            "ZHX-PB22"
+          ]
+        },
+        "challenge_code": "MISSING_PURCHASE_FACT",
+        "review_note": "",
+        "requested_fields": []
+      }
+    },
+    {
+      "seq": 17,
+      "transport": "band",
+      "schema_version": 1,
+      "message_id": "18f5c076-d623-5a2a-9021-162377660595",
+      "run_id": "3b31165a-c559-402b-92e4-d93b973f9237",
+      "case_id": "2a9e34f0-61bc-4504-9c20-e25e081cfec4",
+      "task_id": "b7099470-3d09-416c-afba-e214f20b8893",
+      "correlation_id": "2a9e34f0-61bc-4504-9c20-e25e081cfec4",
+      "causation_id": "2a9e34f0-61bc-4504-9c20-e25e081cfec4",
+      "expected_case_revision": 1,
+      "sender": "manager",
+      "recipient": "researcher",
+      "type": "ResearchRequested",
+      "sent_at": "2026-11-16T03:52:19.501243Z",
+      "deadline_at": "2026-11-16T03:52:29.501243Z",
+      "source_refs": [],
+      "payload": {
+        "product_ref": "4cb8a4a5-b45f-4581-8a92-a924e3212adc"
+      }
+    },
+    {
+      "seq": 18,
+      "transport": "band",
+      "schema_version": 1,
+      "message_id": "6ac9548b-4ad1-556a-b205-f9d0faae3d20",
+      "run_id": "3b31165a-c559-402b-92e4-d93b973f9237",
+      "case_id": "2a9e34f0-61bc-4504-9c20-e25e081cfec4",
+      "task_id": "b7099470-3d09-416c-afba-e214f20b8893",
+      "correlation_id": "2a9e34f0-61bc-4504-9c20-e25e081cfec4",
+      "causation_id": "18f5c076-d623-5a2a-9021-162377660595",
+      "expected_case_revision": 1,
+      "sender": "researcher",
+      "recipient": "manager",
+      "type": "ResearchReport",
+      "sent_at": "2026-11-16T03:52:19.750322Z",
+      "deadline_at": "2026-11-16T03:52:29.501243Z",
+      "source_refs": [],
+      "payload": {
+        "candidate_refs": [],
+        "coverage": "supported_scope",
+        "truncated": false
+      }
+    }
+  ],
+  "cases": [
+    {
+      "outcome": "no_match",
+      "failure": null
+    },
+    {
+      "outcome": "simulated_settlement",
+      "failure": null
+    },
+    {
+      "outcome": "verified_match",
+      "failure": null
+    },
+    {
+      "outcome": "needs_review",
+      "failure": null
+    },
+    {
+      "outcome": "rejected",
+      "failure": null
+    }
+  ],
+  "invocations": [
+    {
+      "task_id": "6e529a99-cf64-4859-9041-55f90d3b8b84",
+      "mode": "live",
+      "request_id": "1c8762a3-6557-4137-86d8-2dbd0f938344",
+      "result_id": "e77f1bfb-f4af-4584-9b5a-548ab93a91c4",
+      "authenticated_sender": "5d35641e-2c93-4ee8-a302-b3c233dc3cfd",
+      "authenticated_recipient": "7b679d50-4bca-4d81-9352-93b21b4ce561",
+      "received": true,
+      "consumed": true
+    },
+    {
+      "task_id": "994d7a81-d632-4d95-b224-aea1d4599307",
+      "mode": "live",
+      "request_id": "8b25a33b-0faf-48cc-aec1-fb250e5537af",
+      "result_id": "91e3ad0b-783d-47d2-8f4d-8712fb85561e",
+      "authenticated_sender": "4bf982c8-63b8-4ffd-b23f-14007df24960",
+      "authenticated_recipient": "7b679d50-4bca-4d81-9352-93b21b4ce561",
+      "received": true,
+      "consumed": true
+    },
+    {
+      "task_id": "257ebebf-edad-4658-847b-468c1398663f",
+      "mode": "live",
+      "request_id": "7e734460-d60b-4ab4-8308-00a347eb3a51",
+      "result_id": "34c785b9-578f-457b-a9dd-176b184f00d2",
+      "authenticated_sender": "58610ad2-9a94-41c6-93dd-4a308cfa26bb",
+      "authenticated_recipient": "7b679d50-4bca-4d81-9352-93b21b4ce561",
+      "received": true,
+      "consumed": true
+    },
+    {
+      "task_id": "c0b6b95a-3948-4e38-b6c5-357333c530ce",
+      "mode": "live",
+      "request_id": "31eebbb6-049e-4b86-9a2a-f8a01badddc0",
+      "result_id": "e0d58cd6-f9f8-49eb-8485-18c7aa0424a8",
+      "authenticated_sender": "5d35641e-2c93-4ee8-a302-b3c233dc3cfd",
+      "authenticated_recipient": "7b679d50-4bca-4d81-9352-93b21b4ce561",
+      "received": true,
+      "consumed": true
+    },
+    {
+      "task_id": "f96dc0b3-b145-493e-8820-61146a78ad13",
+      "mode": "live",
+      "request_id": "a0fa7379-ab09-4ae8-82f5-670ae9037bb5",
+      "result_id": "0cb3b39c-f9cd-48f2-b2f5-2080762b175d",
+      "authenticated_sender": "4bf982c8-63b8-4ffd-b23f-14007df24960",
+      "authenticated_recipient": "7b679d50-4bca-4d81-9352-93b21b4ce561",
+      "received": true,
+      "consumed": true
+    },
+    {
+      "task_id": "c431bb97-f662-4155-9d68-d8630777953c",
+      "mode": "live",
+      "request_id": "e63cfacc-9c99-4622-be1b-e23b2e4c0b12",
+      "result_id": "cdcbb81b-b065-4836-bb72-8f34f4736f63",
+      "authenticated_sender": "5d35641e-2c93-4ee8-a302-b3c233dc3cfd",
+      "authenticated_recipient": "7b679d50-4bca-4d81-9352-93b21b4ce561",
+      "received": true,
+      "consumed": true
+    },
+    {
+      "task_id": "1f048b00-468c-481b-89b9-4f8e69042ec6",
+      "mode": "live",
+      "request_id": "819939eb-75c4-4380-8303-103b25199f56",
+      "result_id": "bf33f04c-f45d-4118-b82c-4a818a20fb59",
+      "authenticated_sender": "5d35641e-2c93-4ee8-a302-b3c233dc3cfd",
+      "authenticated_recipient": "7b679d50-4bca-4d81-9352-93b21b4ce561",
+      "received": true,
+      "consumed": true
+    },
+    {
+      "task_id": "9a8578dd-6d5e-4d7a-9c4b-aa1439dede66",
+      "mode": "live",
+      "request_id": "5418d2e1-f445-452d-b340-19dab9081137",
+      "result_id": "19ae4163-b739-475a-a0fb-c1ef7648652c",
+      "authenticated_sender": "4bf982c8-63b8-4ffd-b23f-14007df24960",
+      "authenticated_recipient": "7b679d50-4bca-4d81-9352-93b21b4ce561",
+      "received": true,
+      "consumed": true
+    },
+    {
+      "task_id": "b7099470-3d09-416c-afba-e214f20b8893",
+      "mode": "live",
+      "request_id": "1fcb90a5-1a31-4411-ba7f-0441f5faf8ec",
+      "result_id": "ba81e463-541a-43ff-98ff-4baee0008f19",
+      "authenticated_sender": "5d35641e-2c93-4ee8-a302-b3c233dc3cfd",
+      "authenticated_recipient": "7b679d50-4bca-4d81-9352-93b21b4ce561",
+      "received": true,
+      "consumed": true
+    }
+  ],
+  "unsigned_packets": true,
+  "runtime_source_sha256": {
+    "services/api/app/diwali/coordinator.py": "f91e3cd823b1cd0f3206b6a134546c05992e575bd9ae3ba2f7aa9f42d16ba6f4",
+    "services/api/app/diwali/persistence.py": "e7446c0cdbedbb8962504401aae2ccfe6f348bd4f1959290ba192756a70c5734",
+    "services/api/app/diwali/__init__.py": "546bd6ee7afef7bb49920429539dd0e6cf8697daed2e16225180db6f05b064dd",
+    "services/api/app/diwali/core.py": "2ff18c8532fc30a7a15bdb82e904b7cab34a65c30c5fb0282626b22386de48f9",
+    "services/api/app/diwali/api.py": "05db19b1bbb995a8c96ffaddaf5655a5ff853799c0fc5729dc64081297f7b275",
+    "services/api/app/diwali/legacy_bridge.py": "e397bbba315accd17af59a572b4de105a536149371c48b4258c552e55ebdf59a",
+    "services/api/app/diwali/band_bridge.py": "6061a62a6f8378dfc80e44cc49715a2eb9c7b871a688ce5902aa77ee7fc2ed04",
+    "services/api/app/diwali/band_settings.py": "3fb6533b60b79c5749d73b735a6d1d349389d6598997d1b612d3686a0414d430",
+    "services/api/app/diwali/message_schema.py": "e918cf0cd24ed56c24883c3bfefbd957ea1e2dce5299fa76c172f26460a2a958"
+  }
+}

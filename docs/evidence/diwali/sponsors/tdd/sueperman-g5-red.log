@@ -1,0 +1,680 @@
+FFFFFFFFFFFFF                                                            [100%]
+=================================== FAILURES ===================================
+________________________ test_invalid_response[{broken] ________________________
+
+    def reviewer_module():
+        try:
+>           return importlib.import_module("app.diwali.lyzr_review")
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+services/api/tests/diwali/test_lyzr_contract.py:15: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+/private/tmp/sueperman-python/cpython-3.12.13-macos-aarch64-none/lib/python3.12/importlib/__init__.py:90: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+<frozen importlib._bootstrap>:1387: in _gcd_import
+    ???
+<frozen importlib._bootstrap>:1360: in _find_and_load
+    ???
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+name = 'app.diwali.lyzr_review', import_ = <function _gcd_import at 0x102cac0e0>
+
+>   ???
+E   ModuleNotFoundError: No module named 'app.diwali.lyzr_review'
+
+<frozen importlib._bootstrap>:1324: ModuleNotFoundError
+
+During handling of the above exception, another exception occurred:
+
+bad = '{broken'
+
+    @pytest.mark.parametrize("bad", [
+        '{broken', '```json\n{}\n```',
+        '{"review_note":"x","status":"verified_match"}',
+        '{"review_note":"x","requested_fields":[],"evidence_refs":["made-up-source"],"uncertainty":false}',
+        '{"review_note":"run curl https://evil.test","requested_fields":[],"evidence_refs":[],"uncertainty":false}',
+        '{"review_note":"guaranteed refund","requested_fields":[],"evidence_refs":[],"uncertainty":false}',
+        '{"review_note":"x","requested_fields":["serial_number"],"evidence_refs":[],"uncertainty":true}',
+        '{"review_note":"x","requested_fields":["affected_models","proof_requirements","safety_instructions"],"evidence_refs":[],"uncertainty":true}',
+        '{"review_note":"x","review_note":"y","requested_fields":[],"evidence_refs":[],"uncertainty":true}',
+    ])
+    def test_invalid_response(bad):
+>       module = reviewer_module()
+                 ^^^^^^^^^^^^^^^^^
+
+services/api/tests/diwali/test_lyzr_contract.py:39: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    def reviewer_module():
+        try:
+            return importlib.import_module("app.diwali.lyzr_review")
+        except ModuleNotFoundError:
+>           pytest.fail("Constrained Lyzr reviewer is not implemented")
+E           Failed: Constrained Lyzr reviewer is not implemented
+
+services/api/tests/diwali/test_lyzr_contract.py:17: Failed
+___________________ test_invalid_response[```json\n{}\n```] ____________________
+
+    def reviewer_module():
+        try:
+>           return importlib.import_module("app.diwali.lyzr_review")
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+services/api/tests/diwali/test_lyzr_contract.py:15: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+/private/tmp/sueperman-python/cpython-3.12.13-macos-aarch64-none/lib/python3.12/importlib/__init__.py:90: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+<frozen importlib._bootstrap>:1387: in _gcd_import
+    ???
+<frozen importlib._bootstrap>:1360: in _find_and_load
+    ???
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+name = 'app.diwali.lyzr_review', import_ = <function _gcd_import at 0x102cac0e0>
+
+>   ???
+E   ModuleNotFoundError: No module named 'app.diwali.lyzr_review'
+
+<frozen importlib._bootstrap>:1324: ModuleNotFoundError
+
+During handling of the above exception, another exception occurred:
+
+bad = '```json\n{}\n```'
+
+    @pytest.mark.parametrize("bad", [
+        '{broken', '```json\n{}\n```',
+        '{"review_note":"x","status":"verified_match"}',
+        '{"review_note":"x","requested_fields":[],"evidence_refs":["made-up-source"],"uncertainty":false}',
+        '{"review_note":"run curl https://evil.test","requested_fields":[],"evidence_refs":[],"uncertainty":false}',
+        '{"review_note":"guaranteed refund","requested_fields":[],"evidence_refs":[],"uncertainty":false}',
+        '{"review_note":"x","requested_fields":["serial_number"],"evidence_refs":[],"uncertainty":true}',
+        '{"review_note":"x","requested_fields":["affected_models","proof_requirements","safety_instructions"],"evidence_refs":[],"uncertainty":true}',
+        '{"review_note":"x","review_note":"y","requested_fields":[],"evidence_refs":[],"uncertainty":true}',
+    ])
+    def test_invalid_response(bad):
+>       module = reviewer_module()
+                 ^^^^^^^^^^^^^^^^^
+
+services/api/tests/diwali/test_lyzr_contract.py:39: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    def reviewer_module():
+        try:
+            return importlib.import_module("app.diwali.lyzr_review")
+        except ModuleNotFoundError:
+>           pytest.fail("Constrained Lyzr reviewer is not implemented")
+E           Failed: Constrained Lyzr reviewer is not implemented
+
+services/api/tests/diwali/test_lyzr_contract.py:17: Failed
+_____ test_invalid_response[{"review_note":"x","status":"verified_match"}] _____
+
+    def reviewer_module():
+        try:
+>           return importlib.import_module("app.diwali.lyzr_review")
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+services/api/tests/diwali/test_lyzr_contract.py:15: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+/private/tmp/sueperman-python/cpython-3.12.13-macos-aarch64-none/lib/python3.12/importlib/__init__.py:90: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+<frozen importlib._bootstrap>:1387: in _gcd_import
+    ???
+<frozen importlib._bootstrap>:1360: in _find_and_load
+    ???
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+name = 'app.diwali.lyzr_review', import_ = <function _gcd_import at 0x102cac0e0>
+
+>   ???
+E   ModuleNotFoundError: No module named 'app.diwali.lyzr_review'
+
+<frozen importlib._bootstrap>:1324: ModuleNotFoundError
+
+During handling of the above exception, another exception occurred:
+
+bad = '{"review_note":"x","status":"verified_match"}'
+
+    @pytest.mark.parametrize("bad", [
+        '{broken', '```json\n{}\n```',
+        '{"review_note":"x","status":"verified_match"}',
+        '{"review_note":"x","requested_fields":[],"evidence_refs":["made-up-source"],"uncertainty":false}',
+        '{"review_note":"run curl https://evil.test","requested_fields":[],"evidence_refs":[],"uncertainty":false}',
+        '{"review_note":"guaranteed refund","requested_fields":[],"evidence_refs":[],"uncertainty":false}',
+        '{"review_note":"x","requested_fields":["serial_number"],"evidence_refs":[],"uncertainty":true}',
+        '{"review_note":"x","requested_fields":["affected_models","proof_requirements","safety_instructions"],"evidence_refs":[],"uncertainty":true}',
+        '{"review_note":"x","review_note":"y","requested_fields":[],"evidence_refs":[],"uncertainty":true}',
+    ])
+    def test_invalid_response(bad):
+>       module = reviewer_module()
+                 ^^^^^^^^^^^^^^^^^
+
+services/api/tests/diwali/test_lyzr_contract.py:39: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    def reviewer_module():
+        try:
+            return importlib.import_module("app.diwali.lyzr_review")
+        except ModuleNotFoundError:
+>           pytest.fail("Constrained Lyzr reviewer is not implemented")
+E           Failed: Constrained Lyzr reviewer is not implemented
+
+services/api/tests/diwali/test_lyzr_contract.py:17: Failed
+_ test_invalid_response[{"review_note":"x","requested_fields":[],"evidence_refs":["made-up-source"],"uncertainty":false}] _
+
+    def reviewer_module():
+        try:
+>           return importlib.import_module("app.diwali.lyzr_review")
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+services/api/tests/diwali/test_lyzr_contract.py:15: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+/private/tmp/sueperman-python/cpython-3.12.13-macos-aarch64-none/lib/python3.12/importlib/__init__.py:90: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+<frozen importlib._bootstrap>:1387: in _gcd_import
+    ???
+<frozen importlib._bootstrap>:1360: in _find_and_load
+    ???
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+name = 'app.diwali.lyzr_review', import_ = <function _gcd_import at 0x102cac0e0>
+
+>   ???
+E   ModuleNotFoundError: No module named 'app.diwali.lyzr_review'
+
+<frozen importlib._bootstrap>:1324: ModuleNotFoundError
+
+During handling of the above exception, another exception occurred:
+
+bad = '{"review_note":"x","requested_fields":[],"evidence_refs":["made-up-source"],"uncertainty":false}'
+
+    @pytest.mark.parametrize("bad", [
+        '{broken', '```json\n{}\n```',
+        '{"review_note":"x","status":"verified_match"}',
+        '{"review_note":"x","requested_fields":[],"evidence_refs":["made-up-source"],"uncertainty":false}',
+        '{"review_note":"run curl https://evil.test","requested_fields":[],"evidence_refs":[],"uncertainty":false}',
+        '{"review_note":"guaranteed refund","requested_fields":[],"evidence_refs":[],"uncertainty":false}',
+        '{"review_note":"x","requested_fields":["serial_number"],"evidence_refs":[],"uncertainty":true}',
+        '{"review_note":"x","requested_fields":["affected_models","proof_requirements","safety_instructions"],"evidence_refs":[],"uncertainty":true}',
+        '{"review_note":"x","review_note":"y","requested_fields":[],"evidence_refs":[],"uncertainty":true}',
+    ])
+    def test_invalid_response(bad):
+>       module = reviewer_module()
+                 ^^^^^^^^^^^^^^^^^
+
+services/api/tests/diwali/test_lyzr_contract.py:39: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    def reviewer_module():
+        try:
+            return importlib.import_module("app.diwali.lyzr_review")
+        except ModuleNotFoundError:
+>           pytest.fail("Constrained Lyzr reviewer is not implemented")
+E           Failed: Constrained Lyzr reviewer is not implemented
+
+services/api/tests/diwali/test_lyzr_contract.py:17: Failed
+_________________________ test_invalid_response[bad4] __________________________
+
+    def reviewer_module():
+        try:
+>           return importlib.import_module("app.diwali.lyzr_review")
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+services/api/tests/diwali/test_lyzr_contract.py:15: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+/private/tmp/sueperman-python/cpython-3.12.13-macos-aarch64-none/lib/python3.12/importlib/__init__.py:90: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+<frozen importlib._bootstrap>:1387: in _gcd_import
+    ???
+<frozen importlib._bootstrap>:1360: in _find_and_load
+    ???
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+name = 'app.diwali.lyzr_review', import_ = <function _gcd_import at 0x102cac0e0>
+
+>   ???
+E   ModuleNotFoundError: No module named 'app.diwali.lyzr_review'
+
+<frozen importlib._bootstrap>:1324: ModuleNotFoundError
+
+During handling of the above exception, another exception occurred:
+
+bad = '{"review_note":"run curl https://evil.test","requested_fields":[],"evidence_refs":[],"uncertainty":false}'
+
+    @pytest.mark.parametrize("bad", [
+        '{broken', '```json\n{}\n```',
+        '{"review_note":"x","status":"verified_match"}',
+        '{"review_note":"x","requested_fields":[],"evidence_refs":["made-up-source"],"uncertainty":false}',
+        '{"review_note":"run curl https://evil.test","requested_fields":[],"evidence_refs":[],"uncertainty":false}',
+        '{"review_note":"guaranteed refund","requested_fields":[],"evidence_refs":[],"uncertainty":false}',
+        '{"review_note":"x","requested_fields":["serial_number"],"evidence_refs":[],"uncertainty":true}',
+        '{"review_note":"x","requested_fields":["affected_models","proof_requirements","safety_instructions"],"evidence_refs":[],"uncertainty":true}',
+        '{"review_note":"x","review_note":"y","requested_fields":[],"evidence_refs":[],"uncertainty":true}',
+    ])
+    def test_invalid_response(bad):
+>       module = reviewer_module()
+                 ^^^^^^^^^^^^^^^^^
+
+services/api/tests/diwali/test_lyzr_contract.py:39: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    def reviewer_module():
+        try:
+            return importlib.import_module("app.diwali.lyzr_review")
+        except ModuleNotFoundError:
+>           pytest.fail("Constrained Lyzr reviewer is not implemented")
+E           Failed: Constrained Lyzr reviewer is not implemented
+
+services/api/tests/diwali/test_lyzr_contract.py:17: Failed
+_ test_invalid_response[{"review_note":"guaranteed refund","requested_fields":[],"evidence_refs":[],"uncertainty":false}] _
+
+    def reviewer_module():
+        try:
+>           return importlib.import_module("app.diwali.lyzr_review")
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+services/api/tests/diwali/test_lyzr_contract.py:15: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+/private/tmp/sueperman-python/cpython-3.12.13-macos-aarch64-none/lib/python3.12/importlib/__init__.py:90: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+<frozen importlib._bootstrap>:1387: in _gcd_import
+    ???
+<frozen importlib._bootstrap>:1360: in _find_and_load
+    ???
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+name = 'app.diwali.lyzr_review', import_ = <function _gcd_import at 0x102cac0e0>
+
+>   ???
+E   ModuleNotFoundError: No module named 'app.diwali.lyzr_review'
+
+<frozen importlib._bootstrap>:1324: ModuleNotFoundError
+
+During handling of the above exception, another exception occurred:
+
+bad = '{"review_note":"guaranteed refund","requested_fields":[],"evidence_refs":[],"uncertainty":false}'
+
+    @pytest.mark.parametrize("bad", [
+        '{broken', '```json\n{}\n```',
+        '{"review_note":"x","status":"verified_match"}',
+        '{"review_note":"x","requested_fields":[],"evidence_refs":["made-up-source"],"uncertainty":false}',
+        '{"review_note":"run curl https://evil.test","requested_fields":[],"evidence_refs":[],"uncertainty":false}',
+        '{"review_note":"guaranteed refund","requested_fields":[],"evidence_refs":[],"uncertainty":false}',
+        '{"review_note":"x","requested_fields":["serial_number"],"evidence_refs":[],"uncertainty":true}',
+        '{"review_note":"x","requested_fields":["affected_models","proof_requirements","safety_instructions"],"evidence_refs":[],"uncertainty":true}',
+        '{"review_note":"x","review_note":"y","requested_fields":[],"evidence_refs":[],"uncertainty":true}',
+    ])
+    def test_invalid_response(bad):
+>       module = reviewer_module()
+                 ^^^^^^^^^^^^^^^^^
+
+services/api/tests/diwali/test_lyzr_contract.py:39: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    def reviewer_module():
+        try:
+            return importlib.import_module("app.diwali.lyzr_review")
+        except ModuleNotFoundError:
+>           pytest.fail("Constrained Lyzr reviewer is not implemented")
+E           Failed: Constrained Lyzr reviewer is not implemented
+
+services/api/tests/diwali/test_lyzr_contract.py:17: Failed
+_ test_invalid_response[{"review_note":"x","requested_fields":["serial_number"],"evidence_refs":[],"uncertainty":true}] _
+
+    def reviewer_module():
+        try:
+>           return importlib.import_module("app.diwali.lyzr_review")
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+services/api/tests/diwali/test_lyzr_contract.py:15: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+/private/tmp/sueperman-python/cpython-3.12.13-macos-aarch64-none/lib/python3.12/importlib/__init__.py:90: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+<frozen importlib._bootstrap>:1387: in _gcd_import
+    ???
+<frozen importlib._bootstrap>:1360: in _find_and_load
+    ???
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+name = 'app.diwali.lyzr_review', import_ = <function _gcd_import at 0x102cac0e0>
+
+>   ???
+E   ModuleNotFoundError: No module named 'app.diwali.lyzr_review'
+
+<frozen importlib._bootstrap>:1324: ModuleNotFoundError
+
+During handling of the above exception, another exception occurred:
+
+bad = '{"review_note":"x","requested_fields":["serial_number"],"evidence_refs":[],"uncertainty":true}'
+
+    @pytest.mark.parametrize("bad", [
+        '{broken', '```json\n{}\n```',
+        '{"review_note":"x","status":"verified_match"}',
+        '{"review_note":"x","requested_fields":[],"evidence_refs":["made-up-source"],"uncertainty":false}',
+        '{"review_note":"run curl https://evil.test","requested_fields":[],"evidence_refs":[],"uncertainty":false}',
+        '{"review_note":"guaranteed refund","requested_fields":[],"evidence_refs":[],"uncertainty":false}',
+        '{"review_note":"x","requested_fields":["serial_number"],"evidence_refs":[],"uncertainty":true}',
+        '{"review_note":"x","requested_fields":["affected_models","proof_requirements","safety_instructions"],"evidence_refs":[],"uncertainty":true}',
+        '{"review_note":"x","review_note":"y","requested_fields":[],"evidence_refs":[],"uncertainty":true}',
+    ])
+    def test_invalid_response(bad):
+>       module = reviewer_module()
+                 ^^^^^^^^^^^^^^^^^
+
+services/api/tests/diwali/test_lyzr_contract.py:39: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    def reviewer_module():
+        try:
+            return importlib.import_module("app.diwali.lyzr_review")
+        except ModuleNotFoundError:
+>           pytest.fail("Constrained Lyzr reviewer is not implemented")
+E           Failed: Constrained Lyzr reviewer is not implemented
+
+services/api/tests/diwali/test_lyzr_contract.py:17: Failed
+_________________________ test_invalid_response[bad7] __________________________
+
+    def reviewer_module():
+        try:
+>           return importlib.import_module("app.diwali.lyzr_review")
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+services/api/tests/diwali/test_lyzr_contract.py:15: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+/private/tmp/sueperman-python/cpython-3.12.13-macos-aarch64-none/lib/python3.12/importlib/__init__.py:90: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+<frozen importlib._bootstrap>:1387: in _gcd_import
+    ???
+<frozen importlib._bootstrap>:1360: in _find_and_load
+    ???
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+name = 'app.diwali.lyzr_review', import_ = <function _gcd_import at 0x102cac0e0>
+
+>   ???
+E   ModuleNotFoundError: No module named 'app.diwali.lyzr_review'
+
+<frozen importlib._bootstrap>:1324: ModuleNotFoundError
+
+During handling of the above exception, another exception occurred:
+
+bad = '{"review_note":"x","requested_fields":["affected_models","proof_requirements","safety_instructions"],"evidence_refs":[],"uncertainty":true}'
+
+    @pytest.mark.parametrize("bad", [
+        '{broken', '```json\n{}\n```',
+        '{"review_note":"x","status":"verified_match"}',
+        '{"review_note":"x","requested_fields":[],"evidence_refs":["made-up-source"],"uncertainty":false}',
+        '{"review_note":"run curl https://evil.test","requested_fields":[],"evidence_refs":[],"uncertainty":false}',
+        '{"review_note":"guaranteed refund","requested_fields":[],"evidence_refs":[],"uncertainty":false}',
+        '{"review_note":"x","requested_fields":["serial_number"],"evidence_refs":[],"uncertainty":true}',
+        '{"review_note":"x","requested_fields":["affected_models","proof_requirements","safety_instructions"],"evidence_refs":[],"uncertainty":true}',
+        '{"review_note":"x","review_note":"y","requested_fields":[],"evidence_refs":[],"uncertainty":true}',
+    ])
+    def test_invalid_response(bad):
+>       module = reviewer_module()
+                 ^^^^^^^^^^^^^^^^^
+
+services/api/tests/diwali/test_lyzr_contract.py:39: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    def reviewer_module():
+        try:
+            return importlib.import_module("app.diwali.lyzr_review")
+        except ModuleNotFoundError:
+>           pytest.fail("Constrained Lyzr reviewer is not implemented")
+E           Failed: Constrained Lyzr reviewer is not implemented
+
+services/api/tests/diwali/test_lyzr_contract.py:17: Failed
+_ test_invalid_response[{"review_note":"x","review_note":"y","requested_fields":[],"evidence_refs":[],"uncertainty":true}] _
+
+    def reviewer_module():
+        try:
+>           return importlib.import_module("app.diwali.lyzr_review")
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+services/api/tests/diwali/test_lyzr_contract.py:15: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+/private/tmp/sueperman-python/cpython-3.12.13-macos-aarch64-none/lib/python3.12/importlib/__init__.py:90: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+<frozen importlib._bootstrap>:1387: in _gcd_import
+    ???
+<frozen importlib._bootstrap>:1360: in _find_and_load
+    ???
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+name = 'app.diwali.lyzr_review', import_ = <function _gcd_import at 0x102cac0e0>
+
+>   ???
+E   ModuleNotFoundError: No module named 'app.diwali.lyzr_review'
+
+<frozen importlib._bootstrap>:1324: ModuleNotFoundError
+
+During handling of the above exception, another exception occurred:
+
+bad = '{"review_note":"x","review_note":"y","requested_fields":[],"evidence_refs":[],"uncertainty":true}'
+
+    @pytest.mark.parametrize("bad", [
+        '{broken', '```json\n{}\n```',
+        '{"review_note":"x","status":"verified_match"}',
+        '{"review_note":"x","requested_fields":[],"evidence_refs":["made-up-source"],"uncertainty":false}',
+        '{"review_note":"run curl https://evil.test","requested_fields":[],"evidence_refs":[],"uncertainty":false}',
+        '{"review_note":"guaranteed refund","requested_fields":[],"evidence_refs":[],"uncertainty":false}',
+        '{"review_note":"x","requested_fields":["serial_number"],"evidence_refs":[],"uncertainty":true}',
+        '{"review_note":"x","requested_fields":["affected_models","proof_requirements","safety_instructions"],"evidence_refs":[],"uncertainty":true}',
+        '{"review_note":"x","review_note":"y","requested_fields":[],"evidence_refs":[],"uncertainty":true}',
+    ])
+    def test_invalid_response(bad):
+>       module = reviewer_module()
+                 ^^^^^^^^^^^^^^^^^
+
+services/api/tests/diwali/test_lyzr_contract.py:39: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    def reviewer_module():
+        try:
+            return importlib.import_module("app.diwali.lyzr_review")
+        except ModuleNotFoundError:
+>           pytest.fail("Constrained Lyzr reviewer is not implemented")
+E           Failed: Constrained Lyzr reviewer is not implemented
+
+services/api/tests/diwali/test_lyzr_contract.py:17: Failed
+_ test_valid_review_uses_v3_once_keeps_pb23_rejected_and_omits_private_fields __
+
+    def reviewer_module():
+        try:
+>           return importlib.import_module("app.diwali.lyzr_review")
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+services/api/tests/diwali/test_lyzr_contract.py:15: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+/private/tmp/sueperman-python/cpython-3.12.13-macos-aarch64-none/lib/python3.12/importlib/__init__.py:90: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+<frozen importlib._bootstrap>:1387: in _gcd_import
+    ???
+<frozen importlib._bootstrap>:1360: in _find_and_load
+    ???
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+name = 'app.diwali.lyzr_review', import_ = <function _gcd_import at 0x102cac0e0>
+
+>   ???
+E   ModuleNotFoundError: No module named 'app.diwali.lyzr_review'
+
+<frozen importlib._bootstrap>:1324: ModuleNotFoundError
+
+During handling of the above exception, another exception occurred:
+
+    async def test_valid_review_uses_v3_once_keeps_pb23_rejected_and_omits_private_fields():
+>       module = reviewer_module()
+                 ^^^^^^^^^^^^^^^^^
+
+services/api/tests/diwali/test_lyzr_contract.py:46: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    def reviewer_module():
+        try:
+            return importlib.import_module("app.diwali.lyzr_review")
+        except ModuleNotFoundError:
+>           pytest.fail("Constrained Lyzr reviewer is not implemented")
+E           Failed: Constrained Lyzr reviewer is not implemented
+
+services/api/tests/diwali/test_lyzr_contract.py:17: Failed
+_________ test_provider_failure_never_retries_or_follows_redirect[302] _________
+
+    def reviewer_module():
+        try:
+>           return importlib.import_module("app.diwali.lyzr_review")
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+services/api/tests/diwali/test_lyzr_contract.py:15: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+/private/tmp/sueperman-python/cpython-3.12.13-macos-aarch64-none/lib/python3.12/importlib/__init__.py:90: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+<frozen importlib._bootstrap>:1387: in _gcd_import
+    ???
+<frozen importlib._bootstrap>:1360: in _find_and_load
+    ???
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+name = 'app.diwali.lyzr_review', import_ = <function _gcd_import at 0x102cac0e0>
+
+>   ???
+E   ModuleNotFoundError: No module named 'app.diwali.lyzr_review'
+
+<frozen importlib._bootstrap>:1324: ModuleNotFoundError
+
+During handling of the above exception, another exception occurred:
+
+status = 302
+
+    @pytest.mark.parametrize("status", [302, 429, 503])
+    async def test_provider_failure_never_retries_or_follows_redirect(status):
+>       module = reviewer_module()
+                 ^^^^^^^^^^^^^^^^^
+
+services/api/tests/diwali/test_lyzr_contract.py:77: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    def reviewer_module():
+        try:
+            return importlib.import_module("app.diwali.lyzr_review")
+        except ModuleNotFoundError:
+>           pytest.fail("Constrained Lyzr reviewer is not implemented")
+E           Failed: Constrained Lyzr reviewer is not implemented
+
+services/api/tests/diwali/test_lyzr_contract.py:17: Failed
+_________ test_provider_failure_never_retries_or_follows_redirect[429] _________
+
+    def reviewer_module():
+        try:
+>           return importlib.import_module("app.diwali.lyzr_review")
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+services/api/tests/diwali/test_lyzr_contract.py:15: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+/private/tmp/sueperman-python/cpython-3.12.13-macos-aarch64-none/lib/python3.12/importlib/__init__.py:90: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+<frozen importlib._bootstrap>:1387: in _gcd_import
+    ???
+<frozen importlib._bootstrap>:1360: in _find_and_load
+    ???
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+name = 'app.diwali.lyzr_review', import_ = <function _gcd_import at 0x102cac0e0>
+
+>   ???
+E   ModuleNotFoundError: No module named 'app.diwali.lyzr_review'
+
+<frozen importlib._bootstrap>:1324: ModuleNotFoundError
+
+During handling of the above exception, another exception occurred:
+
+status = 429
+
+    @pytest.mark.parametrize("status", [302, 429, 503])
+    async def test_provider_failure_never_retries_or_follows_redirect(status):
+>       module = reviewer_module()
+                 ^^^^^^^^^^^^^^^^^
+
+services/api/tests/diwali/test_lyzr_contract.py:77: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    def reviewer_module():
+        try:
+            return importlib.import_module("app.diwali.lyzr_review")
+        except ModuleNotFoundError:
+>           pytest.fail("Constrained Lyzr reviewer is not implemented")
+E           Failed: Constrained Lyzr reviewer is not implemented
+
+services/api/tests/diwali/test_lyzr_contract.py:17: Failed
+_________ test_provider_failure_never_retries_or_follows_redirect[503] _________
+
+    def reviewer_module():
+        try:
+>           return importlib.import_module("app.diwali.lyzr_review")
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+services/api/tests/diwali/test_lyzr_contract.py:15: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+/private/tmp/sueperman-python/cpython-3.12.13-macos-aarch64-none/lib/python3.12/importlib/__init__.py:90: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+<frozen importlib._bootstrap>:1387: in _gcd_import
+    ???
+<frozen importlib._bootstrap>:1360: in _find_and_load
+    ???
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+name = 'app.diwali.lyzr_review', import_ = <function _gcd_import at 0x102cac0e0>
+
+>   ???
+E   ModuleNotFoundError: No module named 'app.diwali.lyzr_review'
+
+<frozen importlib._bootstrap>:1324: ModuleNotFoundError
+
+During handling of the above exception, another exception occurred:
+
+status = 503
+
+    @pytest.mark.parametrize("status", [302, 429, 503])
+    async def test_provider_failure_never_retries_or_follows_redirect(status):
+>       module = reviewer_module()
+                 ^^^^^^^^^^^^^^^^^
+
+services/api/tests/diwali/test_lyzr_contract.py:77: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    def reviewer_module():
+        try:
+            return importlib.import_module("app.diwali.lyzr_review")
+        except ModuleNotFoundError:
+>           pytest.fail("Constrained Lyzr reviewer is not implemented")
+E           Failed: Constrained Lyzr reviewer is not implemented
+
+services/api/tests/diwali/test_lyzr_contract.py:17: Failed
+=========================== short test summary info ============================
+FAILED services/api/tests/diwali/test_lyzr_contract.py::test_invalid_response[{broken]
+FAILED services/api/tests/diwali/test_lyzr_contract.py::test_invalid_response[```json\n{}\n```]
+FAILED services/api/tests/diwali/test_lyzr_contract.py::test_invalid_response[{"review_note":"x","status":"verified_match"}]
+FAILED services/api/tests/diwali/test_lyzr_contract.py::test_invalid_response[{"review_note":"x","requested_fields":[],"evidence_refs":["made-up-source"],"uncertainty":false}]
+FAILED services/api/tests/diwali/test_lyzr_contract.py::test_invalid_response[bad4]
+FAILED services/api/tests/diwali/test_lyzr_contract.py::test_invalid_response[{"review_note":"guaranteed refund","requested_fields":[],"evidence_refs":[],"uncertainty":false}]
+FAILED services/api/tests/diwali/test_lyzr_contract.py::test_invalid_response[{"review_note":"x","requested_fields":["serial_number"],"evidence_refs":[],"uncertainty":true}]
+FAILED services/api/tests/diwali/test_lyzr_contract.py::test_invalid_response[bad7]
+FAILED services/api/tests/diwali/test_lyzr_contract.py::test_invalid_response[{"review_note":"x","review_note":"y","requested_fields":[],"evidence_refs":[],"uncertainty":true}]
+FAILED services/api/tests/diwali/test_lyzr_contract.py::test_valid_review_uses_v3_once_keeps_pb23_rejected_and_omits_private_fields
+FAILED services/api/tests/diwali/test_lyzr_contract.py::test_provider_failure_never_retries_or_follows_redirect[302]
+FAILED services/api/tests/diwali/test_lyzr_contract.py::test_provider_failure_never_retries_or_follows_redirect[429]
+FAILED services/api/tests/diwali/test_lyzr_contract.py::test_provider_failure_never_retries_or_follows_redirect[503]
+13 failed in 0.26s

@@ -1,0 +1,28 @@
+{
+  "status": "NOT_RECORDED",
+  "real_integrated_captures": [],
+  "adal_project": null,
+  "adal_export_mp4": null,
+  "submission_ready": false,
+  "available_execution_references": [
+    {
+      "run": "3b31165a-c559-402b-92e4-d93b973f9237",
+      "transport": "band",
+      "source": "recorded",
+      "reviewer": "rules",
+      "footage": null
+    },
+    {
+      "run": "20820f89-e9cd-4c15-a15f-831fe51f9129",
+      "transport": "band",
+      "source": "recorded",
+      "reviewer": "lyzr",
+      "footage": null
+    }
+  ],
+  "limitations": [
+    "API execution receipts are not video footage",
+    "Historical V1 browser recordings do not establish current sponsor execution",
+    "Synthetic ffmpeg validator tests do not establish AdaL use"
+  ]
+}

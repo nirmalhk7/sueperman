@@ -2,19 +2,21 @@ F                                                                        [100%]
 =================================== FAILURES ===================================
 _______________________________ test_provenance ________________________________
 
-client = <starlette.testclient.TestClient object at 0x10ca2e7b0>
+client = <starlette.testclient.TestClient object at 0x10c037b60>
 
     def test_provenance(client):
-        result, _ = run(client)
-        assert result["status"] == "completed"
-        assert result["collaboration_mode"] == "local"
->       assert result["actual_transport"] == "local"
+        seed = client.post("/api/demo/reset").json()
+        admitted = client.post("/api/runs", json={"purchase_ids": seed["purchase_ids"],
+            "mode": "demo", "collaboration_mode": "local", "idempotency_key": "provenance"})
+        assert admitted.status_code == 200
+        # Admission is visible before the coordinator can overwrite its provenance.
+>       assert admitted.json()["actual_transport"] == "local"
 E       AssertionError: assert 'band' == 'local'
 E         
 E         - local
 E         + band
 
-services/api/tests/diwali/test_api.py:86: AssertionError
+services/api/tests/diwali/test_api.py:88: AssertionError
 =============================== warnings summary ===============================
 ../../../../../../../Users/nirmalhk7/Documents/DevWorld/sueperman/services/api/.venv/lib/python3.12/site-packages/fastapi/testclient.py:1
   /Users/nirmalhk7/Documents/DevWorld/sueperman/services/api/.venv/lib/python3.12/site-packages/fastapi/testclient.py:1: StarletteDeprecationWarning: Using `httpx` with `starlette.testclient` is deprecated; install `httpx2` instead.
@@ -23,4 +25,4 @@ services/api/tests/diwali/test_api.py:86: AssertionError
 -- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
 =========================== short test summary info ============================
 FAILED services/api/tests/diwali/test_api.py::test_provenance - AssertionErro...
-1 failed, 1 warning in 0.80s
+1 failed, 1 warning in 0.88s

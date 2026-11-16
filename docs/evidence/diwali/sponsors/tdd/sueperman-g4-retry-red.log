@@ -1,0 +1,185 @@
+.......F                                                                 [100%]
+=================================== FAILURES ===================================
+__ test_sdk_websocket_failure_is_single_attempt_and_success_cannot_reconnect ___
+
+self = <test_band_bridge.test_sdk_websocket_failure_is_single_attempt_and_success_cannot_reconnect.<locals>.OfflineSocket object at 0x108452630>
+
+    async def __aenter__(self):
+        attempts.append(1)
+>       raise WebSocketUpgradeError(status_code=503, message="offline service outage")
+E       band.client.streaming.errors.WebSocketUpgradeError: offline service outage
+
+services/api/tests/diwali/test_band_bridge.py:161: WebSocketUpgradeError
+
+During handling of the above exception, another exception occurred:
+
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x107111b50>
+
+    @pytest.mark.asyncio
+    async def test_sdk_websocket_failure_is_single_attempt_and_success_cannot_reconnect(monkeypatch):
+        import asyncio
+        import logging
+    
+        from band.client.streaming.client import WebSocketClient
+        from band.client.streaming.errors import WebSocketUpgradeError
+    
+        module = bridge()
+        client_type = getattr(module, "SingleAttemptWebSocket", WebSocketClient)
+        attempts = []
+    
+        class OfflineSocket:
+            auto_reconnect = False
+            logger = logging.getLogger("offline-socket-test")
+            redact_diagnostic = staticmethod(str)
+            channel_socket_url = "wss://offline.example.test"
+    
+            async def __aenter__(self):
+                attempts.append(1)
+                raise WebSocketUpgradeError(status_code=503, message="offline service outage")
+    
+            async def __aexit__(self, *args):
+                pass
+    
+        socket = client_type("wss://offline.example.test", "offline-test-key")
+        monkeypatch.setattr(socket, "_build_phx_client", OfflineSocket)
+        try:
+            async with asyncio.timeout(0.05):
+                with pytest.raises(WebSocketUpgradeError):
+>                   await socket.__aenter__()
+
+services/api/tests/diwali/test_band_bridge.py:171: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+services/api/.venv/lib/python3.12/site-packages/band/client/streaming/client.py:651: in __aenter__
+    await asyncio.sleep(delay)
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+delay = 1.0, result = None
+
+    async def sleep(delay, result=None):
+        """Coroutine that completes after a given time (in seconds)."""
+        if delay <= 0:
+            await __sleep0()
+            return result
+    
+        loop = events.get_running_loop()
+        future = loop.create_future()
+        h = loop.call_later(delay,
+                            futures._set_result_unless_cancelled,
+                            future, result)
+        try:
+>           return await future
+                   ^^^^^^^^^^^^
+E           asyncio.exceptions.CancelledError
+
+/private/tmp/sueperman-python/cpython-3.12.13-macos-aarch64-none/lib/python3.12/asyncio/tasks.py:665: CancelledError
+
+The above exception was the direct cause of the following exception:
+
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x107111b50>
+
+    @pytest.mark.asyncio
+    async def test_sdk_websocket_failure_is_single_attempt_and_success_cannot_reconnect(monkeypatch):
+        import asyncio
+        import logging
+    
+        from band.client.streaming.client import WebSocketClient
+        from band.client.streaming.errors import WebSocketUpgradeError
+    
+        module = bridge()
+        client_type = getattr(module, "SingleAttemptWebSocket", WebSocketClient)
+        attempts = []
+    
+        class OfflineSocket:
+            auto_reconnect = False
+            logger = logging.getLogger("offline-socket-test")
+            redact_diagnostic = staticmethod(str)
+            channel_socket_url = "wss://offline.example.test"
+    
+            async def __aenter__(self):
+                attempts.append(1)
+                raise WebSocketUpgradeError(status_code=503, message="offline service outage")
+    
+            async def __aexit__(self, *args):
+                pass
+    
+        socket = client_type("wss://offline.example.test", "offline-test-key")
+        monkeypatch.setattr(socket, "_build_phx_client", OfflineSocket)
+        try:
+>           async with asyncio.timeout(0.05):
+                       ^^^^^^^^^^^^^^^^^^^^^
+
+services/api/tests/diwali/test_band_bridge.py:169: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <Timeout [expired]>
+exc_type = <class 'asyncio.exceptions.CancelledError'>
+exc_val = CancelledError(), exc_tb = <traceback object at 0x108418580>
+
+    async def __aexit__(
+        self,
+        exc_type: Optional[Type[BaseException]],
+        exc_val: Optional[BaseException],
+        exc_tb: Optional[TracebackType],
+    ) -> Optional[bool]:
+        assert self._state in (_State.ENTERED, _State.EXPIRING)
+    
+        if self._timeout_handler is not None:
+            self._timeout_handler.cancel()
+            self._timeout_handler = None
+    
+        if self._state is _State.EXPIRING:
+            self._state = _State.EXPIRED
+    
+            if self._task.uncancel() <= self._cancelling and exc_type is exceptions.CancelledError:
+                # Since there are no new cancel requests, we're
+                # handling this.
+>               raise TimeoutError from exc_val
+E               TimeoutError
+
+/private/tmp/sueperman-python/cpython-3.12.13-macos-aarch64-none/lib/python3.12/asyncio/timeouts.py:115: TimeoutError
+
+During handling of the above exception, another exception occurred:
+
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x107111b50>
+
+    @pytest.mark.asyncio
+    async def test_sdk_websocket_failure_is_single_attempt_and_success_cannot_reconnect(monkeypatch):
+        import asyncio
+        import logging
+    
+        from band.client.streaming.client import WebSocketClient
+        from band.client.streaming.errors import WebSocketUpgradeError
+    
+        module = bridge()
+        client_type = getattr(module, "SingleAttemptWebSocket", WebSocketClient)
+        attempts = []
+    
+        class OfflineSocket:
+            auto_reconnect = False
+            logger = logging.getLogger("offline-socket-test")
+            redact_diagnostic = staticmethod(str)
+            channel_socket_url = "wss://offline.example.test"
+    
+            async def __aenter__(self):
+                attempts.append(1)
+                raise WebSocketUpgradeError(status_code=503, message="offline service outage")
+    
+            async def __aexit__(self, *args):
+                pass
+    
+        socket = client_type("wss://offline.example.test", "offline-test-key")
+        monkeypatch.setattr(socket, "_build_phx_client", OfflineSocket)
+        try:
+            async with asyncio.timeout(0.05):
+                with pytest.raises(WebSocketUpgradeError):
+                    await socket.__aenter__()
+        except TimeoutError:
+>           pytest.fail("BAND SDK retried a failed socket instead of returning its first failure")
+E           Failed: BAND SDK retried a failed socket instead of returning its first failure
+
+services/api/tests/diwali/test_band_bridge.py:173: Failed
+------------------------------ Captured log call -------------------------------
+WARNING  offline-socket-test:client.py:576 Initial WebSocket connection failed; retrying in 1.00s: WebSocket upgrade failed with HTTP 503
+=========================== short test summary info ============================
+FAILED services/api/tests/diwali/test_band_bridge.py::test_sdk_websocket_failure_is_single_attempt_and_success_cannot_reconnect
+1 failed, 7 passed in 0.52s

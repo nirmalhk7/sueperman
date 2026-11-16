@@ -1,0 +1,7 @@
+[
+  {"purchase_model":"ZHX-PB22","expected":"verified_match"},
+  {"purchase_model":"ZHX-PB23","expected":"rejected"},
+  {"purchase_model":null,"expected":"needs_review"},
+  {"purchase_model":"ZHX-PB22X","expected":"rejected"},
+  {"purchase_model":"ZHX-PB22-1","expected":"rejected"}
+]

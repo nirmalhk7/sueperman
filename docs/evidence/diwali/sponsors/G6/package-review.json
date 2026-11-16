@@ -1,0 +1,19 @@
+{
+  "package": "output/diwali-v2/sueperman-recall-evidence-auditor-1.0.0.zip",
+  "sha256": "319cd67cfab3eafe2eefb37cbe36e2acced012cd1ed910398a2e4af386e3f86d",
+  "name": "sueperman-recall-evidence-auditor",
+  "version": "1.0.0",
+  "license": "MIT",
+  "mode": "local_authored",
+  "examples": [
+    "verified_match",
+    "rejected",
+    "needs_review",
+    "rejected",
+    "rejected"
+  ],
+  "published": false,
+  "finch_delivery": false,
+  "owner_authorized_MIT_and_listing": true,
+  "wallet_or_payment_authorized": false
+}

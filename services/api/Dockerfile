@@ -17,7 +17,10 @@ COPY services/api/pyproject.toml services/api/uv.lock services/api/
 RUN uv sync --project services/api --locked --no-dev --no-cache
 COPY services/api/app services/api/app
 COPY demo demo
+# Operator-only BAND admission verifies the frozen synthetic input contract.
+COPY --chmod=444 harness/diwali/baseline.json harness/diwali/baseline.json
 RUN useradd --uid 10001 --create-home sueperman \
+    && chmod 755 /srv/app/harness /srv/app/harness/diwali \
     && mkdir -p /data /srv/app/uploads && chown -R 10001:10001 /data /srv/app/uploads
 USER 10001
 EXPOSE 8080

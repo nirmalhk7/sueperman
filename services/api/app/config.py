@@ -23,6 +23,7 @@ class Settings(BaseSettings):
     finch_enabled: bool = False
     finch_skill_path: str = ""
     finch_skill_sha256: str = ""
+    finch_delivery_file: str = ""
     agent37_enabled: bool = False
     agent37_api_key: str = ""
     agent37_instance_id: str = ""

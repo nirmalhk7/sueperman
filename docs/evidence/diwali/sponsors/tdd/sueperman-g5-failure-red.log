@@ -1,0 +1,37 @@
+............F                                                            [100%]
+=================================== FAILURES ===================================
+__ test_enabled_reviewer_failure_returns_sanitized_task_failure_without_retry __
+
+    @pytest.mark.asyncio
+    async def test_enabled_reviewer_failure_returns_sanitized_task_failure_without_retry():
+        from band.testing import FakeAgentTools
+        from test_lyzr_contract import review_request
+    
+        module = bridge()
+        context, request = review_request()
+        sent = []
+    
+        class FailingReviewer:
+            calls = 0
+    
+            async def review(self, wire, frozen):
+                self.calls += 1
+                raise ValueError("private-provider-error-do-not-publish")
+    
+        async def send(wire):
+            sent.append(wire)
+    
+        reviewer = FailingReviewer()
+        adapter = module.CaseBandAdapter("skeptic", registry(), "private-test-room", lambda _: context,
+            send, clock=lambda: context.started_at, reviewer=reviewer)
+        await adapter.on_message(platform(request), FakeAgentTools(), [], None, None,
+            is_session_bootstrap=False, room_id="private-test-room")
+        assert reviewer.calls == 1
+>       assert len(sent) == 1
+E       assert 0 == 1
+E        +  where 0 = len([])
+
+services/api/tests/diwali/test_band_bridge.py:349: AssertionError
+=========================== short test summary info ============================
+FAILED services/api/tests/diwali/test_band_bridge.py::test_enabled_reviewer_failure_returns_sanitized_task_failure_without_retry
+1 failed, 12 passed in 0.53s

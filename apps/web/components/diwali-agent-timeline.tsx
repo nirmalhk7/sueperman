@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { post, type DiwaliMessage, type Run } from "@/lib/api";
-import { DiwaliCaseEvidence } from "./diwali-case-evidence";
+import { DiwaliCaseEvidence, diwaliTransportLabel } from "./diwali-case-evidence";
 
 export function DiwaliAgentTimeline({ run, messages, error }: {
   run: Run; messages: DiwaliMessage[]; error: string;
@@ -27,7 +27,7 @@ export function DiwaliAgentTimeline({ run, messages, error }: {
   return <section className="section">
     <h2>Agent collaboration</h2>
     <div className="providers">
-      <span data-testid="transport-mode">{run.actual_transport === "band" ? "BAND LIVE" : "LOCAL TEST"}</span>
+      <span data-testid="transport-mode">{diwaliTransportLabel(run.actual_transport, run.collaboration_mode)}</span>
       <span data-testid="source-mode">{run.source_mode === "live" ? "SOURCE LIVE" : "SOURCE RECORDED"}</span>
     </div>
     {error && <p role="alert" className="error">{error}</p>}

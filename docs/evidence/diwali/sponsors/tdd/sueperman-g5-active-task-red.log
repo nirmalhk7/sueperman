@@ -1,0 +1,52 @@
+.............F                                                           [100%]
+=================================== FAILURES ===================================
+_______ test_known_case_does_not_authorize_unregistered_paid_review_task _______
+
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x109e666c0>
+
+    @pytest.mark.asyncio
+    async def test_known_case_does_not_authorize_unregistered_paid_review_task(monkeypatch):
+        from uuid import uuid4
+    
+        from band.testing import FakeAgentTools
+        from test_lyzr_contract import review_request
+    
+        from app.diwali.core import reply, review_payload
+    
+        module = bridge()
+        context, request = review_request()
+        calls = []
+        sent = []
+    
+        class PaidBoundary:
+            receipts = None
+    
+            async def review(self, wire, frozen):
+                calls.append(wire.task_id)
+                return reply(wire, "ReviewReport", review_payload(frozen, wire.source_refs).model_dump(mode="json"), list(wire.source_refs))
+    
+        async def send(*args, **kwargs):
+            sent.append(1)
+            return "offline-platform-id"
+    
+        monkeypatch.setattr(module, "send_wire", send)
+        transport = module.BandTransport({"room_id": "private-test-room", "actors": {
+            role: {"agent_id": identifier, "api_key": f"offline-key-{role}"} for role, identifier in registry().items()}},
+            reviewer=PaidBoundary())
+        transport.clock = lambda: context.started_at
+        transport.prepare()
+        transport.contexts[context.case_id] = context  # Known earlier case, no active task.
+        forged = Message.model_validate(request.model_dump(mode="json") | {"message_id": str(uuid4()), "task_id": str(uuid4())})
+        try:
+            await transport.adapters["skeptic"].on_message(platform(forged), FakeAgentTools(), [], None, None,
+                is_session_bootstrap=False, room_id="private-test-room")
+>           assert calls == []
+E           AssertionError: assert [UUID('01a159...b78a16f9e9b')] == []
+E             
+E             Left contains one more item: UUID('01a1599a-4b17-4b29-a880-db78a16f9e9b')
+E             Use -v to get more diff
+
+services/api/tests/diwali/test_band_bridge.py:391: AssertionError
+=========================== short test summary info ============================
+FAILED services/api/tests/diwali/test_band_bridge.py::test_known_case_does_not_authorize_unregistered_paid_review_task
+1 failed, 13 passed in 0.59s

@@ -1,0 +1,27 @@
+..........F                                                              [100%]
+=================================== FAILURES ===================================
+______ test_runtime_allows_first_delivery_but_sdk_rejects_second_attempt _______
+
+    @pytest.mark.asyncio
+    async def test_runtime_allows_first_delivery_but_sdk_rejects_second_attempt():
+        from band_sdk_core import RetryTracker
+    
+        module = bridge()
+        transport = module.BandTransport({"room_id": "private-test-room", "actors": {
+            role: {"agent_id": identifier, "api_key": f"offline-{role}"} for role, identifier in registry().items()}})
+        transport.prepare()
+        try:
+            # Pinned SDK calls this "max_message_retries" but documents total attempts.
+            # Zero prevented the very first real delivery; one permits it exactly once.
+            configured = transport.agents[0]._runtime.session_config.max_message_retries
+            tracker = RetryTracker(max_retries=configured)
+>           assert tracker.record_attempt("offline-task") == (1, False)
+E           assert (1, True) == (1, False)
+E             
+E             At index 1 diff: True != False
+E             Use -v to get more diff
+
+services/api/tests/diwali/test_band_bridge.py:275: AssertionError
+=========================== short test summary info ============================
+FAILED services/api/tests/diwali/test_band_bridge.py::test_runtime_allows_first_delivery_but_sdk_rejects_second_attempt
+1 failed, 10 passed in 0.55s

@@ -80,7 +80,13 @@ def test_unapproved_export(client):
 
 
 def test_provenance(client):
-    result, _ = run(client)
+    seed = client.post("/api/demo/reset").json()
+    admitted = client.post("/api/runs", json={"purchase_ids": seed["purchase_ids"],
+        "mode": "demo", "collaboration_mode": "local", "idempotency_key": "provenance"})
+    assert admitted.status_code == 200
+    # Admission is visible before the coordinator can overwrite its provenance.
+    assert admitted.json()["actual_transport"] == "local"
+    result = client.get(f"/api/runs/{admitted.json()['run_id']}").json()
     assert result["status"] == "completed"
     assert result["collaboration_mode"] == "local"
     assert result["actual_transport"] == "local"

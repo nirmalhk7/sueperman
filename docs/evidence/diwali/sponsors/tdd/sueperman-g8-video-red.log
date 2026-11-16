@@ -1,0 +1,194 @@
+FFFF                                                                     [100%]
+=================================== FAILURES ===================================
+____ test_under_two_minutes_widescreen_audio_does_not_claim_adal_or_release ____
+
+    def validator():
+        try:
+>           return importlib.import_module("app.diwali.video_evidence")
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+services/api/tests/diwali/test_video_evidence.py:11: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+/private/tmp/sueperman-python/cpython-3.12.13-macos-aarch64-none/lib/python3.12/importlib/__init__.py:90: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+<frozen importlib._bootstrap>:1387: in _gcd_import
+    ???
+<frozen importlib._bootstrap>:1360: in _find_and_load
+    ???
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+name = 'app.diwali.video_evidence'
+import_ = <function _gcd_import at 0x102aa00e0>
+
+>   ???
+E   ModuleNotFoundError: No module named 'app.diwali.video_evidence'
+
+<frozen importlib._bootstrap>:1324: ModuleNotFoundError
+
+During handling of the above exception, another exception occurred:
+
+tmp_path = PosixPath('/private/var/folders/k0/w3xrb_d95jn2t7nf2f0s05yr0000gp/T/pytest-of-nirmalhk7/pytest-242/test_under_two_minutes_widescr0')
+
+    def test_under_two_minutes_widescreen_audio_does_not_claim_adal_or_release(tmp_path):
+>       module = validator()
+                 ^^^^^^^^^^^
+
+services/api/tests/diwali/test_video_evidence.py:29: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    def validator():
+        try:
+            return importlib.import_module("app.diwali.video_evidence")
+        except ModuleNotFoundError:
+>           pytest.fail("Demo media validator is not implemented")
+E           Failed: Demo media validator is not implemented
+
+services/api/tests/diwali/test_video_evidence.py:13: Failed
+__________ test_overlong_square_or_silent_export_cannot_pass[kwargs0] __________
+
+    def validator():
+        try:
+>           return importlib.import_module("app.diwali.video_evidence")
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+services/api/tests/diwali/test_video_evidence.py:11: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+/private/tmp/sueperman-python/cpython-3.12.13-macos-aarch64-none/lib/python3.12/importlib/__init__.py:90: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+<frozen importlib._bootstrap>:1387: in _gcd_import
+    ???
+<frozen importlib._bootstrap>:1360: in _find_and_load
+    ???
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+name = 'app.diwali.video_evidence'
+import_ = <function _gcd_import at 0x102aa00e0>
+
+>   ???
+E   ModuleNotFoundError: No module named 'app.diwali.video_evidence'
+
+<frozen importlib._bootstrap>:1324: ModuleNotFoundError
+
+During handling of the above exception, another exception occurred:
+
+tmp_path = PosixPath('/private/var/folders/k0/w3xrb_d95jn2t7nf2f0s05yr0000gp/T/pytest-of-nirmalhk7/pytest-242/test_overlong_square_or_silent0')
+kwargs = {'seconds': 121}
+
+    @pytest.mark.parametrize("kwargs", [{"seconds":121}, {"size":"144x144"}, {"audio":False}])
+    def test_overlong_square_or_silent_export_cannot_pass(tmp_path, kwargs):
+>       module = validator()
+                 ^^^^^^^^^^^
+
+services/api/tests/diwali/test_video_evidence.py:41: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    def validator():
+        try:
+            return importlib.import_module("app.diwali.video_evidence")
+        except ModuleNotFoundError:
+>           pytest.fail("Demo media validator is not implemented")
+E           Failed: Demo media validator is not implemented
+
+services/api/tests/diwali/test_video_evidence.py:13: Failed
+__________ test_overlong_square_or_silent_export_cannot_pass[kwargs1] __________
+
+    def validator():
+        try:
+>           return importlib.import_module("app.diwali.video_evidence")
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+services/api/tests/diwali/test_video_evidence.py:11: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+/private/tmp/sueperman-python/cpython-3.12.13-macos-aarch64-none/lib/python3.12/importlib/__init__.py:90: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+<frozen importlib._bootstrap>:1387: in _gcd_import
+    ???
+<frozen importlib._bootstrap>:1360: in _find_and_load
+    ???
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+name = 'app.diwali.video_evidence'
+import_ = <function _gcd_import at 0x102aa00e0>
+
+>   ???
+E   ModuleNotFoundError: No module named 'app.diwali.video_evidence'
+
+<frozen importlib._bootstrap>:1324: ModuleNotFoundError
+
+During handling of the above exception, another exception occurred:
+
+tmp_path = PosixPath('/private/var/folders/k0/w3xrb_d95jn2t7nf2f0s05yr0000gp/T/pytest-of-nirmalhk7/pytest-242/test_overlong_square_or_silent1')
+kwargs = {'size': '144x144'}
+
+    @pytest.mark.parametrize("kwargs", [{"seconds":121}, {"size":"144x144"}, {"audio":False}])
+    def test_overlong_square_or_silent_export_cannot_pass(tmp_path, kwargs):
+>       module = validator()
+                 ^^^^^^^^^^^
+
+services/api/tests/diwali/test_video_evidence.py:41: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    def validator():
+        try:
+            return importlib.import_module("app.diwali.video_evidence")
+        except ModuleNotFoundError:
+>           pytest.fail("Demo media validator is not implemented")
+E           Failed: Demo media validator is not implemented
+
+services/api/tests/diwali/test_video_evidence.py:13: Failed
+__________ test_overlong_square_or_silent_export_cannot_pass[kwargs2] __________
+
+    def validator():
+        try:
+>           return importlib.import_module("app.diwali.video_evidence")
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+services/api/tests/diwali/test_video_evidence.py:11: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+/private/tmp/sueperman-python/cpython-3.12.13-macos-aarch64-none/lib/python3.12/importlib/__init__.py:90: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+<frozen importlib._bootstrap>:1387: in _gcd_import
+    ???
+<frozen importlib._bootstrap>:1360: in _find_and_load
+    ???
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+name = 'app.diwali.video_evidence'
+import_ = <function _gcd_import at 0x102aa00e0>
+
+>   ???
+E   ModuleNotFoundError: No module named 'app.diwali.video_evidence'
+
+<frozen importlib._bootstrap>:1324: ModuleNotFoundError
+
+During handling of the above exception, another exception occurred:
+
+tmp_path = PosixPath('/private/var/folders/k0/w3xrb_d95jn2t7nf2f0s05yr0000gp/T/pytest-of-nirmalhk7/pytest-242/test_overlong_square_or_silent2')
+kwargs = {'audio': False}
+
+    @pytest.mark.parametrize("kwargs", [{"seconds":121}, {"size":"144x144"}, {"audio":False}])
+    def test_overlong_square_or_silent_export_cannot_pass(tmp_path, kwargs):
+>       module = validator()
+                 ^^^^^^^^^^^
+
+services/api/tests/diwali/test_video_evidence.py:41: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    def validator():
+        try:
+            return importlib.import_module("app.diwali.video_evidence")
+        except ModuleNotFoundError:
+>           pytest.fail("Demo media validator is not implemented")
+E           Failed: Demo media validator is not implemented
+
+services/api/tests/diwali/test_video_evidence.py:13: Failed
+=========================== short test summary info ============================
+FAILED services/api/tests/diwali/test_video_evidence.py::test_under_two_minutes_widescreen_audio_does_not_claim_adal_or_release
+FAILED services/api/tests/diwali/test_video_evidence.py::test_overlong_square_or_silent_export_cannot_pass[kwargs0]
+FAILED services/api/tests/diwali/test_video_evidence.py::test_overlong_square_or_silent_export_cannot_pass[kwargs1]
+FAILED services/api/tests/diwali/test_video_evidence.py::test_overlong_square_or_silent_export_cannot_pass[kwargs2]
+4 failed in 0.05s

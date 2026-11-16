@@ -1,0 +1,18 @@
+.........F                                                               [100%]
+=================================== FAILURES ===================================
+_______ test_owner_approved_skill_license_is_in_package_not_only_listing _______
+
+    def test_owner_approved_skill_license_is_in_package_not_only_listing():
+        module = auditor()
+        data = module.build_package()
+        skill = module.load_package(data, hashlib.sha256(data).hexdigest())
+>       assert skill["license"] == "MIT"
+E       AssertionError: assert 'UNLICENSED' == 'MIT'
+E         
+E         - MIT
+E         + UNLICENSED
+
+services/api/tests/diwali/test_finch_auditor.py:113: AssertionError
+=========================== short test summary info ============================
+FAILED services/api/tests/diwali/test_finch_auditor.py::test_owner_approved_skill_license_is_in_package_not_only_listing
+1 failed, 9 passed in 0.18s

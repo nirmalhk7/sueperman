@@ -1,5 +1,7 @@
 # V2.1/P1 main review
 
+Historical checkpoint. Current sponsor status and remaining requirements: [DIWALI_SPONSOR_STATUS.md](DIWALI_SPONSOR_STATUS.md).
+
 The owner requested review and promotion to `main`, then resolved the conflicting branches: “move everything to V2.1/P1 designs with AdaL/Lyzr.” V2.1 is authoritative: four logical actors, Lyzr Skeptic reviewer, deterministic Builder, Finch procedural auditor, bounded Agent37 public research, AdaL presentation video. The original W0–W6 and R01–R18 documents remain historical; their AdaL-reviewer/Lyzr-Builder assignments are superseded.
 
 ## Branch resolution

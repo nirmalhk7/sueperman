@@ -1,0 +1,257 @@
+{
+  "providers": [
+    "band",
+    "lyzr"
+  ],
+  "scope": "one near-match case through current application and real reviewer",
+  "source_mode": "recorded",
+  "finch_proof": false,
+  "observed_at": "2026-11-16T04:44:16.569863+00:00",
+  "tested_tree_digest": "dbdefdf0a82bd8a75414c341f234a1e948cca9cf005760f081f31bfd168d731c",
+  "inference_allowance": 1,
+  "business_retries": 0,
+  "application_gate_passed": true,
+  "proof_status": "PARTIAL",
+  "database": "/var/folders/k0/w3xrb_d95jn2t7nf2f0s05yr0000gp/T/sueperman-band-lyzr-once-ork4xud2/combined.db",
+  "admission_status": 200,
+  "source_run": "20820f89-e9cd-4c15-a15f-831fe51f9129",
+  "run_status": "completed",
+  "actual_transport": "band",
+  "reviewer_mode": "lyzr",
+  "provider_modes": {
+    "lyzr": "validated"
+  },
+  "summary": {
+    "products_scanned": 1,
+    "verified_matches": 0,
+    "rejected": 1,
+    "needs_review": 0,
+    "simulated_settlements": 0,
+    "prepared_packets": 0
+  },
+  "warnings": [],
+  "messages": [
+    {
+      "seq": 1,
+      "transport": "band",
+      "schema_version": 1,
+      "message_id": "885827d6-29b8-5b6c-9b79-5030c89602cb",
+      "run_id": "20820f89-e9cd-4c15-a15f-831fe51f9129",
+      "case_id": "6e80065b-913d-47bd-9ffd-e03ac3230713",
+      "task_id": "6d95a589-f36c-4029-8925-a89c8c3cdf16",
+      "correlation_id": "6e80065b-913d-47bd-9ffd-e03ac3230713",
+      "causation_id": "6e80065b-913d-47bd-9ffd-e03ac3230713",
+      "expected_case_revision": 1,
+      "sender": "manager",
+      "recipient": "researcher",
+      "type": "ResearchRequested",
+      "sent_at": "2026-11-16T04:44:18.201834Z",
+      "deadline_at": "2026-11-16T04:44:28.201834Z",
+      "source_refs": [],
+      "payload": {
+        "product_ref": "1040c621-f98a-42a8-867a-744b83adcb5c"
+      }
+    },
+    {
+      "seq": 2,
+      "transport": "band",
+      "schema_version": 1,
+      "message_id": "bd630ddb-65d9-5ca2-aa33-131d07b0ccc5",
+      "run_id": "20820f89-e9cd-4c15-a15f-831fe51f9129",
+      "case_id": "6e80065b-913d-47bd-9ffd-e03ac3230713",
+      "task_id": "6d95a589-f36c-4029-8925-a89c8c3cdf16",
+      "correlation_id": "6e80065b-913d-47bd-9ffd-e03ac3230713",
+      "causation_id": "885827d6-29b8-5b6c-9b79-5030c89602cb",
+      "expected_case_revision": 1,
+      "sender": "researcher",
+      "recipient": "manager",
+      "type": "ResearchReport",
+      "sent_at": "2026-11-16T04:44:18.685295Z",
+      "deadline_at": "2026-11-16T04:44:28.201834Z",
+      "source_refs": [
+        "cpsc:26-792:ef2c1fe53e1965607815bbaf0a759fc6c5ba214dc720afa2854b839370f4a782"
+      ],
+      "payload": {
+        "candidate_refs": [
+          "cpsc:26-792:ef2c1fe53e1965607815bbaf0a759fc6c5ba214dc720afa2854b839370f4a782"
+        ],
+        "coverage": "supported_scope",
+        "truncated": false
+      }
+    },
+    {
+      "seq": 3,
+      "transport": "band",
+      "schema_version": 1,
+      "message_id": "bd8b9c31-3b1c-5247-8db0-dfdb0b1f6072",
+      "run_id": "20820f89-e9cd-4c15-a15f-831fe51f9129",
+      "case_id": "6e80065b-913d-47bd-9ffd-e03ac3230713",
+      "task_id": "7de17845-99e4-49c8-80f7-9e8fc94a0616",
+      "correlation_id": "6e80065b-913d-47bd-9ffd-e03ac3230713",
+      "causation_id": "bd630ddb-65d9-5ca2-aa33-131d07b0ccc5",
+      "expected_case_revision": 2,
+      "sender": "manager",
+      "recipient": "skeptic",
+      "type": "ReviewRequested",
+      "sent_at": "2026-11-16T04:44:19.071130Z",
+      "deadline_at": "2026-11-16T04:44:29.071130Z",
+      "source_refs": [
+        "cpsc:26-792:ef2c1fe53e1965607815bbaf0a759fc6c5ba214dc720afa2854b839370f4a782"
+      ],
+      "payload": {
+        "product_ref": "1040c621-f98a-42a8-867a-744b83adcb5c",
+        "evidence_refs": [
+          "cpsc:26-792:ef2c1fe53e1965607815bbaf0a759fc6c5ba214dc720afa2854b839370f4a782"
+        ]
+      }
+    },
+    {
+      "seq": 4,
+      "transport": "band",
+      "schema_version": 1,
+      "message_id": "2486317d-453c-5bee-a976-beb16cda8460",
+      "run_id": "20820f89-e9cd-4c15-a15f-831fe51f9129",
+      "case_id": "6e80065b-913d-47bd-9ffd-e03ac3230713",
+      "task_id": "7de17845-99e4-49c8-80f7-9e8fc94a0616",
+      "correlation_id": "6e80065b-913d-47bd-9ffd-e03ac3230713",
+      "causation_id": "bd8b9c31-3b1c-5247-8db0-dfdb0b1f6072",
+      "expected_case_revision": 2,
+      "sender": "skeptic",
+      "recipient": "manager",
+      "type": "ReviewReport",
+      "sent_at": "2026-11-16T04:44:23.517869Z",
+      "deadline_at": "2026-11-16T04:44:29.071130Z",
+      "source_refs": [
+        "cpsc:26-792:ef2c1fe53e1965607815bbaf0a759fc6c5ba214dc720afa2854b839370f4a782"
+      ],
+      "payload": {
+        "rule_result": "rejected",
+        "conditions": [
+          {
+            "name": "official_source",
+            "expected": "CPSC HTTPS recall notice",
+            "observed": "https://www.cpsc.gov/Recalls/2026/NEWDERY-Power-Banks-Recalled-Due-to-Fire-and-Burn-Hazards-Risk-of-Serious-Injury-Sold-on-Amazon",
+            "status": "true",
+            "source_id": "26-792"
+          },
+          {
+            "name": "brand",
+            "expected": "NEWDERY",
+            "observed": "NEWDERY",
+            "status": "true",
+            "source_id": "26-792"
+          },
+          {
+            "name": "product_family",
+            "expected": "power bank",
+            "observed": "Portable Power Bank",
+            "status": "true",
+            "source_id": "26-792"
+          },
+          {
+            "name": "model_number",
+            "expected": [
+              "ZHX-PB22"
+            ],
+            "observed": "ZHX-PB23",
+            "status": "false",
+            "source_id": "26-792"
+          }
+        ],
+        "compared_identifiers": {
+          "purchase_model": "ZHX-PB23",
+          "source_models": [
+            "ZHX-PB22"
+          ]
+        },
+        "challenge_code": "MODEL_MISMATCH",
+        "review_note": "The supplied official evidence identifies ZHX-PB22, while the purchase record lists ZHX-PB23. It does not establish whether ZHX-PB23 is covered; the evidence for ZHX-PB22 should not be assumed to apply to ZHX-PB23.",
+        "requested_fields": []
+      }
+    }
+  ],
+  "invocations": [
+    {
+      "provider": "band",
+      "task_id": "6d95a589-f36c-4029-8925-a89c8c3cdf16",
+      "mode": "live",
+      "request_id": "d55a6c92-32ee-4ddd-91db-47d389d971a2",
+      "result_id": "9ac015b8-1219-4dff-acff-32aa0ed4887a",
+      "authenticated_sender": "5d35641e-2c93-4ee8-a302-b3c233dc3cfd",
+      "authenticated_recipient": "7b679d50-4bca-4d81-9352-93b21b4ce561",
+      "received": true,
+      "consumed": true
+    },
+    {
+      "provider": "band",
+      "task_id": "7de17845-99e4-49c8-80f7-9e8fc94a0616",
+      "mode": "live",
+      "request_id": "e913d33f-bcce-45ad-9615-d7edc81903e5",
+      "result_id": "1ca34bed-91f0-4d9b-9fcb-6e4d53d073c4",
+      "authenticated_sender": "4bf982c8-63b8-4ffd-b23f-14007df24960",
+      "authenticated_recipient": "7b679d50-4bca-4d81-9352-93b21b4ce561",
+      "reviewer": {
+        "provider": "lyzr",
+        "mode": "live",
+        "status": "validated",
+        "observed_at": "2026-11-16T04:44:23.516804+00:00",
+        "configuration_digest": "b9c771980a7a2fde32d7cfcb32b3eb4ab0f270787552d34768d343a148a5e94b",
+        "session_id": "sueperman:20820f89-e9cd-4c15-a15f-831fe51f9129:6e80065b-913d-47bd-9ffd-e03ac3230713:skeptic",
+        "response_sha256": "40006aba699031e74ed523053f3ae70bf8e157b6a25554c9cdff92e25ebaabd3",
+        "loaded_skill_sha256": null,
+        "evidence_refs": [
+          "cpsc:26-792:ef2c1fe53e1965607815bbaf0a759fc6c5ba214dc720afa2854b839370f4a782"
+        ],
+        "uncertainty": true,
+        "duration_ms": 4042,
+        "attempts": 1,
+        "consumed": false
+      },
+      "received": true,
+      "consumed": true
+    },
+    {
+      "provider": "lyzr",
+      "task_id": "7de17845-99e4-49c8-80f7-9e8fc94a0616",
+      "mode": "live",
+      "status": "validated",
+      "observed_at": "2026-11-16T04:44:23.516804+00:00",
+      "configuration_digest": "b9c771980a7a2fde32d7cfcb32b3eb4ab0f270787552d34768d343a148a5e94b",
+      "session_id": "sueperman:20820f89-e9cd-4c15-a15f-831fe51f9129:6e80065b-913d-47bd-9ffd-e03ac3230713:skeptic",
+      "response_sha256": "40006aba699031e74ed523053f3ae70bf8e157b6a25554c9cdff92e25ebaabd3",
+      "loaded_skill_sha256": null,
+      "evidence_refs": [
+        "cpsc:26-792:ef2c1fe53e1965607815bbaf0a759fc6c5ba214dc720afa2854b839370f4a782"
+      ],
+      "uncertainty": true,
+      "duration_ms": 4042,
+      "attempts": 1,
+      "consumed": true,
+      "received": true
+    }
+  ],
+  "packets": 0,
+  "cases": [
+    {
+      "outcome": "rejected",
+      "failure": null
+    }
+  ],
+  "persisted_inference_attempts": 1,
+  "runtime_source_sha256": {
+    "services/api/app/diwali/research_worker.py": "a3d8e19c31ebc802f3e8cbf1d83ce0a4f74e69ad48ac7a23432f44b1fff09a59",
+    "services/api/app/diwali/coordinator.py": "49cd95835f31cbb2903f1e7641664628ef0cf801dfb98e17b32f0118d9057052",
+    "services/api/app/diwali/finch_skill.py": "1e483f0e4540b94f132df6059a2b239bf6af2b373d276c4420003755d96ee9bf",
+    "services/api/app/diwali/persistence.py": "e7446c0cdbedbb8962504401aae2ccfe6f348bd4f1959290ba192756a70c5734",
+    "services/api/app/diwali/lyzr_review.py": "edec8744fa77422c1d253b9c4f8226530cc059513bd0b70420301cd06c559aa9",
+    "services/api/app/diwali/__init__.py": "546bd6ee7afef7bb49920429539dd0e6cf8697daed2e16225180db6f05b064dd",
+    "services/api/app/diwali/video_evidence.py": "c7df1f695362799feb88fd8b78ec29af40cb567df6afcb84e2024456f825a843",
+    "services/api/app/diwali/core.py": "2ff18c8532fc30a7a15bdb82e904b7cab34a65c30c5fb0282626b22386de48f9",
+    "services/api/app/diwali/api.py": "05db19b1bbb995a8c96ffaddaf5655a5ff853799c0fc5729dc64081297f7b275",
+    "services/api/app/diwali/legacy_bridge.py": "e397bbba315accd17af59a572b4de105a536149371c48b4258c552e55ebdf59a",
+    "services/api/app/diwali/agent37_worker.py": "e071fb1e34cd7039f95a3aa7c829d52c79e2789877ae26b8d8b0c89d495bc5fa",
+    "services/api/app/diwali/band_bridge.py": "5280cfc2791b34259fe12b024688e067b6f73e83a6efa5e150e2c0b795329150",
+    "services/api/app/diwali/band_settings.py": "594d8cd8c14ed1c1a4b1a66e4a317f55d3a935ce1ec6e2a31bfc573a0da37c46",
+    "services/api/app/diwali/message_schema.py": "e918cf0cd24ed56c24883c3bfefbd957ea1e2dce5299fa76c172f26460a2a958"
+  }
+}

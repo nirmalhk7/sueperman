@@ -2,7 +2,7 @@ F                                                                        [100%]
 =================================== FAILURES ===================================
 ____________________________ test_unapproved_export ____________________________
 
-client = <starlette.testclient.TestClient object at 0x10c4f3a70>
+client = <starlette.testclient.TestClient object at 0x10a7db800>
 
     def test_unapproved_export(client):
         result, _ = run(client)
@@ -15,8 +15,8 @@ client = <starlette.testclient.TestClient object at 0x10c4f3a70>
 >       assert client.post(path + "/export").status_code == 409
 E       AssertionError: assert 200 == 409
 E        +  where 200 = <Response [200 OK]>.status_code
-E        +    where <Response [200 OK]> = post(('/api/claim-packets/4f21037e-b1f3-4b26-ad61-94af852aa0fe' + '/export'))
-E        +      where post = <starlette.testclient.TestClient object at 0x10c4f3a70>.post
+E        +    where <Response [200 OK]> = post(('/api/claim-packets/78763a9c-8aca-4776-a00f-fe503a657641' + '/export'))
+E        +      where post = <starlette.testclient.TestClient object at 0x10a7db800>.post
 
 services/api/tests/diwali/test_api.py:71: AssertionError
 =============================== warnings summary ===============================
@@ -27,4 +27,4 @@ services/api/tests/diwali/test_api.py:71: AssertionError
 -- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
 =========================== short test summary info ============================
 FAILED services/api/tests/diwali/test_api.py::test_unapproved_export - Assert...
-1 failed, 1 warning in 0.78s
+1 failed, 1 warning in 1.77s

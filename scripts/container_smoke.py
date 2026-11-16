@@ -131,6 +131,15 @@ def main():
             "import platform; assert platform.machine() == 'x86_64'",
         )
         compose("exec", "-T", "api", "npx", "--version")
+        compose("exec", "-T", "api", "python", "-c",
+            "import os,sys;sys.path.insert(0,'/srv/app/services/api')\n"
+            "from sqlalchemy import select\nfrom app.db import database\n"
+            "from app.models import Purchase\nfrom app.diwali.band_settings import validate_synthetic\n"
+            "engine,factory=database(os.environ['DATABASE_URL'])\n"
+            "with factory() as session:\n"
+            "    identifiers=session.scalars(select(Purchase.id).where(Purchase.demo.is_(True))).all()\n"
+            "    assert len(identifiers)==5\n"
+            "    validate_synthetic(session,identifiers)\n")
         subprocess.run(
             [
                 "pnpm",
@@ -143,7 +152,7 @@ def main():
                 "--grep",
                 "five purchases produce evidence-backed recall",
                 "--output",
-                "../../output/playwright/container",
+                "../../output/playwright/container-" + PROJECT,
             ],
             cwd=ROOT,
             env=os.environ | {"WEB_URL": ORIGIN},

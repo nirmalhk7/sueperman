@@ -1,0 +1,366 @@
+FFFFFFFF                                                                 [100%]
+=================================== FAILURES ===================================
+____ test_authored_package_is_repeatable_and_loaded_as_local_procedure_only ____
+
+    def auditor():
+        try:
+>           return importlib.import_module("app.diwali.finch_skill")
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+services/api/tests/diwali/test_finch_auditor.py:14: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+/private/tmp/sueperman-python/cpython-3.12.13-macos-aarch64-none/lib/python3.12/importlib/__init__.py:90: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+<frozen importlib._bootstrap>:1387: in _gcd_import
+    ???
+<frozen importlib._bootstrap>:1360: in _find_and_load
+    ???
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+name = 'app.diwali.finch_skill', import_ = <function _gcd_import at 0x1049780e0>
+
+>   ???
+E   ModuleNotFoundError: No module named 'app.diwali.finch_skill'
+
+<frozen importlib._bootstrap>:1324: ModuleNotFoundError
+
+During handling of the above exception, another exception occurred:
+
+    def test_authored_package_is_repeatable_and_loaded_as_local_procedure_only():
+>       module = auditor()
+                 ^^^^^^^^^
+
+services/api/tests/diwali/test_finch_auditor.py:28: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    def auditor():
+        try:
+            return importlib.import_module("app.diwali.finch_skill")
+        except ModuleNotFoundError:
+>           pytest.fail("Recall Evidence Auditor package/loader is not implemented")
+E           Failed: Recall Evidence Auditor package/loader is not implemented
+
+services/api/tests/diwali/test_finch_auditor.py:16: Failed
+____________ test_tampered_or_executable_archive_is_rejected[hash] _____________
+
+    def auditor():
+        try:
+>           return importlib.import_module("app.diwali.finch_skill")
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+services/api/tests/diwali/test_finch_auditor.py:14: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+/private/tmp/sueperman-python/cpython-3.12.13-macos-aarch64-none/lib/python3.12/importlib/__init__.py:90: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+<frozen importlib._bootstrap>:1387: in _gcd_import
+    ???
+<frozen importlib._bootstrap>:1360: in _find_and_load
+    ???
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+name = 'app.diwali.finch_skill', import_ = <function _gcd_import at 0x1049780e0>
+
+>   ???
+E   ModuleNotFoundError: No module named 'app.diwali.finch_skill'
+
+<frozen importlib._bootstrap>:1324: ModuleNotFoundError
+
+During handling of the above exception, another exception occurred:
+
+fault = 'hash'
+
+    @pytest.mark.parametrize("fault", ["hash", "traversal", "hook", "duplicate", "oversize", "symlink"])
+    def test_tampered_or_executable_archive_is_rejected(fault):
+>       module = auditor()
+                 ^^^^^^^^^
+
+services/api/tests/diwali/test_finch_auditor.py:44: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    def auditor():
+        try:
+            return importlib.import_module("app.diwali.finch_skill")
+        except ModuleNotFoundError:
+>           pytest.fail("Recall Evidence Auditor package/loader is not implemented")
+E           Failed: Recall Evidence Auditor package/loader is not implemented
+
+services/api/tests/diwali/test_finch_auditor.py:16: Failed
+__________ test_tampered_or_executable_archive_is_rejected[traversal] __________
+
+    def auditor():
+        try:
+>           return importlib.import_module("app.diwali.finch_skill")
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+services/api/tests/diwali/test_finch_auditor.py:14: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+/private/tmp/sueperman-python/cpython-3.12.13-macos-aarch64-none/lib/python3.12/importlib/__init__.py:90: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+<frozen importlib._bootstrap>:1387: in _gcd_import
+    ???
+<frozen importlib._bootstrap>:1360: in _find_and_load
+    ???
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+name = 'app.diwali.finch_skill', import_ = <function _gcd_import at 0x1049780e0>
+
+>   ???
+E   ModuleNotFoundError: No module named 'app.diwali.finch_skill'
+
+<frozen importlib._bootstrap>:1324: ModuleNotFoundError
+
+During handling of the above exception, another exception occurred:
+
+fault = 'traversal'
+
+    @pytest.mark.parametrize("fault", ["hash", "traversal", "hook", "duplicate", "oversize", "symlink"])
+    def test_tampered_or_executable_archive_is_rejected(fault):
+>       module = auditor()
+                 ^^^^^^^^^
+
+services/api/tests/diwali/test_finch_auditor.py:44: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    def auditor():
+        try:
+            return importlib.import_module("app.diwali.finch_skill")
+        except ModuleNotFoundError:
+>           pytest.fail("Recall Evidence Auditor package/loader is not implemented")
+E           Failed: Recall Evidence Auditor package/loader is not implemented
+
+services/api/tests/diwali/test_finch_auditor.py:16: Failed
+____________ test_tampered_or_executable_archive_is_rejected[hook] _____________
+
+    def auditor():
+        try:
+>           return importlib.import_module("app.diwali.finch_skill")
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+services/api/tests/diwali/test_finch_auditor.py:14: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+/private/tmp/sueperman-python/cpython-3.12.13-macos-aarch64-none/lib/python3.12/importlib/__init__.py:90: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+<frozen importlib._bootstrap>:1387: in _gcd_import
+    ???
+<frozen importlib._bootstrap>:1360: in _find_and_load
+    ???
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+name = 'app.diwali.finch_skill', import_ = <function _gcd_import at 0x1049780e0>
+
+>   ???
+E   ModuleNotFoundError: No module named 'app.diwali.finch_skill'
+
+<frozen importlib._bootstrap>:1324: ModuleNotFoundError
+
+During handling of the above exception, another exception occurred:
+
+fault = 'hook'
+
+    @pytest.mark.parametrize("fault", ["hash", "traversal", "hook", "duplicate", "oversize", "symlink"])
+    def test_tampered_or_executable_archive_is_rejected(fault):
+>       module = auditor()
+                 ^^^^^^^^^
+
+services/api/tests/diwali/test_finch_auditor.py:44: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    def auditor():
+        try:
+            return importlib.import_module("app.diwali.finch_skill")
+        except ModuleNotFoundError:
+>           pytest.fail("Recall Evidence Auditor package/loader is not implemented")
+E           Failed: Recall Evidence Auditor package/loader is not implemented
+
+services/api/tests/diwali/test_finch_auditor.py:16: Failed
+__________ test_tampered_or_executable_archive_is_rejected[duplicate] __________
+
+    def auditor():
+        try:
+>           return importlib.import_module("app.diwali.finch_skill")
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+services/api/tests/diwali/test_finch_auditor.py:14: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+/private/tmp/sueperman-python/cpython-3.12.13-macos-aarch64-none/lib/python3.12/importlib/__init__.py:90: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+<frozen importlib._bootstrap>:1387: in _gcd_import
+    ???
+<frozen importlib._bootstrap>:1360: in _find_and_load
+    ???
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+name = 'app.diwali.finch_skill', import_ = <function _gcd_import at 0x1049780e0>
+
+>   ???
+E   ModuleNotFoundError: No module named 'app.diwali.finch_skill'
+
+<frozen importlib._bootstrap>:1324: ModuleNotFoundError
+
+During handling of the above exception, another exception occurred:
+
+fault = 'duplicate'
+
+    @pytest.mark.parametrize("fault", ["hash", "traversal", "hook", "duplicate", "oversize", "symlink"])
+    def test_tampered_or_executable_archive_is_rejected(fault):
+>       module = auditor()
+                 ^^^^^^^^^
+
+services/api/tests/diwali/test_finch_auditor.py:44: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    def auditor():
+        try:
+            return importlib.import_module("app.diwali.finch_skill")
+        except ModuleNotFoundError:
+>           pytest.fail("Recall Evidence Auditor package/loader is not implemented")
+E           Failed: Recall Evidence Auditor package/loader is not implemented
+
+services/api/tests/diwali/test_finch_auditor.py:16: Failed
+__________ test_tampered_or_executable_archive_is_rejected[oversize] ___________
+
+    def auditor():
+        try:
+>           return importlib.import_module("app.diwali.finch_skill")
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+services/api/tests/diwali/test_finch_auditor.py:14: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+/private/tmp/sueperman-python/cpython-3.12.13-macos-aarch64-none/lib/python3.12/importlib/__init__.py:90: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+<frozen importlib._bootstrap>:1387: in _gcd_import
+    ???
+<frozen importlib._bootstrap>:1360: in _find_and_load
+    ???
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+name = 'app.diwali.finch_skill', import_ = <function _gcd_import at 0x1049780e0>
+
+>   ???
+E   ModuleNotFoundError: No module named 'app.diwali.finch_skill'
+
+<frozen importlib._bootstrap>:1324: ModuleNotFoundError
+
+During handling of the above exception, another exception occurred:
+
+fault = 'oversize'
+
+    @pytest.mark.parametrize("fault", ["hash", "traversal", "hook", "duplicate", "oversize", "symlink"])
+    def test_tampered_or_executable_archive_is_rejected(fault):
+>       module = auditor()
+                 ^^^^^^^^^
+
+services/api/tests/diwali/test_finch_auditor.py:44: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    def auditor():
+        try:
+            return importlib.import_module("app.diwali.finch_skill")
+        except ModuleNotFoundError:
+>           pytest.fail("Recall Evidence Auditor package/loader is not implemented")
+E           Failed: Recall Evidence Auditor package/loader is not implemented
+
+services/api/tests/diwali/test_finch_auditor.py:16: Failed
+___________ test_tampered_or_executable_archive_is_rejected[symlink] ___________
+
+    def auditor():
+        try:
+>           return importlib.import_module("app.diwali.finch_skill")
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+services/api/tests/diwali/test_finch_auditor.py:14: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+/private/tmp/sueperman-python/cpython-3.12.13-macos-aarch64-none/lib/python3.12/importlib/__init__.py:90: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+<frozen importlib._bootstrap>:1387: in _gcd_import
+    ???
+<frozen importlib._bootstrap>:1360: in _find_and_load
+    ???
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+name = 'app.diwali.finch_skill', import_ = <function _gcd_import at 0x1049780e0>
+
+>   ???
+E   ModuleNotFoundError: No module named 'app.diwali.finch_skill'
+
+<frozen importlib._bootstrap>:1324: ModuleNotFoundError
+
+During handling of the above exception, another exception occurred:
+
+fault = 'symlink'
+
+    @pytest.mark.parametrize("fault", ["hash", "traversal", "hook", "duplicate", "oversize", "symlink"])
+    def test_tampered_or_executable_archive_is_rejected(fault):
+>       module = auditor()
+                 ^^^^^^^^^
+
+services/api/tests/diwali/test_finch_auditor.py:44: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    def auditor():
+        try:
+            return importlib.import_module("app.diwali.finch_skill")
+        except ModuleNotFoundError:
+>           pytest.fail("Recall Evidence Auditor package/loader is not implemented")
+E           Failed: Recall Evidence Auditor package/loader is not implemented
+
+services/api/tests/diwali/test_finch_auditor.py:16: Failed
+_________________ test_local_bytes_cannot_claim_finch_delivery _________________
+
+    def auditor():
+        try:
+>           return importlib.import_module("app.diwali.finch_skill")
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+services/api/tests/diwali/test_finch_auditor.py:14: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+/private/tmp/sueperman-python/cpython-3.12.13-macos-aarch64-none/lib/python3.12/importlib/__init__.py:90: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+<frozen importlib._bootstrap>:1387: in _gcd_import
+    ???
+<frozen importlib._bootstrap>:1360: in _find_and_load
+    ???
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+name = 'app.diwali.finch_skill', import_ = <function _gcd_import at 0x1049780e0>
+
+>   ???
+E   ModuleNotFoundError: No module named 'app.diwali.finch_skill'
+
+<frozen importlib._bootstrap>:1324: ModuleNotFoundError
+
+During handling of the above exception, another exception occurred:
+
+    def test_local_bytes_cannot_claim_finch_delivery():
+>       module = auditor()
+                 ^^^^^^^^^
+
+services/api/tests/diwali/test_finch_auditor.py:69: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    def auditor():
+        try:
+            return importlib.import_module("app.diwali.finch_skill")
+        except ModuleNotFoundError:
+>           pytest.fail("Recall Evidence Auditor package/loader is not implemented")
+E           Failed: Recall Evidence Auditor package/loader is not implemented
+
+services/api/tests/diwali/test_finch_auditor.py:16: Failed
+=========================== short test summary info ============================
+FAILED services/api/tests/diwali/test_finch_auditor.py::test_authored_package_is_repeatable_and_loaded_as_local_procedure_only
+FAILED services/api/tests/diwali/test_finch_auditor.py::test_tampered_or_executable_archive_is_rejected[hash]
+FAILED services/api/tests/diwali/test_finch_auditor.py::test_tampered_or_executable_archive_is_rejected[traversal]
+FAILED services/api/tests/diwali/test_finch_auditor.py::test_tampered_or_executable_archive_is_rejected[hook]
+FAILED services/api/tests/diwali/test_finch_auditor.py::test_tampered_or_executable_archive_is_rejected[duplicate]
+FAILED services/api/tests/diwali/test_finch_auditor.py::test_tampered_or_executable_archive_is_rejected[oversize]
+FAILED services/api/tests/diwali/test_finch_auditor.py::test_tampered_or_executable_archive_is_rejected[symlink]
+FAILED services/api/tests/diwali/test_finch_auditor.py::test_local_bytes_cannot_claim_finch_delivery
+8 failed in 0.07s

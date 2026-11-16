@@ -1,0 +1,45 @@
+...F                                                                     [100%]
+=================================== FAILURES ===================================
+_ test_failed_enabled_reviewer_persists_attempt_and_never_claims_rules_fallback _
+
+tmp_path = PosixPath('/private/var/folders/k0/w3xrb_d95jn2t7nf2f0s05yr0000gp/T/pytest-of-nirmalhk7/pytest-253/test_failed_enabled_reviewer_p0')
+
+    async def test_failed_enabled_reviewer_persists_attempt_and_never_claims_rules_fallback(tmp_path):
+        from sqlalchemy import select
+        from test_persistence import setup
+    
+        from app.config import Settings
+        from app.diwali.coordinator import execute
+        from app.diwali.core import failure_reply
+        from app.diwali.persistence import InvocationRow
+        from app.models import AgentRun, ClaimPacket
+    
+        _module, factory, _product_id, run_id, _product, _recall = setup(tmp_path)
+        with factory.begin() as session:
+            session.get(AgentRun, run_id).status = "queued"
+    
+        class FailedReviewBoundary(LocalTransport):
+            mode = "band"
+            last_receipt = None
+    
+            async def exchange(self, message, context):
+                self.last_receipt = {"request_id": "offline-request", "result_id": "offline-result"}
+                if message.type == "ReviewRequested":
+                    self.last_receipt["reviewer"] = {"mode": "live", "status": "failed_or_unknown", "attempts": 1}
+                    return failure_reply(message, "INVALID_RESULT")
+                assert message.type != "BuildRequested"
+                return super().exchange(message, context)
+    
+        await execute(factory, run_id, Settings(_env_file=None), transport=FailedReviewBoundary())
+        with factory() as session:
+            run = session.get(AgentRun, run_id)
+            assert run.status == "failed"
+            assert run.payload["reviewer_mode"] == "lyzr"
+>           assert run.payload["provider_modes"]["lyzr"] == "failed_or_unknown"
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E           KeyError: 'provider_modes'
+
+services/api/tests/diwali/test_remote_workflow.py:139: KeyError
+=========================== short test summary info ============================
+FAILED services/api/tests/diwali/test_remote_workflow.py::test_failed_enabled_reviewer_persists_attempt_and_never_claims_rules_fallback
+1 failed, 3 passed in 0.50s
