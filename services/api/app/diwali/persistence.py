@@ -144,6 +144,8 @@ def stage_finalization(session, run_id, product_id, state):
         session.flush()
         run.payload = run.payload | {"opportunities": list(dict.fromkeys(
             [*run.payload.get("opportunities", []), opportunity.id]))}
+    if opportunity is not None and opportunity.payload.get("monitor_status"):
+        frozen = frozen | {"outcome": "needs_review", "failure": "SOURCE_REVIEW_REQUIRED"}
     case.payload = case.payload | frozen | {"opportunity_id": opportunity.id if opportunity else None}
     case.phase, case.revision = "DONE", state.revision
     if state.challenge_code == "MODEL_MISMATCH":
@@ -160,6 +162,9 @@ def stage_recall(session, entity, product, recall, result, state):
                           official_url=recall.official_url, demo=True, payload={})
         session.add(opp)
         session.flush()
+    from app.p1.monitoring import review_required
+    if review_required(session, opp, recall):
+        return opp
     opp.payload = {
         "product_id": entity.id, "kind": "recall", "title": recall.title, "status": result.status,
         "official_url": recall.official_url, "source_id": recall.reference,

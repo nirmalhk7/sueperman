@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="1" skipped="0" tests="1" time="0.687" timestamp="2026-11-14T23:56:50.121884-08:00" hostname="EXCALIBUR.local"><testcase classname="tests.diwali.test_api" name="test_provenance" time="0.102"><failure message="AssertionError: assert 'band' == 'local'&#10;  &#10;  - local&#10;  + band">client = &lt;starlette.testclient.TestClient object at 0x10e882a20&gt;
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="1" skipped="0" tests="1" time="0.770" timestamp="2026-11-15T19:20:44.697568-08:00" hostname="EXCALIBUR.local"><testcase classname="tests.diwali.test_api" name="test_provenance" time="0.114"><failure message="AssertionError: assert 'band' == 'local'&#10;  &#10;  - local&#10;  + band">client = &lt;starlette.testclient.TestClient object at 0x10ca2e7b0&gt;
 
     def test_provenance(client):
         result, _ = run(client)

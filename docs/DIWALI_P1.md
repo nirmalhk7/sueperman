@@ -31,3 +31,7 @@ All three additions are implemented with RED/GREEN records. Targeted P1 backend 
 Final verification results are generated in `docs/evidence/diwali/p1/regression-report.json` and the final acceptance report. No push, publication or deployment was performed. P1 completion does not close P0's BAND application wiring, Lyzr reviewer, required Finch package, Agent37 funding/integration, AdaL deferral or release assets.
 
 The frozen baseline was not regenerated. `baseline-audit.json` distinguishes the authorized additive `.env.example` P1 flags and README instructions (all prior bytes retained), plus the pre-existing BAND SDK lock extension (no P1 dependency change). The original P0 baseline gate still reports those differences; this is not presented as a passing P0 gate. Earlier G3 regression log paths contain later regression runs; original structured handoff counts remain historical, and final P1 logs have their own directory.
+
+## Main promotion review
+
+The later main promotion adds durable monitor-revocation protection across recorded reruns and serializes approval/export with monitor writes. `tests/p1/test_review_safety.py` records the reproductions. The baseline audit now accepts exact reviewed insertions while reconstructing the unchanged frozen bytes; it does not accept arbitrary drift. See [DIWALI_MERGE_REVIEW.md](DIWALI_MERGE_REVIEW.md) for current verification and remaining P0 gaps. Earlier counts and blocker statements above describe the original P1 checkpoint.

@@ -1,0 +1,226 @@
+FFFFFF                                                                   [100%]
+=================================== FAILURES ===================================
+_ test_recorded_rerun_cannot_erase_official_monitor_revocation[False-deterministic] _
+
+graph = (Engine(sqlite:////private/var/folders/k0/w3xrb_d95jn2t7nf2f0s05yr0000gp/T/pytest-of-nirmalhk7/pytest-205/test_recorde... official required markings', 'User confirmation of lawful disposal (never prefilled)'], conditions=[], mode='replay'))
+transport = 'deterministic', outage = False
+
+    @pytest.mark.parametrize("transport", ["deterministic", "local"])
+    @pytest.mark.parametrize("outage", [False, True])
+    async def test_recorded_rerun_cannot_erase_official_monitor_revocation(graph, transport, outage):
+        engine, factory, client, opportunity_id, packet_id, record = graph
+        module = monitor()
+        enable(module, engine, factory, opportunity_id)
+    
+        async def checker(reference):
+            if outage:
+                raise RuntimeError("synthetic outage")
+            return record.model_copy(update={"models": ["ZHX-PB23"], "fetched_at": NOW})
+    
+        assert await module.check_due(factory, checker, clock=lambda: NOW) == ["unavailable" if outage else "changed"]
+        with factory() as session:
+            product = session.get(Product, session.get(Opportunity, opportunity_id).product_id)
+            purchase = session.get(Purchase, product.purchase_id)
+            purchase_id = purchase.id
+        rerun = client.post("/api/runs", json={"purchase_ids": [purchase_id], "mode": "demo",
+            "collaboration_mode": transport, "idempotency_key": f"replay-{transport}-{outage}"})
+        assert rerun.status_code == 200, rerun.text
+>       assert client.post(f"/api/claim-packets/{packet_id}/approve-local", json={"confirmed": True}).status_code == 409
+E       AssertionError: assert 200 == 409
+E        +  where 200 = <Response [200 OK]>.status_code
+E        +    where <Response [200 OK]> = post('/api/claim-packets/a116cf76-681d-4771-a2d8-7be13a7bd52e/approve-local', json={'confirmed': True})
+E        +      where post = <starlette.testclient.TestClient object at 0x10e6ae540>.post
+
+services/api/tests/p1/test_review_safety.py:37: AssertionError
+__ test_recorded_rerun_cannot_erase_official_monitor_revocation[False-local] ___
+
+graph = (Engine(sqlite:////private/var/folders/k0/w3xrb_d95jn2t7nf2f0s05yr0000gp/T/pytest-of-nirmalhk7/pytest-205/test_recorde... official required markings', 'User confirmation of lawful disposal (never prefilled)'], conditions=[], mode='replay'))
+transport = 'local', outage = False
+
+    @pytest.mark.parametrize("transport", ["deterministic", "local"])
+    @pytest.mark.parametrize("outage", [False, True])
+    async def test_recorded_rerun_cannot_erase_official_monitor_revocation(graph, transport, outage):
+        engine, factory, client, opportunity_id, packet_id, record = graph
+        module = monitor()
+        enable(module, engine, factory, opportunity_id)
+    
+        async def checker(reference):
+            if outage:
+                raise RuntimeError("synthetic outage")
+            return record.model_copy(update={"models": ["ZHX-PB23"], "fetched_at": NOW})
+    
+        assert await module.check_due(factory, checker, clock=lambda: NOW) == ["unavailable" if outage else "changed"]
+        with factory() as session:
+            product = session.get(Product, session.get(Opportunity, opportunity_id).product_id)
+            purchase = session.get(Purchase, product.purchase_id)
+            purchase_id = purchase.id
+        rerun = client.post("/api/runs", json={"purchase_ids": [purchase_id], "mode": "demo",
+            "collaboration_mode": transport, "idempotency_key": f"replay-{transport}-{outage}"})
+        assert rerun.status_code == 200, rerun.text
+>       assert client.post(f"/api/claim-packets/{packet_id}/approve-local", json={"confirmed": True}).status_code == 409
+E       AssertionError: assert 200 == 409
+E        +  where 200 = <Response [200 OK]>.status_code
+E        +    where <Response [200 OK]> = post('/api/claim-packets/2b533a86-2fd4-4370-b0ae-26834e1e4837/approve-local', json={'confirmed': True})
+E        +      where post = <starlette.testclient.TestClient object at 0x10e907620>.post
+
+services/api/tests/p1/test_review_safety.py:37: AssertionError
+_ test_recorded_rerun_cannot_erase_official_monitor_revocation[True-deterministic] _
+
+graph = (Engine(sqlite:////private/var/folders/k0/w3xrb_d95jn2t7nf2f0s05yr0000gp/T/pytest-of-nirmalhk7/pytest-205/test_recorde... official required markings', 'User confirmation of lawful disposal (never prefilled)'], conditions=[], mode='replay'))
+transport = 'deterministic', outage = True
+
+    @pytest.mark.parametrize("transport", ["deterministic", "local"])
+    @pytest.mark.parametrize("outage", [False, True])
+    async def test_recorded_rerun_cannot_erase_official_monitor_revocation(graph, transport, outage):
+        engine, factory, client, opportunity_id, packet_id, record = graph
+        module = monitor()
+        enable(module, engine, factory, opportunity_id)
+    
+        async def checker(reference):
+            if outage:
+                raise RuntimeError("synthetic outage")
+            return record.model_copy(update={"models": ["ZHX-PB23"], "fetched_at": NOW})
+    
+        assert await module.check_due(factory, checker, clock=lambda: NOW) == ["unavailable" if outage else "changed"]
+        with factory() as session:
+            product = session.get(Product, session.get(Opportunity, opportunity_id).product_id)
+            purchase = session.get(Purchase, product.purchase_id)
+            purchase_id = purchase.id
+        rerun = client.post("/api/runs", json={"purchase_ids": [purchase_id], "mode": "demo",
+            "collaboration_mode": transport, "idempotency_key": f"replay-{transport}-{outage}"})
+        assert rerun.status_code == 200, rerun.text
+>       assert client.post(f"/api/claim-packets/{packet_id}/approve-local", json={"confirmed": True}).status_code == 409
+E       AssertionError: assert 200 == 409
+E        +  where 200 = <Response [200 OK]>.status_code
+E        +    where <Response [200 OK]> = post('/api/claim-packets/a54644e5-7317-4347-a7d2-d2b131739fb4/approve-local', json={'confirmed': True})
+E        +      where post = <starlette.testclient.TestClient object at 0x10eaa6f00>.post
+
+services/api/tests/p1/test_review_safety.py:37: AssertionError
+___ test_recorded_rerun_cannot_erase_official_monitor_revocation[True-local] ___
+
+graph = (Engine(sqlite:////private/var/folders/k0/w3xrb_d95jn2t7nf2f0s05yr0000gp/T/pytest-of-nirmalhk7/pytest-205/test_recorde... official required markings', 'User confirmation of lawful disposal (never prefilled)'], conditions=[], mode='replay'))
+transport = 'local', outage = True
+
+    @pytest.mark.parametrize("transport", ["deterministic", "local"])
+    @pytest.mark.parametrize("outage", [False, True])
+    async def test_recorded_rerun_cannot_erase_official_monitor_revocation(graph, transport, outage):
+        engine, factory, client, opportunity_id, packet_id, record = graph
+        module = monitor()
+        enable(module, engine, factory, opportunity_id)
+    
+        async def checker(reference):
+            if outage:
+                raise RuntimeError("synthetic outage")
+            return record.model_copy(update={"models": ["ZHX-PB23"], "fetched_at": NOW})
+    
+        assert await module.check_due(factory, checker, clock=lambda: NOW) == ["unavailable" if outage else "changed"]
+        with factory() as session:
+            product = session.get(Product, session.get(Opportunity, opportunity_id).product_id)
+            purchase = session.get(Purchase, product.purchase_id)
+            purchase_id = purchase.id
+        rerun = client.post("/api/runs", json={"purchase_ids": [purchase_id], "mode": "demo",
+            "collaboration_mode": transport, "idempotency_key": f"replay-{transport}-{outage}"})
+        assert rerun.status_code == 200, rerun.text
+>       assert client.post(f"/api/claim-packets/{packet_id}/approve-local", json={"confirmed": True}).status_code == 409
+E       AssertionError: assert 200 == 409
+E        +  where 200 = <Response [200 OK]>.status_code
+E        +    where <Response [200 OK]> = post('/api/claim-packets/071aa224-b232-4ad4-a777-bf482820f214/approve-local', json={'confirmed': True})
+E        +      where post = <starlette.testclient.TestClient object at 0x10ebc6540>.post
+
+services/api/tests/p1/test_review_safety.py:37: AssertionError
+__ test_approval_and_export_serialize_with_monitor_revocation[approve-local] ___
+
+graph = (Engine(sqlite:////private/var/folders/k0/w3xrb_d95jn2t7nf2f0s05yr0000gp/T/pytest-of-nirmalhk7/pytest-205/test_approva... official required markings', 'User confirmation of lawful disposal (never prefilled)'], conditions=[], mode='replay'))
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x10ebf9fa0>
+action = 'approve-local'
+
+    @pytest.mark.parametrize("action", ["approve-local", "export"])
+    def test_approval_and_export_serialize_with_monitor_revocation(graph, monkeypatch, action):
+        engine, factory, client, opportunity_id, packet_id, _record = graph
+        module = monitor()
+        enable(module, engine, factory, opportunity_id)
+        from app.api import claims
+        original = claims.draft_allowed
+        blocked = []
+    
+        def concurrent_revoke(opportunity):
+            # At the final eligibility gate, an independent writer must not be able
+            # to commit a revocation that this stale request then overwrites.
+            with factory() as other:
+                other.connection().exec_driver_sql("PRAGMA busy_timeout=0")
+                try:
+                    other.connection().exec_driver_sql("BEGIN IMMEDIATE")
+                except OperationalError as error:
+                    assert "locked" in str(error)
+                    blocked.append(True)
+                else:
+                    module.revoke(other, other.get(Opportunity, opportunity_id), "SOURCE_MONITOR_UNAVAILABLE", NOW)
+                    other.commit()
+                    blocked.append(False)
+            return original(opportunity)
+    
+        monkeypatch.setattr(claims, "draft_allowed", concurrent_revoke)
+        response = client.post(f"/api/claim-packets/{packet_id}/{action}", json={"confirmed": True})
+        assert response.status_code == 200, response.text
+>       assert blocked == [True]
+E       assert [False] == [True]
+E         
+E         At index 0 diff: False != True
+E         Use -v to get more diff
+
+services/api/tests/p1/test_review_safety.py:74: AssertionError
+______ test_approval_and_export_serialize_with_monitor_revocation[export] ______
+
+graph = (Engine(sqlite:////private/var/folders/k0/w3xrb_d95jn2t7nf2f0s05yr0000gp/T/pytest-of-nirmalhk7/pytest-205/test_approva... official required markings', 'User confirmation of lawful disposal (never prefilled)'], conditions=[], mode='replay'))
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x10e62ab10>
+action = 'export'
+
+    @pytest.mark.parametrize("action", ["approve-local", "export"])
+    def test_approval_and_export_serialize_with_monitor_revocation(graph, monkeypatch, action):
+        engine, factory, client, opportunity_id, packet_id, _record = graph
+        module = monitor()
+        enable(module, engine, factory, opportunity_id)
+        from app.api import claims
+        original = claims.draft_allowed
+        blocked = []
+    
+        def concurrent_revoke(opportunity):
+            # At the final eligibility gate, an independent writer must not be able
+            # to commit a revocation that this stale request then overwrites.
+            with factory() as other:
+                other.connection().exec_driver_sql("PRAGMA busy_timeout=0")
+                try:
+                    other.connection().exec_driver_sql("BEGIN IMMEDIATE")
+                except OperationalError as error:
+                    assert "locked" in str(error)
+                    blocked.append(True)
+                else:
+                    module.revoke(other, other.get(Opportunity, opportunity_id), "SOURCE_MONITOR_UNAVAILABLE", NOW)
+                    other.commit()
+                    blocked.append(False)
+            return original(opportunity)
+    
+        monkeypatch.setattr(claims, "draft_allowed", concurrent_revoke)
+        response = client.post(f"/api/claim-packets/{packet_id}/{action}", json={"confirmed": True})
+        assert response.status_code == 200, response.text
+>       assert blocked == [True]
+E       assert [False] == [True]
+E         
+E         At index 0 diff: False != True
+E         Use -v to get more diff
+
+services/api/tests/p1/test_review_safety.py:74: AssertionError
+=============================== warnings summary ===============================
+services/api/.venv/lib/python3.12/site-packages/fastapi/testclient.py:1
+  /Users/nirmalhk7/Documents/DevWorld/sueperman/services/api/.venv/lib/python3.12/site-packages/fastapi/testclient.py:1: StarletteDeprecationWarning: Using `httpx` with `starlette.testclient` is deprecated; install `httpx2` instead.
+    from starlette.testclient import TestClient as TestClient  # noqa
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+=========================== short test summary info ============================
+FAILED services/api/tests/p1/test_review_safety.py::test_recorded_rerun_cannot_erase_official_monitor_revocation[False-deterministic]
+FAILED services/api/tests/p1/test_review_safety.py::test_recorded_rerun_cannot_erase_official_monitor_revocation[False-local]
+FAILED services/api/tests/p1/test_review_safety.py::test_recorded_rerun_cannot_erase_official_monitor_revocation[True-deterministic]
+FAILED services/api/tests/p1/test_review_safety.py::test_recorded_rerun_cannot_erase_official_monitor_revocation[True-local]
+FAILED services/api/tests/p1/test_review_safety.py::test_approval_and_export_serialize_with_monitor_revocation[approve-local]
+FAILED services/api/tests/p1/test_review_safety.py::test_approval_and_export_serialize_with_monitor_revocation[export]
+6 failed, 1 warning in 1.61s

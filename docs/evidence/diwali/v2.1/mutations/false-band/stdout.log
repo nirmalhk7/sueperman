@@ -2,7 +2,7 @@ F                                                                        [100%]
 =================================== FAILURES ===================================
 _______________________________ test_provenance ________________________________
 
-client = <starlette.testclient.TestClient object at 0x10e882a20>
+client = <starlette.testclient.TestClient object at 0x10ca2e7b0>
 
     def test_provenance(client):
         result, _ = run(client)
@@ -23,4 +23,4 @@ services/api/tests/diwali/test_api.py:86: AssertionError
 -- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
 =========================== short test summary info ============================
 FAILED services/api/tests/diwali/test_api.py::test_provenance - AssertionErro...
-1 failed, 1 warning in 0.71s
+1 failed, 1 warning in 0.80s

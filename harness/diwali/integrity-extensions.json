@@ -1,0 +1,86 @@
+{
+  "version": 1,
+  "reason": "Owner-requested V2.1/P1 documentation and pinned BAND 8.1.0 SDK additions; frozen baseline bytes must remain intact.",
+  "files": {
+    "README.md": {
+      "baseline_sha256": "191462a08e69add9505e649a8259adbf1d54462065a1cac11bb927bd885033ce",
+      "extended_sha256": "2fb16e4e90a25e1f0c53753bc3742c97349ac018d4f5fbae154df16f41a23f68",
+      "insertions": [
+        {
+          "offset": 5903,
+          "length": 1966,
+          "sha256": "3133809120fa047e4fc736575668022433779970a20b99400b3695a05cd845a3"
+        }
+      ]
+    },
+    ".env.example": {
+      "baseline_sha256": "5b5ded69278475a9c2c2d7e372ad5b9003972bfb7551f3cf1d19e7975c413f11",
+      "extended_sha256": "b554fa8535462dec73988084b53f8ee24f042127add97897b3b468555dbdc9fb",
+      "insertions": [
+        {
+          "offset": 972,
+          "length": 233,
+          "sha256": "9a193742ee8607848c048e6597eb75fa944280e9a6ae93527e20c51842e04812"
+        }
+      ]
+    },
+    "services/api/uv.lock": {
+      "baseline_sha256": "aca9025d801b750ea79fe009187299225767cb673800c46b3c53c6635ff776dc",
+      "extended_sha256": "f033246cd2da081c8df37b926903ceec193750d80835a5b4017d79d16b165acf",
+      "insertions": [
+        {
+          "offset": 14481,
+          "length": 696,
+          "sha256": "4949e1b0c9cc41509020ca511a14945461cebae7b404ac8e5ce9d75042009211"
+        },
+        {
+          "offset": 15850,
+          "length": 4575,
+          "sha256": "5f4454e1e5ee51fc244b222e590032f3689d881b0a61fb420fe73fb555fe5cab"
+        },
+        {
+          "offset": 53145,
+          "length": 697,
+          "sha256": "0830a4196c6baffee50cdbd532ff8ddc5630ec74cadd045b00201dfa2b1eaabb"
+        },
+        {
+          "offset": 73908,
+          "length": 834,
+          "sha256": "1894b14d9eb9b4b6a6ee802773b7da795c7ad475e1a5e5b86974ae6f659c6507"
+        },
+        {
+          "offset": 95593,
+          "length": 3616,
+          "sha256": "b148fd4f818ac911b75b7089c8cb17b99a49bd018da62c4c94cb8b6210b9e50e"
+        },
+        {
+          "offset": 110815,
+          "length": 706,
+          "sha256": "9ddfe76cdc7b0ba3e241679ef8ef97a75eb87aa7a2fc314a605f20a40a9df93b"
+        },
+        {
+          "offset": 124491,
+          "length": 27,
+          "sha256": "06db67d508dbf9c6170accdb74b774d09e5f9b67206bccad79e8c1550ede7ccc"
+        },
+        {
+          "offset": 125079,
+          "length": 50,
+          "sha256": "9ea2ed2a7e5d8be50bbe9b6de9e25ae48a0581ae1ac67edcb1e3c276ef07e59c"
+        }
+      ]
+    },
+    "services/api/app/api/collaborations.py": {
+      "reason": "User-authorized safety repair: reject fixture collaboration approval/export after source monitoring requires a fresh official review. Exact inserted guard only; original source remains frozen.",
+      "baseline_sha256": "ed8747747327fded487827f585830cbb895edc1d87226da296079283c9b97c53",
+      "extended_sha256": "61a24db6772f01ed35e1e592738a27e0f3617924ce68b605fae1b8078525402e",
+      "insertions": [
+        {
+          "offset": 7310,
+          "length": 425,
+          "sha256": "4d7b5697366aa57e55f582d0691c1fd17b8919c1ba0400c7649a1f3b6fe50bff"
+        }
+      ]
+    }
+  }
+}

@@ -12,6 +12,7 @@ from app.models import (
     now,
 )
 from app.p1 import obligations
+from app.p1.monitoring import review_required
 from app.schemas import Approval, PacketResponse
 
 
@@ -30,6 +31,9 @@ def draft_allowed(opportunity):
 
 def register(app, factory, get, settings=None):
     def p1_guard(session, packet):
+        opportunity = get(session, Opportunity, packet.opportunity_id)
+        if review_required(session, opportunity):
+            raise HTTPException(409, "Current official source requires a new live review")
         if settings and settings.p1_enabled and obligations.invalidate_approval(session, packet):
             session.commit()
             raise HTTPException(409, "Current purchase, evidence or checklist requires a new review")
@@ -52,6 +56,7 @@ def register(app, factory, get, settings=None):
     @app.post("/api/claim-packets/{identifier}/approve-local", response_model=PacketResponse)
     def approve(identifier: str, body: Approval):
         with factory() as s:
+            s.connection().exec_driver_sql("BEGIN IMMEDIATE")
             packet = get(s, ClaimPacket, identifier)
             if invalidate_stale(s, identifier):
                 s.commit()
@@ -76,6 +81,7 @@ def register(app, factory, get, settings=None):
     @app.post("/api/claim-packets/{identifier}/export")
     def export(identifier: str):
         with factory() as s:
+            s.connection().exec_driver_sql("BEGIN IMMEDIATE")
             packet = get(s, ClaimPacket, identifier)
             if invalidate_stale(s, identifier):
                 s.commit()

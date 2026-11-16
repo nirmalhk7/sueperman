@@ -130,7 +130,42 @@ def active_run(session):
                 ["queued", "investigating", "challenging", "building"]))))
 
 
+def review_required(session, opportunity, record=None):
+    """A replay cannot supersede a durable official-source revocation.
+
+    Only a later live authoritative observation can support a new review.
+    Keep the watch/check history even when ordinary opportunity rows are rebuilt.
+    """
+    if not inspect(session.connection()).has_table(SourceWatch.__tablename__):
+        return False
+    watch = session.scalar(select(SourceWatch).where(SourceWatch.opportunity_id == opportunity.id))
+    if watch is None:
+        return False
+    blocked_at = watch.payload.get("review_required_at")
+    if not blocked_at:
+        # Compatibility with watches created before the durable marker existed.
+        checks = session.scalars(select(SourceCheck).where(SourceCheck.watch_id == watch.id)
+                                 .order_by(SourceCheck.sequence.desc())).all()
+        blocked_at = next((c.payload.get("observed_at") for c in checks
+                           if c.payload.get("observation_status", c.payload.get("status"))
+                           in {"changed", "unavailable"}), None)
+        if not blocked_at and opportunity.payload.get("monitor_status"):
+            return True
+    if not blocked_at:
+        return False
+    try:
+        record = record or RecallRecord.model_validate(opportunity.payload["recall"])
+        return not (record.mode == "live" and record.source_type == "government"
+                    and official_cpsc(record.official_url) and record.official_url == opportunity.official_url
+                    and utc(record.fetched_at) > utc(datetime.fromisoformat(blocked_at)))
+    except (ValueError, KeyError, TypeError):
+        return True
+
+
 def revoke(session, opportunity, reason, observed_at):
+    watch = session.scalar(select(SourceWatch).where(SourceWatch.opportunity_id == opportunity.id))
+    if watch is not None:
+        watch.payload = watch.payload | {"review_required_at": utc(observed_at).isoformat(), "review_reason": reason}
     opportunity.payload = opportunity.payload | {"status": "needs_review", "monitor_status": reason,
         "matching_reasons": list(dict.fromkeys(opportunity.payload.get("matching_reasons", []) + [reason]))}
     assessment = session.scalar(select(EligibilityAssessment).where(

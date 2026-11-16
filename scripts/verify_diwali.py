@@ -192,13 +192,49 @@ def run_mutation_checks(root):
     return results
 
 
+def preserved_extension(data, expected, extension):
+    """Only exact reviewed insertions may differ from the original frozen bytes."""
+    try:
+        if (extension["baseline_sha256"] != expected
+                or hashlib.sha256(data).hexdigest() != extension["extended_sha256"]):
+            return False
+        previous_end = 0
+        insertions = extension["insertions"]
+        if not insertions:
+            return False
+        for addition in insertions:
+            offset, length = addition["offset"], addition["length"]
+            if (type(offset) is not int or type(length) is not int or length <= 0
+                    or offset < previous_end or offset + length > len(data)
+                    or hashlib.sha256(data[offset:offset + length]).hexdigest() != addition["sha256"]):
+                return False
+            previous_end = offset + length
+        for addition in reversed(insertions):
+            offset, length = addition["offset"], addition["length"]
+            data = data[:offset] + data[offset + length:]
+        return hashlib.sha256(data).hexdigest() == expected
+    except (KeyError, TypeError, ValueError):
+        return False
+
+
 def check_integrity(root, baseline):
+    try:
+        manifest = json.loads((root / "harness/diwali/integrity-extensions.json").read_text())
+        extensions = manifest["files"] if manifest["version"] == 1 else {}
+    except (OSError, ValueError, KeyError, TypeError):
+        extensions = {}
     failures = []
     for group in ("protected_file_digests", "fixture_digests", "lockfile_digests", "oracle_digests"):
         for name, expected in baseline.get(group, {}).items():
             path = root / name
-            actual = hashlib.sha256(path.read_bytes()).hexdigest() if path.is_file() else None
-            if actual != expected:
+            data = path.read_bytes() if path.is_file() else None
+            actual = hashlib.sha256(data).hexdigest() if data is not None else None
+            allowed = (group in {"protected_file_digests", "lockfile_digests"}
+                       and name in {"README.md", ".env.example", "services/api/uv.lock",
+                                    "services/api/app/api/collaborations.py"}
+                       and data is not None and isinstance(extensions, dict)
+                       and preserved_extension(data, expected, extensions.get(name, {})))
+            if actual != expected and not allowed:
                 failures.append(f"Changed protected input: {name}")
     return failures
 

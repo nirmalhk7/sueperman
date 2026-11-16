@@ -1,0 +1,26 @@
+services/api/.venv/bin/python scripts/verify_diwali.py --through G0 --offline
+{
+  "G0": {
+    "status": "PASS",
+    "failures": [],
+    "baseline_checks": [
+      {
+        "command": "make test",
+        "exit_code": 0,
+        "result": "132 backend + 11 frontend passed; 0 skipped; existing Starlette deprecation warning",
+        "evidence": "docs/evidence/diwali/v2.1/baseline-test.log"
+      },
+      {
+        "command": "make lint",
+        "exit_code": 0,
+        "evidence": "docs/evidence/diwali/v2.1/baseline-lint.log"
+      },
+      {
+        "command": "make typecheck",
+        "exit_code": 0,
+        "evidence": "docs/evidence/diwali/v2.1/baseline-typecheck.log"
+      }
+    ],
+    "tested_tree_digest": "83e5944b094cbd9531a7374ac84ec3d3dcbde702c76b55bafc9e860c618bee72"
+  }
+}

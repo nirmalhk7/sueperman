@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="1" skipped="0" tests="1" time="0.157" timestamp="2026-11-14T23:56:47.074281-08:00" hostname="EXCALIBUR.local"><testcase classname="tests.diwali.test_local_core" name="test_missing_purchase_model" time="0.033"><failure message="AssertionError: assert 'verified_match' == 'needs_review'&#10;  &#10;  - needs_review&#10;  + verified_match">def test_missing_purchase_model():
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="1" skipped="0" tests="1" time="0.150" timestamp="2026-11-15T19:20:41.468504-08:00" hostname="EXCALIBUR.local"><testcase classname="tests.diwali.test_local_core" name="test_missing_purchase_model" time="0.033"><failure message="AssertionError: assert 'verified_match' == 'needs_review'&#10;  &#10;  - needs_review&#10;  + verified_match">def test_missing_purchase_model():
         products, recall = fixture_data()
         result = core().run_local(inputs(products[3], recall))
 &gt;       assert result.outcome == "needs_review"

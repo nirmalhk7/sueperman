@@ -153,6 +153,12 @@ def register(app, factory, settings, get):
             ledger.revise(s, case, binding.payload | {"evidence_hashes": []})
             s.commit()
             raise HTTPException(409, "Source unavailable; new review required") from None
+        from app.models import Opportunity
+        from app.p1.monitoring import review_required
+        opportunity = s.scalar(select(Opportunity).where(
+            Opportunity.product_id == case.product_id, Opportunity.source_id == recall.reference))
+        if opportunity is not None and review_required(s, opportunity, recall):
+            raise HTTPException(409, "Current official source requires a new live review")
         expected = {
             "product_hash": ledger.fingerprint(product.model_dump(mode="json")),
             "evidence_hashes": [ledger.fingerprint(recall.model_dump(mode="json", exclude={"fetched_at"}))],

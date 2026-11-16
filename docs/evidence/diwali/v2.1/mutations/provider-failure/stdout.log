@@ -2,7 +2,7 @@ F                                                                        [100%]
 =================================== FAILURES ===================================
 _______________ test_malformed_result_closes_case_without_packet _______________
 
-tmp_path = PosixPath('/private/var/folders/k0/w3xrb_d95jn2t7nf2f0s05yr0000gp/T/pytest-of-nirmalhk7/pytest-164/test_malformed_result_closes_c0')
+tmp_path = PosixPath('/private/var/folders/k0/w3xrb_d95jn2t7nf2f0s05yr0000gp/T/pytest-of-nirmalhk7/pytest-230/test_malformed_result_closes_c0')
 
     @pytest.mark.asyncio
     async def test_malformed_result_closes_case_without_packet(tmp_path):
@@ -23,4 +23,4 @@ E             + completed
 services/api/tests/diwali/test_failures.py:30: AssertionError
 =========================== short test summary info ============================
 FAILED services/api/tests/diwali/test_failures.py::test_malformed_result_closes_case_without_packet
-1 failed in 0.48s
+1 failed in 0.41s

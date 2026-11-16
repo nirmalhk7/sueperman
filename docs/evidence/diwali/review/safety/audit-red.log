@@ -1,0 +1,84 @@
+F.F....                                                                  [100%]
+=================================== FAILURES ===================================
+_ test_recorded_rerun_cannot_erase_official_monitor_revocation[False-deterministic] _
+
+graph = (Engine(sqlite:////private/var/folders/k0/w3xrb_d95jn2t7nf2f0s05yr0000gp/T/pytest-of-nirmalhk7/pytest-214/test_recorde... official required markings', 'User confirmation of lawful disposal (never prefilled)'], conditions=[], mode='replay'))
+transport = 'deterministic', outage = False
+
+    @pytest.mark.parametrize("transport", ["deterministic", "local"])
+    @pytest.mark.parametrize("outage", [False, True])
+    async def test_recorded_rerun_cannot_erase_official_monitor_revocation(graph, transport, outage):
+        engine, factory, client, opportunity_id, packet_id, record = graph
+        module = monitor()
+        enable(module, engine, factory, opportunity_id)
+    
+        async def checker(reference):
+            if outage:
+                raise RuntimeError("synthetic outage")
+            return record.model_copy(update={"models": ["ZHX-PB23"], "fetched_at": NOW})
+    
+        assert await module.check_due(factory, checker, clock=lambda: NOW) == ["unavailable" if outage else "changed"]
+        with factory() as session:
+            product = session.get(Product, session.get(Opportunity, opportunity_id).product_id)
+            purchase = session.get(Purchase, product.purchase_id)
+            purchase_id = purchase.id
+        rerun = client.post("/api/runs", json={"purchase_ids": [purchase_id], "mode": "demo",
+            "collaboration_mode": transport, "idempotency_key": f"replay-{transport}-{outage}"})
+        assert rerun.status_code == 200, rerun.text
+        if transport == "deterministic":
+            with factory() as session:
+                events = session.scalars(select(AuditEvent).where(AuditEvent.run_id == rerun.json()["run_id"])).all()
+>               assert [e.payload["outcome"] for e in events
+                        if e.payload["stage"] == "ELIGIBILITY_EVALUATED"] == ["needs_review"]
+E               AssertionError: assert ['verified_match'] == ['needs_review']
+E                 
+E                 At index 0 diff: 'verified_match' != 'needs_review'
+E                 Use -v to get more diff
+
+services/api/tests/p1/test_review_safety.py:40: AssertionError
+_ test_recorded_rerun_cannot_erase_official_monitor_revocation[True-deterministic] _
+
+graph = (Engine(sqlite:////private/var/folders/k0/w3xrb_d95jn2t7nf2f0s05yr0000gp/T/pytest-of-nirmalhk7/pytest-214/test_recorde... official required markings', 'User confirmation of lawful disposal (never prefilled)'], conditions=[], mode='replay'))
+transport = 'deterministic', outage = True
+
+    @pytest.mark.parametrize("transport", ["deterministic", "local"])
+    @pytest.mark.parametrize("outage", [False, True])
+    async def test_recorded_rerun_cannot_erase_official_monitor_revocation(graph, transport, outage):
+        engine, factory, client, opportunity_id, packet_id, record = graph
+        module = monitor()
+        enable(module, engine, factory, opportunity_id)
+    
+        async def checker(reference):
+            if outage:
+                raise RuntimeError("synthetic outage")
+            return record.model_copy(update={"models": ["ZHX-PB23"], "fetched_at": NOW})
+    
+        assert await module.check_due(factory, checker, clock=lambda: NOW) == ["unavailable" if outage else "changed"]
+        with factory() as session:
+            product = session.get(Product, session.get(Opportunity, opportunity_id).product_id)
+            purchase = session.get(Purchase, product.purchase_id)
+            purchase_id = purchase.id
+        rerun = client.post("/api/runs", json={"purchase_ids": [purchase_id], "mode": "demo",
+            "collaboration_mode": transport, "idempotency_key": f"replay-{transport}-{outage}"})
+        assert rerun.status_code == 200, rerun.text
+        if transport == "deterministic":
+            with factory() as session:
+                events = session.scalars(select(AuditEvent).where(AuditEvent.run_id == rerun.json()["run_id"])).all()
+>               assert [e.payload["outcome"] for e in events
+                        if e.payload["stage"] == "ELIGIBILITY_EVALUATED"] == ["needs_review"]
+E               AssertionError: assert ['verified_match'] == ['needs_review']
+E                 
+E                 At index 0 diff: 'verified_match' != 'needs_review'
+E                 Use -v to get more diff
+
+services/api/tests/p1/test_review_safety.py:40: AssertionError
+=============================== warnings summary ===============================
+services/api/.venv/lib/python3.12/site-packages/fastapi/testclient.py:1
+  /Users/nirmalhk7/Documents/DevWorld/sueperman/services/api/.venv/lib/python3.12/site-packages/fastapi/testclient.py:1: StarletteDeprecationWarning: Using `httpx` with `starlette.testclient` is deprecated; install `httpx2` instead.
+    from starlette.testclient import TestClient as TestClient  # noqa
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+=========================== short test summary info ============================
+FAILED services/api/tests/p1/test_review_safety.py::test_recorded_rerun_cannot_erase_official_monitor_revocation[False-deterministic]
+FAILED services/api/tests/p1/test_review_safety.py::test_recorded_rerun_cannot_erase_official_monitor_revocation[True-deterministic]
+2 failed, 5 passed, 1 warning in 1.23s

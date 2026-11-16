@@ -1,0 +1,341 @@
+services/api/.venv/bin/python scripts/container_smoke.py
+ Image sueperman-check-49815-api Building 
+ Image sueperman-check-49815-web Building 
+ Image sueperman-check-49815-gateway Building 
+#1 [internal] load local bake definitions
+#1 reading from stdin 1.71kB done
+#1 DONE 0.0s
+
+#2 [api internal] load build definition from Dockerfile
+#2 transferring dockerfile: 1.40kB 0.0s done
+#2 DONE 0.1s
+
+#3 [gateway internal] load build definition from gateway.Dockerfile
+#3 transferring dockerfile: 124B 0.0s done
+#3 DONE 0.1s
+
+#4 [api internal] load metadata for docker.io/library/python:3.12-slim-bookworm
+#4 ...
+
+#5 [web internal] load build definition from Dockerfile
+#5 transferring dockerfile: 936B 0.0s done
+#5 DONE 0.1s
+
+#6 [gateway internal] load metadata for docker.io/library/nginx:stable-alpine
+#6 DONE 0.1s
+
+#7 [gateway internal] load .dockerignore
+#7 transferring context: 340B 0.0s done
+#7 DONE 0.0s
+
+#8 [gateway internal] load build context
+#8 transferring context: 434B 0.1s done
+#8 DONE 0.2s
+
+#9 [gateway 1/2] FROM docker.io/library/nginx:stable-alpine@sha256:901e593c95dc85f5a729f5765516321366ef4ac401821431d408897e95287d0a
+#9 resolve docker.io/library/nginx:stable-alpine@sha256:901e593c95dc85f5a729f5765516321366ef4ac401821431d408897e95287d0a 0.1s done
+#9 DONE 0.1s
+
+#10 [gateway 2/2] COPY deploy/nginx.conf /etc/nginx/conf.d/default.conf
+#10 CACHED
+
+#11 [gateway] exporting to image
+#11 exporting layers
+#11 exporting layers done
+#11 exporting manifest sha256:b585135461727b36287eb4e29dbe035248bebdfc6598cf800b894702bdbcdbae 0.0s done
+#11 exporting config sha256:0165801475b45e192388e7c62a068ca3a3b5723a369a2c98591c450196fafc86 0.0s done
+#11 exporting attestation manifest sha256:3a4d3cc088984e7f791fac550a9241c3b17e80320d85fb109901d9bc9aad488e
+#11 exporting attestation manifest sha256:3a4d3cc088984e7f791fac550a9241c3b17e80320d85fb109901d9bc9aad488e 0.0s done
+#11 exporting manifest list sha256:9b6c11d3d878ceb5655b9789779efd2166a145af57437f86629fe03ec49e315c 0.0s done
+#11 naming to docker.io/library/sueperman-check-49815-gateway:latest done
+#11 DONE 0.2s
+
+#12 [web internal] load metadata for docker.io/library/node:24-bookworm-slim
+#12 ...
+
+#4 [api internal] load metadata for docker.io/library/python:3.12-slim-bookworm
+#4 DONE 0.9s
+
+#7 [web internal] load .dockerignore
+#7 transferring context: 340B 0.0s done
+#7 DONE 0.0s
+
+#12 [api internal] load metadata for docker.io/library/node:24-bookworm-slim
+#12 DONE 0.9s
+
+#13 [gateway] resolving provenance for metadata file
+#13 DONE 0.0s
+
+#14 [web build 1/7] FROM docker.io/library/node:24-bookworm-slim@sha256:dc26ae92c9fb15cf6b1d63e20f0944b2efe0f115b20e00be48fb23fceb061c54
+#14 resolve docker.io/library/node:24-bookworm-slim@sha256:dc26ae92c9fb15cf6b1d63e20f0944b2efe0f115b20e00be48fb23fceb061c54 0.1s done
+#14 DONE 0.1s
+
+#15 [web internal] load build context
+#15 transferring context: 908.33kB 0.1s done
+#15 DONE 0.1s
+
+#16 [api internal] load metadata for ghcr.io/astral-sh/uv:0.10.8
+#16 ...
+
+#17 [web build 2/7] RUN npm install --global pnpm@11.25.0
+#17 CACHED
+
+#18 [web build 3/7] WORKDIR /srv/app/apps/web
+#18 CACHED
+
+#19 [web build 4/7] COPY apps/web/package.json apps/web/pnpm-lock.yaml apps/web/pnpm-workspace.yaml ./
+#19 CACHED
+
+#20 [web build 5/7] RUN pnpm install --frozen-lockfile
+#20 CACHED
+
+#21 [web build 6/7] COPY apps/web/ ./
+#21 DONE 0.3s
+
+#16 [api internal] load metadata for ghcr.io/astral-sh/uv:0.10.8
+#16 DONE 1.4s
+
+#7 [api internal] load .dockerignore
+#7 transferring context: 340B 0.0s done
+#7 DONE 0.0s
+
+#14 [api build 1/7] FROM docker.io/library/node:24-bookworm-slim@sha256:dc26ae92c9fb15cf6b1d63e20f0944b2efe0f115b20e00be48fb23fceb061c54
+#14 resolve docker.io/library/node:24-bookworm-slim@sha256:dc26ae92c9fb15cf6b1d63e20f0944b2efe0f115b20e00be48fb23fceb061c54 0.1s done
+#14 DONE 0.1s
+
+#22 [api internal] load build context
+#22 DONE 0.0s
+
+#23 [api stage-2  1/11] FROM docker.io/library/python:3.12-slim-bookworm@sha256:935c3c5b12357a7e10caa9c1e6ca5692344d97cf229832ef584be2cec9fc03df
+#23 resolve docker.io/library/python:3.12-slim-bookworm@sha256:935c3c5b12357a7e10caa9c1e6ca5692344d97cf229832ef584be2cec9fc03df 0.1s done
+#23 DONE 0.1s
+
+#24 [api uv-runtime 1/1] FROM ghcr.io/astral-sh/uv:0.10.8@sha256:88234bc9e09c2b2f6d176a3daf411419eb0370d450a08129257410de9cfafd2a
+#24 resolve ghcr.io/astral-sh/uv:0.10.8@sha256:88234bc9e09c2b2f6d176a3daf411419eb0370d450a08129257410de9cfafd2a
+#24 resolve ghcr.io/astral-sh/uv:0.10.8@sha256:88234bc9e09c2b2f6d176a3daf411419eb0370d450a08129257410de9cfafd2a 0.1s done
+#24 DONE 0.1s
+
+#22 [api internal] load build context
+#22 transferring context: 304.61kB 0.1s done
+#22 DONE 0.1s
+
+#25 [api stage-2  3/11] COPY --from=node-runtime /usr/local/bin/node /usr/local/bin/node
+#25 CACHED
+
+#26 [api stage-2  5/11] RUN apt-get update && apt-get install -y --no-install-recommends ca-certificates libstdc++6     && rm -rf /var/lib/apt/lists/*     && ln -s /usr/local/lib/node_modules/npm/bin/npm-cli.js /usr/local/bin/npm     && ln -s /usr/local/lib/node_modules/npm/bin/npx-cli.js /usr/local/bin/npx
+#26 CACHED
+
+#27 [api stage-2  2/11] COPY --from=uv-runtime /uv /usr/local/bin/uv
+#27 CACHED
+
+#28 [api stage-2  4/11] COPY --from=node-runtime /usr/local/lib/node_modules/npm /usr/local/lib/node_modules/npm
+#28 CACHED
+
+#29 [api stage-2  6/11] WORKDIR /srv/app
+#29 CACHED
+
+#30 [api stage-2  7/11] COPY services/api/pyproject.toml services/api/uv.lock services/api/
+#30 DONE 0.2s
+
+#31 [web build 7/7] RUN pnpm build
+#31 3.455 $ next build --webpack
+#31 ...
+
+#32 [api stage-2  8/11] RUN uv sync --project services/api --locked --no-dev --no-cache
+#32 2.036 Using CPython 3.12.16 interpreter at: /usr/local/bin/python3
+#32 2.039 Creating virtual environment at: services/api/.venv
+#32 2.133 Resolved 71 packages in 42ms
+#32 2.531 Downloading google-genai (1.2MiB)
+#32 2.532 Downloading pillow (6.6MiB)
+#32 2.533 Downloading pydantic-core (2.2MiB)
+#32 2.536 Downloading sqlalchemy (4.5MiB)
+#32 2.542 Downloading cryptography (4.5MiB)
+#32 2.592 Downloading band-sdk (1.1MiB)
+#32 3.754  Downloaded pydantic-core
+#32 3.986  Downloaded pillow
+#32 4.097  Downloaded cryptography
+#32 4.181  Downloaded sqlalchemy
+#32 4.290  Downloaded band-sdk
+#32 4.447  Downloaded google-genai
+#32 4.450 Prepared 55 packages in 2.29s
+#32 5.987 Installed 55 packages in 1.53s
+#32 5.991  + annotated-doc==0.0.6
+#32 5.991  + annotated-types==0.8.0
+#32 5.991  + anyio==4.16.0
+#32 5.991  + async-lru==2.4.0
+#32 5.991  + attrs==26.1.0
+#32 5.991  + band-client-rest==0.0.50
+#32 5.991  + band-sdk==8.1.0
+#32 5.991  + band-sdk-core==6.1.1
+#32 5.991  + certifi==2026.10.23
+#32 5.991  + cffi==2.1.1
+#32 5.991  + charset-normalizer==3.5.2
+#32 5.991  + click==8.5.1
+#32 5.991  + cryptography==50.0.2
+#32 5.991  + distro==1.9.0
+#32 5.991  + fastapi==0.162.7
+#32 5.991  + filelock==4.2.10
+#32 5.991  + google-auth==2.62.2
+#32 5.991  + google-genai==2.34.0
+#32 5.991  + h11==0.16.0
+#32 5.991  + httpcore==1.0.9
+#32 5.991  + httpx==0.28.1
+#32 5.991  + httpx-sse==0.4.3
+#32 5.991  + idna==3.20
+#32 5.991  + jsonschema==4.26.0
+#32 5.991  + jsonschema-specifications==2025.9.1
+#32 5.991  + mcp==1.30.0
+#32 5.991  + opentelemetry-api==1.45.2
+#32 5.991  + phoenix-channels-python-client==0.4.4
+#32 5.991  + pillow==12.3.0
+#32 5.991  + pyasn1==0.6.5
+#32 5.991  + pyasn1-modules==0.4.2
+#32 5.991  + pycparser==3.12
+#32 5.991  + pydantic==2.14.3
+#32 5.991  + pydantic-core==2.50.4
+#32 5.991  + pydantic-settings==2.16.3
+#32 5.991  + pyjwt==2.15.1
+#32 5.991  + pypdf==6.21.4
+#32 5.991  + python-dotenv==1.2.4
+#32 5.991  + python-multipart==0.0.33
+#32 5.991  + pyyaml==6.0.3
+#32 5.991  + referencing==0.37.0
+#32 5.991  + requests==2.34.2
+#32 5.991  + rpds-py==2026.9.1
+#32 5.991  + ruamel-yaml==0.19.1
+#32 5.991  + sentry-sdk==2.75.0
+#32 5.991  + sniffio==1.3.1
+#32 5.991  + sqlalchemy==2.1.8
+#32 5.991  + sse-starlette==3.7.0
+#32 5.991  + starlette==1.10.0
+#32 5.991  + tenacity==9.1.4
+#32 5.991  + typing-extensions==4.16.0
+#32 5.991  + typing-inspection==0.4.5
+#32 5.991  + urllib3==2.8.0
+#32 5.991  + uvicorn==0.54.0
+#32 5.991  + websockets==17.4
+#32 ...
+
+#31 [web build 7/7] RUN pnpm build
+#31 6.877 ▲ Next.js 16.4.6 (webpack)
+#31 ...
+
+#32 [api stage-2  8/11] RUN uv sync --project services/api --locked --no-dev --no-cache
+#32 DONE 6.6s
+
+#33 [api stage-2  9/11] COPY services/api/app services/api/app
+#33 DONE 0.2s
+
+#31 [web build 7/7] RUN pnpm build
+#31 ...
+
+#34 [api stage-2 10/11] COPY demo demo
+#34 DONE 0.1s
+
+#35 [api stage-2 11/11] RUN useradd --uid 10001 --create-home sueperman     && mkdir -p /data /srv/app/uploads && chown -R 10001:10001 /data /srv/app/uploads
+#35 DONE 0.5s
+
+#31 [web build 7/7] RUN pnpm build
+#31 8.746 ✓ Running next.config.ts took 1865ms
+#31 8.804 - Experiments (use with caution):
+#31 8.804   · clientTraceMetadata
+#31 8.804 
+#31 8.909   Creating an optimized production build ...
+#31 ...
+
+#36 [api] exporting to image
+#36 exporting layers 8.0s done
+#36 exporting manifest sha256:66807d298a78afed372267f903db34f2738741e3ee96a30becf9812eb5cde7c9 0.0s done
+#36 exporting config sha256:094321da648bbe1d2c44b11339d3c251ed58cc5efb20c4c02a96601c2c6bd657 0.0s done
+#36 exporting attestation manifest sha256:791dba0937fdced1714f192ad986eb38811e0b8bc8d0a157bf8c886afdc9d76a 0.2s done
+#36 exporting manifest list sha256:58dde6ce5c2d83681dd5cc0f86c85ad10dc42ee6c1517f8ac5cd21c090116ec3 0.1s done
+#36 naming to docker.io/library/sueperman-check-49815-api:latest
+#36 naming to docker.io/library/sueperman-check-49815-api:latest 0.2s done
+#36 DONE 9.1s
+
+#31 [web build 7/7] RUN pnpm build
+#31 ...
+
+#37 [api] resolving provenance for metadata file
+#37 DONE 0.1s
+
+#31 [web build 7/7] RUN pnpm build
+#31 54.37 ✓ Compiled successfully in 42s
+#31 54.37   Running TypeScript ...
+#31 63.87   Finished TypeScript in 9.5s ...
+#31 63.89   Collecting page data using 8 workers ...
+#31 70.67   Generating static pages using 8 workers (0/3) ...
+#31 73.67 ✓ Generating static pages using 8 workers (3/3) in 3.0s
+#31 74.15   Finalizing page optimization ...
+#31 74.15   Collecting build traces ...
+#31 94.89 
+#31 94.89 Route (app)
+#31 94.89 ┌ ○ /
+#31 94.89 ├ ○ /_not-found
+#31 94.89 ├ ƒ /claims/[id]
+#31 94.89 ├ ƒ /collaborations/[id]
+#31 94.89 ├ ƒ /opportunities/[id]
+#31 94.89 └ ƒ /runs/[id]
+#31 94.89 
+#31 94.89 
+#31 94.89 ○  (Static)   prerendered as static content
+#31 94.89 ƒ  (Dynamic)  server-rendered on demand
+#31 94.89 
+#31 DONE 95.3s
+
+#38 [web stage-1 2/3] WORKDIR /srv/app/apps/web
+#38 CACHED
+
+#39 [web stage-1 3/3] COPY --from=build --chown=node:node /srv/app/apps/web ./
+#39 DONE 3.6s
+
+#40 [web] exporting to image
+#40 exporting layers
+#40 exporting layers 37.5s done
+#40 exporting manifest sha256:d9b809a2aff555f56d2be117bd18b483c395a257971a4269fc3c9cb41470d8bb 0.0s done
+#40 exporting config sha256:5a5e576974c847a7b8199bb1411c895602a5c45ee6c539e3250b2be272e584e5 0.0s done
+#40 exporting attestation manifest sha256:39000fe6b9e56db091e71bb4137606573554f2c5f8ea05161fae2c674a92fe4c 0.0s done
+#40 exporting manifest list sha256:b5c325f5997acd48b1edb4a45a3d34edf66283a3203661afa4efd79bfb63b53a
+#40 exporting manifest list sha256:b5c325f5997acd48b1edb4a45a3d34edf66283a3203661afa4efd79bfb63b53a 0.0s done
+#40 naming to docker.io/library/sueperman-check-49815-web:latest done
+#40 DONE 37.7s
+
+#41 [web] resolving provenance for metadata file
+#41 DONE 0.1s
+ Image sueperman-check-49815-web Built 
+ Image sueperman-check-49815-api Built 
+ Image sueperman-check-49815-gateway Built 
+ Network sueperman-check-49815_default Creating 
+ Volume sueperman-check-49815_demo-state Creating 
+ Network sueperman-check-49815_default Creating 
+ Volume sueperman-check-49815_demo-state Creating 
+ Volume sueperman-check-49815_demo-state Created 
+ Volume sueperman-check-49815_demo-state Created 
+ Network sueperman-check-49815_default Created 
+ Network sueperman-check-49815_default Created 
+ Container sueperman-check-49815-api-1 Creating 
+ Container sueperman-check-49815-web-1 Creating 
+ Container sueperman-check-49815-api-1 Created 
+ Container sueperman-check-49815-web-1 Created 
+ Container sueperman-check-49815-gateway-1 Creating 
+ Container sueperman-check-49815-gateway-1 Created 
+ Container sueperman-check-49815-web-1 Starting 
+ Container sueperman-check-49815-api-1 Starting 
+ Container sueperman-check-49815-web-1 Started 
+ Container sueperman-check-49815-api-1 Started 
+ Container sueperman-check-49815-api-1 Waiting 
+ Container sueperman-check-49815-web-1 Waiting 
+ Container sueperman-check-49815-web-1 Healthy 
+ Container sueperman-check-49815-api-1 Healthy 
+ Container sueperman-check-49815-gateway-1 Starting 
+ Container sueperman-check-49815-gateway-1 Started 
+11.19.1
+
+Running 1 test using 1 worker
+
+(node:53266) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✓  1 tests/workflow.e2e.ts:4:1 › five purchases produce evidence-backed recall, safe export and visible negative cases (11.1s)
+
+  1 passed (15.2s)
+PASS: production containers, same-origin API, exact/negative demo, local export, non-root users, no env files.

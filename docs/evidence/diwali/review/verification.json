@@ -1,0 +1,104 @@
+{
+  "observed_at": "2026-11-16T03:24:08.303648+00:00",
+  "scope": "Stable offline V2.1/P1 promotion; full P0 incomplete",
+  "implementation_base": "f97f008a238300f0b7dedb62a7d2d69c66f8ecbd",
+  "earlier_branch_preserved": "1ee4521a8a8dcc3d165870f54c7fa12b0bef7930",
+  "gate_command": "make diwali-check GATE=G3",
+  "gate_exit_code": 0,
+  "gate_results": {
+    "G0": "PASS",
+    "G1": "PASS",
+    "G2": "PASS",
+    "G3": "PASS"
+  },
+  "tested_tree_digest": "36cb5ab5e7df9e821ee63ecff1f801ec89b29cf8cf766b5af30c4d59b40da6b7",
+  "regression_commands": [
+    {
+      "command": [
+        "make",
+        "test"
+      ],
+      "status": "PASS",
+      "exit_code": 0,
+      "stdout_path": "/Users/nirmalhk7/Documents/DevWorld/sueperman/docs/evidence/diwali/v2.1/regressions/test/stdout.log",
+      "stderr_path": "/Users/nirmalhk7/Documents/DevWorld/sueperman/docs/evidence/diwali/v2.1/regressions/test/stderr.log",
+      "duration_seconds": 102.24728891602717
+    },
+    {
+      "command": [
+        "make",
+        "lint"
+      ],
+      "status": "PASS",
+      "exit_code": 0,
+      "stdout_path": "/Users/nirmalhk7/Documents/DevWorld/sueperman/docs/evidence/diwali/v2.1/regressions/lint/stdout.log",
+      "stderr_path": "/Users/nirmalhk7/Documents/DevWorld/sueperman/docs/evidence/diwali/v2.1/regressions/lint/stderr.log",
+      "duration_seconds": 3.1014954169513658
+    },
+    {
+      "command": [
+        "make",
+        "typecheck"
+      ],
+      "status": "PASS",
+      "exit_code": 0,
+      "stdout_path": "/Users/nirmalhk7/Documents/DevWorld/sueperman/docs/evidence/diwali/v2.1/regressions/typecheck/stdout.log",
+      "stderr_path": "/Users/nirmalhk7/Documents/DevWorld/sueperman/docs/evidence/diwali/v2.1/regressions/typecheck/stderr.log",
+      "duration_seconds": 2.2354304579785094
+    },
+    {
+      "command": [
+        "make",
+        "build"
+      ],
+      "status": "PASS",
+      "exit_code": 0,
+      "stdout_path": "/Users/nirmalhk7/Documents/DevWorld/sueperman/docs/evidence/diwali/v2.1/regressions/build/stdout.log",
+      "stderr_path": "/Users/nirmalhk7/Documents/DevWorld/sueperman/docs/evidence/diwali/v2.1/regressions/build/stderr.log",
+      "duration_seconds": 19.55767683405429
+    },
+    {
+      "command": [
+        "make",
+        "smoke"
+      ],
+      "status": "PASS",
+      "exit_code": 0,
+      "stdout_path": "/Users/nirmalhk7/Documents/DevWorld/sueperman/docs/evidence/diwali/v2.1/regressions/smoke/stdout.log",
+      "stderr_path": "/Users/nirmalhk7/Documents/DevWorld/sueperman/docs/evidence/diwali/v2.1/regressions/smoke/stderr.log",
+      "duration_seconds": 0.24095825001131743
+    },
+    {
+      "command": [
+        "make",
+        "e2e"
+      ],
+      "status": "PASS",
+      "exit_code": 0,
+      "stdout_path": "/Users/nirmalhk7/Documents/DevWorld/sueperman/docs/evidence/diwali/v2.1/regressions/e2e/stdout.log",
+      "stderr_path": "/Users/nirmalhk7/Documents/DevWorld/sueperman/docs/evidence/diwali/v2.1/regressions/e2e/stderr.log",
+      "duration_seconds": 12.074079458019696
+    }
+  ],
+  "backend_result": [
+    "296 passed, 1 warning in 97.86s (0:01:37)"
+  ],
+  "frontend_unit_tests": 11,
+  "general_browser_result": {
+    "passed": 11,
+    "paid_opt_in_skipped": 3
+  },
+  "container_check": {
+    "command": "make container-test",
+    "exit_code": 0,
+    "evidence": "docs/evidence/diwali/review/container.log",
+    "note": "Runtime source identical to final gate; later change adds only replay case-board test. Fresh screenshots saved separately; overwritten historical captures restored byte-for-byte."
+  },
+  "baseline_files_changed": [],
+  "provider_calls_this_review": [],
+  "deployment_performed": false,
+  "full_P0_complete": false,
+  "next_gate": "G4",
+  "detailed_requirement_map": "docs/DIWALI_MERGE_REVIEW.md",
+  "handoff": "harness/diwali/handoff.json"
+}

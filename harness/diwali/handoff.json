@@ -1,8 +1,9 @@
 {
   "spec_version": "2.1",
   "target_gate": "G3",
+  "observed_at": "2026-11-16T03:24:46.965867+00:00",
   "baseline_commit": "1dbd30ff4009cf357f28e70334703321a21c269f",
-  "tested_commit_or_tree_digest": "24536685f70c08db367eb98dc909e281b962d91d880504edb3ea1e644cd10a66",
+  "tested_commit_or_tree_digest": "36cb5ab5e7df9e821ee63ecff1f801ec89b29cf8cf766b5af30c4d59b40da6b7",
   "gate_results": {
     "G0": "PASS",
     "G1": "PASS",
@@ -29,11 +30,11 @@
       ],
       "status": "PASS",
       "exit_code": 0,
-      "duration_seconds": 4.414308791980147,
+      "duration_seconds": 5.54374195903074,
       "stdout_path": "/Users/nirmalhk7/Documents/DevWorld/sueperman/docs/evidence/diwali/v2.1/G1/stdout.log",
       "stderr_path": "/Users/nirmalhk7/Documents/DevWorld/sueperman/docs/evidence/diwali/v2.1/G1/stderr.log",
       "tests": 34,
-      "tested_tree_digest": "24536685f70c08db367eb98dc909e281b962d91d880504edb3ea1e644cd10a66"
+      "tested_tree_digest": "36cb5ab5e7df9e821ee63ecff1f801ec89b29cf8cf766b5af30c4d59b40da6b7"
     },
     {
       "gate": "G2",
@@ -62,11 +63,11 @@
       ],
       "status": "PASS",
       "exit_code": 0,
-      "duration_seconds": 0.44398887490388006,
+      "duration_seconds": 0.43888500006869435,
       "stdout_path": "/Users/nirmalhk7/Documents/DevWorld/sueperman/docs/evidence/diwali/v2.1/G2/stdout.log",
       "stderr_path": "/Users/nirmalhk7/Documents/DevWorld/sueperman/docs/evidence/diwali/v2.1/G2/stderr.log",
       "tests": 15,
-      "tested_tree_digest": "24536685f70c08db367eb98dc909e281b962d91d880504edb3ea1e644cd10a66"
+      "tested_tree_digest": "36cb5ab5e7df9e821ee63ecff1f801ec89b29cf8cf766b5af30c4d59b40da6b7"
     },
     {
       "gate": "G3",
@@ -93,7 +94,7 @@
       ],
       "status": "PASS",
       "exit_code": 0,
-      "duration_seconds": 26.736573082976975,
+      "duration_seconds": 38.9998273330275,
       "stdout_path": "/Users/nirmalhk7/Documents/DevWorld/sueperman/docs/evidence/diwali/v2.1/G3/stdout.log",
       "stderr_path": "/Users/nirmalhk7/Documents/DevWorld/sueperman/docs/evidence/diwali/v2.1/G3/stderr.log",
       "tests": 11,
@@ -118,7 +119,7 @@
             ],
             "status": "FAIL",
             "exit_code": 1,
-            "duration_seconds": 0.47197058401070535,
+            "duration_seconds": 0.5511158750159666,
             "stdout_path": "/Users/nirmalhk7/Documents/DevWorld/sueperman/docs/evidence/diwali/v2.1/mutations/pb23/stdout.log",
             "stderr_path": "/Users/nirmalhk7/Documents/DevWorld/sueperman/docs/evidence/diwali/v2.1/mutations/pb23/stderr.log",
             "tests": 1
@@ -145,7 +146,7 @@
             ],
             "status": "FAIL",
             "exit_code": 1,
-            "duration_seconds": 0.46152929204981774,
+            "duration_seconds": 0.44953116693068296,
             "stdout_path": "/Users/nirmalhk7/Documents/DevWorld/sueperman/docs/evidence/diwali/v2.1/mutations/unknown/stdout.log",
             "stderr_path": "/Users/nirmalhk7/Documents/DevWorld/sueperman/docs/evidence/diwali/v2.1/mutations/unknown/stderr.log",
             "tests": 1
@@ -172,7 +173,7 @@
             ],
             "status": "FAIL",
             "exit_code": 1,
-            "duration_seconds": 1.2343387090368196,
+            "duration_seconds": 1.435597291099839,
             "stdout_path": "/Users/nirmalhk7/Documents/DevWorld/sueperman/docs/evidence/diwali/v2.1/mutations/approval/stdout.log",
             "stderr_path": "/Users/nirmalhk7/Documents/DevWorld/sueperman/docs/evidence/diwali/v2.1/mutations/approval/stderr.log",
             "tests": 1
@@ -199,7 +200,7 @@
             ],
             "status": "FAIL",
             "exit_code": 1,
-            "duration_seconds": 0.44943579204846174,
+            "duration_seconds": 0.4394609580049291,
             "stdout_path": "/Users/nirmalhk7/Documents/DevWorld/sueperman/docs/evidence/diwali/v2.1/mutations/duplicate/stdout.log",
             "stderr_path": "/Users/nirmalhk7/Documents/DevWorld/sueperman/docs/evidence/diwali/v2.1/mutations/duplicate/stderr.log",
             "tests": 1
@@ -226,7 +227,7 @@
             ],
             "status": "FAIL",
             "exit_code": 1,
-            "duration_seconds": 0.8865595000097528,
+            "duration_seconds": 0.8693397080060095,
             "stdout_path": "/Users/nirmalhk7/Documents/DevWorld/sueperman/docs/evidence/diwali/v2.1/mutations/provider-failure/stdout.log",
             "stderr_path": "/Users/nirmalhk7/Documents/DevWorld/sueperman/docs/evidence/diwali/v2.1/mutations/provider-failure/stderr.log",
             "tests": 1
@@ -253,7 +254,7 @@
             ],
             "status": "FAIL",
             "exit_code": 1,
-            "duration_seconds": 1.2294987910427153,
+            "duration_seconds": 1.3869200000772253,
             "stdout_path": "/Users/nirmalhk7/Documents/DevWorld/sueperman/docs/evidence/diwali/v2.1/mutations/false-band/stdout.log",
             "stderr_path": "/Users/nirmalhk7/Documents/DevWorld/sueperman/docs/evidence/diwali/v2.1/mutations/false-band/stderr.log",
             "tests": 1
@@ -271,7 +272,7 @@
           "exit_code": 0,
           "stdout_path": "/Users/nirmalhk7/Documents/DevWorld/sueperman/docs/evidence/diwali/v2.1/regressions/test/stdout.log",
           "stderr_path": "/Users/nirmalhk7/Documents/DevWorld/sueperman/docs/evidence/diwali/v2.1/regressions/test/stderr.log",
-          "duration_seconds": 52.900946166948415
+          "duration_seconds": 102.24728891602717
         },
         {
           "command": [
@@ -282,7 +283,7 @@
           "exit_code": 0,
           "stdout_path": "/Users/nirmalhk7/Documents/DevWorld/sueperman/docs/evidence/diwali/v2.1/regressions/lint/stdout.log",
           "stderr_path": "/Users/nirmalhk7/Documents/DevWorld/sueperman/docs/evidence/diwali/v2.1/regressions/lint/stderr.log",
-          "duration_seconds": 2.9641891249921173
+          "duration_seconds": 3.1014954169513658
         },
         {
           "command": [
@@ -293,7 +294,7 @@
           "exit_code": 0,
           "stdout_path": "/Users/nirmalhk7/Documents/DevWorld/sueperman/docs/evidence/diwali/v2.1/regressions/typecheck/stdout.log",
           "stderr_path": "/Users/nirmalhk7/Documents/DevWorld/sueperman/docs/evidence/diwali/v2.1/regressions/typecheck/stderr.log",
-          "duration_seconds": 2.0778073329711333
+          "duration_seconds": 2.2354304579785094
         },
         {
           "command": [
@@ -304,7 +305,7 @@
           "exit_code": 0,
           "stdout_path": "/Users/nirmalhk7/Documents/DevWorld/sueperman/docs/evidence/diwali/v2.1/regressions/build/stdout.log",
           "stderr_path": "/Users/nirmalhk7/Documents/DevWorld/sueperman/docs/evidence/diwali/v2.1/regressions/build/stderr.log",
-          "duration_seconds": 18.77983058290556
+          "duration_seconds": 19.55767683405429
         },
         {
           "command": [
@@ -315,7 +316,7 @@
           "exit_code": 0,
           "stdout_path": "/Users/nirmalhk7/Documents/DevWorld/sueperman/docs/evidence/diwali/v2.1/regressions/smoke/stdout.log",
           "stderr_path": "/Users/nirmalhk7/Documents/DevWorld/sueperman/docs/evidence/diwali/v2.1/regressions/smoke/stderr.log",
-          "duration_seconds": 0.2797861670842394
+          "duration_seconds": 0.24095825001131743
         },
         {
           "command": [
@@ -326,10 +327,10 @@
           "exit_code": 0,
           "stdout_path": "/Users/nirmalhk7/Documents/DevWorld/sueperman/docs/evidence/diwali/v2.1/regressions/e2e/stdout.log",
           "stderr_path": "/Users/nirmalhk7/Documents/DevWorld/sueperman/docs/evidence/diwali/v2.1/regressions/e2e/stderr.log",
-          "duration_seconds": 12.083556792000309
+          "duration_seconds": 12.074079458019696
         }
       ],
-      "tested_tree_digest": "24536685f70c08db367eb98dc909e281b962d91d880504edb3ea1e644cd10a66"
+      "tested_tree_digest": "36cb5ab5e7df9e821ee63ecff1f801ec89b29cf8cf766b5af30c4d59b40da6b7"
     },
     {
       "command": [
@@ -340,7 +341,7 @@
       "exit_code": 0,
       "stdout_path": "/Users/nirmalhk7/Documents/DevWorld/sueperman/docs/evidence/diwali/v2.1/regressions/test/stdout.log",
       "stderr_path": "/Users/nirmalhk7/Documents/DevWorld/sueperman/docs/evidence/diwali/v2.1/regressions/test/stderr.log",
-      "duration_seconds": 52.900946166948415
+      "duration_seconds": 102.24728891602717
     },
     {
       "command": [
@@ -351,7 +352,7 @@
       "exit_code": 0,
       "stdout_path": "/Users/nirmalhk7/Documents/DevWorld/sueperman/docs/evidence/diwali/v2.1/regressions/lint/stdout.log",
       "stderr_path": "/Users/nirmalhk7/Documents/DevWorld/sueperman/docs/evidence/diwali/v2.1/regressions/lint/stderr.log",
-      "duration_seconds": 2.9641891249921173
+      "duration_seconds": 3.1014954169513658
     },
     {
       "command": [
@@ -362,7 +363,7 @@
       "exit_code": 0,
       "stdout_path": "/Users/nirmalhk7/Documents/DevWorld/sueperman/docs/evidence/diwali/v2.1/regressions/typecheck/stdout.log",
       "stderr_path": "/Users/nirmalhk7/Documents/DevWorld/sueperman/docs/evidence/diwali/v2.1/regressions/typecheck/stderr.log",
-      "duration_seconds": 2.0778073329711333
+      "duration_seconds": 2.2354304579785094
     },
     {
       "command": [
@@ -373,7 +374,7 @@
       "exit_code": 0,
       "stdout_path": "/Users/nirmalhk7/Documents/DevWorld/sueperman/docs/evidence/diwali/v2.1/regressions/build/stdout.log",
       "stderr_path": "/Users/nirmalhk7/Documents/DevWorld/sueperman/docs/evidence/diwali/v2.1/regressions/build/stderr.log",
-      "duration_seconds": 18.77983058290556
+      "duration_seconds": 19.55767683405429
     },
     {
       "command": [
@@ -384,7 +385,7 @@
       "exit_code": 0,
       "stdout_path": "/Users/nirmalhk7/Documents/DevWorld/sueperman/docs/evidence/diwali/v2.1/regressions/smoke/stdout.log",
       "stderr_path": "/Users/nirmalhk7/Documents/DevWorld/sueperman/docs/evidence/diwali/v2.1/regressions/smoke/stderr.log",
-      "duration_seconds": 0.2797861670842394
+      "duration_seconds": 0.24095825001131743
     },
     {
       "command": [
@@ -395,339 +396,158 @@
       "exit_code": 0,
       "stdout_path": "/Users/nirmalhk7/Documents/DevWorld/sueperman/docs/evidence/diwali/v2.1/regressions/e2e/stdout.log",
       "stderr_path": "/Users/nirmalhk7/Documents/DevWorld/sueperman/docs/evidence/diwali/v2.1/regressions/e2e/stderr.log",
-      "duration_seconds": 12.083556792000309
+      "duration_seconds": 12.074079458019696
+    },
+    {
+      "command": [
+        "make",
+        "container-test"
+      ],
+      "status": "PASS",
+      "exit_code": 0,
+      "evidence": "docs/evidence/diwali/review/container.log"
     }
   ],
   "artifact_paths": [
-    "harness/diwali/baseline.json",
-    "harness/diwali/acceptance.json",
-    "harness/diwali/expected.json",
-    "harness/diwali/provider-contracts.lock.json",
-    "harness/diwali/handoff.json",
-    "docs/DIWALI_SPEC.md",
     "docs/evidence/diwali/v2.1/gates.json",
-    "docs/evidence/diwali/v2.1/message.schema.json",
-    "docs/evidence/diwali/v2.1/browser/local-run.png",
-    "docs/evidence/diwali/v2.1/final-gate.log"
+    "harness/diwali/baseline.json",
+    "harness/diwali/expected.json",
+    "harness/diwali/acceptance.json",
+    "harness/diwali/integrity-extensions.json",
+    "docs/evidence/diwali/review/container.log"
   ],
   "changed_paths": [
-    "services/api/app/diwali/",
-    "services/api/tests/diwali/",
-    "apps/web/components/diwali-agent-timeline.tsx",
-    "apps/web/components/diwali-case-evidence.tsx",
-    "apps/web/tests/diwali.e2e.ts",
-    "apps/web/app/components.tsx",
-    "apps/web/lib/api.ts",
-    "services/api/app/api/runs.py",
-    "services/api/app/api/claims.py",
-    "services/api/app/config.py",
-    "services/api/app/main.py",
-    "services/api/app/schemas.py",
-    "Makefile",
+    "docs/DIWALI_LIMITATIONS.md",
+    "docs/DIWALI_MERGE_REVIEW.md",
+    "docs/DIWALI_P1.md",
+    "docs/evidence/diwali/p1/browser/acceptance.log",
+    "docs/evidence/diwali/p1/browser/api.log",
+    "docs/evidence/diwali/p1/browser/build.log",
+    "docs/evidence/diwali/p1/browser/source-change.png",
+    "docs/evidence/diwali/p1/browser/source-unavailable.png",
+    "docs/evidence/diwali/p1/browser/web.log",
+    "docs/evidence/diwali/review/container-browser/dashboard.png",
+    "docs/evidence/diwali/review/container-browser/packet.png",
+    "docs/evidence/diwali/review/container-browser/video.webm",
+    "docs/evidence/diwali/review/container.log",
+    "docs/evidence/diwali/review/final-gate.log",
+    "docs/evidence/diwali/review/handoff.json",
+    "docs/evidence/diwali/review/integrity/g0.log",
+    "docs/evidence/diwali/review/integrity/green.log",
+    "docs/evidence/diwali/review/integrity/mutation.log",
+    "docs/evidence/diwali/review/integrity/red.log",
+    "docs/evidence/diwali/review/integrity/safety-g0.log",
+    "docs/evidence/diwali/review/integrity/safety-green.log",
+    "docs/evidence/diwali/review/integrity/safety-red.log",
+    "docs/evidence/diwali/review/previous-handoff.json",
+    "docs/evidence/diwali/review/safety/audit-green.log",
+    "docs/evidence/diwali/review/safety/audit-red.log",
+    "docs/evidence/diwali/review/safety/case-board-green.log",
+    "docs/evidence/diwali/review/safety/case-board-red.log",
+    "docs/evidence/diwali/review/safety/replay-and-race-green.log",
+    "docs/evidence/diwali/review/safety/replay-and-race-red.log",
+    "docs/evidence/diwali/review/safety/targeted.log",
+    "docs/evidence/diwali/review/verification.json",
+    "docs/evidence/diwali/v2.1/G0.json",
+    "docs/evidence/diwali/v2.1/G1.json",
+    "docs/evidence/diwali/v2.1/G1/pytest.xml",
+    "docs/evidence/diwali/v2.1/G1/stdout.log",
+    "docs/evidence/diwali/v2.1/G2.json",
+    "docs/evidence/diwali/v2.1/G2/pytest.xml",
+    "docs/evidence/diwali/v2.1/G3.json",
+    "docs/evidence/diwali/v2.1/G3/pytest.xml",
+    "docs/evidence/diwali/v2.1/G3/stdout.log",
+    "docs/evidence/diwali/v2.1/browser/Diwali-error-and-empty-states.log",
+    "docs/evidence/diwali/v2.1/browser/Diwali-packet-workflow.log",
+    "docs/evidence/diwali/v2.1/browser/api.log",
+    "docs/evidence/diwali/v2.1/browser/build.log",
+    "docs/evidence/diwali/v2.1/browser/local-run.png",
+    "docs/evidence/diwali/v2.1/browser/web.log",
+    "docs/evidence/diwali/v2.1/gates.json",
+    "docs/evidence/diwali/v2.1/mutations/approval/pytest.xml",
+    "docs/evidence/diwali/v2.1/mutations/approval/stdout.log",
+    "docs/evidence/diwali/v2.1/mutations/duplicate/pytest.xml",
+    "docs/evidence/diwali/v2.1/mutations/false-band/pytest.xml",
+    "docs/evidence/diwali/v2.1/mutations/false-band/stdout.log",
+    "docs/evidence/diwali/v2.1/mutations/pb23/pytest.xml",
+    "docs/evidence/diwali/v2.1/mutations/pb23/stdout.log",
+    "docs/evidence/diwali/v2.1/mutations/provider-failure/pytest.xml",
+    "docs/evidence/diwali/v2.1/mutations/provider-failure/stdout.log",
+    "docs/evidence/diwali/v2.1/mutations/unknown/pytest.xml",
+    "docs/evidence/diwali/v2.1/regressions/build/stdout.log",
+    "docs/evidence/diwali/v2.1/regressions/e2e/stderr.log",
+    "docs/evidence/diwali/v2.1/regressions/e2e/stdout.log",
+    "docs/evidence/diwali/v2.1/regressions/servers/api.log",
+    "docs/evidence/diwali/v2.1/regressions/servers/web.log",
+    "docs/evidence/diwali/v2.1/regressions/smoke/stdout.log",
+    "docs/evidence/diwali/v2.1/regressions/test/stdout.log",
+    "harness/diwali/integrity-extensions.json",
     "scripts/verify_diwali.py",
-    "harness/diwali/",
-    "docs/DIWALI_*.md",
-    "docs/evidence/diwali/v2.1/"
+    "services/api/app/agent/orchestrator.py",
+    "services/api/app/api/claims.py",
+    "services/api/app/api/collaborations.py",
+    "services/api/app/diwali/persistence.py",
+    "services/api/app/p1/monitoring.py",
+    "services/api/app/p1/obligations.py",
+    "services/api/tests/diwali/test_integrity_extensions.py",
+    "services/api/tests/p1/test_review_safety.py"
   ],
-  "protected_files_unchanged": true,
+  "protected_files_unchanged": false,
+  "original_protected_bytes_preserved": true,
+  "audited_extensions": "harness/diwali/integrity-extensions.json",
   "provider_proof": {
-    "band": "NOT_STARTED",
+    "band": "IMPLEMENTED_UNVERIFIED",
     "lyzr": "NOT_STARTED",
     "finch": "NOT_STARTED",
     "agent37": "NOT_STARTED",
     "adal": "NOT_STARTED"
   },
-  "blockers": [],
-  "next_gate": "G4",
-  "resume_instruction": "G0\u2013G3 are verified offline at the recorded tree digest. Before G4, verify protected hashes and revalidate only changed prerequisites. Inspect current BAND SDK/custom-adapter documentation, pin/test Python 3.12 compatibility and the exact authenticated sender/recipient interface. Reuse the four existing private identities in ignored .env. Prepare the bounded synthetic round-trip before requesting any missing live authorization/budget; do not rotate keys, provision compute, publish or deploy automatically.",
-  "observed_at": "2026-11-15T08:03:06.353414+00:00",
-  "requirements": {
-    "D01": {
-      "gate": "G2",
-      "status": "PASS",
-      "node": "services/api/tests/diwali/test_local_core.py::test_five_golden_outcomes",
-      "executed_cases": 1,
-      "evidence": "docs/evidence/diwali/v2.1/G2.json"
-    },
-    "D02": {
-      "gate": "G2",
-      "status": "PASS",
-      "node": "services/api/tests/diwali/test_local_core.py::test_five_golden_outcomes",
-      "executed_cases": 1,
-      "evidence": "docs/evidence/diwali/v2.1/G2.json"
-    },
-    "D03": {
-      "gate": "G2",
-      "status": "PASS",
-      "node": "services/api/tests/diwali/test_local_core.py::test_five_golden_outcomes",
-      "executed_cases": 1,
-      "evidence": "docs/evidence/diwali/v2.1/G2.json"
-    },
-    "D04": {
-      "gate": "G2",
-      "status": "PASS",
-      "node": "services/api/tests/diwali/test_local_core.py::test_five_golden_outcomes",
-      "executed_cases": 1,
-      "evidence": "docs/evidence/diwali/v2.1/G2.json"
-    },
-    "D05": {
-      "gate": "G2",
-      "status": "PASS",
-      "node": "services/api/tests/diwali/test_local_core.py::test_five_golden_outcomes",
-      "executed_cases": 1,
-      "evidence": "docs/evidence/diwali/v2.1/G2.json"
-    },
-    "D06": {
-      "gate": "G2",
-      "status": "PASS",
-      "node": "services/api/tests/diwali/test_local_core.py::test_four_identities",
-      "executed_cases": 1,
-      "evidence": "docs/evidence/diwali/v2.1/G2.json"
-    },
-    "D07": {
-      "gate": "G2",
-      "status": "PASS",
-      "node": "services/api/tests/diwali/test_local_core.py::test_golden_traces",
-      "executed_cases": 1,
-      "evidence": "docs/evidence/diwali/v2.1/G2.json"
-    },
-    "D08": {
-      "gate": "G2",
-      "status": "PASS",
-      "node": "services/api/tests/diwali/test_local_core.py::test_transport_parity",
-      "executed_cases": 1,
-      "evidence": "docs/evidence/diwali/v2.1/G2.json"
-    },
-    "D09": {
-      "gate": "G2",
-      "status": "PASS",
-      "node": "services/api/tests/diwali/test_reducer.py::test_duplicate_delivery",
-      "executed_cases": 1,
-      "evidence": "docs/evidence/diwali/v2.1/G2.json"
-    },
-    "D10": {
-      "gate": "G2",
-      "status": "PASS",
-      "node": "services/api/tests/diwali/test_reducer.py::test_conflicting_duplicate",
-      "executed_cases": 1,
-      "evidence": "docs/evidence/diwali/v2.1/G2.json"
-    },
-    "D11": {
-      "gate": "G2",
-      "status": "PASS",
-      "node": "services/api/tests/diwali/test_reducer.py::test_wrong_sender_revision",
-      "executed_cases": 1,
-      "evidence": "docs/evidence/diwali/v2.1/G2.json"
-    },
-    "D12": {
-      "gate": "G2",
-      "status": "PASS",
-      "node": "services/api/tests/diwali/test_reducer.py::test_terminal_late_message",
-      "executed_cases": 1,
-      "evidence": "docs/evidence/diwali/v2.1/G2.json"
-    },
-    "D13": {
-      "gate": "G2",
-      "status": "PASS",
-      "node": "services/api/tests/diwali/test_local_core.py::test_missing_purchase_model",
-      "executed_cases": 1,
-      "evidence": "docs/evidence/diwali/v2.1/G2.json"
-    },
-    "D14": {
-      "gate": "G2",
-      "status": "PASS",
-      "node": "services/api/tests/diwali/test_reducer.py::test_public_followup",
-      "executed_cases": 1,
-      "evidence": "docs/evidence/diwali/v2.1/G2.json"
-    },
-    "D15": {
-      "gate": "G2",
-      "status": "PASS",
-      "node": "services/api/tests/diwali/test_reducer.py::test_unresolved_second_review",
-      "executed_cases": 1,
-      "evidence": "docs/evidence/diwali/v2.1/G2.json"
-    },
-    "D16": {
-      "gate": "G3",
-      "status": "PASS",
-      "node": "services/api/tests/diwali/test_api.py::test_default_compatibility",
-      "executed_cases": 1,
-      "evidence": "docs/evidence/diwali/v2.1/G3.json"
-    },
-    "D17": {
-      "gate": "G3",
-      "status": "PASS",
-      "node": "services/api/tests/diwali/test_api.py::test_idempotency_modes",
-      "executed_cases": 1,
-      "evidence": "docs/evidence/diwali/v2.1/G3.json"
-    },
-    "D18": {
-      "gate": "G3",
-      "status": "PASS",
-      "node": "services/api/tests/diwali/test_api.py::test_feature_off_parity",
-      "executed_cases": 1,
-      "evidence": "docs/evidence/diwali/v2.1/G3.json"
-    },
-    "D19": {
-      "gate": "G3",
-      "status": "PASS",
-      "node": "services/api/tests/diwali/test_persistence.py::test_finalization_rollback",
-      "executed_cases": 1,
-      "evidence": "docs/evidence/diwali/v2.1/G3.json"
-    },
-    "D20": {
-      "gate": "G3",
-      "status": "PASS",
-      "node": "services/api/tests/diwali/test_persistence.py::test_restart_cancels_tasks",
-      "executed_cases": 1,
-      "evidence": "docs/evidence/diwali/v2.1/G3.json"
-    },
-    "D21": {
-      "gate": "G3",
-      "status": "PASS",
-      "node": "services/api/tests/diwali/test_persistence.py::test_stale_evidence",
-      "executed_cases": 1,
-      "evidence": "docs/evidence/diwali/v2.1/G3.json"
-    },
-    "D22": {
-      "gate": "G3",
-      "status": "PASS",
-      "node": "services/api/tests/diwali/test_persistence.py::test_no_repeat_side_effect",
-      "executed_cases": 1,
-      "evidence": "docs/evidence/diwali/v2.1/G3.json"
-    },
-    "D23": {
-      "gate": "G5",
-      "status": "NOT_STARTED",
-      "reason": "Outside selected offline G0\u2013G3 scope",
-      "node": "services/api/tests/diwali/test_lyzr_contract.py::test_invalid_response"
-    },
-    "D24": {
-      "gate": "G2",
-      "status": "PASS",
-      "node": "services/api/tests/diwali/test_local_core.py::test_untrusted_source",
-      "executed_cases": 3,
-      "evidence": "docs/evidence/diwali/v2.1/G2.json"
-    },
-    "D25": {
-      "gate": "G2",
-      "status": "PASS",
-      "node": "services/api/tests/diwali/test_local_core.py::test_network_denied",
-      "executed_cases": 1,
-      "evidence": "docs/evidence/diwali/v2.1/G2.json"
-    },
-    "D26": {
-      "gate": "G3",
-      "status": "PASS",
-      "node": "services/api/tests/diwali/test_api.py::test_unapproved_export",
-      "executed_cases": 1,
-      "evidence": "docs/evidence/diwali/v2.1/G3.json"
-    },
-    "D27": {
-      "gate": "G3",
-      "status": "PASS",
-      "node": "services/api/tests/diwali/test_api.py::test_provenance",
-      "executed_cases": 1,
-      "evidence": "docs/evidence/diwali/v2.1/G3.json"
-    },
-    "D28": {
-      "gate": "G3",
-      "status": "PASS",
-      "node": "services/api/tests/diwali/test_ui.py::test_browser_error_empty_states",
-      "executed_cases": 1,
-      "evidence": "docs/evidence/diwali/v2.1/G3.json"
-    },
-    "D29": {
-      "gate": "G3",
-      "status": "PASS",
-      "node": "services/api/tests/diwali/test_ui.py::test_browser_packet_workflow",
-      "executed_cases": 1,
-      "evidence": "docs/evidence/diwali/v2.1/G3.json"
-    },
-    "D30": {
-      "gate": "G1",
-      "status": "PASS",
-      "node": "services/api/tests/diwali/test_harness.py::test_proof_requires_artifact",
-      "executed_cases": 1,
-      "evidence": "docs/evidence/diwali/v2.1/G1.json"
-    },
-    "D31": {
-      "gate": "G1",
-      "status": "PASS",
-      "node": "services/api/tests/diwali/test_harness.py::test_skips_cannot_pass",
-      "executed_cases": 1,
-      "evidence": "docs/evidence/diwali/v2.1/G1.json"
-    },
-    "D32": {
-      "gate": "G1",
-      "status": "PASS",
-      "node": "services/api/tests/diwali/test_harness.py::test_baseline_integrity",
-      "executed_cases": 1,
-      "evidence": "docs/evidence/diwali/v2.1/G1.json"
-    }
-  },
-  "verification_environment": {
-    "transport": "local",
-    "source": "recorded",
-    "reviewer": "rules",
-    "live_authorized": false,
-    "remote_provider_flags": {
-      "BAND_ENABLED": false,
-      "LYZR_ENABLED": false,
-      "FINCH_ENABLED": false,
-      "AGENT37_ENABLED": false,
-      "OPENAI_ENABLED": false,
-      "GEMINI_ENABLED": false,
-      "CPSC_LIVE_ENABLED": false,
-      "BRIGHTDATA_ENABLED": false,
-      "SYSTEM_ONE_ENABLED": false,
-      "SETTLEMENT_LIVE_ENABLED": false
-    },
-    "api_port": 8000,
-    "web_port": 3012,
-    "database": "task-owned disposable SQLite",
-    "source_map_upload": false
-  },
-  "configuration_digest": "67fbda0f6b86a53a2fbd68402399722b70f33cad06618c1d3fd4f2b47a58c63c",
-  "remaining_scope": [
+  "provider_proof_note": "Current integrated V2.1 proof only. Earlier partial transport/Builder/candidate-delivery captures retain original commit attribution in DIWALI_IMPLEMENTATION_LOG.md; they do not prove the final tree.",
+  "blockers": [
     {
       "gate": "G4",
-      "missing": "Pinned BAND adapter and actual four-identity delivery/consumption proof"
+      "missing": "BAND bridge exists but application coordinator/persistence/UI integration and current-tree live consumption proof remain incomplete.",
+      "minimal_owner_action": "None for offline implementation; explicit named-provider scope/budget before new live proof."
     },
     {
       "gate": "G5",
-      "missing": "Configured Skeptic reviewer, locked Lyzr response contract and consumed authorized inference; prior Builder agent is not reviewer proof"
+      "missing": "Existing Lyzr Builder is not the constrained Skeptic reviewer; integration and current-role inference proof incomplete.",
+      "minimal_owner_action": "Authorize a new bounded inference after reviewer conversion; prior one-call allowance consumed."
     },
     {
       "gate": "G6",
-      "missing": "Event-authored Recall Evidence Auditor package, authorized Finch publication/retrieval and loaded-digest invocation proof"
+      "missing": "Required authored Finch auditor package, published retrieval and loaded-digest invocation proof.",
+      "minimal_owner_action": "Authorize listing publication and any required wallet action after package review."
     },
     {
       "gate": "G7",
-      "missing": "Verified Agent37 exec/result/delete lifecycle, authorized funded compute, consumed source result and cleanup"
+      "missing": "Funded Agent37 compute, verified exec/result/delete lifecycle, consumed source result and confirmed cleanup.",
+      "minimal_owner_action": "Arrange compute credit and authorize bounded owned resource lifecycle; no automatic top-up."
     },
     {
-      "gate": "G8\u2013G9",
-      "missing": "Actual footage, owner-deferred AdaL MP4, final release audit and separately authorized publication/submission"
+      "gate": "G8/G9",
+      "missing": "Real integrated footage, AdaL MP4, release/deployment/submission audit.",
+      "minimal_owner_action": "Resume deferred AdaL work when real footage is available; separately authorize deployment/publication/submission."
     }
   ],
+  "next_gate": "G4",
+  "resume_instruction": "Complete G4 BAND application wiring and current-tree transport/consumption proof, then G5 constrained Lyzr reviewer. Follow docs/DIWALI_MERGE_REVIEW.md; no additional paid inference authorized.",
+  "full_P0_complete": false,
+  "P1_implemented": true,
   "test_summary": {
-    "backend": "228 passed",
+    "backend": "296 passed",
     "frontend_unit": "11 passed",
-    "browser": "11 passed",
-    "optional_live_browser": "3 unexecuted opt-in tests in p1-live.e2e.ts; outside selected offline gate; not counted as proof",
-    "mapped_mandatory_nodes": "All selected D01\u2013D32 nodes executed without skip/xfail; D23 is G5 and NOT_STARTED",
+    "general_browser": "11 passed; 3 paid opt-in skipped",
+    "container": "PASS; 1 browser workflow passed",
+    "mutations": "6 assertion-triggering mutations passed",
     "warning": "Existing Starlette/httpx TestClient deprecation warning"
   },
   "artifact_digests": {
+    "docs/evidence/diwali/v2.1/gates.json": "c70e2c6e12df52dd9e5bac434b6b99449e477f2f03cd662f5fd147e6c13fc36d",
     "harness/diwali/baseline.json": "70deb73080ceadd2129be6b9df3c3cd657d9ea6b27e5956de29ea50a30b2bbf7",
-    "harness/diwali/acceptance.json": "c5361db4b3bad27ab7871827d32742ecc583f6ba1ee6df2de641514de3607333",
     "harness/diwali/expected.json": "bf52eb3c46dc2a3a84b7a0a815bfdc89954929c24abbed0178c6d53a9643eb61",
-    "harness/diwali/provider-contracts.lock.json": "5fe6bb960e49c7b9c59d9976aaccfe9c557ebdd2e8ed2b0129d385f9fdd04666",
-    "docs/DIWALI_SPEC.md": "07f42642c50230908e72600c6a0f0a52d7312c7f0985c5f36b6b235a35995340",
-    "docs/evidence/diwali/v2.1/gates.json": "6a271a0377f179592eff215269df2bc3f8e62f283609b2cee3ad3466b5f2217b",
-    "docs/evidence/diwali/v2.1/message.schema.json": "3b521e1b78250fbfd4a0a4ecc4691c847cc63e40603e28c515a62d5b902414d7",
-    "docs/evidence/diwali/v2.1/browser/local-run.png": "c51ddca277581ae05ac6a9f3752ac01c300c8d7a2107c43d3381e6137b5c69b3",
-    "docs/evidence/diwali/v2.1/final-gate.log": "6e8f90309eef2e49977167f1af2e65b8d83cc16fb2e7661985997be899b86e9e"
+    "harness/diwali/acceptance.json": "c5361db4b3bad27ab7871827d32742ecc583f6ba1ee6df2de641514de3607333",
+    "harness/diwali/integrity-extensions.json": "5b561da28e00437c00826786c076fa49847b1e211974d813018f48f1ec6d3ecd",
+    "docs/evidence/diwali/review/container.log": "cdcc32c7d01536d4ae64d552c7e57012fc0c432fcea8bc10a5559fd0b520e809"
   }
 }

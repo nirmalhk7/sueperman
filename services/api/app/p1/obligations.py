@@ -8,7 +8,7 @@ from sqlalchemy.orm import Mapped, mapped_column
 
 from app.matching.recall import match_recall
 from app.models import ClaimPacket, Entity, Opportunity, Product, SourceEvidence
-from app.p1.monitoring import P1Base, digest
+from app.p1.monitoring import P1Base, digest, review_required
 from app.schemas import ProductInput, RecallRecord
 
 
@@ -52,7 +52,8 @@ def eligible(session, packet):
         recall = RecallRecord.model_validate(opportunity.payload["recall"])
         result = match_recall(ProductInput.model_validate(product.payload["product"]), recall)
         government = [e for e in evidence if e.payload.get("source_type") == "government"]
-        return (opportunity.payload["status"] == "verified_match" and result.status == "verified_match"
+        return (not review_required(session, opportunity, recall)
+            and opportunity.payload["status"] == "verified_match" and result.status == "verified_match"
             and bool(government) and all(e.url == recall.official_url
                 and e.payload.get("quoted_excerpt") == recall.excerpt
                 and e.payload.get("content_sha256") == hashlib.sha256(recall.excerpt.encode()).hexdigest()

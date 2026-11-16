@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="1" skipped="0" tests="1" time="0.707" timestamp="2026-11-14T23:56:47.542810-08:00" hostname="EXCALIBUR.local"><testcase classname="tests.diwali.test_api" name="test_unapproved_export" time="0.125"><failure message="AssertionError: assert 200 == 409&#10; +  where 200 = &lt;Response [200 OK]&gt;.status_code&#10; +    where &lt;Response [200 OK]&gt; = post(('/api/claim-packets/d8a476a1-1b35-4d05-a963-3ffe74b3257e' + '/export'))&#10; +      where post = &lt;starlette.testclient.TestClient object at 0x10e7fedb0&gt;.post">client = &lt;starlette.testclient.TestClient object at 0x10e7fedb0&gt;
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="1" skipped="0" tests="1" time="0.781" timestamp="2026-11-15T19:20:41.900481-08:00" hostname="EXCALIBUR.local"><testcase classname="tests.diwali.test_api" name="test_unapproved_export" time="0.168"><failure message="AssertionError: assert 200 == 409&#10; +  where 200 = &lt;Response [200 OK]&gt;.status_code&#10; +    where &lt;Response [200 OK]&gt; = post(('/api/claim-packets/4f21037e-b1f3-4b26-ad61-94af852aa0fe' + '/export'))&#10; +      where post = &lt;starlette.testclient.TestClient object at 0x10c4f3a70&gt;.post">client = &lt;starlette.testclient.TestClient object at 0x10c4f3a70&gt;
 
     def test_unapproved_export(client):
         result, _ = run(client)
@@ -11,7 +11,7 @@
 &gt;       assert client.post(path + "/export").status_code == 409
 E       AssertionError: assert 200 == 409
 E        +  where 200 = &lt;Response [200 OK]&gt;.status_code
-E        +    where &lt;Response [200 OK]&gt; = post(('/api/claim-packets/d8a476a1-1b35-4d05-a963-3ffe74b3257e' + '/export'))
-E        +      where post = &lt;starlette.testclient.TestClient object at 0x10e7fedb0&gt;.post
+E        +    where &lt;Response [200 OK]&gt; = post(('/api/claim-packets/4f21037e-b1f3-4b26-ad61-94af852aa0fe' + '/export'))
+E        +      where post = &lt;starlette.testclient.TestClient object at 0x10c4f3a70&gt;.post
 
 services/api/tests/diwali/test_api.py:71: AssertionError</failure></testcase></testsuite></testsuites>

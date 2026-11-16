@@ -76,6 +76,10 @@ def persist_recall(session, entity, product, recall, result, decision, research)
         )
         session.add(opp)
         session.flush()
+    from app.p1.monitoring import review_required
+    if review_required(session, opp, recall):
+        session.commit()
+        return opp
     opp.official_url = recall.official_url
     opp.payload = {
         "product_id": entity.id,
@@ -485,12 +489,12 @@ async def execute(factory, run_id, settings):
                             session,
                             run,
                             Stage.ELIGIBILITY_EVALUATED,
-                            outcome=result.status,
+                            outcome=opp.payload["status"],
                             provider=decision.mode,
                             entity_id=opp.id,
                             refs=[recall.official_url],
                         )
-                        if result.status == "verified_match":
+                        if opp.payload["status"] == "verified_match":
                             event(
                                 session,
                                 run,

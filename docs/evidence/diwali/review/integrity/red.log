@@ -1,0 +1,18 @@
+F.............                                                           [100%]
+=================================== FAILURES ===================================
+______ test_audited_p1_and_band_additions_pass_unchanged_frozen_baseline _______
+
+audited_tree = (PosixPath('/private/var/folders/k0/w3xrb_d95jn2t7nf2f0s05yr0000gp/T/pytest-of-nirmalhk7/pytest-206/test_audited_p1_an...e'}, 'lockfile_digests': {'services/api/uv.lock': 'aca9025d801b750ea79fe009187299225767cb673800c46b3c53c6635ff776dc'}})
+
+    def test_audited_p1_and_band_additions_pass_unchanged_frozen_baseline(audited_tree):
+        root, baseline = audited_tree
+>       assert harness().check_integrity(root, baseline) == []
+E       AssertionError: assert ['Changed pro.../api/uv.lock'] == []
+E         
+E         Left contains 3 more items, first extra item: 'Changed protected input: .env.example'
+E         Use -v to get more diff
+
+services/api/tests/diwali/test_integrity_extensions.py:28: AssertionError
+=========================== short test summary info ============================
+FAILED services/api/tests/diwali/test_integrity_extensions.py::test_audited_p1_and_band_additions_pass_unchanged_frozen_baseline
+1 failed, 13 passed in 0.32s
