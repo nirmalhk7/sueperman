@@ -1,0 +1,8 @@
+{
+  "identity": "sueperman-local-counterexample-replay",
+  "version": "1",
+  "delivery": "repository; NOT Finch-delivered",
+  "question_priority": ["model_number", "serial_prefix", "batch", "date_purchased", "region", "upc", "brand"],
+  "review": "Challenge false/unknown supported conditions only. No inferred identifier, declaration, legal claim or payout. No arbitrary tools.",
+  "max_task_requests": 6
+}

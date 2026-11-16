@@ -17,6 +17,12 @@ dependencies = [
     "pillow>=12,<13",
 ]
 
+[project.optional-dependencies]
+team = [
+    "adal-agent-sdk",
+    "band-sdk==9.1.0",
+]
+
 [dependency-groups]
 dev = ["pytest>=8,<10", "pytest-asyncio>=0.25", "respx>=0.22", "ruff>=0.9", "mypy>=1.15"]
 
@@ -32,3 +38,6 @@ line-length = 110
 [tool.mypy]
 ignore_missing_imports = true
 check_untyped_defs = true
+
+[tool.uv.sources]
+adal-agent-sdk = { git = "https://github.com/SylphAI-Inc/adal-sdk.git", rev = "8fc658151e7ffebbe3fdd0b915dc01dbe2ee44be" }

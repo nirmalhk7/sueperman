@@ -36,3 +36,16 @@ No claims were submitted or messages sent. Only the explicitly approved existing
 
 
 **OpenAI receipt vision: PROVEN.** User chose OpenAI credits for photo reading. Real local and public JPEG reading with gpt-6-luna returned merchant/date/item facts, with explicit identifier review retained. Mobile browser entry requests rear-camera capture; public workflow and cached repeat passed. receipt-camera-openai-live.json, receipt-camera-public.json, receipt-camera-public-browser.log. Daily request quota, image resizing/metadata removal, strict structured output, store:false and no tools/retries tested. This is additional OpenAI functionality, not a System One vendor integration or a new prize claim.
+
+## Diwali Festiverse SF — V2 (2026-11-15)
+
+The five Diwali sponsors are separate from historical AIE × MLH evidence above.
+The case board supports **no-key offline replay and a configured live runtime path**,
+with no live Diwali sponsor proof yet. BAND/AdaL SDK interfaces, Agent37 exec and
+Lyzr HTTP calls have synthetic transport tests. Actual account setup, Finch package
+delivery and all five execution receipts remain blocked.
+See [Diwali compliance and requirement coverage](diwali-compliance.md) and the
+[explicit blocked evidence manifest](evidence/diwali/manifest.json). No logo, mock,
+fixture, existing film or successful unit test counts as sponsor execution.
+
+V2 actual runtime adapters are implemented and tested with synthetic transports; no Diwali live proof is claimed. See [runtime setup](diwali-runtime.md).

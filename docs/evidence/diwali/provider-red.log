@@ -1,0 +1,62 @@
+.F                                                                       [100%]
+=================================== FAILURES ===================================
+_ test_duplicate_stale_wrong_case_and_fabricated_citations_cannot_update_ledger _
+
+tmp_path = PosixPath('/tmp/pytest-of-agent/pytest-11/test_duplicate_stale_wrong_cas0')
+
+    def test_duplicate_stale_wrong_case_and_fabricated_citations_cannot_update_ledger(tmp_path):
+        engine, factory = database(f"sqlite:///{tmp_path}/ledger.db")
+        with factory() as s:
+            purchase = Purchase(import_key="synthetic")
+            s.add(purchase)
+            s.flush()
+            product = Product(purchase_id=purchase.id)
+            s.add(product)
+            s.flush()
+            case = Collaboration(
+                product_id=product.id, idempotency_key="case", current_revision=digest("revision")
+            )
+            s.add(case)
+            s.commit()
+            task = CaseTask(
+                case_id=case.id,
+                task_id="task",
+                revision=case.current_revision,
+                sender="controller",
+                recipient="scout",
+                task_kind="source_investigation",
+                deduplication_key="unique",
+                allowed_capabilities=["read_supplied_evidence"],
+                source_refs=["26-792"],
+                remaining_seconds=80,
+                mode="replay",
+            )
+            row = persist_intent(s, case, task)
+            assert persist_intent(s, case, task).id == row.id
+            base = {
+                "task_id": "task",
+                "case_id": case.id,
+                "revision": case.current_revision,
+                "provider": "local_replay",
+                "role": "scout",
+                "mode": "replay",
+                "status": "completed",
+                "findings": [],
+                "source_refs": ["26-792"],
+            }
+            for change in [
+                {"revision": digest("stale")},
+                {"case_id": "other"},
+                {"source_refs": ["invented"]},
+                {"role": "builder"},
+                {"provider": "adal"},
+                {"mode": "live"},
+            ]:
+>               with pytest.raises(ValueError):
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^
+E               Failed: DID NOT RAISE ValueError
+
+services/api/tests/collaboration/test_ledger.py:102: Failed
+=========================== short test summary info ============================
+FAILED services/api/tests/collaboration/test_ledger.py::test_duplicate_stale_wrong_case_and_fabricated_citations_cannot_update_ledger
+1 failed, 1 passed in 0.43s

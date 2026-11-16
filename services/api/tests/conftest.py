@@ -9,6 +9,8 @@ def offline_provider_environment(monkeypatch):
     monkeypatch.setenv("GEMINI_MODEL", "gemini-2.5-flash-lite")
     for key in [
         "SENTRY_DSN",
+        "AGENT37_API_KEY",
+        "LYZR_API_KEY",
         "OPENAI_API_KEY",
         "GEMINI_API_KEY",
         "BRIGHTDATA_API_TOKEN",
@@ -16,6 +18,12 @@ def offline_provider_environment(monkeypatch):
     ]:
         monkeypatch.setenv(key, "")
     for key in [
+        "COLLABORATION_LIVE_ENABLED",
+        "BAND_ENABLED",
+        "AGENT37_ENABLED",
+        "ADAL_ENABLED",
+        "FINCH_ENABLED",
+        "LYZR_ENABLED",
         "SETTLEMENT_LIVE_ENABLED",
         "OPENAI_ENABLED",
         "OPENAI_RECEIPT_ENABLED",
@@ -25,3 +33,5 @@ def offline_provider_environment(monkeypatch):
         "SYSTEM_ONE_ENABLED",
     ]:
         monkeypatch.setenv(key, "false")
+
+    monkeypatch.setenv("BAND_API_KEYS", "{}")

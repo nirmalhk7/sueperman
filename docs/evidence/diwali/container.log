@@ -1,0 +1,193 @@
+services/api/.venv/bin/python scripts/container_smoke.py
+#1 [internal] load local bake definitions
+#1 reading from stdin 2.08kB done
+#1 DONE 0.0s
+
+#2 [web internal] load build definition from Dockerfile
+#2 transferring dockerfile: 936B done
+#2 DONE 0.0s
+
+#3 [api internal] load build definition from Dockerfile
+#3 transferring dockerfile: 1.40kB done
+#3 DONE 0.0s
+
+#4 [gateway internal] load build definition from gateway.Dockerfile
+#4 transferring dockerfile: 124B done
+#4 DONE 0.0s
+
+#5 [api internal] load metadata for docker.io/library/python:3.12-slim-bookworm
+#5 DONE 0.0s
+
+#6 [api internal] load metadata for docker.io/library/node:24-bookworm-slim
+#6 ...
+
+#7 [gateway internal] load metadata for docker.io/library/nginx:stable-alpine
+#7 DONE 1.7s
+
+#8 [gateway internal] load .dockerignore
+#8 transferring context: 340B done
+#8 DONE 0.0s
+
+#9 [gateway 1/2] FROM docker.io/library/nginx:stable-alpine@sha256:901e593c95dc85f5a729f5765516321366ef4ac401821431d408897e95287d0a
+#9 DONE 0.0s
+
+#10 [gateway internal] load build context
+#10 transferring context: 434B done
+#10 DONE 0.0s
+
+#11 [gateway 2/2] COPY deploy/nginx.conf /etc/nginx/conf.d/default.conf
+#11 CACHED
+
+#12 [gateway] exporting to image
+#12 exporting layers done
+#12 writing image sha256:02c52c80f844e7eb1ae9c18f3ad4772789ad07a32c7115d91018875765abc4b7 done
+#12 naming to docker.io/library/sueperman-check-11630-gateway done
+#12 DONE 0.0s
+
+#13 [gateway] resolving provenance for metadata file
+#13 DONE 0.0s
+
+#6 [web internal] load metadata for docker.io/library/node:24-bookworm-slim
+#6 DONE 1.9s
+
+#8 [web internal] load .dockerignore
+#8 CACHED
+
+#14 [web build 1/7] FROM docker.io/library/node:24-bookworm-slim@sha256:dc26ae92c9fb15cf6b1d63e20f0944b2efe0f115b20e00be48fb23fceb061c54
+#14 CACHED
+
+#15 [web stage-1 2/3] WORKDIR /srv/app/apps/web
+#15 CACHED
+
+#16 [web internal] load build context
+#16 transferring context: 876.74kB 0.1s done
+#16 DONE 0.1s
+
+#17 [api internal] load metadata for ghcr.io/astral-sh/uv:0.10.8
+#17 DONE 2.1s
+
+#18 [web build 2/7] RUN npm install --global pnpm@11.25.0
+#18 ...
+
+#8 [api internal] load .dockerignore
+#8 CACHED
+
+#14 [api build 1/7] FROM docker.io/library/node:24-bookworm-slim@sha256:dc26ae92c9fb15cf6b1d63e20f0944b2efe0f115b20e00be48fb23fceb061c54
+#14 CACHED
+
+#19 [api uv-runtime 1/1] FROM ghcr.io/astral-sh/uv:0.10.8@sha256:88234bc9e09c2b2f6d176a3daf411419eb0370d450a08129257410de9cfafd2a
+#19 CACHED
+
+#20 [api stage-2  1/11] FROM docker.io/library/python:3.12-slim-bookworm
+#20 DONE 0.0s
+
+#21 [api internal] load build context
+#21 transferring context: 211.68kB 0.0s done
+#21 DONE 0.0s
+
+#22 [api stage-2  2/11] COPY --from=uv-runtime /uv /usr/local/bin/uv
+#22 DONE 1.9s
+
+#18 [web build 2/7] RUN npm install --global pnpm@11.25.0
+#18 ...
+
+#23 [api stage-2  3/11] COPY --from=node-runtime /usr/local/bin/node /usr/local/bin/node
+#23 DONE 2.3s
+
+#24 [api stage-2  4/11] COPY --from=node-runtime /usr/local/lib/node_modules/npm /usr/local/lib/node_modules/npm
+#24 DONE 2.4s
+
+#18 [web build 2/7] RUN npm install --global pnpm@11.25.0
+#18 ...
+
+#25 [api stage-2  5/11] RUN apt-get update && apt-get install -y --no-install-recommends ca-certificates libstdc++6     && rm -rf /var/lib/apt/lists/*     && ln -s /usr/local/lib/node_modules/npm/bin/npm-cli.js /usr/local/bin/npm     && ln -s /usr/local/lib/node_modules/npm/bin/npx-cli.js /usr/local/bin/npx
+#25 1.882 Get:1 http://deb.debian.org/debian bookworm InRelease [151 kB]
+#25 2.932 Get:2 http://deb.debian.org/debian bookworm-updates InRelease [55.4 kB]
+#25 3.152 Get:3 http://deb.debian.org/debian-security bookworm-security InRelease [34.8 kB]
+#25 3.342 Get:4 http://deb.debian.org/debian bookworm/main amd64 Packages [8790 kB]
+#25 4.722 Get:5 http://deb.debian.org/debian bookworm-updates/main amd64 Packages [6924 B]
+#25 5.139 Get:6 http://deb.debian.org/debian-security bookworm-security/main amd64 Packages [373 kB]
+#25 5.651 Fetched 9411 kB in 4s (2290 kB/s)
+#25 5.651 Reading package lists...
+#25 6.153 Reading package lists...
+#25 6.623 Building dependency tree...
+#25 6.746 Reading state information...
+#25 6.888 ca-certificates is already the newest version (20250419~deb12u2).
+#25 6.888 libstdc++6 is already the newest version (12.2.0-14+deb12u1).
+#25 6.888 libstdc++6 set to manually installed.
+#25 6.888 0 upgraded, 0 newly installed, 0 to remove and 0 not upgraded.
+#25 DONE 6.9s
+
+#26 [api stage-2  6/11] WORKDIR /srv/app
+#26 DONE 1.2s
+
+#18 [web build 2/7] RUN npm install --global pnpm@11.25.0
+#18 ...
+
+#27 [api stage-2  7/11] COPY services/api/pyproject.toml services/api/uv.lock services/api/
+#27 DONE 0.9s
+
+#18 [web build 2/7] RUN npm install --global pnpm@11.25.0
+#18 ...
+
+#28 [api stage-2  8/11] RUN uv sync --project services/api --locked --no-dev --no-cache
+#28 0.983 Using CPython 3.12.16 interpreter at: /usr/local/bin/python3
+#28 0.983 Creating virtual environment at: services/api/.venv
+#28 0.989 Resolved 72 packages in 1ms
+#28 5.830   × Failed to download `jsonschema==4.26.0`
+#28 5.830   ├─▶ Request failed after 3 retries
+#28 5.830   ├─▶ Failed to fetch:
+#28 5.830   │   `https://files.pythonhosted.org/packages/69/90/f63fb5873511e014207a475e2bb4e8b2e570d655b00ac19a9a0ca0a385ee/jsonschema-4.26.0-py3-none-any.whl`
+#28 5.830   ├─▶ error sending request for url
+#28 5.830   │   (https://files.pythonhosted.org/packages/69/90/f63fb5873511e014207a475e2bb4e8b2e570d655b00ac19a9a0ca0a385ee/jsonschema-4.26.0-py3-none-any.whl)
+#28 5.830   ├─▶ client error (Connect)
+#28 5.830   ╰─▶ invalid peer certificate: UnknownIssuer
+#28 5.830   help: `jsonschema` (v4.26.0) was included because `sueperman` (v0.1.0)
+#28 5.830         depends on `mcp` (v1.30.0) which depends on `jsonschema`
+#28 ERROR: process "/bin/sh -c uv sync --project services/api --locked --no-dev --no-cache" did not complete successfully: exit code: 1
+
+#18 [web build 2/7] RUN npm install --global pnpm@11.25.0
+#18 CANCELED
+------
+ > [api stage-2  8/11] RUN uv sync --project services/api --locked --no-dev --no-cache:
+5.830   × Failed to download `jsonschema==4.26.0`
+5.830   ├─▶ Request failed after 3 retries
+5.830   ├─▶ Failed to fetch:
+5.830   │   `https://files.pythonhosted.org/packages/69/90/f63fb5873511e014207a475e2bb4e8b2e570d655b00ac19a9a0ca0a385ee/jsonschema-4.26.0-py3-none-any.whl`
+5.830   ├─▶ error sending request for url
+5.830   │   (https://files.pythonhosted.org/packages/69/90/f63fb5873511e014207a475e2bb4e8b2e570d655b00ac19a9a0ca0a385ee/jsonschema-4.26.0-py3-none-any.whl)
+5.830   ├─▶ client error (Connect)
+5.830   ╰─▶ invalid peer certificate: UnknownIssuer
+5.830   help: `jsonschema` (v4.26.0) was included because `sueperman` (v0.1.0)
+5.830         depends on `mcp` (v1.30.0) which depends on `jsonschema`
+------
+Dockerfile:17
+
+--------------------
+
+  15 |     WORKDIR /srv/app
+
+  16 |     COPY services/api/pyproject.toml services/api/uv.lock services/api/
+
+  17 | >>> RUN uv sync --project services/api --locked --no-dev --no-cache
+
+  18 |     COPY services/api/app services/api/app
+
+  19 |     COPY demo demo
+
+--------------------
+
+target api: failed to solve: process "/bin/sh -c uv sync --project services/api --locked --no-dev --no-cache" did not complete successfully: exit code: 1
+
+Traceback (most recent call last):
+  File "/workspace/sueperman/scripts/container_smoke.py", line 168, in <module>
+    main()
+  File "/workspace/sueperman/scripts/container_smoke.py", line 47, in main
+    compose("up", "--build", "--detach")
+  File "/workspace/sueperman/scripts/container_smoke.py", line 27, in compose
+    return subprocess.run(
+           ^^^^^^^^^^^^^^^
+  File "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/subprocess.py", line 571, in run
+    raise CalledProcessError(retcode, process.args,
+subprocess.CalledProcessError: Command '['docker', 'compose', '-f', '/workspace/sueperman/compose.production.yaml', '-p', 'sueperman-check-11630', 'up', '--build', '--detach']' returned non-zero exit status 1.
+make: *** [Makefile:39: container-test] Error 1

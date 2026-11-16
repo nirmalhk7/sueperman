@@ -1,0 +1,103 @@
+1
+00:00:00,000 --> 00:00:04,000
+A recall match needs more than a similar product name.
+
+2
+00:00:04,000 --> 00:00:08,000
+Sueperman makes the challenge visible.
+
+3
+00:00:08,000 --> 00:00:12,000
+This is an offline rehearsal using synthetic purchases.
+
+4
+00:00:12,000 --> 00:00:14,000
+First, the near match.
+
+5
+00:00:14,000 --> 00:00:17,000
+Scout proposes the supported notice.
+
+6
+00:00:17,000 --> 00:00:19,000
+Skeptic finds a model restriction.
+
+7
+00:00:19,000 --> 00:00:21,000
+The purchase is P B twenty three.
+
+8
+00:00:21,000 --> 00:00:24,000
+The notice requires P B twenty two.
+
+9
+00:00:24,000 --> 00:00:26,000
+No draft is available.
+
+10
+00:00:26,000 --> 00:00:30,000
+When the model is missing, Builder asks for that one fact.
+
+11
+00:00:30,000 --> 00:00:35,000
+The user checks the product, enters the model, and explicitly confirms it.
+
+12
+00:00:35,000 --> 00:00:40,000
+The case gets a new revision.
+
+13
+00:00:40,000 --> 00:00:44,000
+The original purchase stays unchanged.
+
+14
+00:00:44,000 --> 00:00:49,000
+The exact case survives deterministic checks.
+
+15
+00:00:49,000 --> 00:00:54,000
+The case board retains the source and the challenge.
+
+16
+00:00:54,000 --> 00:01:00,000
+The user reviews the draft, approves it locally, and exports Markdown.
+
+17
+00:01:00,000 --> 00:01:05,000
+This does not submit a claim or promise payment.
+
+18
+00:01:05,000 --> 00:01:12,000
+The live path is implemented for BAND delegation, an Agent thirty seven source worker, AdaL review, and a Lyzr case board.
+
+19
+00:01:12,000 --> 00:01:18,000
+A reviewed Finch delivered skill is required.
+
+20
+00:01:18,000 --> 00:01:25,000
+These adapters have local tests, but this footage does not prove live sponsor use.
+
+21
+00:01:25,000 --> 00:01:29,000
+Changed evidence or skill bytes revoke old approval.
+
+22
+00:01:29,000 --> 00:01:32,000
+Failures remain partial.
+
+23
+00:01:32,000 --> 00:01:36,000
+The public demo accepts synthetic cases only.
+
+24
+00:01:36,000 --> 00:01:40,000
+Real sponsor accounts, execution receipts, and an AdaL produced export remain required.
+
+25
+00:01:40,000 --> 00:01:45,000
+Sueperman: understand the evidence, challenge the match, and find the next step.
+
+26
+00:01:45,000 --> 00:01:50,000
+This rehearsal is not the final hackathon entry.

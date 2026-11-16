@@ -1,0 +1,34 @@
+............F......                                                      [100%]
+=================================== FAILURES ===================================
+___ test_new_primary_source_revision_blocks_previously_approved_team_packet ____
+
+tmp_path = PosixPath('/tmp/pytest-of-agent/pytest-6/test_new_primary_source_revisi0')
+
+    def test_new_primary_source_revision_blocks_previously_approved_team_packet(tmp_path):
+        from app.models import Opportunity
+        app, engine, factory = setup(tmp_path)
+        with TestClient(app) as c:
+            path, case = run(c)
+            body = {'revision': case['revision']}
+            assert c.post(path + '/approve-local', json=body | {'confirmed': True}).status_code == 200
+            with factory() as s:
+                s.add(Opportunity(product_id=case['product_id'], kind='recall', source_id='26-792',
+                                  official_url='https://www.cpsc.gov/Recalls/2026/changed', demo=True,
+                                  payload={'recall': {'excerpt': 'New serial restriction'}, 'status': 'needs_review'}))
+                s.commit()
+>           assert c.post(path + '/export', json=body).status_code == 409
+E           AssertionError: assert 200 == 409
+E            +  where 200 = <Response [200 OK]>.status_code
+E            +    where <Response [200 OK]> = post(('/api/collaborations/bca2b7fe-081e-43ee-b484-3d54f149440d' + '/export'), json={'revision': '1b7d35ff37e8466f05500df05a3e3f507c89f39f68485657be85e6864ae4bc2c'})
+E            +      where post = <starlette.testclient.TestClient object at 0x7f65c2c89670>.post
+
+services/api/tests/collaboration/test_guards.py:188: AssertionError
+=============================== warnings summary ===============================
+services/api/.venv/lib/python3.12/site-packages/fastapi/testclient.py:1
+  /workspace/sueperman/services/api/.venv/lib/python3.12/site-packages/fastapi/testclient.py:1: StarletteDeprecationWarning: Using `httpx` with `starlette.testclient` is deprecated; install `httpx2` instead.
+    from starlette.testclient import TestClient as TestClient  # noqa
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+=========================== short test summary info ============================
+FAILED services/api/tests/collaboration/test_guards.py::test_new_primary_source_revision_blocks_previously_approved_team_packet
+1 failed, 18 passed, 1 warning in 1.74s

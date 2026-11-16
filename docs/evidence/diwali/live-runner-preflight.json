@@ -1,0 +1,12 @@
+{
+  "execution_performed": false,
+  "configuration_blockers": {
+    "band": "Global live-team kill switch is off",
+    "agent37": "Global live-team kill switch is off",
+    "adal": "Global live-team kill switch is off",
+    "finch": "Global live-team kill switch is off",
+    "lyzr": "Global live-team kill switch is off"
+  },
+  "synthetic_demo_enabled": true,
+  "next": "Configure/review accounts; then explicitly opt in with --execute --max-model-requests 6"
+}

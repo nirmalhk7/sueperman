@@ -1,0 +1,42 @@
+F                                                                        [100%]
+=================================== FAILURES ===================================
+_________________ test_band_deadline_cancels_inflight_provider _________________
+
+    @pytest.mark.asyncio
+    async def test_band_deadline_cancels_inflight_provider():
+        import asyncio
+
+        pytest.importorskip("band")
+        from app.collaboration.band_runtime import BandSession
+
+        ids = {r: r + "-id" for r in ["controller", "scout", "skeptic", "builder"]}
+        cancelled = asyncio.Event()
+
+        async def handle(t, context):
+            try:
+                await asyncio.sleep(10)
+            finally:
+                cancelled.set()
+
+        session = BandSession("room", ids, {r: "synthetic" for r in ids}, {"builder": handle})
+
+        class Messages:
+            async def create_agent_chat_message(self, chat_id, message, request_options):
+                asyncio.create_task(session.receive("builder", SimpleNamespace(
+                    id="request", room_id="room", sender_id=ids["skeptic"], content=message.content,
+                ), "room"))
+                return SimpleNamespace(id="request", success=True, recipients=[SimpleNamespace(id=ids["builder"])])
+
+        session.rest = {"skeptic": SimpleNamespace(agent_api_messages=Messages())}
+        with pytest.raises(TimeoutError):
+            await session.request(task().model_copy(update={"remaining_seconds": 0.02}), {})
+>       assert cancelled.is_set(), "Provider must stop when the bounded request expires"
+E       AssertionError: Provider must stop when the bounded request expires
+E       assert False
+E        +  where False = is_set()
+E        +    where is_set = <asyncio.locks.Event object at 0x7f92965f9970 [unset]>.is_set
+
+services/api/tests/collaboration/test_runtime_adapters.py:237: AssertionError
+=========================== short test summary info ============================
+FAILED services/api/tests/collaboration/test_runtime_adapters.py::test_band_deadline_cancels_inflight_provider
+1 failed, 6 deselected in 0.63s

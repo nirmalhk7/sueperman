@@ -8,7 +8,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
 from sqlalchemy import select
 
-from app.api import claims, demo, health, opportunities, runs, uploads
+from app.api import claims, collaborations, demo, health, opportunities, runs, uploads
 from app.config import Settings
 from app.db import database
 from app.models import (
@@ -28,6 +28,9 @@ def create_app(database_url=None):
     @asynccontextmanager
     async def lifespan(app):
         with factory() as s:
+            from app.collaboration.ledger import recover
+
+            recover(s)
             for run in s.scalars(select(AgentRun).where(AgentRun.status.in_(["queued", "running"]))):
                 run.status = "partial"
                 run.payload = run.payload | {
@@ -129,6 +132,7 @@ def create_app(database_url=None):
     runs.register(app, factory, settings, get)
     opportunities.register(app, factory, get)
     claims.register(app, factory, get)
+    collaborations.register(app, factory, settings, get)
 
     return app
 

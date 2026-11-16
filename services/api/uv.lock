@@ -1,6 +1,14 @@
 version = 1
-revision = 3
+revision = 5
 requires-python = "==3.12.*"
+
+[[package]]
+name = "adal-agent-sdk"
+version = "0.3.0"
+source = { git = "https://github.com/SylphAI-Inc/adal-sdk.git?rev=8fc658151e7ffebbe3fdd0b915dc01dbe2ee44be#8fc658151e7ffebbe3fdd0b915dc01dbe2ee44be" }
+dependencies = [
+    { name = "anyio" },
+]
 
 [[package]]
 name = "annotated-doc"
@@ -78,12 +86,73 @@ wheels = [
 ]
 
 [[package]]
+name = "async-lru"
+version = "2.4.0"
+source = { registry = "https://pypi.org/simple" }
+sdist = { url = "https://files.pythonhosted.org/packages/8f/43/9d22679e8dd0ed965182cca990d32c68b150730cce8046ad61b3179b5b7a/async_lru-2.4.0.tar.gz", hash = "sha256:b0b0077d9b7596615b3c12d0aad4f6aeccaaa0ac75ceae472608ede89e764c08", size = 22927, upload-time = "2026-10-12T18:12:54.276Z" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/ec/0b/6a817103fb78faca4970c686a61065047da7226aba0d7cae6d4299b20c59/async_lru-2.4.0-py3-none-any.whl", hash = "sha256:1b46a96419ef91fe11431d58db98d792c9b4250001427191a40faf1031934212", size = 10045, upload-time = "2026-10-12T18:12:53.091Z" },
+]
+
+[[package]]
 name = "attrs"
 version = "26.1.0"
 source = { registry = "https://pypi.org/simple" }
 sdist = { url = "https://files.pythonhosted.org/packages/9a/8e/82a0fe20a541c03148528be8cac2408564a6c9a0cc7e9171802bc1d26985/attrs-26.1.0.tar.gz", hash = "sha256:d03ceb89cb322a8fd706d4fb91940737b6642aa36998fe130a9bc96c985eff32", size = 952055, upload-time = "2026-03-19T14:22:25.026Z" }
 wheels = [
     { url = "https://files.pythonhosted.org/packages/64/b4/17d4b0b2a2dc85a6df63d1157e028ed19f90d4cd97c36717afef2bc2f395/attrs-26.1.0-py3-none-any.whl", hash = "sha256:c647aa4a12dfbad9333ca4e71fe62ddc36f4e63b2d260a37a8b83d2f043ac309", size = 67548, upload-time = "2026-03-19T14:22:23.645Z" },
+]
+
+[[package]]
+name = "band-client-rest"
+version = "0.0.57"
+source = { registry = "https://pypi.org/simple" }
+dependencies = [
+    { name = "httpx" },
+    { name = "pydantic" },
+    { name = "pydantic-core" },
+    { name = "typing-extensions" },
+]
+sdist = { url = "https://files.pythonhosted.org/packages/1f/36/8686d26f76cf29cc82190094a89e9c6a2600a3a666756585ba9fec5c818e/band_client_rest-0.0.57.tar.gz", hash = "sha256:25d3c55c929c4f04f047c26096157de1a1e55e321b2754866c295d129204b2fa", size = 162757, upload-time = "2026-11-03T16:48:18.598Z" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/55/48/98185209804859a6cb6a4035c731c0feff849c6600c8c4f7f674a94e5719/band_client_rest-0.0.57-py3-none-any.whl", hash = "sha256:c67f528a5651c5c5b7c394e501cb9a3b01c720d44c568af87c11087b9415031c", size = 356258, upload-time = "2026-11-03T16:48:17.056Z" },
+]
+
+[[package]]
+name = "band-sdk"
+version = "9.1.0"
+source = { registry = "https://pypi.org/simple" }
+dependencies = [
+    { name = "async-lru" },
+    { name = "band-client-rest" },
+    { name = "band-sdk-core" },
+    { name = "cryptography" },
+    { name = "filelock" },
+    { name = "phoenix-channels-python-client" },
+    { name = "pydantic" },
+    { name = "pydantic-settings" },
+    { name = "python-dotenv" },
+    { name = "pyyaml" },
+    { name = "ruamel-yaml" },
+]
+sdist = { url = "https://files.pythonhosted.org/packages/f1/7e/eb53ce335ae11eb91e48420964ea5d4c1a869a7082dbcc813b792908867d/band_sdk-9.1.0.tar.gz", hash = "sha256:683e5ed8d44484891c751dac6dde2f78b2bb863e854bf5efacbeff63b7079911", size = 1027718, upload-time = "2026-11-10T18:10:00.313Z" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/ef/3a/cde64eb7543f885ec71a746f8f85657d46bcc6409f091383f25e77ad81ad/band_sdk-9.1.0-py3-none-any.whl", hash = "sha256:b0362cc65ec332dcb07283c224a1f48fe06ec8d99d6dd5d744f97652655cba61", size = 1136714, upload-time = "2026-11-10T18:09:57.709Z" },
+]
+
+[[package]]
+name = "band-sdk-core"
+version = "7.0.0"
+source = { registry = "https://pypi.org/simple" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/1b/63/b50c1aaa02c65ab4c86a85080e21208485be05650a6fca633a249bedffdf/band_sdk_core-7.0.0-cp311-abi3-macosx_10_12_x86_64.whl", hash = "sha256:92eae3f3bd40e33793670c3feb4b18a196a1d96650668bcc658422d18ab62611", size = 581348, upload-time = "2026-11-09T11:02:16.845Z" },
+    { url = "https://files.pythonhosted.org/packages/93/0e/65301d14eff72874f8e71954183b02bd23e50a00ee02e2b8c194f198332c/band_sdk_core-7.0.0-cp311-abi3-macosx_11_0_arm64.whl", hash = "sha256:62dd188bb8e0397bff7eea9e80fe8d01161dd355cdfbe60bd36d9681a168c0d7", size = 582485, upload-time = "2026-11-09T11:02:18.485Z" },
+    { url = "https://files.pythonhosted.org/packages/72/67/c5838e44fd642db4c6202a58fde6c447023b9f0e6c3eed51dfaf0bd4ed95/band_sdk_core-7.0.0-cp311-abi3-manylinux_2_28_aarch64.whl", hash = "sha256:d1c77415407636a025ad6efb525e6b04af3b7c193c6f8a91eac1b5da4d85ea5d", size = 636511, upload-time = "2026-11-09T11:02:19.918Z" },
+    { url = "https://files.pythonhosted.org/packages/e7/ff/c6d1429a6ec5c4e609fa37b04310083fa966edb530eb02e321b9e2829878/band_sdk_core-7.0.0-cp311-abi3-manylinux_2_28_x86_64.whl", hash = "sha256:477f2a109e29756bc1e6c93b7713e29f1c6954b7907911104c3009138bd7c51e", size = 630767, upload-time = "2026-11-09T11:02:21.385Z" },
+    { url = "https://files.pythonhosted.org/packages/64/93/49fd89641e9a75c89ea0dcb70bc40b4becc30bcb7b3e18b8b0290d198eca/band_sdk_core-7.0.0-cp311-abi3-musllinux_1_2_aarch64.whl", hash = "sha256:0528528359f2e3fb0911a5279fe8870e66e926074e247d8ea916ad6fdcc3ec38", size = 816343, upload-time = "2026-11-09T11:02:22.71Z" },
+    { url = "https://files.pythonhosted.org/packages/10/ee/8162b3dc4658e2f633ab2ce4a05edd3ca021e71e2a53e5e8a2dc400bf56d/band_sdk_core-7.0.0-cp311-abi3-musllinux_1_2_x86_64.whl", hash = "sha256:059ad16468b79cb11397b6d72a73267eb8b5a035d3ed65fac57aebec5db30152", size = 854989, upload-time = "2026-11-09T11:02:24.006Z" },
+    { url = "https://files.pythonhosted.org/packages/1b/dc/1c95fd49c7306e668c857cd82c74634c1be089c1885fefbe1713204d96bf/band_sdk_core-7.0.0-cp311-abi3-win_amd64.whl", hash = "sha256:8096cc78ea7cb2247c036048870e665ba52c288b3e10d893fd43555fffb760eb", size = 445786, upload-time = "2026-11-09T11:02:25.702Z" },
+    { url = "https://files.pythonhosted.org/packages/d3/e3/f838b25d164e351ac06de78a0189462435ca436a7ac587fd32e90553641d/band_sdk_core-7.0.0-cp311-abi3-win_arm64.whl", hash = "sha256:034aa53c2b83100fad01caddb44f3579443afa704dd019afa7211990e667fe9e", size = 424931, upload-time = "2026-11-09T11:02:27.013Z" },
 ]
 
 [[package]]
@@ -252,6 +321,15 @@ dependencies = [
 sdist = { url = "https://files.pythonhosted.org/packages/ea/82/6b9764e52f89a8aaf68a5005093bcb8fdcadcb6ba30571def786c0d3bfc0/fastapi-0.162.7.tar.gz", hash = "sha256:b7503029c8ef2d2d5fea9049294cf8d0f2805c6621f4677ede269fce19f01efb", size = 535511, upload-time = "2026-11-13T17:47:18.517Z" }
 wheels = [
     { url = "https://files.pythonhosted.org/packages/a0/49/2d76050f652082f1435f34a8ac9af6207b9aed8b81cde42e0bb121fa7c5a/fastapi-0.162.7-py3-none-any.whl", hash = "sha256:fa3be857122ec8d91d4d234e86ac19acf4ef23f5c6c3dfcce78ec0c27c0c5ab4", size = 152411, upload-time = "2026-11-13T17:47:16.598Z" },
+]
+
+[[package]]
+name = "filelock"
+version = "4.2.10"
+source = { registry = "https://pypi.org/simple" }
+sdist = { url = "https://files.pythonhosted.org/packages/a1/cf/05bcdacabdc0aec7dc8e19d76281bd82325df62dae3b6430e9ba57397689/filelock-4.2.10.tar.gz", hash = "sha256:fcc3c0cb8bfe7f4b3bb0e231c04b15dbad068cb3c2515f343d8fde4dce93bd5d", size = 670595, upload-time = "2026-11-09T18:58:00.54Z" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/ef/90/5d0096a325aa0f83ba7a3968bfb485b67e32c947bdf9cd0fcb4b485be718/filelock-4.2.10-py3-none-any.whl", hash = "sha256:9479aaeb4db20b5a53e3da28493edd24720b66b8a0b84030aa56ccdf243d6857", size = 218040, upload-time = "2026-11-09T18:57:59.088Z" },
 ]
 
 [[package]]
@@ -494,6 +572,19 @@ wheels = [
 ]
 
 [[package]]
+name = "phoenix-channels-python-client"
+version = "0.5.3"
+source = { registry = "https://pypi.org/simple" }
+dependencies = [
+    { name = "pydantic" },
+    { name = "websockets" },
+]
+sdist = { url = "https://files.pythonhosted.org/packages/bf/5a/f28710d252d5eb25831a32b656d04305f3e5b475f1fd863ded6f06f3dbf5/phoenix_channels_python_client-0.5.3.tar.gz", hash = "sha256:a14349b24f2709c27f4dcc60c2c81be96b034694ac189ca5522db70321415379", size = 134500, upload-time = "2026-11-06T04:38:47.264Z" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/4d/fa/9f67cc77d038469f33ba30f75c9f08be17cb5f7f71e2c30ade0f42298095/phoenix_channels_python_client-0.5.3-py3-none-any.whl", hash = "sha256:9e3ea9391b5874d42d038631127c0ce34ea8673c6b37907cc019b4c4a4e08252", size = 55058, upload-time = "2026-11-06T04:38:46.054Z" },
+]
+
+[[package]]
 name = "pillow"
 version = "12.3.0"
 source = { registry = "https://pypi.org/simple" }
@@ -699,6 +790,24 @@ wheels = [
 ]
 
 [[package]]
+name = "pyyaml"
+version = "6.0.3"
+source = { registry = "https://pypi.org/simple" }
+sdist = { url = "https://files.pythonhosted.org/packages/05/8e/961c0007c59b8dd7729d542c61a4d537767a59645b82a0b521206e1e25c2/pyyaml-6.0.3.tar.gz", hash = "sha256:d76623373421df22fb4cf8817020cbb7ef15c725b9d5e45f17e189bfc384190f", size = 130960, upload-time = "2025-09-25T21:33:16.546Z" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/d1/33/422b98d2195232ca1826284a76852ad5a86fe23e31b009c9886b2d0fb8b2/pyyaml-6.0.3-cp312-cp312-macosx_10_13_x86_64.whl", hash = "sha256:7f047e29dcae44602496db43be01ad42fc6f1cc0d8cd6c83d342306c32270196", size = 182063, upload-time = "2025-09-25T21:32:11.445Z" },
+    { url = "https://files.pythonhosted.org/packages/89/a0/6cf41a19a1f2f3feab0e9c0b74134aa2ce6849093d5517a0c550fe37a648/pyyaml-6.0.3-cp312-cp312-macosx_11_0_arm64.whl", hash = "sha256:fc09d0aa354569bc501d4e787133afc08552722d3ab34836a80547331bb5d4a0", size = 173973, upload-time = "2025-09-25T21:32:12.492Z" },
+    { url = "https://files.pythonhosted.org/packages/ed/23/7a778b6bd0b9a8039df8b1b1d80e2e2ad78aa04171592c8a5c43a56a6af4/pyyaml-6.0.3-cp312-cp312-manylinux2014_aarch64.manylinux_2_17_aarch64.manylinux_2_28_aarch64.whl", hash = "sha256:9149cad251584d5fb4981be1ecde53a1ca46c891a79788c0df828d2f166bda28", size = 775116, upload-time = "2025-09-25T21:32:13.652Z" },
+    { url = "https://files.pythonhosted.org/packages/65/30/d7353c338e12baef4ecc1b09e877c1970bd3382789c159b4f89d6a70dc09/pyyaml-6.0.3-cp312-cp312-manylinux2014_s390x.manylinux_2_17_s390x.manylinux_2_28_s390x.whl", hash = "sha256:5fdec68f91a0c6739b380c83b951e2c72ac0197ace422360e6d5a959d8d97b2c", size = 844011, upload-time = "2025-09-25T21:32:15.21Z" },
+    { url = "https://files.pythonhosted.org/packages/8b/9d/b3589d3877982d4f2329302ef98a8026e7f4443c765c46cfecc8858c6b4b/pyyaml-6.0.3-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl", hash = "sha256:ba1cc08a7ccde2d2ec775841541641e4548226580ab850948cbfda66a1befcdc", size = 807870, upload-time = "2025-09-25T21:32:16.431Z" },
+    { url = "https://files.pythonhosted.org/packages/05/c0/b3be26a015601b822b97d9149ff8cb5ead58c66f981e04fedf4e762f4bd4/pyyaml-6.0.3-cp312-cp312-musllinux_1_2_aarch64.whl", hash = "sha256:8dc52c23056b9ddd46818a57b78404882310fb473d63f17b07d5c40421e47f8e", size = 761089, upload-time = "2025-09-25T21:32:17.56Z" },
+    { url = "https://files.pythonhosted.org/packages/be/8e/98435a21d1d4b46590d5459a22d88128103f8da4c2d4cb8f14f2a96504e1/pyyaml-6.0.3-cp312-cp312-musllinux_1_2_x86_64.whl", hash = "sha256:41715c910c881bc081f1e8872880d3c650acf13dfa8214bad49ed4cede7c34ea", size = 790181, upload-time = "2025-09-25T21:32:18.834Z" },
+    { url = "https://files.pythonhosted.org/packages/74/93/7baea19427dcfbe1e5a372d81473250b379f04b1bd3c4c5ff825e2327202/pyyaml-6.0.3-cp312-cp312-win32.whl", hash = "sha256:96b533f0e99f6579b3d4d4995707cf36df9100d67e0c8303a0c55b27b5f99bc5", size = 137658, upload-time = "2025-09-25T21:32:20.209Z" },
+    { url = "https://files.pythonhosted.org/packages/86/bf/899e81e4cce32febab4fb42bb97dcdf66bc135272882d1987881a4b519e9/pyyaml-6.0.3-cp312-cp312-win_amd64.whl", hash = "sha256:5fcd34e47f6e0b794d17de1b4ff496c00986e1c83f7ab2fb8fcfe9616ff7477b", size = 154003, upload-time = "2025-09-25T21:32:21.167Z" },
+    { url = "https://files.pythonhosted.org/packages/1a/08/67bd04656199bbb51dbed1439b7f27601dfb576fb864099c7ef0c3e55531/pyyaml-6.0.3-cp312-cp312-win_arm64.whl", hash = "sha256:64386e5e707d03a7e172c0701abfb7e10f0fb753ee1d773128192742712a98fd", size = 140344, upload-time = "2025-09-25T21:32:22.617Z" },
+]
+
+[[package]]
 name = "referencing"
 version = "0.37.0"
 source = { registry = "https://pypi.org/simple" }
@@ -772,6 +881,15 @@ wheels = [
     { url = "https://files.pythonhosted.org/packages/ba/a5/9672e532fe02cd3b92c78cfd8743abca939d96853006c63835009a1ecb6f/rpds_py-2026.9.1-pp312-pypy312_pp73-musllinux_1_2_x86_64.whl", hash = "sha256:6b9bf3135b4ad5981df9a73d71a35272d650a2985ae9c2746357b24d59de2448", size = 591126, upload-time = "2026-10-04T16:32:29.274Z" },
     { url = "https://files.pythonhosted.org/packages/80/ef/3a9f8e4279c7920af561deed4cb7ebebed2794a8f608cf404d5eef14a105/rpds_py-2026.9.1-pp312-pypy312_pp80-macosx_10_12_x86_64.whl", hash = "sha256:56c6952a9b15047466d0c2347c446a761d4527f89976156341e68f0ce5cc08b0", size = 357108, upload-time = "2026-10-04T16:32:31.641Z" },
     { url = "https://files.pythonhosted.org/packages/b7/55/4b2fa381a583760aea5c92841e4e928a358e1c6511b129219e9c2826a226/rpds_py-2026.9.1-pp312-pypy312_pp80-macosx_11_0_arm64.whl", hash = "sha256:b242c27c8f836305a4a72df9cdd564386ac57b807bd252a063223331c9316b37", size = 346877, upload-time = "2026-10-04T16:32:34.061Z" },
+]
+
+[[package]]
+name = "ruamel-yaml"
+version = "0.19.1"
+source = { registry = "https://pypi.org/simple" }
+sdist = { url = "https://files.pythonhosted.org/packages/c7/3b/ebda527b56beb90cb7652cb1c7e4f91f48649fbcd8d2eb2fb6e77cd3329b/ruamel_yaml-0.19.1.tar.gz", hash = "sha256:53eb66cd27849eff968ebf8f0bf61f46cdac2da1d1f3576dd4ccee9b25c31993", size = 142709, upload-time = "2026-01-02T16:50:31.84Z" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/b8/0c/51f6841f1d84f404f92463fc2b1ba0da357ca1e3db6b7fbda26956c3b82a/ruamel_yaml-0.19.1-py3-none-any.whl", hash = "sha256:27592957fedf6e0b62f281e96effd28043345e0e66001f97683aa9a40c667c93", size = 118102, upload-time = "2026-01-02T16:50:29.201Z" },
 ]
 
 [[package]]
@@ -893,6 +1011,12 @@ dependencies = [
     { name = "uvicorn" },
 ]
 
+[package.optional-dependencies]
+team = [
+    { name = "adal-agent-sdk" },
+    { name = "band-sdk" },
+]
+
 [package.dev-dependencies]
 dev = [
     { name = "mypy" },
@@ -904,6 +1028,8 @@ dev = [
 
 [package.metadata]
 requires-dist = [
+    { name = "adal-agent-sdk", marker = "extra == 'team'", git = "https://github.com/SylphAI-Inc/adal-sdk.git?rev=8fc658151e7ffebbe3fdd0b915dc01dbe2ee44be" },
+    { name = "band-sdk", marker = "extra == 'team'", specifier = "==9.1.0" },
     { name = "fastapi", specifier = ">=0.115,<1" },
     { name = "google-genai", specifier = ">=1,<3" },
     { name = "httpx", specifier = ">=0.28,<1" },
@@ -917,6 +1043,7 @@ requires-dist = [
     { name = "sqlalchemy", specifier = ">=2.0,<3" },
     { name = "uvicorn", specifier = ">=0.34,<1" },
 ]
+provides-extras = ["team"]
 
 [package.metadata.requires-dev]
 dev = [

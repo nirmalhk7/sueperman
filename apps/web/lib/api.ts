@@ -134,3 +134,42 @@ export interface Health {
   demo_ready: boolean;
   providers: { name: string; enabled: boolean; configured: boolean }[];
 }
+
+export interface TeamEvidence {
+  id: string;
+  publisher: string;
+  url: string;
+  fetched_at: string;
+  content_sha256: string;
+  excerpt: string;
+  mode: string;
+}
+export interface Collaboration {
+  id: string;
+  product_id: string;
+  revision: string;
+  status: string;
+  mode: string;
+  live_sponsor_proof: boolean;
+  skill: {mode: string; identity: string | null; version: string | null; hash: string | null; finch_delivered: boolean};
+  board: { finding?: string; challenge?: string; missing_information?: string; decision?: string; evidence?: TeamEvidence[] };
+  question: {field: string; text: string} | null;
+  packet: Packet | null;
+  approval: {revision: string; approved_at: string} | null;
+  warnings: string[];
+  blocked_providers: string[];
+  conditions: Condition[];
+  history: {revision: string; created_at: string; evidence: TeamEvidence[]; board: Collaboration['board']}[];
+}
+export interface TeamEvent {
+  seq: number;
+  sender: string;
+  recipient: string;
+  kind: string;
+  task_kind: string;
+  status: string;
+  mode: string;
+  provider: string;
+  source_refs: string[];
+  timestamp: string;
+}

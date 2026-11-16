@@ -1,0 +1,42 @@
+
+Running 1 test using 1 worker
+
+(node:10101) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✘  1 tests/collaboration.e2e.ts:55:1 › live team selection explains sanitized sharing and shows missing providers honestly (30.8s)
+
+
+  1) tests/collaboration.e2e.ts:55:1 › live team selection explains sanitized sharing and shows missing providers honestly
+
+    Test timeout of 30000ms exceeded.
+
+    Error: locator.selectOption: Test timeout of 30000ms exceeded.
+    Call log:
+      - waiting for getByLabel('Investigation mode')
+
+
+      59 |   const item = opportunities.find((o: {kind: string; status: string}) => o.kind === 'recall' && o.status === 'verified_match');
+      60 |   await page.goto(`/opportunities/${item.id}`);
+    > 61 |   await page.getByLabel('Investigation mode').selectOption('live');
+         |                                               ^
+      62 |   await expect(page.getByText('Only sanitized product facts and public evidence go to BAND, Agent37, AdaL and Lyzr. The challenge uses a reviewed Finch skill. Raw receipts and unrelated purchases stay out.')).toBeVisible();
+      63 |   await page.getByRole('button', {name: 'Investigate with agent team'}).click();
+      64 |   await expect(page.getByText('Blocked providers: band, agent37, adal, finch, lyzr')).toBeVisible();
+        at /workspace/sueperman/apps/web/tests/collaboration.e2e.ts:61:47
+
+    attachment #1: video (video/webm) ──────────────────────────────────────────────────────────────
+    test-results/collaboration.e2e.ts-live--2a455--missing-providers-honestly/video.webm
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: test-results/collaboration.e2e.ts-live--2a455--missing-providers-honestly/error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results/collaboration.e2e.ts-live--2a455--missing-providers-honestly/trace.zip
+    Usage:
+
+        pnpm exec playwright show-trace test-results/collaboration.e2e.ts-live--2a455--missing-providers-honestly/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  1 failed
+    tests/collaboration.e2e.ts:55:1 › live team selection explains sanitized sharing and shows missing providers honestly

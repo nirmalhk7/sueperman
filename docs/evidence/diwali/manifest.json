@@ -1,0 +1,93 @@
+{
+  "schema_version": 1,
+  "event": "Diwali Festiverse SF",
+  "track_target": "Research \u2014 Data and Build",
+  "selected_spec": "https://chatgpt.com/space/page_5e3614ac8e1881919f5c373fb4ee1310",
+  "baseline_commit": "1dbd30ff4009cf357f28e70334703321a21c269f",
+  "checkout_branch": "work",
+  "implementation_started_utc": "2026-11-15",
+  "release_ready": false,
+  "live_sponsor_proof": {
+    "band": {
+      "status": "blocked",
+      "reason": "SDK 9.1.0 addressed transport/controller wired and loopback-tested. No registered identities/keys/room or live handshake."
+    },
+    "agent37": {
+      "status": "blocked",
+      "reason": "No key or provisioned instance with pinned worker; exec adapter only tested with HTTP double; sandbox network/lifecycle unverified."
+    },
+    "adal": {
+      "status": "blocked",
+      "reason": "Restricted Docker launcher and actual SDK wire protocol tested with synthetic native process. Native installer inaccessible (HTTP 403); authenticated CLI bundle, verified service hosts, real review and AdaL Video Producer export absent."
+    },
+    "finch": {
+      "status": "blocked",
+      "reason": "Public candidate static-reviewed and rejected as incompatible. Authored MIT draft passes five vectors in two clean processes, but is not Finch-delivered. Actual suitable package delivery/review/invocation absent."
+    },
+    "lyzr": {
+      "status": "blocked",
+      "reason": "Actual v3 HTTP profiles/controller wired with synthetic transport tests. No Studio agent, workspace endpoint configuration/key or live response."
+    }
+  },
+  "authorship": {
+    "team_confirmation": "User supplied confirmation that existing code was written during the event; not an organizer waiver.",
+    "git_author_observed": "Nirmal Khedkar",
+    "baseline_commit_author_time": "2026-11-13T14:59:23-08:00",
+    "v2_changes": "Uncommitted assistant-assisted implementation on 2026-11-15\u201316 UTC; no prior work relabeled.",
+    "team_roster_and_size": "Needs participant confirmation; Git authorship is not a roster.",
+    "earlier_film": "Existing output/sueperman-film preserved; not AdaL proof."
+  },
+  "public_repository_anonymous_access": {
+    "status": "verified_existing_repository",
+    "url": "https://github.com/nirmalhk7/sueperman",
+    "observed_utc": "2026-11-15",
+    "evidence": "Unauthenticated web fetch displayed Public, codex/sueperman branch, and README. Local V2 changes are not pushed."
+  },
+  "adal_video": {
+    "status": "blocked",
+    "project": null,
+    "export": null,
+    "encoded_duration_seconds": null
+  },
+  "submission": {
+    "performed": false,
+    "channel": "unconfirmed",
+    "deadline_from_selected_spec": "2026-11-18T18:00:00-08:00"
+  },
+  "usability_pilots": {
+    "observed": 0,
+    "target": 5,
+    "improvement_claim": null
+  },
+  "verification_record": "verification.md",
+  "runtime_setup": "../../diwali-runtime.md",
+  "container_diagnosis": "container-diagnosis.md",
+  "replay_media": {
+    "mode": "offline replay",
+    "adal_produced": false,
+    "file": "../../../output/sueperman-v2-rehearsal/replay-ui.mp4",
+    "duration_seconds": 53.08,
+    "audio": false,
+    "sha256": "2218273a2224931fde0f93c008abdb5311ff835590b838aa9c96261facb79182"
+  },
+  "runtime_dependencies": {
+    "band_sdk": "9.1.0",
+    "adal_sdk_version": "0.3.0",
+    "adal_sdk_revision": "8fc658151e7ffebbe3fdd0b915dc01dbe2ee44be",
+    "live_handshake_verified": false
+  },
+  "rehearsal_video": {
+    "file": "../../../output/sueperman-v2-rehearsal/rehearsal-110s.mp4",
+    "duration_seconds": 110.0,
+    "audio": true,
+    "adal_produced": false,
+    "sha256": "0cdb66aa481239cc41b120867913731868b08a27afc1d2570c0b0fc96d90bc9a"
+  },
+  "container_acceptance": {
+    "status": "passed",
+    "mode": "hash-verified offline inputs; TLS unchanged",
+    "browser_tests": 4
+  },
+  "local_backend_tests": 143,
+  "local_frontend_tests": 11
+}
