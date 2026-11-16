@@ -1,0 +1,37 @@
+FFFF                                                                     [100%]
+=================================== FAILURES ===================================
+___________ test_adal_denies_tools_that_can_execute_mutate_or_fetch ____________
+
+    def test_adal_denies_tools_that_can_execute_mutate_or_fetch():
+>       from app.collaboration.adapters import adal_tool_allowed
+E       ModuleNotFoundError: No module named 'app.collaboration.adapters'
+
+services/api/tests/collaboration/test_sponsor_boundaries.py:8: ModuleNotFoundError
+____ test_skill_integrity_requires_review_license_delivery_and_exact_bytes _____
+
+    def test_skill_integrity_requires_review_license_delivery_and_exact_bytes():
+>       from app.collaboration.adapters import SkillManifest, verified_skill
+E       ModuleNotFoundError: No module named 'app.collaboration.adapters'
+
+services/api/tests/collaboration/test_sponsor_boundaries.py:16: ModuleNotFoundError
+_______ test_agent37_exec_uses_pinned_command_and_rejects_failed_result ________
+
+    @pytest.mark.asyncio
+    async def test_agent37_exec_uses_pinned_command_and_rejects_failed_result():
+>       from app.collaboration.adapters import Agent37Scout
+E       ModuleNotFoundError: No module named 'app.collaboration.adapters'
+
+services/api/tests/collaboration/test_sponsor_boundaries.py:29: ModuleNotFoundError
+_______ test_lyzr_output_rejects_unknown_prose_and_fabricated_citations ________
+
+    def test_lyzr_output_rejects_unknown_prose_and_fabricated_citations():
+>       from app.collaboration.adapters import validate_builder
+E       ModuleNotFoundError: No module named 'app.collaboration.adapters'
+
+services/api/tests/collaboration/test_sponsor_boundaries.py:45: ModuleNotFoundError
+=========================== short test summary info ============================
+FAILED services/api/tests/collaboration/test_sponsor_boundaries.py::test_adal_denies_tools_that_can_execute_mutate_or_fetch
+FAILED services/api/tests/collaboration/test_sponsor_boundaries.py::test_skill_integrity_requires_review_license_delivery_and_exact_bytes
+FAILED services/api/tests/collaboration/test_sponsor_boundaries.py::test_agent37_exec_uses_pinned_command_and_rejects_failed_result
+FAILED services/api/tests/collaboration/test_sponsor_boundaries.py::test_lyzr_output_rejects_unknown_prose_and_fabricated_citations
+4 failed in 0.03s

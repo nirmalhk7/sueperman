@@ -2,7 +2,7 @@
 import { useEffect, useState } from "react";
 import { useParams, useRouter } from "next/navigation";
 import Link from "next/link";
-import { api, post, type Detail, type Packet } from "@/lib/api";
+import { api, post, type Detail, type Packet, type Collaboration } from "@/lib/api";
 import { opportunityLabel, sourceLabel } from "@/lib/labels";
 export default function Page() {
   const { id } = useParams<{ id: string }>();
@@ -10,11 +10,24 @@ export default function Page() {
   const [d, setD] = useState<Detail | null>(null);
   const [error, setError] = useState("");
   const [busy, setBusy] = useState(false);
+  const [teamMode, setTeamMode] = useState<"replay" | "live">("replay");
   useEffect(() => {
     void api<Detail>(`/opportunities/${id}`)
       .then(setD)
       .catch((e) => setError(e.message));
   }, [id]);
+  async function investigate() {
+    setBusy(true);
+    try {
+      const c = await post<Collaboration>("/collaborations", {
+        product_ids: [d!.product_id], mode: teamMode, idempotency_key: crypto.randomUUID(),
+      });
+      router.push(`/collaborations/${c.id}`);
+    } catch (e) {
+      setError((e as Error).message);
+      setBusy(false);
+    }
+  }
   async function prepare() {
     setBusy(true);
     try {
@@ -58,6 +71,14 @@ export default function Page() {
           </p>
         )}
         <h2>{d.title}</h2>
+        {d.kind === "recall" && d.product.demo && <section className="notice">
+          <p>Inspect a candidate, challenge its conditions, and see the next missing fact.</p>
+          <label>Investigation mode <select value={teamMode} onChange={e => setTeamMode(e.target.value as "replay" | "live")}>
+            <option value="replay">Offline replay — no sponsor calls</option><option value="live">Live team — requires operator setup</option>
+          </select></label>
+          <p>{teamMode === "live" ? "Only sanitized product facts and public evidence go to BAND, Agent37, AdaL and Lyzr. The challenge uses a reviewed Finch skill. Raw receipts and unrelated purchases stay out." : "Synthetic data and offline replay; no live sponsor calls."}</p>
+          <button disabled={busy} onClick={investigate}>Investigate with agent team</button>
+        </section>}
         {d.kind === "settlement" && !d.simulated && (
           <aside className="notice">
             <strong>{d.status === "unavailable" ? "Source verification unavailable — prior evidence only" : "Personal eligibility unconfirmed — preparation only"}</strong>

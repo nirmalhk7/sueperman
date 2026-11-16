@@ -1,0 +1,42 @@
+services/api/.venv/bin/python scripts/seed_demo.py --api http://localhost:8000
+{
+  "id": "ec79d01c-5cc5-47f1-a5e5-be895a23dc7e",
+  "created_at": "2026-11-16T01:03:39.998681Z",
+  "updated_at": "2026-11-16T01:03:40.046114Z",
+  "demo": true,
+  "run_id": "ec79d01c-5cc5-47f1-a5e5-be895a23dc7e",
+  "mode": "demo",
+  "status": "completed",
+  "summary": {
+    "products_scanned": 5,
+    "candidates": 4,
+    "verified_matches": 1,
+    "rejected": 1,
+    "needs_review": 1,
+    "simulated_settlements": 1,
+    "prepared_packets": 1
+  },
+  "provider_modes": {
+    "receipt": "csv",
+    "recall": "replay",
+    "research": "disabled",
+    "decision": "rules"
+  },
+  "warnings": [],
+  "opportunities": [
+    "8d89f457-911b-47a3-9150-85c763dc21d4",
+    "4c4f1130-5955-4d5a-9648-02b6b7265a62",
+    "7bfb6847-6e8a-4f39-a603-0abfd675dab8",
+    "5b80c016-8978-4a7b-bdc9-c95f2940516f"
+  ],
+  "events_url": "/api/runs/ec79d01c-5cc5-47f1-a5e5-be895a23dc7e/events",
+  "purchase_ids": [
+    "ca6ba38b-ad17-493d-b44f-126ce3a33fc8",
+    "c51a39ce-bd84-451b-b2ef-e704baa75446",
+    "8f286ea4-b689-40df-8a39-8842396b3cc0",
+    "2caade83-0cff-43ce-b83d-6a2aebfbfa1f",
+    "65988118-c845-4886-8b17-5baa8d3143aa"
+  ],
+  "started_at": "2026-11-16T01:03:39.998138+00:00",
+  "completed_at": "2026-11-16T01:03:40.045725+00:00"
+}

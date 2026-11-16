@@ -17,3 +17,10 @@ apps/web/test-results/
 apps/web/playwright-report/
 
 *.tsbuildinfo
+services/api/container-wheels/*.whl
+services/api/container-wheels/requirements.txt
+apps/web/container-deps/*.tgz
+apps/web/container-deps/SHA256SUMS
+apps/web/container-deps/LOCK.sha256
+apps/web/container-deps/*.tgz.tmp
+services/api/container-wheels/LOCK.sha256

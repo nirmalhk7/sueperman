@@ -1,0 +1,16 @@
+# Explicit alternative for trusted-host prepared, hash-checked production assets.
+# No certificate settings change and no network access in the extraction step.
+FROM node:24-bookworm-slim
+ENV NODE_ENV=production NEXT_TELEMETRY_DISABLED=1
+WORKDIR /srv/app/apps/web
+COPY apps/web/package.json apps/web/pnpm-lock.yaml apps/web/next.config.ts ./
+COPY apps/web/public public
+RUN --network=none --mount=type=bind,source=apps/web/container-deps,target=/deps,readonly \
+    sha256sum -c /deps/LOCK.sha256 && \
+    cd /deps && sha256sum -c SHA256SUMS && \
+    tar -xzf /deps/node_modules.tgz -C /srv/app/apps/web && \
+    tar -xzf /deps/.next.tgz -C /srv/app/apps/web && \
+    chown -R node:node /srv/app/apps/web
+USER node
+EXPOSE 8080
+CMD ["node", "node_modules/next/dist/bin/next", "start", "--hostname", "0.0.0.0", "--port", "8080"]

@@ -1,0 +1,29 @@
+{
+  "mode": "local draft, not Finch delivery",
+  "version": "1.0.0",
+  "license": "MIT",
+  "package_sha256": "83257435c931746abc98780083d2130621cd222961489c01483bcc1bb604d0e5",
+  "primary_sha256": "7fb633243ab47668a713233676d027444723747b551ef379b5b83d9e5887a6b8",
+  "vectors": [
+    {
+      "vector": "exact",
+      "two_clean_processes_agree": true
+    },
+    {
+      "vector": "near_match",
+      "two_clean_processes_agree": true
+    },
+    {
+      "vector": "missing_model",
+      "two_clean_processes_agree": true
+    },
+    {
+      "vector": "no_source",
+      "two_clean_processes_agree": true
+    },
+    {
+      "vector": "two_restrictions",
+      "two_clean_processes_agree": true
+    }
+  ]
+}

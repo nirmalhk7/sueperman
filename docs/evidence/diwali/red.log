@@ -1,0 +1,166 @@
+FFFFFF                                                                   [100%]
+=================================== FAILURES ===================================
+_ test_three_roles_change_board_and_preserve_deterministic_decision[0-ready_for_review] _
+
+client = <starlette.testclient.TestClient object at 0x7faf93ac3860>, index = 0
+state = 'ready_for_review'
+
+    @pytest.mark.parametrize('index,state', [(0, 'ready_for_review'), (1, 'rejected'), (2, 'needs_information')])
+    def test_three_roles_change_board_and_preserve_deterministic_decision(client, index, state):
+>       case, body = start(client, index)
+                     ^^^^^^^^^^^^^^^^^^^^
+
+services/api/tests/collaboration/test_workflow.py:24:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+c = <starlette.testclient.TestClient object at 0x7faf93ac3860>, index = 0
+kwargs = {}
+
+    def start(c, index=0, **kwargs):
+        products = c.post('/api/demo/reset').json()['product_ids']
+        body = {'product_ids': [products[index]], 'idempotency_key': 'case', 'mode': 'replay'} | kwargs
+        response = c.post('/api/collaborations', json=body)
+>       assert response.status_code == 200, response.text
+E       AssertionError: {"detail":"Not Found"}
+E       assert 404 == 200
+E        +  where 404 = <Response [404 Not Found]>.status_code
+
+services/api/tests/collaboration/test_workflow.py:18: AssertionError
+_ test_three_roles_change_board_and_preserve_deterministic_decision[1-rejected] _
+
+client = <starlette.testclient.TestClient object at 0x7faf93ae9730>, index = 1
+state = 'rejected'
+
+    @pytest.mark.parametrize('index,state', [(0, 'ready_for_review'), (1, 'rejected'), (2, 'needs_information')])
+    def test_three_roles_change_board_and_preserve_deterministic_decision(client, index, state):
+>       case, body = start(client, index)
+                     ^^^^^^^^^^^^^^^^^^^^
+
+services/api/tests/collaboration/test_workflow.py:24:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+c = <starlette.testclient.TestClient object at 0x7faf93ae9730>, index = 1
+kwargs = {}
+
+    def start(c, index=0, **kwargs):
+        products = c.post('/api/demo/reset').json()['product_ids']
+        body = {'product_ids': [products[index]], 'idempotency_key': 'case', 'mode': 'replay'} | kwargs
+        response = c.post('/api/collaborations', json=body)
+>       assert response.status_code == 200, response.text
+E       AssertionError: {"detail":"Not Found"}
+E       assert 404 == 200
+E        +  where 404 = <Response [404 Not Found]>.status_code
+
+services/api/tests/collaboration/test_workflow.py:18: AssertionError
+_ test_three_roles_change_board_and_preserve_deterministic_decision[2-needs_information] _
+
+client = <starlette.testclient.TestClient object at 0x7faf93b53bc0>, index = 2
+state = 'needs_information'
+
+    @pytest.mark.parametrize('index,state', [(0, 'ready_for_review'), (1, 'rejected'), (2, 'needs_information')])
+    def test_three_roles_change_board_and_preserve_deterministic_decision(client, index, state):
+>       case, body = start(client, index)
+                     ^^^^^^^^^^^^^^^^^^^^
+
+services/api/tests/collaboration/test_workflow.py:24:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+c = <starlette.testclient.TestClient object at 0x7faf93b53bc0>, index = 2
+kwargs = {}
+
+    def start(c, index=0, **kwargs):
+        products = c.post('/api/demo/reset').json()['product_ids']
+        body = {'product_ids': [products[index]], 'idempotency_key': 'case', 'mode': 'replay'} | kwargs
+        response = c.post('/api/collaborations', json=body)
+>       assert response.status_code == 200, response.text
+E       AssertionError: {"detail":"Not Found"}
+E       assert 404 == 200
+E        +  where 404 = <Response [404 Not Found]>.status_code
+
+services/api/tests/collaboration/test_workflow.py:18: AssertionError
+_________ test_answer_is_explicit_revision_bound_and_does_not_edit_v1 __________
+
+client = <starlette.testclient.TestClient object at 0x7faf9378e360>
+
+    def test_answer_is_explicit_revision_bound_and_does_not_edit_v1(client):
+>       case, body = start(client, 2)
+                     ^^^^^^^^^^^^^^^^
+
+services/api/tests/collaboration/test_workflow.py:45:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+c = <starlette.testclient.TestClient object at 0x7faf9378e360>, index = 2
+kwargs = {}
+
+    def start(c, index=0, **kwargs):
+        products = c.post('/api/demo/reset').json()['product_ids']
+        body = {'product_ids': [products[index]], 'idempotency_key': 'case', 'mode': 'replay'} | kwargs
+        response = c.post('/api/collaborations', json=body)
+>       assert response.status_code == 200, response.text
+E       AssertionError: {"detail":"Not Found"}
+E       assert 404 == 200
+E        +  where 404 = <Response [404 Not Found]>.status_code
+
+services/api/tests/collaboration/test_workflow.py:18: AssertionError
+______________ test_live_unavailable_never_fakes_sponsor_success _______________
+
+client = <starlette.testclient.TestClient object at 0x7faf93b45a60>
+
+    def test_live_unavailable_never_fakes_sponsor_success(client):
+>       case, _ = start(client, mode='live')
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+services/api/tests/collaboration/test_workflow.py:70:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+c = <starlette.testclient.TestClient object at 0x7faf93b45a60>, index = 0
+kwargs = {'mode': 'live'}
+
+    def start(c, index=0, **kwargs):
+        products = c.post('/api/demo/reset').json()['product_ids']
+        body = {'product_ids': [products[index]], 'idempotency_key': 'case', 'mode': 'replay'} | kwargs
+        response = c.post('/api/collaborations', json=body)
+>       assert response.status_code == 200, response.text
+E       AssertionError: {"detail":"Not Found"}
+E       assert 404 == 200
+E        +  where 404 = <Response [404 Not Found]>.status_code
+
+services/api/tests/collaboration/test_workflow.py:18: AssertionError
+______________ test_idempotency_input_conflict_and_unknown_fields ______________
+
+client = <starlette.testclient.TestClient object at 0x7faf937d5040>
+
+    def test_idempotency_input_conflict_and_unknown_fields(client):
+>       case, body = start(client)
+                     ^^^^^^^^^^^^^
+
+services/api/tests/collaboration/test_workflow.py:79:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+c = <starlette.testclient.TestClient object at 0x7faf937d5040>, index = 0
+kwargs = {}
+
+    def start(c, index=0, **kwargs):
+        products = c.post('/api/demo/reset').json()['product_ids']
+        body = {'product_ids': [products[index]], 'idempotency_key': 'case', 'mode': 'replay'} | kwargs
+        response = c.post('/api/collaborations', json=body)
+>       assert response.status_code == 200, response.text
+E       AssertionError: {"detail":"Not Found"}
+E       assert 404 == 200
+E        +  where 404 = <Response [404 Not Found]>.status_code
+
+services/api/tests/collaboration/test_workflow.py:18: AssertionError
+=============================== warnings summary ===============================
+services/api/.venv/lib/python3.12/site-packages/fastapi/testclient.py:1
+  /workspace/sueperman/services/api/.venv/lib/python3.12/site-packages/fastapi/testclient.py:1: StarletteDeprecationWarning: Using `httpx` with `starlette.testclient` is deprecated; install `httpx2` instead.
+    from starlette.testclient import TestClient as TestClient  # noqa
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+=========================== short test summary info ============================
+FAILED services/api/tests/collaboration/test_workflow.py::test_three_roles_change_board_and_preserve_deterministic_decision[0-ready_for_review]
+FAILED services/api/tests/collaboration/test_workflow.py::test_three_roles_change_board_and_preserve_deterministic_decision[1-rejected]
+FAILED services/api/tests/collaboration/test_workflow.py::test_three_roles_change_board_and_preserve_deterministic_decision[2-needs_information]
+FAILED services/api/tests/collaboration/test_workflow.py::test_answer_is_explicit_revision_bound_and_does_not_edit_v1
+FAILED services/api/tests/collaboration/test_workflow.py::test_live_unavailable_never_fakes_sponsor_success
+FAILED services/api/tests/collaboration/test_workflow.py::test_idempotency_input_conflict_and_unknown_fields
+6 failed, 1 warning in 1.78s

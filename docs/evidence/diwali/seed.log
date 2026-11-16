@@ -1,0 +1,18 @@
+services/api/.venv/bin/python scripts/seed_demo.py --seed-only --api http://localhost:8000
+{
+  "purchase_ids": [
+    "802e7518-5e48-428b-859d-894364252ddb",
+    "295fe59c-f3d3-46bf-8130-3dcabd7578cf",
+    "7074fe9a-139d-432b-9fe2-41e4aea29362",
+    "a0ca8853-8dd0-4f18-a9dc-ff8454a13935",
+    "7da1919b-e5c8-4b5f-96e5-81f71acb2d2f"
+  ],
+  "product_ids": [
+    "9528e35e-9034-4315-a9df-25720a05dbcc",
+    "8198daa4-fa00-4388-9b69-f36a1f90676d",
+    "5c76515c-e4ea-4b7d-9b90-437e14b54952",
+    "a72ad0e3-7b4e-40fd-8ae9-d98e0f41e248",
+    "6bcaf46a-8161-4052-8b6f-ec01e39654e9"
+  ],
+  "parse_warnings": []
+}

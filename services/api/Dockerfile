@@ -14,10 +14,19 @@ ENV PYTHONDONTWRITEBYTECODE=1 PYTHONUNBUFFERED=1 UV_PYTHON_DOWNLOADS=never \
     DATABASE_URL=sqlite:////data/sueperman.db
 WORKDIR /srv/app
 COPY services/api/pyproject.toml services/api/uv.lock services/api/
-RUN uv sync --project services/api --locked --no-dev --no-cache
+ARG CONTAINER_OFFLINE_WHEELS=0
+RUN --mount=type=bind,source=services/api/container-wheels,target=/wheels,readonly \
+    if [ "$CONTAINER_OFFLINE_WHEELS" = "1" ]; then \
+      sha256sum -c /wheels/LOCK.sha256 && uv venv services/api/.venv && \
+      uv pip install --python services/api/.venv/bin/python --offline --no-index \
+        --find-links=/wheels --require-hashes -r /wheels/requirements.txt; \
+    else uv sync --project services/api --locked --no-dev --no-cache; fi
 COPY services/api/app services/api/app
 COPY demo demo
-RUN useradd --uid 10001 --create-home sueperman \
+# Cloud checkouts may have mode 0600/0700. Public code stays root-owned and
+# becomes readable/traversable by the non-root runtime, never writable by it.
+RUN chmod -R a+rX /srv/app/services/api/app /srv/app/demo \
+    && useradd --uid 10001 --create-home sueperman \
     && mkdir -p /data /srv/app/uploads && chown -R 10001:10001 /data /srv/app/uploads
 USER 10001
 EXPOSE 8080

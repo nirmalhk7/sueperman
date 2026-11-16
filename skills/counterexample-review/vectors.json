@@ -1,0 +1,7 @@
+[
+  {"name":"exact","conditions":[{"name":"model_number","status":"true"}],"source_refs":["26-792"],"expected":[{"code":"checklist_exhausted","source_ref":"26-792"}]},
+  {"name":"near_match","conditions":[{"name":"model_number","status":"false"}],"source_refs":["26-792"],"expected":[{"code":"excluded_condition","condition":"model_number","source_ref":"26-792"}]},
+  {"name":"missing_model","conditions":[{"name":"model_number","status":"unknown"}],"source_refs":["26-792"],"expected":[{"code":"unknown_condition","condition":"model_number","source_ref":"26-792"}]},
+  {"name":"no_source","conditions":[],"source_refs":[],"expected":[{"code":"no_candidate"}]},
+  {"name":"two_restrictions","conditions":[{"name":"batch","status":"false"},{"name":"region","status":"unknown"}],"source_refs":["26-792"],"expected":[{"code":"excluded_condition","condition":"batch","source_ref":"26-792"},{"code":"unknown_condition","condition":"region","source_ref":"26-792"}]}
+]

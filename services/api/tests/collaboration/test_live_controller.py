@@ -1,0 +1,130 @@
+"""Configured live control path with synthetic runtime doubles, never sponsor proof."""
+
+import hashlib
+import json
+
+from fastapi.testclient import TestClient
+
+from app.config import ROOT
+from app.main import create_app
+
+
+def test_configured_team_uses_source_then_challenge_then_builder(tmp_path, monkeypatch):
+    from app.collaboration import controller, live
+    from app.collaboration.contracts import CaseResult
+    from app.schemas import MatchResult
+
+    calls = []
+    package = tmp_path / "reviewed.txt"
+    package.write_text("synthetic skill only")
+    monkeypatch.setenv("FINCH_PACKAGE_PATH", str(package))
+    skill_hash = hashlib.sha256(package.read_bytes()).hexdigest()
+    monkeypatch.setattr(live, "blockers", lambda settings: {})
+
+    class Team:
+        def __init__(self, settings):
+            self.skill_hash = skill_hash
+            from app.collaboration.adapters import SkillManifest
+
+            self.manifest = SkillManifest(
+                identity="synthetic-test-package",
+                version="test-1",
+                license="MIT",
+                package_sha256=skill_hash,
+                delivery_url="https://www.finchtech.ai/test-only",
+                review_record="Synthetic test, not delivery proof",
+            )
+
+        async def __aenter__(self):
+            return self
+
+        async def __aexit__(self, *args):
+            pass
+
+        async def request(self, task, context):
+            calls.append(task.recipient)
+            receipt = {
+                "room": "synthetic-room",
+                "request": f"request-{len(calls)}",
+                "reply": f"reply-{len(calls)}",
+            }
+            if task.recipient == "scout":
+                recall = json.loads((ROOT / "demo/recall_fixture.json").read_text()) | {"mode": "live"}
+                if calls.count("scout") > 1:
+                    recall["excerpt"] += " Updated official source excerpt."
+                result = CaseResult(
+                    task_id=task.task_id,
+                    case_id=task.case_id,
+                    revision=task.revision,
+                    provider="agent37",
+                    role="scout",
+                    mode="live",
+                    status="completed",
+                    findings=[],
+                    source_refs=["26-792"],
+                )
+                return {"records": [recall], "result": result.model_dump(mode="json")}, receipt
+            previous = CaseResult(**context["prior"])
+            match = MatchResult(**context["match"])
+            replay = await controller.replay_role(task, match, previous)
+            result = replay.model_copy(
+                update={"provider": "adal" if task.recipient == "skeptic" else "lyzr", "mode": "live"}
+            )
+            return {"result": result.model_dump(mode="json"), "skill_hash": skill_hash}, receipt
+
+    monkeypatch.setattr(live, "LiveTeam", Team)
+    with TestClient(create_app(database_url=f"sqlite:///{tmp_path}/team.db")) as c:
+        seed = c.post("/api/demo/reset").json()
+        start = c.post(
+            "/api/collaborations",
+            json={"product_ids": [seed["product_ids"][0]], "mode": "live", "idempotency_key": "live"},
+        )
+        assert start.status_code == 200
+        path = "/api/collaborations/" + start.json()["id"]
+        case = c.get(path).json()
+        assert case["status"] == "ready_for_review", case
+        assert calls == ["scout", "skeptic", "builder"]
+        assert case["live_sponsor_proof"] is False
+        assert case["skill"]["identity"] == "synthetic-test-package"
+        assert case["skill"]["version"] == "test-1"
+        assert case["board"]["evidence"][0]["mode"] == "live"
+        events = c.get(path + "/events").json()
+        assert [e["provider"] for e in events if e["kind"] == "result"] == ["agent37", "adal", "lyzr"]
+        assert "synthetic-room" not in json.dumps(events)
+        assert (
+            c.post(
+                path + "/approve-local", json={"revision": case["revision"], "confirmed": True}
+            ).status_code
+            == 200
+        )
+        assert c.post(path + "/export", json={"revision": case["revision"]}).status_code == 200
+        second = c.post(
+            "/api/collaborations",
+            json={
+                "product_ids": [seed["product_ids"][1]],
+                "mode": "live",
+                "idempotency_key": "live-new-source",
+            },
+        ).json()
+        assert c.get("/api/collaborations/" + second["id"]).json()["status"] == "rejected"
+        assert c.post(path + "/export", json={"revision": case["revision"]}).status_code == 409
+        assert c.get(path).json()["approval"] is None
+        assert c.get(path).json()["history"][0]["evidence"]
+        third = c.post(
+            "/api/collaborations",
+            json={
+                "product_ids": [seed["product_ids"][0]],
+                "mode": "live",
+                "idempotency_key": "live-current-source",
+            },
+        ).json()
+        path = "/api/collaborations/" + third["id"]
+        case = c.get(path).json()
+        assert (
+            c.post(
+                path + "/approve-local", json={"revision": case["revision"], "confirmed": True}
+            ).status_code
+            == 200
+        )
+        package.write_text("altered")
+        assert c.post(path + "/export", json={"revision": case["revision"]}).status_code == 409

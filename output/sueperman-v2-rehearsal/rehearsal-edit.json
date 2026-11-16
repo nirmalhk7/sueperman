@@ -1,0 +1,37 @@
+{
+  "duration_seconds": 110.0,
+  "segments": [
+    [
+      12,
+      "A recall match needs more than a similar product name. Sueperman makes the challenge visible. This is an offline rehearsal using synthetic purchases."
+    ],
+    [
+      14,
+      "First, the near match. Scout proposes the supported notice. Skeptic finds a model restriction. The purchase is P B twenty three. The notice requires P B twenty two. No draft is available."
+    ],
+    [
+      18,
+      "When the model is missing, Builder asks for that one fact. The user checks the product, enters the model, and explicitly confirms it. The case gets a new revision. The original purchase stays unchanged."
+    ],
+    [
+      21,
+      "The exact case survives deterministic checks. The case board retains the source and the challenge. The user reviews the draft, approves it locally, and exports Markdown. This does not submit a claim or promise payment."
+    ],
+    [
+      20,
+      "The live path is implemented for BAND delegation, an Agent thirty seven source worker, AdaL review, and a Lyzr case board. A reviewed Finch delivered skill is required. These adapters have local tests, but this footage does not prove live sponsor use."
+    ],
+    [
+      15,
+      "Changed evidence or skill bytes revoke old approval. Failures remain partial. The public demo accepts synthetic cases only. Real sponsor accounts, execution receipts, and an AdaL produced export remain required."
+    ],
+    [
+      10,
+      "Sueperman: understand the evidence, challenge the match, and find the next step. This rehearsal is not the final hackathon entry."
+    ]
+  ],
+  "mode": "offline replay",
+  "adal_produced": false,
+  "live_sponsor_proof": false,
+  "voice": "local libflite slt; draft narration"
+}

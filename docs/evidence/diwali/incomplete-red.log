@@ -1,0 +1,94 @@
+FFF                                                                      [100%]
+=================================== FAILURES ===================================
+______________ test_incomplete_role_cannot_become_ready[partial] _______________
+
+tmp_path = PosixPath('/tmp/pytest-of-agent/pytest-19/test_incomplete_role_cannot_be0')
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x7f837393d940>
+status = 'partial'
+
+    @pytest.mark.parametrize("status", ["partial", "failed", "timed_out"])
+    def test_incomplete_role_cannot_become_ready(tmp_path, monkeypatch, status):
+        from app.collaboration import controller
+
+        original = controller.replay_role
+
+        async def incomplete(task, match, prior):
+            result = await original(task, match, prior)
+            return result.model_copy(update={"status": status}) if task.recipient == "builder" else result
+
+        monkeypatch.setattr(controller, "replay_role", incomplete)
+        app, engine, _ = setup(tmp_path)
+        with TestClient(app) as c:
+            _, case = run(c)
+>           assert case["status"] == "partial"
+E           AssertionError: assert 'ready_for_review' == 'partial'
+E
+E             - partial
+E             + ready_for_review
+
+services/api/tests/collaboration/test_guards.py:303: AssertionError
+_______________ test_incomplete_role_cannot_become_ready[failed] _______________
+
+tmp_path = PosixPath('/tmp/pytest-of-agent/pytest-19/test_incomplete_role_cannot_be1')
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x7f837393dd90>
+status = 'failed'
+
+    @pytest.mark.parametrize("status", ["partial", "failed", "timed_out"])
+    def test_incomplete_role_cannot_become_ready(tmp_path, monkeypatch, status):
+        from app.collaboration import controller
+
+        original = controller.replay_role
+
+        async def incomplete(task, match, prior):
+            result = await original(task, match, prior)
+            return result.model_copy(update={"status": status}) if task.recipient == "builder" else result
+
+        monkeypatch.setattr(controller, "replay_role", incomplete)
+        app, engine, _ = setup(tmp_path)
+        with TestClient(app) as c:
+            _, case = run(c)
+>           assert case["status"] == "partial"
+E           AssertionError: assert 'ready_for_review' == 'partial'
+E
+E             - partial
+E             + ready_for_review
+
+services/api/tests/collaboration/test_guards.py:303: AssertionError
+_____________ test_incomplete_role_cannot_become_ready[timed_out] ______________
+
+tmp_path = PosixPath('/tmp/pytest-of-agent/pytest-19/test_incomplete_role_cannot_be2')
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x7f837271e420>
+status = 'timed_out'
+
+    @pytest.mark.parametrize("status", ["partial", "failed", "timed_out"])
+    def test_incomplete_role_cannot_become_ready(tmp_path, monkeypatch, status):
+        from app.collaboration import controller
+
+        original = controller.replay_role
+
+        async def incomplete(task, match, prior):
+            result = await original(task, match, prior)
+            return result.model_copy(update={"status": status}) if task.recipient == "builder" else result
+
+        monkeypatch.setattr(controller, "replay_role", incomplete)
+        app, engine, _ = setup(tmp_path)
+        with TestClient(app) as c:
+            _, case = run(c)
+>           assert case["status"] == "partial"
+E           AssertionError: assert 'ready_for_review' == 'partial'
+E
+E             - partial
+E             + ready_for_review
+
+services/api/tests/collaboration/test_guards.py:303: AssertionError
+=============================== warnings summary ===============================
+services/api/.venv/lib/python3.12/site-packages/fastapi/testclient.py:1
+  /workspace/sueperman/services/api/.venv/lib/python3.12/site-packages/fastapi/testclient.py:1: StarletteDeprecationWarning: Using `httpx` with `starlette.testclient` is deprecated; install `httpx2` instead.
+    from starlette.testclient import TestClient as TestClient  # noqa
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+=========================== short test summary info ============================
+FAILED services/api/tests/collaboration/test_guards.py::test_incomplete_role_cannot_become_ready[partial]
+FAILED services/api/tests/collaboration/test_guards.py::test_incomplete_role_cannot_become_ready[failed]
+FAILED services/api/tests/collaboration/test_guards.py::test_incomplete_role_cannot_become_ready[timed_out]
+3 failed, 21 deselected, 1 warning in 0.88s

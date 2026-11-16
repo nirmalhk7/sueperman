@@ -8,6 +8,10 @@ from app.models import (
     AgentRun,
     AuditEvent,
     ClaimPacket,
+    Collaboration,
+    CollaborationEvidence,
+    CollaborationRevision,
+    CollaborationTask,
     EligibilityAssessment,
     Opportunity,
     Product,
@@ -25,7 +29,15 @@ def register(app, factory, settings, import_products):
         with factory() as s:
             if s.scalar(select(AgentRun).where(AgentRun.status.in_(["running", "queued"]))):
                 raise HTTPException(409, "Wait for active run before reset")
+            from app.collaboration.ledger import ACTIVE
+
+            if s.scalar(select(Collaboration).where(Collaboration.status.in_(ACTIVE))):
+                raise HTTPException(409, "Wait for active team investigation before reset")
             demo_models: list[type[Any]] = [
+                CollaborationTask,
+                CollaborationEvidence,
+                CollaborationRevision,
+                Collaboration,
                 AuditEvent,
                 ClaimPacket,
                 EligibilityAssessment,

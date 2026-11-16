@@ -76,3 +76,42 @@ class AuditEvent(Entity, Base):
     run_id: Mapped[str] = mapped_column(ForeignKey("agent_runs.id"))
     seq: Mapped[int]
     __table_args__ = (UniqueConstraint("run_id", "seq"),)
+
+
+class Collaboration(Entity, Base):
+    __tablename__ = "collaborations"
+    product_id: Mapped[str] = mapped_column(ForeignKey("products.id"), index=True)
+    idempotency_key: Mapped[str] = mapped_column(unique=True)
+    status: Mapped[str] = mapped_column(default="queued", index=True)
+    current_revision: Mapped[str] = mapped_column(default="")
+
+
+class CollaborationRevision(Entity, Base):
+    __tablename__ = "collaboration_revisions"
+    case_id: Mapped[str] = mapped_column(ForeignKey("collaborations.id"), index=True)
+    revision: Mapped[str]
+    __table_args__ = (UniqueConstraint("case_id", "revision"),)
+
+
+class CollaborationTask(Entity, Base):
+    __tablename__ = "collaboration_tasks"
+    case_id: Mapped[str] = mapped_column(ForeignKey("collaborations.id"), index=True)
+    revision: Mapped[str]
+    deduplication_key: Mapped[str] = mapped_column(unique=True)
+    seq: Mapped[int]
+    status: Mapped[str] = mapped_column(default="pending")
+    __table_args__ = (UniqueConstraint("case_id", "seq"),)
+
+
+class CollaborationEvidence(Entity, Base):
+    __tablename__ = "collaboration_evidence"
+    case_id: Mapped[str] = mapped_column(ForeignKey("collaborations.id"), index=True)
+    revision: Mapped[str]
+    source_ref: Mapped[str]
+    __table_args__ = (UniqueConstraint("case_id", "revision", "source_ref"),)
+
+
+class CollaborationUsage(Base):
+    __tablename__ = "collaboration_usage"
+    day: Mapped[str] = mapped_column(String, primary_key=True)
+    calls: Mapped[int] = mapped_column(default=0)

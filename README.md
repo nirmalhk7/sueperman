@@ -83,3 +83,21 @@ Public shared demo: [Sueperman](https://sueperman-6t4xk.ondigitalocean.app). Use
 
 
 Receipt camera: choose **Take receipt photo** on a phone (rear-camera preference), or select a saved JPEG/PNG on desktop. Review extracted merchant/date/items and confirm identifiers before checking purchases. Set `OPENAI_RECEIPT_ENABLED=true` and server-only `OPENAI_API_KEY` to read photos with OpenAI `gpt-6-luna`; this is independent of decision routing. `OPENAI_RECEIPT_DAILY_LIMIT=10` caps attempted calls across the shared database per UTC day. Duplicate imported photos bypass calls. Photos are oriented, resized to a maximum 1600-pixel side, stripped of EXIF, and sent with `store:false`, no tools/retries, and a 1024-output-token cap. Input remains limited to 10MB/20 megapixels. Failed calls consume an attempt; malformed/unreadable results import no products. This is an application request cap, not an OpenAI billing cap. App Platform's ephemeral database can reset quotas on redeploy. PDF extraction retains the existing Gemini path.
+
+### V2 counterexample review
+
+For a synthetic demo recall opportunity, open **Review details → Investigate with
+agent team**. Inspect Scout's finding, Skeptic's challenge, Builder's one missing
+question, cited evidence and addressed request/reply timeline. Exact cases allow
+local draft review and Markdown export; near-matches stay excluded. Confirmed
+answers create separate case revisions without editing the original purchase.
+
+Offline replay works without paid keys. The configured live path uses actual
+BAND/Agent37/AdaL/Lyzr adapters and a reviewed Finch-delivered skill, but has
+**no live sponsor proof yet**. Missing setup produces an explicit partial-team label. [Implementation, tests and external blockers](docs/diwali-compliance.md)
+track each selected V2 requirement. Existing film assets are preserved and are not
+claimed as an AdaL-produced demo.
+
+V2 runtime wiring now includes pinned BAND/AdaL SDKs, Agent37 execution and Lyzr v3 adapters. [Setup and exact live-proof blockers](docs/diwali-runtime.md)
+
+A [110-second offline rehearsal](output/sueperman-v2-rehearsal/rehearsal-110s.mp4), restricted AdaL launcher and tested portable skill draft are available. Production containers pass through the [hash-verified offline build route](docs/evidence/diwali/container-diagnosis.md). The rehearsal is not AdaL-produced; Finch delivery and all five live execution receipts remain outstanding.

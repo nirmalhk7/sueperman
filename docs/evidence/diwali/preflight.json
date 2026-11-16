@@ -1,0 +1,12 @@
+{
+  "live_kill_switch_enabled": false,
+  "configuration_blockers": {
+    "band": "BAND SDK, room and four distinct identities/keys required",
+    "agent37": "Agent37 key, pinned worker instance and verified isolation required",
+    "adal": "Authenticated AdaL SDK/isolated launcher and verified policy required",
+    "finch": "Reviewed Finch manifest and exact delivered package bytes required",
+    "lyzr": "Lyzr key, Studio agent and verified workspace v3 endpoint/profile required"
+  },
+  "live_execution_performed": false,
+  "live_proof_verified": false
+}
