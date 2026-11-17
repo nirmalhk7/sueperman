@@ -95,7 +95,7 @@ async def drive(factory, run_id, settings, transport, *, started):
             return
         run.status = "running"
         run.payload = run.payload | {"actual_transport": mode, "source_mode": "recorded", "reviewer_mode": "rules"}
-        product_ids = [session.scalar(select(Product.id).where(Product.purchase_id == p))
+        product_ids = [session.scalar(select(Product.id).where(Product.purchase_id == p, Product.payload["superseded"].as_boolean().is_not(True)))
                        for p in run.payload["purchase_ids"]]
     try:
         for product_id in product_ids:

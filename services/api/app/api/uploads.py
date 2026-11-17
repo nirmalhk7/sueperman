@@ -8,15 +8,25 @@ from sqlalchemy import select
 from app.db import view
 from app.models import (
     AgentRun,
+    CaseRecord,
+    ClaimPacket,
+    CollaborationRun,
     Opportunity,
     Product,
     Purchase,
+    now,
 )
 from app.providers.errors import ProviderUnavailable
 from app.providers.gemini import GeminiReceiptExtractor
 from app.providers.openai_receipt import OpenAIReceiptExtractor, reserve_receipt_call
 from app.providers.receipt import MAX_UPLOAD
-from app.schemas import IdentifierConfirmation, ImportResponse, ProductInput, ProductResponse
+from app.schemas import (
+    IdentifierConfirmation,
+    ImportResponse,
+    ProductInput,
+    ProductResponse,
+    PurchaseCorrection,
+)
 
 
 def register(app, factory, settings, import_products):
@@ -59,7 +69,7 @@ def register(app, factory, settings, import_products):
                 return {
                     "purchase_ids": ids,
                     "product_ids": [
-                        p.id for p in s.scalars(select(Product).where(Product.purchase_id.in_(ids)))
+                        p.id for p in s.scalars(select(Product).where(Product.purchase_id.in_(ids), Product.payload["superseded"].as_boolean().is_not(True)))
                     ],
                     "parse_warnings": ["Existing receipt import reused; no additional model request."],
                 }
@@ -95,6 +105,8 @@ def register(app, factory, settings, import_products):
             product = s.get(Product, identifier)
             if product is None:
                 raise HTTPException(404, "Product not found")
+            if product.payload.get("superseded"):
+                raise HTTPException(409, "Purchase corrected; use the current revision")
             if product.payload.get("source_type") not in {"image", "pdf"}:
                 raise HTTPException(409, "Only extracted receipts require identifier confirmation")
             active = s.scalars(select(AgentRun).where(AgentRun.status.in_(["queued", "running"]))).all()
@@ -119,10 +131,54 @@ def register(app, factory, settings, import_products):
             s.commit()
             return view(product) | {"purchase_id": product.purchase_id}
 
+    @app.post("/api/products/{identifier}/corrections", response_model=ProductResponse)
+    def correct_purchase(identifier: str, body: PurchaseCorrection):
+        with factory() as s:
+            s.connection().exec_driver_sql("BEGIN IMMEDIATE")
+            original = s.get(Product, identifier)
+            if original is None:
+                raise HTTPException(404, "Product not found")
+            updates = body.model_dump(exclude_unset=True, exclude={"confirmed"})
+            updates["model_number"] = body.model_number.strip()
+            if not updates["model_number"]:
+                raise HTTPException(422, "Model number cannot be blank")
+            if updates.get("brand"):
+                updates["brand"] = updates["brand"].strip() or None
+            facts = ProductInput(**original.payload["product"]).model_copy(
+                update=updates | {"user_confirmed_identifiers": True})
+            if original.payload.get("superseded"):
+                replacement = s.get(Product, original.payload["replaced_by"])
+                if replacement.payload["product"] == facts.model_dump(mode="json") and not replacement.payload.get("superseded"):
+                    return view(replacement) | {"purchase_id": replacement.purchase_id}
+                raise HTTPException(409, "Purchase changed; reload before correcting")
+            active = s.scalars(select(AgentRun).where(AgentRun.status.in_(["queued", "running"])))
+            team_active = s.scalar(select(CollaborationRun).join(
+                CaseRecord, CollaborationRun.case_id == CaseRecord.id).where(
+                    CaseRecord.product_id == original.id,
+                    CollaborationRun.status.in_(["queued", "investigating", "challenging", "building"])))
+            if team_active or any(original.purchase_id in run.payload["purchase_ids"] for run in active):
+                raise HTTPException(409, "Investigation active; wait before correcting")
+            if original.payload["product"] == facts.model_dump(mode="json"):
+                return view(original) | {"purchase_id": original.purchase_id}
+            replacement = Product(purchase_id=original.purchase_id, demo=original.demo,
+                model_number=facts.model_number, upc=facts.upc,
+                payload=original.payload | {"product": facts.model_dump(mode="json"),
+                    "revision": original.payload.get("revision", 1) + 1,
+                    "previous_product_id": original.id, "corrected_at": now()})
+            s.add(replacement)
+            s.flush()
+            original.payload = original.payload | {"superseded": True, "replaced_by": replacement.id}
+            for opportunity in s.scalars(select(Opportunity).where(Opportunity.product_id == original.id)):
+                opportunity.payload = opportunity.payload | {"stale": True}
+                for packet in s.scalars(select(ClaimPacket).where(ClaimPacket.opportunity_id == opportunity.id)):
+                    packet.payload = packet.payload | {"stale": True, "status": "needs_evidence", "approved_at": None}
+            s.commit()
+            return view(replacement) | {"purchase_id": replacement.purchase_id}
+
     @app.get("/api/products", response_model=list[ProductResponse])
     def products():
         with factory() as s:
             return [
                 view(p) | {"purchase_id": p.purchase_id, "demo": p.demo}
-                for p in s.scalars(select(Product).order_by(Product.created_at))
+                for p in s.scalars(select(Product).where(Product.payload["superseded"].as_boolean().is_not(True)).order_by(Product.created_at))
             ]

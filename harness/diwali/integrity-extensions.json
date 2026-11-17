@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "reason": "Owner-requested V2.1/P1 documentation and pinned BAND 8.1.0 SDK additions; frozen baseline bytes must remain intact.",
+  "reason": "Owner-requested V2.1/P1 documentation and pinned BAND 8.1.0 SDK additions; frozen baseline bytes must remain intact. Issue 4 adds guards for superseded purchase revisions.",
   "files": {
     "README.md": {
       "baseline_sha256": "191462a08e69add9505e649a8259adbf1d54462065a1cac11bb927bd885033ce",
@@ -73,12 +73,22 @@
     "services/api/app/api/collaborations.py": {
       "reason": "User-authorized safety repair: reject fixture collaboration approval/export after source monitoring requires a fresh official review. Exact inserted guard only; original source remains frozen.",
       "baseline_sha256": "ed8747747327fded487827f585830cbb895edc1d87226da296079283c9b97c53",
-      "extended_sha256": "61a24db6772f01ed35e1e592738a27e0f3617924ce68b605fae1b8078525402e",
+      "extended_sha256": "9ddca7516d4b0d8952417bdd2bd1db9b76229a523792df67e4d192716cd037d1",
       "insertions": [
         {
-          "offset": 7310,
+          "offset": 1707,
+          "length": 146,
+          "sha256": "f1d424dd185edd38bf1730d0ef7e946b505f9511a1b3ccca48b3060f9791c5f1"
+        },
+        {
+          "offset": 6929,
+          "length": 164,
+          "sha256": "0b92b1e7d033b1bc86a228f3831dbac9aac6a591d2391230071964902f70f161"
+        },
+        {
+          "offset": 7619,
           "length": 425,
-          "sha256": "4d7b5697366aa57e55f582d0691c1fd17b8919c1ba0400c7649a1f3b6fe50bff"
+          "sha256": "7dca6455b16dd40279959e60b76ed77381363558c8c4ae9e7543eb2cfe4f2b76"
         }
       ]
     }

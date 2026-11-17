@@ -38,6 +38,7 @@ export default function Page() {
       <Link className="back" href="/#opportunities">
         Back to opportunities
       </Link>
+      {d.stale && <p role="alert">Purchase corrected. These results describe the prior revision. <Link href="/">Check my purchases to investigate the new revision.</Link></p>}
       <div className="section">
         <span className={`pill ${d.simulated ? "simulated" : d.status}`}>
           {opportunityLabel(d.status, d.simulated)}
@@ -67,7 +68,7 @@ export default function Page() {
             ? "Source update requires a new review" : "Current source unavailable — review required"}</strong>
           <p>Previous evidence is retained below. Old local approval is revoked; review current official sources before preparing a new draft.</p>
         </aside>}
-        {d.kind === "settlement" && !d.simulated && (
+        {d.kind === "settlement" && !d.simulated && !d.stale && (
           <aside className="notice">
             <strong>{d.status === "unavailable" ? "Source verification unavailable — prior evidence only" : "Personal eligibility unconfirmed — preparation only"}</strong>
             <p>{d.settlement?.court}</p>
@@ -205,7 +206,7 @@ export default function Page() {
             {error}
           </div>
         )}
-        {(d.status === "verified_match" || (d.kind === "settlement" && d.status === "uncertain" && d.sources_verified && d.preparation_only)) && !d.simulated && (
+        {(d.status === "verified_match" || (d.kind === "settlement" && d.status === "uncertain" && d.sources_verified && d.preparation_only)) && !d.simulated && !d.stale && (
           <div className="actions">
             <button disabled={busy} onClick={prepare}>
               Prepare claim packet

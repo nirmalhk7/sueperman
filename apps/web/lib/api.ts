@@ -27,6 +27,7 @@ export interface ProductFacts {
   brand: string | null;
   model_number: string | null;
   merchant: string | null;
+  upc?: string | null;
   date_purchased: string | null;
   order_reference_redacted: string | null;
   suggested_identifiers?: Record<string, string>;
@@ -40,6 +41,7 @@ export interface Product {
   source_type?: string;
 }
 export interface Opportunity {
+  stale?: boolean;
   id: string;
   title: string;
   product_id: string;

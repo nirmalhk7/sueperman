@@ -146,7 +146,7 @@ def create_app(database_url=None):
                 s.add(product)
                 s.flush()
             else:
-                product = s.scalar(select(Product).where(Product.purchase_id == purchase.id))
+                product = s.scalar(select(Product).where(Product.purchase_id == purchase.id, Product.payload["superseded"].as_boolean().is_not(True)))
             purchases.append(purchase.id)
             ids.append(product.id)
         s.commit()

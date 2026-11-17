@@ -47,9 +47,17 @@ def register(app, factory, settings, import_products):
                 query = delete(model).where(model.demo.is_(True))
                 # Retain products referenced by immutable team case history.
                 if model is Product:
-                    query = query.where(Product.id.not_in(select(CaseRecord.product_id)))
+                    query = query.where(Product.purchase_id.not_in(
+                        select(Product.purchase_id).where(Product.id.in_(select(CaseRecord.product_id)))
+                    ))
                 elif model is Purchase:
                     query = query.where(Purchase.id.not_in(select(Product.purchase_id)))
                 s.execute(query)
+            # Retained case history keeps its purchase identity. A corrected demo
+            # fixture needs a fresh seed identity when the operator resets it.
+            for product in s.scalars(select(Product).where(Product.demo.is_(True))):
+                if product.payload.get("revision", 1) > 1:
+                    purchase = s.get(Purchase, product.purchase_id)
+                    purchase.import_key = f"history:{purchase.id}"
             s.commit()
             return import_products(s, (ROOT / "demo/orders.csv").read_bytes(), demo=True)

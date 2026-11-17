@@ -369,7 +369,7 @@ async def execute(factory, run_id, settings):
         ids, warnings = [], []
         modes = {"receipt": "csv", "recall": "replay", "research": "disabled", "decision": "rules"}
         products = session.scalars(
-            select(Product).where(Product.purchase_id.in_(run.payload["purchase_ids"]))
+            select(Product).where(Product.purchase_id.in_(run.payload["purchase_ids"]), Product.payload["superseded"].as_boolean().is_not(True))
         ).all()
         live = run.payload["mode"] == "live"
         source: FixtureRecallSource | CPSCRecallSource = FixtureRecallSource()

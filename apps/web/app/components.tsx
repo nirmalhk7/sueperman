@@ -179,7 +179,7 @@ export function RunResults({ id }: { id: string }) {
   );
 }
 
-function IdentifierReview({ product, onConfirmed }: { product: Product; onConfirmed: () => Promise<void> }) {
+function IdentifierReview({ product, onConfirmed, correction = false }: { product: Product; onConfirmed: () => Promise<void>; correction?: boolean }) {
   const [checked, setChecked] = useState(false);
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState("");
@@ -187,7 +187,7 @@ function IdentifierReview({ product, onConfirmed }: { product: Product; onConfir
     if (!checked || busy) return;
     setBusy(true);
     try {
-      await post(`/products/${product.id}/confirm-identifiers`, {
+      await post(`/products/${product.id}/${correction ? "corrections" : "confirm-identifiers"}`, {
         confirmed: true,
         brand: String(form.get("brand") || "").trim() || null,
         model_number: String(form.get("model_number") || "").trim(),
@@ -202,26 +202,29 @@ function IdentifierReview({ product, onConfirmed }: { product: Product; onConfir
   }
   return (
     <form action={confirm}>
+      {correction && <p>Current identifiers: {product.product.brand || "Unknown brand"} · {product.product.model_number || "Unknown model"} · {product.product.upc || "Unknown UPC"}. Saving requires a new investigation and local review.</p>}
       <label>Brand (verify)
         <input name="brand" maxLength={100} defaultValue={product.product.brand || ""} />
       </label>
       <label>Model number
-        <input name="model_number" required maxLength={100} defaultValue={product.product.suggested_identifiers?.model_number || ""} />
+        <input name="model_number" required maxLength={100} defaultValue={product.product.model_number || product.product.suggested_identifiers?.model_number || ""} />
       </label>
       <label>UPC (optional)
-        <input name="upc" pattern="[0-9]{8,14}" defaultValue={product.product.suggested_identifiers?.upc || ""} />
+        <input name="upc" pattern="[0-9]{8,14}" defaultValue={product.product.upc || product.product.suggested_identifiers?.upc || ""} />
       </label>
       <label className="check">
         <input type="checkbox" checked={checked} onChange={e => setChecked(e.target.checked)} />
         I checked these identifiers against my receipt or product.
       </label>
-      <button disabled={!checked || busy}>Confirm identifiers</button>
+      <button disabled={!checked || busy}>{correction ? "Save correction" : "Confirm identifiers"}</button>
       {error && <p role="alert">{error}</p>}
     </form>
   );
 }
 
 export function Dashboard() {
+  const [correcting, setCorrecting] = useState("");
+  const [correctionMessage, setCorrectionMessage] = useState("");
   const router = useRouter();
   const [products, setProducts] = useState<Product[]>([]);
   const [lastRun, setLastRun] = useState("");
@@ -340,6 +343,7 @@ export function Dashboard() {
         </div>
       )}
       <section className="section" id="purchases">
+        {correctionMessage && <p role="status">{correctionMessage}</p>}
         <div className="section-head">
           <h2>
             My purchases{" "}
@@ -428,11 +432,12 @@ export function Dashboard() {
                           {p.product.suggested_identifiers.model_number}
                         </div>
                       )}
-                      {p.product.user_confirmed_identifiers ? (
+                      {correcting === p.id ? <IdentifierReview product={p} correction onConfirmed={async () => { await refresh(); setCorrecting(""); setCorrectionMessage("Purchase corrected. Check my purchases to investigate the new revision."); }} /> : p.product.user_confirmed_identifiers ? (
                         <p className="small">Identifiers confirmed by you</p>
                       ) : ["image", "pdf"].includes(p.source_type || "") ? (
                         <IdentifierReview product={p} onConfirmed={refresh} />
                       ) : null}
+                      <button onClick={() => setCorrecting(p.id)}>Correct identifiers</button>
                     </td>
                     <td>{p.product.date_purchased || "Unknown"}</td>
                     <td>

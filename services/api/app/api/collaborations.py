@@ -38,6 +38,8 @@ def register(app, factory, settings, get):
                 return old
             active(s)
             product = get(s, Product, body.product_ids[0])
+            if product.payload.get("superseded"):
+                raise HTTPException(409, "Purchase corrected; start with the current revision")
             facts = ProductInput(**product.payload["product"])
             if settings.collaboration_public_demo and not product.demo:
                 raise HTTPException(422, "Public team demo accepts synthetic demo purchases only")
@@ -143,6 +145,8 @@ def register(app, factory, settings, get):
             or case.payload.get("current_run_id") != run.id
         ):
             raise HTTPException(409, "Current case requires new review")
+        if get(s, Product, case.product_id).payload.get("superseded"):
+            raise HTTPException(409, "Purchase corrected; investigate the current revision")
         product = controller.product_for_case(s, case)
         binding = ledger.current_revision(s, case)
         try:

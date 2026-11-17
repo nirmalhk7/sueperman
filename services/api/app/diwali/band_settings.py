@@ -49,7 +49,7 @@ def validate_synthetic(session, purchase_ids):
                FixtureReceiptExtractor().extract((ROOT / "demo/orders.csv").read_bytes())]
     for identifier in purchase_ids:
         purchase = session.get(Purchase, identifier)
-        product = session.scalar(select(Product).where(Product.purchase_id == identifier))
+        product = session.scalar(select(Product).where(Product.purchase_id == identifier, Product.payload["superseded"].as_boolean().is_not(True)))
         if (purchase is None or product is None or not purchase.demo or not product.demo
                 or ProductInput.model_validate(product.payload["product"]).model_dump(mode="json") not in allowed):
             raise ValueError("BAND accepts exact synthetic fixture content only")

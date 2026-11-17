@@ -1,0 +1,37 @@
+import { test, expect } from "@playwright/test";
+
+test("correct a checked model and renew local review before export", async ({ page }) => {
+  await page.goto("/");
+  await page.getByRole("button", { name: "Try demo data" }).click();
+  await page.getByRole("button", { name: "Check my purchases" }).click();
+  await expect(page.getByRole("heading", { name: "Run completed" })).toBeVisible();
+  const exact = page.getByTestId("opportunity-card").filter({ hasText: "Your model: ZHX-PB22" });
+  await exact.getByRole("link", { name: "Review details" }).click();
+  await expect(page.getByRole("heading", { name: "Recall matched — review details" })).toBeVisible();
+  const historical = page.url();
+  await page.goto("/");
+  const row = page.getByTestId("purchase-row").filter({ hasText: "ZHX-PB22" });
+  await row.getByRole("button", { name: "Correct identifiers" }).click();
+  await row.getByLabel("Model number", { exact: true }).fill("ZHX-PB23");
+  await row.getByLabel("I checked these identifiers against my receipt or product.").check();
+  await row.getByRole("button", { name: "Save correction" }).click();
+  await expect(page.getByText("Purchase corrected. Check my purchases to investigate the new revision.")).toBeVisible();
+  await page.goto(historical);
+  await expect(page.getByRole("alert").filter({ hasText: "Purchase corrected" })).toBeVisible();
+  await page.goto("/");
+  const corrected = page.getByTestId("purchase-row").filter({ hasText: "ZHX-PB23" }).first();
+  await corrected.getByRole("button", { name: "Correct identifiers" }).click();
+  await corrected.getByLabel("Model number", { exact: true }).fill("ZHX-PB22");
+  await corrected.getByLabel("I checked these identifiers against my receipt or product.").check();
+  await corrected.getByRole("button", { name: "Save correction" }).click();
+  await page.getByRole("button", { name: "Check my purchases" }).click();
+  await expect(page.getByRole("heading", { name: "Run completed" })).toBeVisible();
+  await page.getByTestId("opportunity-card").filter({ hasText: "Your model: ZHX-PB22" }).getByRole("link", { name: "Review details" }).click();
+  await page.getByRole("button", { name: "Prepare claim packet" }).click();
+  await expect(page.getByRole("button", { name: "Export Markdown" })).toBeDisabled();
+  await page.getByLabel("I reviewed this draft and understand approval stays local.").check();
+  await page.getByRole("button", { name: "Approve draft locally" }).click();
+  const download = page.waitForEvent("download");
+  await page.getByRole("button", { name: "Export Markdown" }).click();
+  expect((await download).suggestedFilename()).toContain(".md");
+});
