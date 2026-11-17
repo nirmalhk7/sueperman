@@ -1,0 +1,82 @@
+{
+  "RecallID": 10258,
+  "RecallNumber": "25248",
+  "RecallDate": "2025-05-01T00:00:00",
+  "Description": "This recall involves Baseus 65W 30000mAh portable chargers with model number BS-30KP365 and a serial number ending in the number 0 through 9 or the letter \"D.\" The recalled portable chargers were sold in black and white and have \"65w\" printed on the front. The bottom contains a printed label with the brand name \"Baseus,\" the model number \"BS-30KP365,\" and the serial number, beginning \"SN.\" Note: Do not throw this recalled lithium-ion battery or device in the trash, in the general recycling stream (e.g., street-level or curbside recycling bins), or in used battery recycling boxes found at various retail and home improvement stores. Recalled lithium-ion batteries must be disposed of differently than other batteries, because they present a greater risk of fire. Your municipal household hazardous waste (HHW) collection center may accept this recalled lithium-ion battery or device for disposal. Before taking your battery or device to a HHW collection center, contact them ahead of time and ask whether they accept recalled lithium-ion batteries. If they don't, contact your municipality for further guidance.",
+  "URL": "https://www.cpsc.gov/Recalls/2025/Baseus-Portable-Chargers-Recalled-Due-to-Fire-Hazard-Sold-on-Amazon-com-by-Shenzhen-Baseus-Technology",
+  "Title": "Baseus Portable Chargers Recalled Due to Fire Hazard; Sold on Amazon.com by Shenzhen Baseus Technology",
+  "ConsumerContact": "Baseus toll-free at 888-568-7216 from 8 a.m. to 5 p.m. ET Monday through Friday, email care@baseus.com, or online at https://www.baseus.com/pages/recall_select_BS-30KP365 or www.baseus.com and click on \"Product Recall Information\" at the top of the page for more information.",
+  "LastPublishDate": "2025-05-01T00:00:00",
+  "Products": [
+    {
+      "Name": "Baseus 65W 30000mAh Portable Chargers (model number BS-30KP365)",
+      "Description": "",
+      "Model": "",
+      "Type": "",
+      "CategoryID": "",
+      "NumberOfUnits": "About 55,380"
+    }
+  ],
+  "Inconjunctions": [],
+  "Images": [
+    {
+      "URL": "https://www.cpsc.gov/s3fs-public/baseus-1.PNG",
+      "Caption": "Recalled Baseus portable charger in black"
+    },
+    {
+      "URL": "https://www.cpsc.gov/s3fs-public/baseus-2.PNG",
+      "Caption": "Recalled Baseus portable charger in white"
+    },
+    {
+      "URL": "https://www.cpsc.gov/s3fs-public/baseus-3.PNG",
+      "Caption": "Recalled Baseus portable charger with SN ending in the letter \"D\" (label on bottom)"
+    },
+    {
+      "URL": "https://www.cpsc.gov/s3fs-public/baseus-4.PNG",
+      "Caption": "Recalled Baseus portable charger with SN ending in Arabic numerals (label on bottom)"
+    }
+  ],
+  "Injuries": [
+    {
+      "Name": "Baseus has received 76 reports of incidents involving the portable chargers, including 72 reports of bulging and four reports of fire, including three reports of property damage."
+    }
+  ],
+  "Manufacturers": [],
+  "Retailers": [
+    {
+      "Name": "Online at Amazon.com, AliExpress.com, Walmart.com and Baseus.com from April 2020 through April 2025 for between $39 and $90.",
+      "CompanyID": ""
+    }
+  ],
+  "Importers": [
+    {
+      "Name": "Shenzhen Baseus Technology Co. Ltd., of China",
+      "CompanyID": ""
+    }
+  ],
+  "Distributors": [],
+  "SoldAtLabel": null,
+  "ManufacturerCountries": [
+    {
+      "Country": "China"
+    }
+  ],
+  "ProductUPCs": [],
+  "Hazards": [
+    {
+      "Name": "The lithium-ion battery in the recalled portable chargers can overheat, posing a fire hazard.",
+      "HazardType": "",
+      "HazardTypeID": ""
+    }
+  ],
+  "Remedies": [
+    {
+      "Name": "Consumers should immediately stop using the recalled portable chargers and contact Baseus to receive a free replacement charger. The replacement portable charger will have the same model number (BS 30KP365) and a different serial number ending in the letter \"A.\" Consumers will need to submit a photo of the recalled portable charger showing the model number and serial number to the firm's recall registration page. Consumers without an order number will need to submit a photo of the portable charger with their name and date written on the portable charger in permanent marker. Visit https://www.baseus.com/pages/recall_select_BS-30KP365 to register and get instructions on how to receive a free replacement. To receive a replacement, consumers will be required to confirm disposal of the portable charger in accordance with applicable laws and regulations."
+    }
+  ],
+  "RemedyOptions": [
+    {
+      "Option": "Replace"
+    }
+  ]
+}

@@ -12,6 +12,7 @@ class ProductInput(BaseModel):
     brand: str | None = None
     model_number: str | None = None
     upc: str | None = None
+    serial_number: str | None = Field(default=None, max_length=100)
     serial_prefix: str | None = None
     batch: str | None = None
     region: str | None = None

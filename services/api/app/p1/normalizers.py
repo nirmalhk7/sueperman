@@ -9,7 +9,7 @@ import json
 from pathlib import Path
 from types import MappingProxyType
 
-from app.schemas import RecallRecord
+from app.schemas import Condition, RecallRecord
 
 # Freeze reviewed public product-family wording at import, not inside a matcher/reducer.
 _families = MappingProxyType({
@@ -35,7 +35,8 @@ def normalize_reviewed(row, fetched_at):
         reference=number[:2] + "-" + number[2:], title=row["Title"], brand=pin["brand"],
         family=pin["family"], models=pin["models"], official_url=pin["official_url"],
         fetched_at=fetched_at, source_type="government", publisher="U.S. Consumer Product Safety Commission",
-        excerpt=row["Description"], remedy_kind="refund", instructions=instructions,
-        safety_instructions=instructions, contact_url=pin["contact_url"],
-        required_documents=pin["required_documents"], conditions=[], mode="live",
+        excerpt=row["Description"], remedy_kind=pin.get("remedy_kind", "refund"), instructions=instructions,
+        safety_instructions=(row["Description"] + "\n" + instructions if pin.get("include_description_safety") else instructions), contact_url=pin["contact_url"],
+        required_documents=pin["required_documents"],
+        conditions=[Condition(**condition) for condition in pin.get("conditions", [])], mode="live",
     )

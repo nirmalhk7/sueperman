@@ -311,6 +311,7 @@ export function Dashboard() {
             official recalls, understand what applies, and review a remedy draft
             before taking action.
           </p>
+          <p className="small">Automatic verification covers NEWDERY 26-792, plus Flaunt 26-610, iStore 25-390 and Baseus 25-248 when reviewed coverage is enabled. Baseus requires the exact model and a complete serial number in the CSV. Other notices or missing restrictions require review.</p>
           <div className="actions">
             <label>Workflow <select data-testid="diwali-mode" aria-label="Collaboration mode"
               value={collaborationMode} onChange={e => setCollaborationMode(e.target.value as typeof collaborationMode)}>

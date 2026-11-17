@@ -29,7 +29,7 @@ from app.models import (
 from app.schemas import Condition, ProductInput, RecallRecord
 from app.security.source_policy import official_cpsc
 
-SUPPORTED_REFERENCES = frozenset({"26-792", "26-610", "25-390"})
+SUPPORTED_REFERENCES = frozenset({"26-792", "26-610", "25-390", "25-248"})
 
 
 class WatchConflict(ValueError):
@@ -288,7 +288,7 @@ async def fetch_public(reference):
     from app.providers.errors import ProviderUnavailable
     from app.schemas import ProductInput
 
-    queries = {"26-792": "NEWDERY", "26-610": "Flaunt", "25-390": "iStore"}
+    queries = {"26-792": "NEWDERY", "26-610": "Flaunt", "25-390": "iStore", "25-248": "Baseus"}
     if reference not in queries:
         raise ValueError("Unsupported public source reference")
     source = CPSCRecallSource(reviewed_notices=True)

@@ -38,6 +38,50 @@
       "reviewed_at": "2026-11-15",
       "rule_version": "p1-2",
       "family_aliases": []
+    },
+    {
+      "number": "25248",
+      "raw_sha256": "0f29254cdd90986675dd738ccef1ab54762cc9b984f3771f77e0a70de5d52549",
+      "brand": "Baseus",
+      "family": "power bank",
+      "models": [
+        "BS-30KP365"
+      ],
+      "contact_url": "https://www.baseus.com/pages/recall_select_BS-30KP365",
+      "required_documents": [
+        "Photo showing model number and serial number",
+        "If no order number, photo showing name and date written on the charger as directed by the notice",
+        "User confirmation of lawful disposal (never prefilled)"
+      ],
+      "official_url": "https://www.cpsc.gov/Recalls/2025/Baseus-Portable-Chargers-Recalled-Due-to-Fire-Hazard-Sold-on-Amazon-com-by-Shenzhen-Baseus-Technology",
+      "reviewed_at": "2026-11-17",
+      "rule_version": "p1-3",
+      "family_aliases": [
+        "portable charger"
+      ],
+      "remedy_kind": "replacement",
+      "include_description_safety": true,
+      "conditions": [
+        {
+          "name": "serial_number",
+          "expected": {
+            "allowed_suffixes": [
+              "0",
+              "1",
+              "2",
+              "3",
+              "4",
+              "5",
+              "6",
+              "7",
+              "8",
+              "9",
+              "D"
+            ],
+            "required_prefix": "SN"
+          }
+        }
+      ]
     }
   ]
 }

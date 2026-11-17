@@ -1,0 +1,80 @@
+{
+  "observed_at": "2026-11-17T07:23:42.968285+00:00",
+  "record": {
+    "RecallID": 10516,
+    "RecallNumber": "26135",
+    "RecallDate": "2025-12-05T00:00:00",
+    "Description": "This recall involves INIU 10,000mAh portable power banks, model BI-B41. The recalled power banks have a black or blue case and the INIU logo and a paw-print LED light are on the front. The model and serial number are printed on the back of the power bank at the bottom. Only portable power banks with serial numbers 000G21, 000H21, 000I21 and 000L21 are included in this recall. Note: Do not throw this recalled lithium-ion battery or device in the trash, in the general recycling stream (e.g., street-level or curbside recycling bins), or in used battery recycling boxes found at various retail and home improvement stores. Recalled lithium-ion batteries must be disposed of differently than other batteries, because they present a greater risk of fire. Your municipal household hazardous waste (HHW) collection center may accept this recalled lithium-ion battery or device for disposal. Before taking your battery or device to a HHW collection center, contact that office ahead of time and ask whether it accepts recalled lithium-ion batteries. If it does not, contact your municipality for further guidance.",
+    "URL": "https://www.cpsc.gov/Recalls/2026/INIU-Recalls-Power-Banks-Due-to-Fire-and-Burn-Hazards-Sold-on-Amazon",
+    "Title": "INIU Recalls Power Banks Due to Fire and Burn Hazards; Sold on Amazon",
+    "ConsumerContact": "INIU toll-free at 888-886-3606 from 8 a.m. to 5 p.m. ET Monday through Friday, email at recall@iniu.shop, or online at https://iniushop.com/pages/recall-b41# or https://iniushop.com and click \"Product Recalls\" at the top of the page for more information.",
+    "LastPublishDate": "2025-12-05T00:00:00",
+    "Products": [
+      {
+        "Name": "INIU BI-B41 Power Banks",
+        "Description": "",
+        "Model": "",
+        "Type": "",
+        "CategoryID": "",
+        "NumberOfUnits": "About 210,000"
+      }
+    ],
+    "Inconjunctions": [],
+    "Images": [
+      {
+        "URL": "https://www.cpsc.gov/s3fs-public/INIUPower.png",
+        "Caption": "Recalled INIU Power Bank \u2013 model BI-B41"
+      }
+    ],
+    "Injuries": [
+      {
+        "Name": "INIU has received 15 reports of power banks overheating, including 11 reports of fires that resulted in three minor burn injuries and property damage totaling over $380,000."
+      }
+    ],
+    "Manufacturers": [
+      {
+        "Name": "Shenzhen Topstar Industry Co., Ltd., of China",
+        "CompanyID": ""
+      }
+    ],
+    "Retailers": [
+      {
+        "Name": "Online at Amazon.com from August 2021 and April 2022 for about $18.",
+        "CompanyID": ""
+      }
+    ],
+    "Importers": [],
+    "Distributors": [
+      {
+        "Name": "INIU, of Seattle, Washington",
+        "CompanyID": ""
+      }
+    ],
+    "SoldAtLabel": null,
+    "ManufacturerCountries": [
+      {
+        "Country": "China"
+      }
+    ],
+    "ProductUPCs": [],
+    "Hazards": [
+      {
+        "Name": "The lithium-ion battery in the recalled power banks can overheat and ignite, posing fire and burn hazards to consumers.",
+        "HazardType": "",
+        "HazardTypeID": ""
+      }
+    ],
+    "Remedies": [
+      {
+        "Name": "Consumers should immediately stop using the recalled planers and contact Grizzly Industrial for a free repair kit and installation instructions. The repair kit consists of an upgraded chip breaker adjustment rod, spacer, set screws, lock washers, and lock nuts."
+      }
+    ],
+    "RemedyOptions": [
+      {
+        "Option": "Refund"
+      }
+    ]
+  },
+  "canonical_record_sha256": "fd2c2833c63a6b9d41a3d8c8b9e7022878114bd84dbee5a81b3886e32c223d8e",
+  "decision": "No normalizer: API remedy conflicts with official recall webpage"
+}

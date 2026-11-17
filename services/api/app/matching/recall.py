@@ -48,6 +48,11 @@ def match_recall(product: ProductInput, recall: RecallRecord) -> MatchResult:
                     <= date.fromisoformat(restriction.expected[1])
                 )
                 observed = observed.isoformat()
+            elif restriction.name == "serial_number" and isinstance(restriction.expected, dict):
+                suffixes = restriction.expected.get("allowed_suffixes")
+                if isinstance(suffixes, list) and suffixes and str(observed).strip():
+                    passed = (str(observed).startswith(restriction.expected.get("required_prefix", ""))
+                              and str(observed).endswith(tuple(suffixes)))
             elif restriction.name == "serial_prefix":
                 passed = str(observed).startswith(str(restriction.expected))
             elif restriction.name in {"batch", "region", "upc"}:

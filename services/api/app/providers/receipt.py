@@ -37,6 +37,7 @@ class FixtureReceiptExtractor:
                         brand=row.get("brand") or None,
                         model_number=row.get("model_number") or None,
                         upc=row.get("upc") or None,
+                        serial_number=row.get("serial_number") or None,
                         date_purchased=date.fromisoformat(row["purchased_at"])
                         if row.get("purchased_at")
                         else None,

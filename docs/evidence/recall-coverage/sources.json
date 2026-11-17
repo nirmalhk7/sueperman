@@ -1,0 +1,8 @@
+{
+  "observed_at": "2026-11-17T07:25:02.153408+00:00",
+  "query_url": "https://www.saferproducts.gov/RestWebServices/Recall?ProductName=Baseus&format=json",
+  "official_url": "https://www.cpsc.gov/Recalls/2025/Baseus-Portable-Chargers-Recalled-Due-to-Fire-Hazard-Sold-on-Amazon-com-by-Shenzhen-Baseus-Technology",
+  "response_sha256": "023c35d78c2034aadbe4f124bca15ccdf7cc6948602928dfff4e7bc28aac6e0b",
+  "fixture_sha256": "f58d2f3be3c92de0574ee9c8189a58ad446e70d29404cfc11570e465b77bf35a",
+  "canonical_record_sha256": "0f29254cdd90986675dd738ccef1ab54762cc9b984f3771f77e0a70de5d52549"
+}
