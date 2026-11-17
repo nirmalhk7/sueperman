@@ -7,6 +7,7 @@ from urllib.parse import urlsplit
 
 from sqlalchemy import delete, select
 
+from app import jobs
 from app.agent.states import Stage
 from app.claims.compose import compose, compose_settlement
 from app.config import ROOT
@@ -358,6 +359,7 @@ def invalidate_settlements(session, product_id):
     return ids
 
 
+@jobs.durable(AgentRun)
 async def execute(factory, run_id, settings):
     with factory() as session:
         run = session.get(AgentRun, run_id)
@@ -568,4 +570,4 @@ async def execute(factory, run_id, settings):
 
 
 def run_view(run):
-    return view(run) | {"run_id": run.id, "status": run.status, "events_url": f"/api/runs/{run.id}/events"}
+    return view(run) | {"job": jobs.public_job(run), "run_id": run.id, "status": run.status, "events_url": f"/api/runs/{run.id}/events"}

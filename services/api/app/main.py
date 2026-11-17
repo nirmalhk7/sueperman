@@ -10,6 +10,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
 from sqlalchemy import select
 
+from app import jobs
 from app.api import claims, collaborations, demo, health, opportunities, runs, uploads
 from app.collaboration import ledger
 from app.config import Settings
@@ -34,18 +35,22 @@ def create_app(database_url=None):
     ledger.migrate(engine)
 
     @asynccontextmanager
-    async def lifespan(app):
+    async def worker_lifespan(app):
         diwali_persistence.setup_schema(engine)
         with factory() as s:
+            jobs.recover(s)
             diwali_persistence.recover_interrupted(s)
             ledger.recover_interrupted(s)
             for run in s.scalars(select(AgentRun).where(AgentRun.status.in_(["queued", "running"]))):
+                if jobs.recoverable(run):
+                    continue
                 run.status = "partial"
                 run.payload = run.payload | {
                     "warnings": ["Run interrupted by server restart; start a new run."]
                 }
             s.commit()
         stopped = asyncio.Event()
+        app.state.job_task = asyncio.create_task(jobs.work_loop(factory, settings, stopped))
         app.state.p1_watch_task = None
         if settings.p1_enabled:
             monitoring.setup_schema(engine)
@@ -58,6 +63,11 @@ def create_app(database_url=None):
             yield
         finally:
             stopped.set()
+            app.state.job_task.cancel()
+            try:
+                await app.state.job_task
+            except asyncio.CancelledError:
+                pass
             task = app.state.p1_watch_task
             if task is not None:
                 try:
@@ -65,6 +75,12 @@ def create_app(database_url=None):
                 except (TimeoutError, asyncio.CancelledError):
                     task.cancel()
             engine.dispose()
+
+    @asynccontextmanager
+    async def lifespan(app):
+        with jobs.worker_lock(engine):
+            async with worker_lifespan(app):
+                yield
 
     app = FastAPI(title="Sueperman", lifespan=lifespan)
     app.add_middleware(

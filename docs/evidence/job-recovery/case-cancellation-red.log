@@ -1,0 +1,50 @@
+F                                                                        [100%]
+=================================== FAILURES ===================================
+_________ test_cancelled_real_coordinator_closes_pending_case_and_task _________
+
+tmp_path = PosixPath('/private/var/folders/k0/w3xrb_d95jn2t7nf2f0s05yr0000gp/T/pytest-of-nirmalhk7/pytest-340/test_cancelled_real_coordinato0')
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x107cfb410>
+
+    @pytest.mark.asyncio
+    async def test_cancelled_real_coordinator_closes_pending_case_and_task(tmp_path, monkeypatch):
+        from sqlalchemy import select
+
+        from app.config import Settings
+        from app.diwali.coordinator import execute
+        from app.diwali.core import LocalTransport
+        from app.diwali.persistence import CaseRow, TaskRow, setup_schema
+
+        url, _endpoint, run_id = admit_without_dispatch(tmp_path, monkeypatch, "local")
+        engine, factory = database(url)
+        setup_schema(engine)
+        started = asyncio.Event()
+        class Waiting(LocalTransport):
+            async def exchange(self, message, context):
+                started.set()
+                await asyncio.Event().wait()
+        pending = asyncio.create_task(execute(factory, run_id, Settings(), Waiting()))
+        await asyncio.wait_for(started.wait(), timeout=2)
+        pending.cancel()
+        with pytest.raises(asyncio.CancelledError):
+            await pending
+        with factory() as session:
+            assert session.get(AgentRun, run_id).status == "partial"
+>           assert {t.state for t in session.scalars(select(TaskRow))} == {"cancelled"}
+E           AssertionError: assert {'pending'} == {'cancelled'}
+E
+E             Extra items in the left set:
+E             'pending'
+E             Extra items in the right set:
+E             'cancelled'
+E             Use -v to get more diff
+
+services/api/tests/integration/test_job_recovery.py:368: AssertionError
+=============================== warnings summary ===============================
+services/api/.venv/lib/python3.12/site-packages/fastapi/testclient.py:1
+  /Users/nirmalhk7/Documents/DevWorld/sueperman/services/api/.venv/lib/python3.12/site-packages/fastapi/testclient.py:1: StarletteDeprecationWarning: Using `httpx` with `starlette.testclient` is deprecated; install `httpx2` instead.
+    from starlette.testclient import TestClient as TestClient  # noqa
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+=========================== short test summary info ============================
+FAILED services/api/tests/integration/test_job_recovery.py::test_cancelled_real_coordinator_closes_pending_case_and_task
+1 failed, 29 deselected, 1 warning in 2.21s

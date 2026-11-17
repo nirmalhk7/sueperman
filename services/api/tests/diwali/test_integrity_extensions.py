@@ -11,7 +11,8 @@ from test_harness import ROOT, harness
 @pytest.fixture
 def audited_tree(tmp_path):
     baseline = json.loads((ROOT / "harness/diwali/baseline.json").read_text())
-    names = ("README.md", ".env.example", "services/api/uv.lock", "services/api/app/api/collaborations.py")
+    names = ("README.md", ".env.example", "services/api/uv.lock", "services/api/app/api/collaborations.py",
+             "services/api/app/collaboration/controller.py", "services/api/app/collaboration/ledger.py")
     limited = {}
     for group in ("protected_file_digests", "lockfile_digests"):
         limited[group] = {n: h for n, h in baseline[group].items() if n in names}
@@ -29,7 +30,9 @@ def test_audited_p1_and_band_additions_pass_unchanged_frozen_baseline(audited_tr
 
 
 @pytest.mark.parametrize("name", ["README.md", ".env.example", "services/api/uv.lock",
-                                  "services/api/app/api/collaborations.py"])
+                                  "services/api/app/api/collaborations.py",
+                                  "services/api/app/collaboration/controller.py",
+                                  "services/api/app/collaboration/ledger.py"])
 @pytest.mark.parametrize("change", ["original", "extension", "append", "delete"])
 def test_only_exact_reviewed_additions_are_permitted(audited_tree, name, change):
     root, baseline = audited_tree
@@ -42,7 +45,9 @@ def test_only_exact_reviewed_additions_are_permitted(audited_tree, name, change)
     elif change == "extension":
         before = {"README.md": b"## V2 P1 additions", ".env.example": b"P1_ENABLED=false",
                   "services/api/uv.lock": b'version = "8.1.0"',
-                  "services/api/app/api/collaborations.py": b"Current official source requires a new live review"}[name]
+                  "services/api/app/api/collaborations.py": b"Current official source requires a new live review",
+                  "services/api/app/collaboration/controller.py": b"@jobs.durable(CollaborationRun)",
+                  "services/api/app/collaboration/ledger.py": b"if recoverable(run):"}[name]
         assert data.count(before) == 1
         path.write_bytes(data.replace(before, b"tampered-extension", 1))
     else:

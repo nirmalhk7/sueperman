@@ -198,7 +198,8 @@ def revoke(session, opportunity, reason, observed_at):
 
 def recover_interrupted(session, observed_at):
     for watch in session.scalars(select(SourceWatch).where(SourceWatch.status == "checking")):
-        watch.enabled, watch.status, watch.lease = False, "interrupted", None
+        watch.status, watch.lease = "interrupted", None
+        watch.due_at = max(watch.due_at, (utc(observed_at) + timedelta(hours=24)).isoformat())
         watch.payload = watch.payload | {"reason": "SOURCE_CHECK_INTERRUPTED"}
         opportunity = session.get(Opportunity, watch.opportunity_id)
         revoke(session, opportunity, "SOURCE_CHECK_INTERRUPTED", utc(observed_at))

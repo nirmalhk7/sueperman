@@ -1,0 +1,287 @@
+FF.                                                                      [100%]
+=================================== FAILURES ===================================
+_______ test_malformed_intent_cannot_crash_startup_or_execute[bad_job0] ________
+
+tmp_path = PosixPath('/private/var/folders/k0/w3xrb_d95jn2t7nf2f0s05yr0000gp/T/pytest-of-nirmalhk7/pytest-321/test_malformed_intent_cannot_c0')
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x10c3268d0>
+bad_job = []
+
+    @pytest.mark.parametrize("bad_job", [[], "invalid", {"version": 1, "state": "queued"}])
+    def test_malformed_intent_cannot_crash_startup_or_execute(tmp_path, monkeypatch, bad_job):
+        url, endpoint, run_id = admit_without_dispatch(tmp_path, monkeypatch, "deterministic")
+        engine, factory = database(url)
+        with factory.begin() as session:
+            row = session.get(AgentRun, run_id)
+            row.payload = row.payload | {"job": bad_job}
+        engine.dispose()
+>       with TestClient(create_app(url)) as client:
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+services/api/tests/integration/test_job_recovery.py:100:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+services/api/.venv/lib/python3.12/site-packages/starlette/testclient.py:572: in __enter__
+    portal.call(self.wait_startup)
+services/api/.venv/lib/python3.12/site-packages/anyio/from_thread.py:347: in call
+    return cast(T_Retval, self.start_task_soon(func, *args).result())
+                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+/private/tmp/sueperman-python/cpython-3.12.13-macos-aarch64-none/lib/python3.12/concurrent/futures/_base.py:456: in result
+    return self.__get_result()
+           ^^^^^^^^^^^^^^^^^^^
+/private/tmp/sueperman-python/cpython-3.12.13-macos-aarch64-none/lib/python3.12/concurrent/futures/_base.py:401: in __get_result
+    raise self._exception
+services/api/.venv/lib/python3.12/site-packages/anyio/from_thread.py:272: in _call_func
+    retval = await retval_or_awaitable
+             ^^^^^^^^^^^^^^^^^^^^^^^^^
+services/api/.venv/lib/python3.12/site-packages/starlette/testclient.py:608: in wait_startup
+    await receive()
+services/api/.venv/lib/python3.12/site-packages/starlette/testclient.py:599: in receive
+    self.task.result()
+/private/tmp/sueperman-python/cpython-3.12.13-macos-aarch64-none/lib/python3.12/concurrent/futures/_base.py:449: in result
+    return self.__get_result()
+           ^^^^^^^^^^^^^^^^^^^
+/private/tmp/sueperman-python/cpython-3.12.13-macos-aarch64-none/lib/python3.12/concurrent/futures/_base.py:401: in __get_result
+    raise self._exception
+services/api/.venv/lib/python3.12/site-packages/anyio/from_thread.py:272: in _call_func
+    retval = await retval_or_awaitable
+             ^^^^^^^^^^^^^^^^^^^^^^^^^
+services/api/.venv/lib/python3.12/site-packages/starlette/testclient.py:589: in lifespan
+    await self.app(scope, self.stream_receive.receive, self.stream_send.send)
+services/api/.venv/lib/python3.12/site-packages/fastapi/applications.py:1181: in __call__
+    await lifespan(
+services/api/.venv/lib/python3.12/site-packages/fastapi/telemetry/_runtime.py:238: in lifespan
+    await app(scope, wrapped_receive, wrapped_send)
+services/api/.venv/lib/python3.12/site-packages/sentry_sdk/integrations/starlette.py:483: in _sentry_patched_asgi_app
+    return await middleware(scope, receive, send)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+services/api/.venv/lib/python3.12/site-packages/sentry_sdk/integrations/asgi.py:195: in _run_asgi3
+    return await self._run_app(scope, receive, send, asgi_version=3)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+services/api/.venv/lib/python3.12/site-packages/sentry_sdk/integrations/asgi.py:217: in _run_app
+    raise exc from None
+services/api/.venv/lib/python3.12/site-packages/sentry_sdk/integrations/asgi.py:207: in _run_app
+    return await self.app(scope, receive, send)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+services/api/.venv/lib/python3.12/site-packages/starlette/applications.py:96: in __call__
+    await self.middleware_stack(scope, receive, send)
+services/api/.venv/lib/python3.12/site-packages/sentry_sdk/integrations/starlette.py:209: in _create_span_call
+    return await old_call(app, scope, receive, send, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+services/api/.venv/lib/python3.12/site-packages/starlette/middleware/errors.py:151: in __call__
+    await self.app(scope, receive, send)
+services/api/.venv/lib/python3.12/site-packages/sentry_sdk/integrations/starlette.py:209: in _create_span_call
+    return await old_call(app, scope, receive, send, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+services/api/.venv/lib/python3.12/site-packages/fastapi/telemetry/_asgi.py:151: in __call__
+    await self.app(scope, receive, send)
+services/api/.venv/lib/python3.12/site-packages/sentry_sdk/integrations/starlette.py:209: in _create_span_call
+    return await old_call(app, scope, receive, send, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+services/api/.venv/lib/python3.12/site-packages/starlette/middleware/base.py:103: in __call__
+    await self.app(scope, receive, send)
+services/api/.venv/lib/python3.12/site-packages/sentry_sdk/integrations/starlette.py:209: in _create_span_call
+    return await old_call(app, scope, receive, send, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+services/api/.venv/lib/python3.12/site-packages/starlette/middleware/cors.py:79: in __call__
+    await self.app(scope, receive, send)
+services/api/.venv/lib/python3.12/site-packages/sentry_sdk/integrations/starlette.py:366: in _sentry_exceptionmiddleware_call
+    await old_call(self, scope, receive, send)
+services/api/.venv/lib/python3.12/site-packages/sentry_sdk/integrations/starlette.py:209: in _create_span_call
+    return await old_call(app, scope, receive, send, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+services/api/.venv/lib/python3.12/site-packages/starlette/middleware/exceptions.py:49: in __call__
+    await self.app(scope, receive, send)
+services/api/.venv/lib/python3.12/site-packages/sentry_sdk/integrations/starlette.py:209: in _create_span_call
+    return await old_call(app, scope, receive, send, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+services/api/.venv/lib/python3.12/site-packages/fastapi/middleware/asyncexitstack.py:18: in __call__
+    await self.app(scope, receive, send)
+services/api/.venv/lib/python3.12/site-packages/starlette/routing.py:683: in __call__
+    await self.middleware_stack(scope, receive, send)
+services/api/.venv/lib/python3.12/site-packages/fastapi/routing.py:2798: in app
+    await self.lifespan(scope, receive, send)
+services/api/.venv/lib/python3.12/site-packages/starlette/routing.py:661: in lifespan
+    async with self.lifespan_context(app) as maybe_state:
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^
+/private/tmp/sueperman-python/cpython-3.12.13-macos-aarch64-none/lib/python3.12/contextlib.py:210: in __aenter__
+    return await anext(self.gen)
+           ^^^^^^^^^^^^^^^^^^^^^
+services/api/app/main.py:82: in lifespan
+    async with worker_lifespan(app):
+               ^^^^^^^^^^^^^^^^^^^^
+/private/tmp/sueperman-python/cpython-3.12.13-macos-aarch64-none/lib/python3.12/contextlib.py:210: in __aenter__
+    return await anext(self.gen)
+           ^^^^^^^^^^^^^^^^^^^^^
+services/api/app/main.py:42: in worker_lifespan
+    diwali_persistence.recover_interrupted(s)
+services/api/app/diwali/persistence.py:262: in recover_interrupted
+    if recoverable(run):
+       ^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+run = <app.models.AgentRun object at 0x11212db80>
+
+    def recoverable(run):
+        job = run.payload.get("job", {})
+>       return (run.status == "queued" and job.get("version") == 1
+                                           ^^^^^^^
+                and job.get("state") == "queued" and job.get("attempts") == 0
+                and isinstance(job.get("configuration"), str) and len(job["configuration"]) == 64
+                and not job.get("owner"))
+E       AttributeError: 'list' object has no attribute 'get'
+
+services/api/app/jobs.py:50: AttributeError
+------------------------------ Captured log call -------------------------------
+WARNING  urllib3.connectionpool:connectionpool.py:874 Retrying (Retry(total=2, connect=None, read=None, redirect=None, status=None)) after connection broken by 'NameResolutionError("HTTPSConnection(host='o410546.ingest.us.sentry.io', port=443): Failed to resolve 'o410546.ingest.us.sentry.io' ([Errno 8] nodename nor servname provided, or not known)")': /api/4512425942515712/envelope/
+WARNING  urllib3.connectionpool:connectionpool.py:874 Retrying (Retry(total=1, connect=None, read=None, redirect=None, status=None)) after connection broken by 'NameResolutionError("HTTPSConnection(host='o410546.ingest.us.sentry.io', port=443): Failed to resolve 'o410546.ingest.us.sentry.io' ([Errno 8] nodename nor servname provided, or not known)")': /api/4512425942515712/envelope/
+WARNING  urllib3.connectionpool:connectionpool.py:874 Retrying (Retry(total=0, connect=None, read=None, redirect=None, status=None)) after connection broken by 'NameResolutionError("HTTPSConnection(host='o410546.ingest.us.sentry.io', port=443): Failed to resolve 'o410546.ingest.us.sentry.io' ([Errno 8] nodename nor servname provided, or not known)")': /api/4512425942515712/envelope/
+WARNING  urllib3.connectionpool:connectionpool.py:874 Retrying (Retry(total=2, connect=None, read=None, redirect=None, status=None)) after connection broken by 'NameResolutionError("HTTPSConnection(host='o410546.ingest.us.sentry.io', port=443): Failed to resolve 'o410546.ingest.us.sentry.io' ([Errno 8] nodename nor servname provided, or not known)")': /api/4512425942515712/envelope/
+WARNING  urllib3.connectionpool:connectionpool.py:874 Retrying (Retry(total=1, connect=None, read=None, redirect=None, status=None)) after connection broken by 'NameResolutionError("HTTPSConnection(host='o410546.ingest.us.sentry.io', port=443): Failed to resolve 'o410546.ingest.us.sentry.io' ([Errno 8] nodename nor servname provided, or not known)")': /api/4512425942515712/envelope/
+WARNING  urllib3.connectionpool:connectionpool.py:874 Retrying (Retry(total=0, connect=None, read=None, redirect=None, status=None)) after connection broken by 'NameResolutionError("HTTPSConnection(host='o410546.ingest.us.sentry.io', port=443): Failed to resolve 'o410546.ingest.us.sentry.io' ([Errno 8] nodename nor servname provided, or not known)")': /api/4512425942515712/envelope/
+WARNING  urllib3.connectionpool:connectionpool.py:874 Retrying (Retry(total=2, connect=None, read=None, redirect=None, status=None)) after connection broken by 'NameResolutionError("HTTPSConnection(host='o410546.ingest.us.sentry.io', port=443): Failed to resolve 'o410546.ingest.us.sentry.io' ([Errno 8] nodename nor servname provided, or not known)")': /api/4512425942515712/envelope/
+________ test_malformed_intent_cannot_crash_startup_or_execute[invalid] ________
+
+tmp_path = PosixPath('/private/var/folders/k0/w3xrb_d95jn2t7nf2f0s05yr0000gp/T/pytest-of-nirmalhk7/pytest-321/test_malformed_intent_cannot_c1')
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x10946acf0>
+bad_job = 'invalid'
+
+    @pytest.mark.parametrize("bad_job", [[], "invalid", {"version": 1, "state": "queued"}])
+    def test_malformed_intent_cannot_crash_startup_or_execute(tmp_path, monkeypatch, bad_job):
+        url, endpoint, run_id = admit_without_dispatch(tmp_path, monkeypatch, "deterministic")
+        engine, factory = database(url)
+        with factory.begin() as session:
+            row = session.get(AgentRun, run_id)
+            row.payload = row.payload | {"job": bad_job}
+        engine.dispose()
+>       with TestClient(create_app(url)) as client:
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+services/api/tests/integration/test_job_recovery.py:100:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+services/api/.venv/lib/python3.12/site-packages/starlette/testclient.py:572: in __enter__
+    portal.call(self.wait_startup)
+services/api/.venv/lib/python3.12/site-packages/anyio/from_thread.py:347: in call
+    return cast(T_Retval, self.start_task_soon(func, *args).result())
+                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+/private/tmp/sueperman-python/cpython-3.12.13-macos-aarch64-none/lib/python3.12/concurrent/futures/_base.py:456: in result
+    return self.__get_result()
+           ^^^^^^^^^^^^^^^^^^^
+/private/tmp/sueperman-python/cpython-3.12.13-macos-aarch64-none/lib/python3.12/concurrent/futures/_base.py:401: in __get_result
+    raise self._exception
+services/api/.venv/lib/python3.12/site-packages/anyio/from_thread.py:272: in _call_func
+    retval = await retval_or_awaitable
+             ^^^^^^^^^^^^^^^^^^^^^^^^^
+services/api/.venv/lib/python3.12/site-packages/starlette/testclient.py:608: in wait_startup
+    await receive()
+services/api/.venv/lib/python3.12/site-packages/starlette/testclient.py:599: in receive
+    self.task.result()
+/private/tmp/sueperman-python/cpython-3.12.13-macos-aarch64-none/lib/python3.12/concurrent/futures/_base.py:449: in result
+    return self.__get_result()
+           ^^^^^^^^^^^^^^^^^^^
+/private/tmp/sueperman-python/cpython-3.12.13-macos-aarch64-none/lib/python3.12/concurrent/futures/_base.py:401: in __get_result
+    raise self._exception
+services/api/.venv/lib/python3.12/site-packages/anyio/from_thread.py:272: in _call_func
+    retval = await retval_or_awaitable
+             ^^^^^^^^^^^^^^^^^^^^^^^^^
+services/api/.venv/lib/python3.12/site-packages/starlette/testclient.py:589: in lifespan
+    await self.app(scope, self.stream_receive.receive, self.stream_send.send)
+services/api/.venv/lib/python3.12/site-packages/fastapi/applications.py:1181: in __call__
+    await lifespan(
+services/api/.venv/lib/python3.12/site-packages/fastapi/telemetry/_runtime.py:238: in lifespan
+    await app(scope, wrapped_receive, wrapped_send)
+services/api/.venv/lib/python3.12/site-packages/sentry_sdk/integrations/starlette.py:483: in _sentry_patched_asgi_app
+    return await middleware(scope, receive, send)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+services/api/.venv/lib/python3.12/site-packages/sentry_sdk/integrations/asgi.py:195: in _run_asgi3
+    return await self._run_app(scope, receive, send, asgi_version=3)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+services/api/.venv/lib/python3.12/site-packages/sentry_sdk/integrations/asgi.py:217: in _run_app
+    raise exc from None
+services/api/.venv/lib/python3.12/site-packages/sentry_sdk/integrations/asgi.py:207: in _run_app
+    return await self.app(scope, receive, send)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+services/api/.venv/lib/python3.12/site-packages/starlette/applications.py:96: in __call__
+    await self.middleware_stack(scope, receive, send)
+services/api/.venv/lib/python3.12/site-packages/sentry_sdk/integrations/starlette.py:209: in _create_span_call
+    return await old_call(app, scope, receive, send, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+services/api/.venv/lib/python3.12/site-packages/starlette/middleware/errors.py:151: in __call__
+    await self.app(scope, receive, send)
+services/api/.venv/lib/python3.12/site-packages/sentry_sdk/integrations/starlette.py:209: in _create_span_call
+    return await old_call(app, scope, receive, send, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+services/api/.venv/lib/python3.12/site-packages/fastapi/telemetry/_asgi.py:151: in __call__
+    await self.app(scope, receive, send)
+services/api/.venv/lib/python3.12/site-packages/sentry_sdk/integrations/starlette.py:209: in _create_span_call
+    return await old_call(app, scope, receive, send, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+services/api/.venv/lib/python3.12/site-packages/starlette/middleware/base.py:103: in __call__
+    await self.app(scope, receive, send)
+services/api/.venv/lib/python3.12/site-packages/sentry_sdk/integrations/starlette.py:209: in _create_span_call
+    return await old_call(app, scope, receive, send, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+services/api/.venv/lib/python3.12/site-packages/starlette/middleware/cors.py:79: in __call__
+    await self.app(scope, receive, send)
+services/api/.venv/lib/python3.12/site-packages/sentry_sdk/integrations/starlette.py:366: in _sentry_exceptionmiddleware_call
+    await old_call(self, scope, receive, send)
+services/api/.venv/lib/python3.12/site-packages/sentry_sdk/integrations/starlette.py:209: in _create_span_call
+    return await old_call(app, scope, receive, send, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+services/api/.venv/lib/python3.12/site-packages/starlette/middleware/exceptions.py:49: in __call__
+    await self.app(scope, receive, send)
+services/api/.venv/lib/python3.12/site-packages/sentry_sdk/integrations/starlette.py:209: in _create_span_call
+    return await old_call(app, scope, receive, send, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+services/api/.venv/lib/python3.12/site-packages/fastapi/middleware/asyncexitstack.py:18: in __call__
+    await self.app(scope, receive, send)
+services/api/.venv/lib/python3.12/site-packages/starlette/routing.py:683: in __call__
+    await self.middleware_stack(scope, receive, send)
+services/api/.venv/lib/python3.12/site-packages/fastapi/routing.py:2798: in app
+    await self.lifespan(scope, receive, send)
+services/api/.venv/lib/python3.12/site-packages/starlette/routing.py:661: in lifespan
+    async with self.lifespan_context(app) as maybe_state:
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^
+/private/tmp/sueperman-python/cpython-3.12.13-macos-aarch64-none/lib/python3.12/contextlib.py:210: in __aenter__
+    return await anext(self.gen)
+           ^^^^^^^^^^^^^^^^^^^^^
+services/api/app/main.py:82: in lifespan
+    async with worker_lifespan(app):
+               ^^^^^^^^^^^^^^^^^^^^
+/private/tmp/sueperman-python/cpython-3.12.13-macos-aarch64-none/lib/python3.12/contextlib.py:210: in __aenter__
+    return await anext(self.gen)
+           ^^^^^^^^^^^^^^^^^^^^^
+services/api/app/main.py:41: in worker_lifespan
+    jobs.recover(s)
+services/api/app/jobs.py:74: in recover
+    if recoverable(run):
+       ^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+run = <app.models.AgentRun object at 0x112cbb5c0>
+
+    def recoverable(run):
+        job = run.payload.get("job", {})
+>       return (run.status == "queued" and job.get("version") == 1
+                                           ^^^^^^^
+                and job.get("state") == "queued" and job.get("attempts") == 0
+                and isinstance(job.get("configuration"), str) and len(job["configuration"]) == 64
+                and not job.get("owner"))
+E       AttributeError: 'str' object has no attribute 'get'
+
+services/api/app/jobs.py:50: AttributeError
+------------------------------ Captured log call -------------------------------
+WARNING  urllib3.connectionpool:connectionpool.py:874 Retrying (Retry(total=2, connect=None, read=None, redirect=None, status=None)) after connection broken by 'NameResolutionError("HTTPSConnection(host='o410546.ingest.us.sentry.io', port=443): Failed to resolve 'o410546.ingest.us.sentry.io' ([Errno 8] nodename nor servname provided, or not known)")': /api/4512425942515712/envelope/
+WARNING  urllib3.connectionpool:connectionpool.py:874 Retrying (Retry(total=1, connect=None, read=None, redirect=None, status=None)) after connection broken by 'NameResolutionError("HTTPSConnection(host='o410546.ingest.us.sentry.io', port=443): Failed to resolve 'o410546.ingest.us.sentry.io' ([Errno 8] nodename nor servname provided, or not known)")': /api/4512425942515712/envelope/
+WARNING  urllib3.connectionpool:connectionpool.py:874 Retrying (Retry(total=0, connect=None, read=None, redirect=None, status=None)) after connection broken by 'NameResolutionError("HTTPSConnection(host='o410546.ingest.us.sentry.io', port=443): Failed to resolve 'o410546.ingest.us.sentry.io' ([Errno 8] nodename nor servname provided, or not known)")': /api/4512425942515712/envelope/
+WARNING  urllib3.connectionpool:connectionpool.py:874 Retrying (Retry(total=2, connect=None, read=None, redirect=None, status=None)) after connection broken by 'NameResolutionError("HTTPSConnection(host='o410546.ingest.us.sentry.io', port=443): Failed to resolve 'o410546.ingest.us.sentry.io' ([Errno 8] nodename nor servname provided, or not known)")': /api/4512425942515712/envelope/
+WARNING  urllib3.connectionpool:connectionpool.py:874 Retrying (Retry(total=1, connect=None, read=None, redirect=None, status=None)) after connection broken by 'NameResolutionError("HTTPSConnection(host='o410546.ingest.us.sentry.io', port=443): Failed to resolve 'o410546.ingest.us.sentry.io' ([Errno 8] nodename nor servname provided, or not known)")': /api/4512425942515712/envelope/
+WARNING  urllib3.connectionpool:connectionpool.py:874 Retrying (Retry(total=0, connect=None, read=None, redirect=None, status=None)) after connection broken by 'NameResolutionError("HTTPSConnection(host='o410546.ingest.us.sentry.io', port=443): Failed to resolve 'o410546.ingest.us.sentry.io' ([Errno 8] nodename nor servname provided, or not known)")': /api/4512425942515712/envelope/
+=============================== warnings summary ===============================
+services/api/.venv/lib/python3.12/site-packages/fastapi/testclient.py:1
+  /Users/nirmalhk7/Documents/DevWorld/sueperman/services/api/.venv/lib/python3.12/site-packages/fastapi/testclient.py:1: StarletteDeprecationWarning: Using `httpx` with `starlette.testclient` is deprecated; install `httpx2` instead.
+    from starlette.testclient import TestClient as TestClient  # noqa
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+=========================== short test summary info ============================
+FAILED services/api/tests/integration/test_job_recovery.py::test_malformed_intent_cannot_crash_startup_or_execute[bad_job0]
+FAILED services/api/tests/integration/test_job_recovery.py::test_malformed_intent_cannot_crash_startup_or_execute[invalid]
+2 failed, 1 passed, 8 deselected, 1 warning in 5.66s

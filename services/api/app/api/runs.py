@@ -2,6 +2,7 @@ from fastapi import BackgroundTasks, HTTPException
 from sqlalchemy import select
 from sqlalchemy.exc import IntegrityError
 
+from app import jobs
 from app.agent.orchestrator import execute, run_view
 from app.db import view
 from app.diwali.band_settings import credentials as band_credentials
@@ -74,6 +75,7 @@ def register(app, factory, settings, get):
                 get(s, AgentRun, body.fallback_of)
                 run.payload = run.payload | {"fallback_of": body.fallback_of}
             s.add(run)
+            jobs.enqueue(run, settings)
             try:
                 s.commit()
             except IntegrityError:

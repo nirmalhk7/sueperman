@@ -1,4 +1,22 @@
 import { test, expect } from "@playwright/test";
+
+test("Recovered investigation shows recovery and uncertain-outcome guidance", async ({ page }, testInfo) => {
+  await page.route("**/api/**", async route => {
+    const url = new URL(route.request().url());
+    const body = url.pathname === "/api/runs/recovery-case" ? {
+      run_id: "recovery-case", status: "partial", summary: {}, provider_modes: {},
+      warnings: ["Execution interrupted; external outcome may be unknown. Start a new run."],
+      opportunities: [], job: { state: "interrupted", attempts: 1, recoveries: 1 },
+    } : [];
+    await route.fulfill({ json: body });
+  });
+  await page.goto("/runs/recovery-case");
+  await expect(page.getByRole("heading", { name: "Run partial", exact: true })).toBeVisible();
+  await expect(page.getByText("Queued work recovered after restart.", { exact: true })).toBeVisible();
+  await expect(page.getByText("Execution interrupted; external outcome may be unknown. Start a new run.", { exact: true })).toBeVisible();
+  await expect(page.getByRole("button", { name: /approve|export/i })).toHaveCount(0);
+  await page.screenshot({ path: testInfo.outputPath("interrupted-recovery.png"), fullPage: true });
+});
 import { readFile } from "node:fs/promises";
 
 const api = process.env.API_URL || "http://localhost:8000";

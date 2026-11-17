@@ -1,0 +1,28 @@
+pnpm --dir apps/web build
+▲ Next.js 16.4.6 (webpack)
+- Environments: .env.local
+✓ Running next.config.ts took 659ms
+- Experiments (use with caution):
+  · clientTraceMetadata
+
+  Creating an optimized production build ...
+✓ Compiled successfully in 6.7s
+  Running TypeScript ...
+  Finished TypeScript in 3.0s ...
+  Collecting page data using 8 workers ...
+  Generating static pages using 8 workers (0/3) ...
+✓ Generating static pages using 8 workers (3/3) in 907ms
+  Finalizing page optimization ...
+  Collecting build traces ...
+
+Route (app)
+┌ ○ /
+├ ○ /_not-found
+├ ƒ /claims/[id]
+├ ƒ /collaborations/[id]
+├ ƒ /opportunities/[id]
+└ ƒ /runs/[id]
+
+
+○  (Static)   prerendered as static content
+ƒ  (Dynamic)  server-rendered on demand

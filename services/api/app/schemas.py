@@ -179,6 +179,7 @@ class PacketResponse(EntityResponse):
 
 
 class RunResponse(EntityResponse):
+    job: dict[str, str | int] | None = None
     run_id: str
     mode: Literal["demo", "live"]
     status: Literal["queued", "running", "completed", "partial", "failed"]

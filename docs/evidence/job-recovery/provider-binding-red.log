@@ -1,0 +1,95 @@
+.FFF                                                                     [100%]
+=================================== FAILURES ===================================
+_ test_recovery_refuses_changed_provider_configuration[LYZR_REVIEW_AGENT_ID-different-reviewer] _
+
+tmp_path = PosixPath('/private/var/folders/k0/w3xrb_d95jn2t7nf2f0s05yr0000gp/T/pytest-of-nirmalhk7/pytest-330/test_recovery_refuses_changed_1')
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x10e61f290>
+setting = 'LYZR_REVIEW_AGENT_ID', value = 'different-reviewer'
+
+    @pytest.mark.parametrize("setting,value", [("OPENAI_ENABLED", "true"),
+        ("LYZR_REVIEW_AGENT_ID", "different-reviewer"), ("FINCH_SKILL_SHA256", "b" * 64),
+        ("AGENT37_INSTANCE_ID", "different-instance")])
+    def test_recovery_refuses_changed_provider_configuration(tmp_path, monkeypatch, setting, value):
+        url, endpoint, run_id = admit_without_dispatch(tmp_path, monkeypatch, "deterministic")
+        monkeypatch.setenv(setting, value)
+        with TestClient(create_app(url)) as client:
+            deadline = time.monotonic() + 4
+            while True:
+                result = client.get(f"{endpoint}/{run_id}").json()
+                if result["status"] != "queued":
+                    break
+                assert time.monotonic() < deadline
+                time.sleep(0.02)
+>           assert result["status"] == "partial"
+E           AssertionError: assert 'completed' == 'partial'
+E
+E             - partial
+E             + completed
+
+services/api/tests/integration/test_job_recovery.py:91: AssertionError
+_ test_recovery_refuses_changed_provider_configuration[FINCH_SKILL_SHA256-bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb] _
+
+tmp_path = PosixPath('/private/var/folders/k0/w3xrb_d95jn2t7nf2f0s05yr0000gp/T/pytest-of-nirmalhk7/pytest-330/test_recovery_refuses_changed_2')
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x10e61f440>
+setting = 'FINCH_SKILL_SHA256'
+value = 'bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb'
+
+    @pytest.mark.parametrize("setting,value", [("OPENAI_ENABLED", "true"),
+        ("LYZR_REVIEW_AGENT_ID", "different-reviewer"), ("FINCH_SKILL_SHA256", "b" * 64),
+        ("AGENT37_INSTANCE_ID", "different-instance")])
+    def test_recovery_refuses_changed_provider_configuration(tmp_path, monkeypatch, setting, value):
+        url, endpoint, run_id = admit_without_dispatch(tmp_path, monkeypatch, "deterministic")
+        monkeypatch.setenv(setting, value)
+        with TestClient(create_app(url)) as client:
+            deadline = time.monotonic() + 4
+            while True:
+                result = client.get(f"{endpoint}/{run_id}").json()
+                if result["status"] != "queued":
+                    break
+                assert time.monotonic() < deadline
+                time.sleep(0.02)
+>           assert result["status"] == "partial"
+E           AssertionError: assert 'completed' == 'partial'
+E
+E             - partial
+E             + completed
+
+services/api/tests/integration/test_job_recovery.py:91: AssertionError
+_ test_recovery_refuses_changed_provider_configuration[AGENT37_INSTANCE_ID-different-instance] _
+
+tmp_path = PosixPath('/private/var/folders/k0/w3xrb_d95jn2t7nf2f0s05yr0000gp/T/pytest-of-nirmalhk7/pytest-330/test_recovery_refuses_changed_3')
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x10ea56240>
+setting = 'AGENT37_INSTANCE_ID', value = 'different-instance'
+
+    @pytest.mark.parametrize("setting,value", [("OPENAI_ENABLED", "true"),
+        ("LYZR_REVIEW_AGENT_ID", "different-reviewer"), ("FINCH_SKILL_SHA256", "b" * 64),
+        ("AGENT37_INSTANCE_ID", "different-instance")])
+    def test_recovery_refuses_changed_provider_configuration(tmp_path, monkeypatch, setting, value):
+        url, endpoint, run_id = admit_without_dispatch(tmp_path, monkeypatch, "deterministic")
+        monkeypatch.setenv(setting, value)
+        with TestClient(create_app(url)) as client:
+            deadline = time.monotonic() + 4
+            while True:
+                result = client.get(f"{endpoint}/{run_id}").json()
+                if result["status"] != "queued":
+                    break
+                assert time.monotonic() < deadline
+                time.sleep(0.02)
+>           assert result["status"] == "partial"
+E           AssertionError: assert 'completed' == 'partial'
+E
+E             - partial
+E             + completed
+
+services/api/tests/integration/test_job_recovery.py:91: AssertionError
+=============================== warnings summary ===============================
+services/api/.venv/lib/python3.12/site-packages/fastapi/testclient.py:1
+  /Users/nirmalhk7/Documents/DevWorld/sueperman/services/api/.venv/lib/python3.12/site-packages/fastapi/testclient.py:1: StarletteDeprecationWarning: Using `httpx` with `starlette.testclient` is deprecated; install `httpx2` instead.
+    from starlette.testclient import TestClient as TestClient  # noqa
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+=========================== short test summary info ============================
+FAILED services/api/tests/integration/test_job_recovery.py::test_recovery_refuses_changed_provider_configuration[LYZR_REVIEW_AGENT_ID-different-reviewer]
+FAILED services/api/tests/integration/test_job_recovery.py::test_recovery_refuses_changed_provider_configuration[FINCH_SKILL_SHA256-bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb]
+FAILED services/api/tests/integration/test_job_recovery.py::test_recovery_refuses_changed_provider_configuration[AGENT37_INSTANCE_ID-different-instance]
+3 failed, 1 passed, 18 deselected, 1 warning in 16.02s

@@ -132,7 +132,7 @@ async def test_concurrent_ticks_read_once_and_skip_active_runs(graph):
     assert calls == ["26-792"]
 
 
-def test_restart_disables_inflight_watch_and_migration_preserves_legacy_rows(graph):
+def test_restart_reschedules_opted_in_watch_and_preserves_legacy_rows(graph):
     module = monitor()
     engine, factory, client, opportunity_id, packet_id, _record = graph
     with factory() as s:
@@ -146,8 +146,63 @@ def test_restart_disables_inflight_watch_and_migration_preserves_legacy_rows(gra
     with factory() as s:
         assert [(p.id, p.payload) for p in s.scalars(select(Product))] == before
         row = s.get(module.SourceWatch, watch_id)
-        assert row.status == "interrupted" and row.enabled is False
+        assert row.status == "interrupted" and row.enabled is True
+        assert row.lease is None
+        assert row.due_at == (NOW + timedelta(days=1)).isoformat()
     assert client.post(f"/api/claim-packets/{packet_id}/export").status_code == 409
+
+
+@pytest.mark.asyncio
+@pytest.mark.parametrize("enabled", [True, False])
+async def test_interrupted_watch_waits_daily_and_preserves_user_opt_out(graph, enabled):
+    module = monitor()
+    engine, factory, client, opportunity_id, packet_id, record = graph
+    watch_id = enable(module, engine, factory, opportunity_id)
+    with factory.begin() as session:
+        watch = session.get(module.SourceWatch, watch_id)
+        watch.status, watch.enabled = "checking", enabled
+        module.recover_interrupted(session, NOW)
+    calls = []
+    async def checker(reference):
+        calls.append(reference)
+        return record
+    assert await module.check_due(factory, checker, clock=lambda: NOW) == []
+    assert await module.check_due(factory, checker, clock=lambda: NOW + timedelta(hours=23)) == []
+    assert await module.check_due(factory, checker, clock=lambda: NOW + timedelta(days=1)) == (
+        ["unchanged"] if enabled else [])
+    assert calls == (["26-792"] if enabled else [])
+    assert client.post(f"/api/claim-packets/{packet_id}/export").status_code == 409
+
+
+@pytest.mark.asyncio
+async def test_dispatch_defers_until_source_check_lease_is_released(graph):
+    from app import jobs
+    from app.config import Settings
+
+    module = monitor()
+    engine, factory, _client, opportunity_id, _packet_id, _record = graph
+    watch_id = enable(module, engine, factory, opportunity_id)
+    with factory.begin() as session:
+        watch = session.get(module.SourceWatch, watch_id)
+        watch.status = "checking"
+        run = AgentRun(idempotency_key="waiting-for-source", payload={})
+        jobs.enqueue(run, Settings())
+        session.add(run)
+        session.flush()
+        identifier = run.id
+    effects = []
+    @jobs.durable(AgentRun)
+    async def execute(factory, run_id, settings):
+        effects.append("executed")
+        with factory.begin() as session:
+            session.get(AgentRun, run_id).status = "completed"
+    await execute(factory, identifier, Settings())
+    assert effects == []
+    with factory.begin() as session:
+        assert session.get(AgentRun, identifier).payload["job"]["attempts"] == 0
+        module.recover_interrupted(session, NOW)
+    await execute(factory, identifier, Settings())
+    assert effects == ["executed"]
 
 
 @pytest.mark.asyncio

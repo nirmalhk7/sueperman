@@ -101,6 +101,7 @@ export interface Detail extends Opportunity {
   };
 }
 export interface Run {
+  job?: { state: string; attempts: number; recoveries: number } | null;
   purchase_ids?: string[];
   collaboration_mode?: "deterministic" | "local" | "band";
   actual_transport?: "deterministic" | "local" | "band";

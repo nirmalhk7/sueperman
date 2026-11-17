@@ -9,6 +9,7 @@ from uuid import UUID, uuid4
 
 from sqlalchemy import func, select
 
+from app import jobs
 from app.config import ROOT
 from app.diwali.core import CaseInput, CaseState, Finalized, LocalTransport, Start, digest, reduce_case
 from app.diwali.legacy_bridge import stage_finalization
@@ -179,6 +180,7 @@ def record_failure(factory, run_id, exc):
                 case.payload = case.payload | {"failure": reason}
 
 
+@jobs.durable(AgentRun)
 async def execute(factory, run_id, settings, transport=None):
     started = monotonic()
     with factory() as session:

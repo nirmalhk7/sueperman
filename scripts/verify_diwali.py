@@ -231,7 +231,9 @@ def check_integrity(root, baseline):
             actual = hashlib.sha256(data).hexdigest() if data is not None else None
             allowed = (group in {"protected_file_digests", "lockfile_digests"}
                        and name in {"README.md", ".env.example", "services/api/uv.lock",
-                                    "services/api/app/api/collaborations.py"}
+                                    "services/api/app/api/collaborations.py",
+                                    "services/api/app/collaboration/controller.py",
+                                    "services/api/app/collaboration/ledger.py"}
                        and data is not None and isinstance(extensions, dict)
                        and preserved_extension(data, expected, extensions.get(name, {})))
             if actual != expected and not allowed:

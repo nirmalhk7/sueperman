@@ -1,0 +1,5 @@
+Changed protected input: docs/v2-status.md
+Changed protected input: services/api/app/api/collaborations.py
+Changed protected input: services/api/app/collaboration/controller.py
+Changed protected input: services/api/app/collaboration/ledger.py
+Changed protected input: services/api/app/api/demo.py

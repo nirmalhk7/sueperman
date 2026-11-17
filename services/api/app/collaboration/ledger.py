@@ -246,11 +246,14 @@ def export_draft(s, case, draft):
 
 
 def recover_interrupted(s):
+    from app.jobs import recoverable
     for run in s.scalars(
         select(CollaborationRun).where(
             CollaborationRun.status.in_(["queued", "investigating", "challenging", "building"])
         )
     ):
+        if recoverable(run):
+            continue
         run.status = "partial"
         run.payload = run.payload | {"warnings": ["Controller restarted; unconfirmed work is partial."]}
         event(

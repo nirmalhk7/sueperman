@@ -1,0 +1,76 @@
+F                                                                        [100%]
+=================================== FAILURES ===================================
+_____________________ test_browser_recovered_work_guidance _____________________
+
+browser_env = (PosixPath('/private/var/folders/k0/w3xrb_d95jn2t7nf2f0s05yr0000gp/T/pytest-of-nirmalhk7/pytest-322/diwali-browser0/we.../B+uuWKD5tBfVNWI=', ...}, PosixPath('/Users/nirmalhk7/Documents/DevWorld/sueperman/docs/evidence/diwali/v2.1/browser'))
+
+    def test_browser_recovered_work_guidance(browser_env):
+>       check_browser(browser_env, "Recovered investigation shows recovery")
+
+services/api/tests/diwali/test_ui.py:110:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+browser_env = (PosixPath('/private/var/folders/k0/w3xrb_d95jn2t7nf2f0s05yr0000gp/T/pytest-of-nirmalhk7/pytest-322/diwali-browser0/we.../B+uuWKD5tBfVNWI=', ...}, PosixPath('/Users/nirmalhk7/Documents/DevWorld/sueperman/docs/evidence/diwali/v2.1/browser'))
+name = 'Recovered investigation shows recovery'
+
+    def check_browser(browser_env, name):
+        web, env, logs = browser_env
+        command = ["node", str(ROOT / "apps/web/node_modules/@playwright/test/cli.js"), "test", "diwali.e2e.ts", "--grep", name]
+        result = subprocess.run(command, cwd=web, env=env, capture_output=True, text=True, timeout=120, check=False)
+        (logs / (name.replace(" ", "-") + ".log")).write_text(result.stdout + result.stderr)
+>       assert result.returncode == 0, result.stdout + result.stderr
+E       AssertionError:
+E         Running 1 test using 1 worker
+E
+E           ✘  1 tests/diwali.e2e.ts:3:1 › Recovered investigation shows recovery and uncertain-outcome guidance (6.7s)
+E
+E
+E           1) tests/diwali.e2e.ts:3:1 › Recovered investigation shows recovery and uncertain-outcome guidance
+E
+E             Error: expect(locator).toBeVisible() failed
+E
+E             Locator: getByText('Queued work recovered after restart.', { exact: true })
+E             Expected: visible
+E             Timeout: 5000ms
+E             Error: element(s) not found
+E
+E             Call log:
+E               - Expect "toBeVisible" getByText('Queued work recovered after restart.', { exact: true }) with timeout 5000ms
+E               - waiting for getByText('Queued work recovered after restart.', { exact: true })
+E
+E
+E               13 |   await page.goto("/runs/recovery-case");
+E               14 |   await expect(page.getByRole("heading", { name: "Run partial", exact: true })).toBeVisible();
+E             > 15 |   await expect(page.getByText("Queued work recovered after restart.", { exact: true })).toBeVisible();
+E                  |                                                                                         ^
+E               16 |   await expect(page.getByText("Execution interrupted; external outcome may be unknown. Start a new run.", { exact: true })).toBeVisible();
+E               17 |   await expect(page.getByRole("button", { name: /approve|export/i })).toHaveCount(0);
+E               18 |   await page.screenshot({ path: testInfo.outputPath("interrupted-recovery.png"), fullPage: true });
+E                 at /private/var/folders/k0/w3xrb_d95jn2t7nf2f0s05yr0000gp/T/pytest-of-nirmalhk7/pytest-322/diwali-browser0/web/tests/diwali.e2e.ts:15:89
+E
+E             attachment #1: video (video/webm) ──────────────────────────────────────────────────────────────
+E             test-results/diwali.e2e.ts-Recovered-in-851eb--uncertain-outcome-guidance/video.webm
+E             ────────────────────────────────────────────────────────────────────────────────────────────────
+E
+E             Error Context: test-results/diwali.e2e.ts-Recovered-in-851eb--uncertain-outcome-guidance/error-context.md
+E
+E             attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+E             test-results/diwali.e2e.ts-Recovered-in-851eb--uncertain-outcome-guidance/trace.zip
+E             Usage:
+E
+E                 npx playwright show-trace test-results/diwali.e2e.ts-Recovered-in-851eb--uncertain-outcome-guidance/trace.zip
+E
+E             ────────────────────────────────────────────────────────────────────────────────────────────────
+E
+E           1 failed
+E             tests/diwali.e2e.ts:3:1 › Recovered investigation shows recovery and uncertain-outcome guidance
+E         (node:36056) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+E         (Use `node --trace-warnings ...` to show where the warning was created)
+E
+E       assert 1 == 0
+E        +  where 1 = CompletedProcess(args=['node', '/Users/nirmalhk7/Documents/DevWorld/sueperman/apps/web/node_modules/@playwright/test/c...ed due to the 'FORCE_COLOR' env being set.\n(Use `node --trace-warnings ...` to show where the warning was created)\n").returncode
+
+services/api/tests/diwali/test_ui.py:97: AssertionError
+=========================== short test summary info ============================
+FAILED services/api/tests/diwali/test_ui.py::test_browser_recovered_work_guidance
+1 failed, 2 deselected in 35.21s

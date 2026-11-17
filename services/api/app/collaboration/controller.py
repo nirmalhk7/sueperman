@@ -6,6 +6,7 @@ from uuid import uuid4
 
 from sqlalchemy import select
 
+from app import jobs
 from app.claims.compose import compose
 from app.collaboration import ledger, roles
 from app.collaboration.contracts import CaseResult, CaseTask, EvidenceSnapshot, Finding, Status
@@ -103,6 +104,7 @@ def run_view(s, run):
         "revision": run.revision,
         "current_revision": case.current_revision,
         "status": run.status,
+        "job": jobs.public_job(run),
         "mode": run.payload["mode"],
         "warnings": run.payload.get("warnings", []),
         "board": run.payload.get("board", {}),
@@ -115,6 +117,7 @@ def run_view(s, run):
     }
 
 
+@jobs.durable(CollaborationRun)
 async def execute(factory, run_id, settings):
     with factory() as s:
         run = s.get(CollaborationRun, run_id)

@@ -1,0 +1,89 @@
+{
+  "source_digest_before": "59d476940f8d926f99e3eb36543ad1c3bd255787d404f9e973e10f1945f53ae7",
+  "commands": [
+    {
+      "command": [
+        "make",
+        "test"
+      ],
+      "status": "PASS",
+      "exit_code": 0,
+      "stdout_path": "/Users/nirmalhk7/Documents/DevWorld/sueperman/docs/evidence/job-recovery/final/test/stdout.log",
+      "stderr_path": "/Users/nirmalhk7/Documents/DevWorld/sueperman/docs/evidence/job-recovery/final/test/stderr.log",
+      "duration_seconds": 118.00629316701088
+    },
+    {
+      "command": [
+        "make",
+        "lint"
+      ],
+      "status": "PASS",
+      "exit_code": 0,
+      "stdout_path": "/Users/nirmalhk7/Documents/DevWorld/sueperman/docs/evidence/job-recovery/final/lint/stdout.log",
+      "stderr_path": "/Users/nirmalhk7/Documents/DevWorld/sueperman/docs/evidence/job-recovery/final/lint/stderr.log",
+      "duration_seconds": 3.4596054579596967
+    },
+    {
+      "command": [
+        "make",
+        "typecheck"
+      ],
+      "status": "PASS",
+      "exit_code": 0,
+      "stdout_path": "/Users/nirmalhk7/Documents/DevWorld/sueperman/docs/evidence/job-recovery/final/typecheck/stdout.log",
+      "stderr_path": "/Users/nirmalhk7/Documents/DevWorld/sueperman/docs/evidence/job-recovery/final/typecheck/stderr.log",
+      "duration_seconds": 2.5684137500356883
+    },
+    {
+      "command": [
+        "make",
+        "build"
+      ],
+      "status": "PASS",
+      "exit_code": 0,
+      "stdout_path": "/Users/nirmalhk7/Documents/DevWorld/sueperman/docs/evidence/job-recovery/final/build/stdout.log",
+      "stderr_path": "/Users/nirmalhk7/Documents/DevWorld/sueperman/docs/evidence/job-recovery/final/build/stderr.log",
+      "duration_seconds": 20.54043054196518
+    },
+    {
+      "command": [
+        "make",
+        "smoke"
+      ],
+      "status": "PASS",
+      "exit_code": 0,
+      "stdout_path": "/Users/nirmalhk7/Documents/DevWorld/sueperman/docs/evidence/job-recovery/final/smoke/stdout.log",
+      "stderr_path": "/Users/nirmalhk7/Documents/DevWorld/sueperman/docs/evidence/job-recovery/final/smoke/stderr.log",
+      "duration_seconds": 0.3375247500371188
+    },
+    {
+      "command": [
+        "make",
+        "e2e"
+      ],
+      "status": "PASS",
+      "exit_code": 0,
+      "stdout_path": "/Users/nirmalhk7/Documents/DevWorld/sueperman/docs/evidence/job-recovery/final/e2e/stdout.log",
+      "stderr_path": "/Users/nirmalhk7/Documents/DevWorld/sueperman/docs/evidence/job-recovery/final/e2e/stderr.log",
+      "duration_seconds": 15.847473292029463
+    },
+    {
+      "command": [
+        "make",
+        "container-test"
+      ],
+      "status": "PASS",
+      "exit_code": 0,
+      "stdout_path": "/Users/nirmalhk7/Documents/DevWorld/sueperman/docs/evidence/job-recovery/final/container-test/stdout.log",
+      "stderr_path": "/Users/nirmalhk7/Documents/DevWorld/sueperman/docs/evidence/job-recovery/final/container-test/stderr.log",
+      "duration_seconds": 193.83002366602886
+    }
+  ],
+  "source_digest_after": "59d476940f8d926f99e3eb36543ad1c3bd255787d404f9e973e10f1945f53ae7",
+  "source_unchanged": true,
+  "checks_pass": true,
+  "frozen_integrity_findings": [
+    "Changed protected input: docs/v2-status.md",
+    "Changed protected input: services/api/app/api/demo.py"
+  ]
+}

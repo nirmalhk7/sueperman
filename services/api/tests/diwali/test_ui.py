@@ -104,3 +104,7 @@ def test_browser_error_empty_states(browser_env):
 
 def test_browser_packet_workflow(browser_env):
     check_browser(browser_env, "Diwali packet workflow")
+
+
+def test_browser_recovered_work_guidance(browser_env):
+    check_browser(browser_env, "Recovered investigation shows recovery")

@@ -257,7 +257,10 @@ def invalidate_stale(session, packet_id):
 
 
 def recover_interrupted(session):
+    from app.jobs import recoverable
     for run in session.scalars(select(AgentRun).where(AgentRun.status.in_(["queued", "running"]))):
+        if recoverable(run):
+            continue
         if run.payload.get("collaboration_mode") not in {"local", "band"}:
             continue
         cases = session.scalars(select(CaseRow).where(CaseRow.run_id == run.id)).all()

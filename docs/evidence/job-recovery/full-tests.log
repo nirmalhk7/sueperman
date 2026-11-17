@@ -1,0 +1,31 @@
+services/api/.venv/bin/pytest services/api/tests -q
+........................................................................ [ 18%]
+......................................F................................. [ 36%]
+........................................................................ [ 55%]
+........................................................................ [ 73%]
+........................................................................ [ 92%]
+..............................                                           [100%]
+=================================== FAILURES ===================================
+______ test_audited_p1_and_band_additions_pass_unchanged_frozen_baseline _______
+
+audited_tree = (PosixPath('/private/var/folders/k0/w3xrb_d95jn2t7nf2f0s05yr0000gp/T/pytest-of-nirmalhk7/pytest-327/test_audited_p1_an...e'}, 'lockfile_digests': {'services/api/uv.lock': 'aca9025d801b750ea79fe009187299225767cb673800c46b3c53c6635ff776dc'}})
+
+    def test_audited_p1_and_band_additions_pass_unchanged_frozen_baseline(audited_tree):
+        root, baseline = audited_tree
+>       assert harness().check_integrity(root, baseline) == []
+E       AssertionError: assert ['Changed pro...borations.py'] == []
+E
+E         Left contains one more item: 'Changed protected input: services/api/app/api/collaborations.py'
+E         Use -v to get more diff
+
+services/api/tests/diwali/test_integrity_extensions.py:28: AssertionError
+=============================== warnings summary ===============================
+services/api/.venv/lib/python3.12/site-packages/fastapi/testclient.py:1
+  /Users/nirmalhk7/Documents/DevWorld/sueperman/services/api/.venv/lib/python3.12/site-packages/fastapi/testclient.py:1: StarletteDeprecationWarning: Using `httpx` with `starlette.testclient` is deprecated; install `httpx2` instead.
+    from starlette.testclient import TestClient as TestClient  # noqa
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+=========================== short test summary info ============================
+FAILED services/api/tests/diwali/test_integrity_extensions.py::test_audited_p1_and_band_additions_pass_unchanged_frozen_baseline
+1 failed, 389 passed, 1 warning in 263.93s (0:04:23)
+make: *** [test] Error 1

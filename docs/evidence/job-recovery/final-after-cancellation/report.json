@@ -1,0 +1,89 @@
+{
+  "source_digest_before": "3651f00b034cc008bb6bdd0e67a02ff2dba8afaf64a53dc61491a5993bac6a34",
+  "commands": [
+    {
+      "command": [
+        "make",
+        "test"
+      ],
+      "status": "PASS",
+      "exit_code": 0,
+      "stdout_path": "/Users/nirmalhk7/Documents/DevWorld/sueperman/docs/evidence/job-recovery/final-after-cancellation/test/stdout.log",
+      "stderr_path": "/Users/nirmalhk7/Documents/DevWorld/sueperman/docs/evidence/job-recovery/final-after-cancellation/test/stderr.log",
+      "duration_seconds": 295.89422587503213
+    },
+    {
+      "command": [
+        "make",
+        "lint"
+      ],
+      "status": "PASS",
+      "exit_code": 0,
+      "stdout_path": "/Users/nirmalhk7/Documents/DevWorld/sueperman/docs/evidence/job-recovery/final-after-cancellation/lint/stdout.log",
+      "stderr_path": "/Users/nirmalhk7/Documents/DevWorld/sueperman/docs/evidence/job-recovery/final-after-cancellation/lint/stderr.log",
+      "duration_seconds": 3.5096137499203905
+    },
+    {
+      "command": [
+        "make",
+        "typecheck"
+      ],
+      "status": "PASS",
+      "exit_code": 0,
+      "stdout_path": "/Users/nirmalhk7/Documents/DevWorld/sueperman/docs/evidence/job-recovery/final-after-cancellation/typecheck/stdout.log",
+      "stderr_path": "/Users/nirmalhk7/Documents/DevWorld/sueperman/docs/evidence/job-recovery/final-after-cancellation/typecheck/stderr.log",
+      "duration_seconds": 4.363361291936599
+    },
+    {
+      "command": [
+        "make",
+        "build"
+      ],
+      "status": "PASS",
+      "exit_code": 0,
+      "stdout_path": "/Users/nirmalhk7/Documents/DevWorld/sueperman/docs/evidence/job-recovery/final-after-cancellation/build/stdout.log",
+      "stderr_path": "/Users/nirmalhk7/Documents/DevWorld/sueperman/docs/evidence/job-recovery/final-after-cancellation/build/stderr.log",
+      "duration_seconds": 26.931494708987884
+    },
+    {
+      "command": [
+        "make",
+        "smoke"
+      ],
+      "status": "PASS",
+      "exit_code": 0,
+      "stdout_path": "/Users/nirmalhk7/Documents/DevWorld/sueperman/docs/evidence/job-recovery/final-after-cancellation/smoke/stdout.log",
+      "stderr_path": "/Users/nirmalhk7/Documents/DevWorld/sueperman/docs/evidence/job-recovery/final-after-cancellation/smoke/stderr.log",
+      "duration_seconds": 0.3312630419386551
+    },
+    {
+      "command": [
+        "make",
+        "e2e"
+      ],
+      "status": "PASS",
+      "exit_code": 0,
+      "stdout_path": "/Users/nirmalhk7/Documents/DevWorld/sueperman/docs/evidence/job-recovery/final-after-cancellation/e2e/stdout.log",
+      "stderr_path": "/Users/nirmalhk7/Documents/DevWorld/sueperman/docs/evidence/job-recovery/final-after-cancellation/e2e/stderr.log",
+      "duration_seconds": 18.17277812503744
+    },
+    {
+      "command": [
+        "make",
+        "container-test"
+      ],
+      "status": "PASS",
+      "exit_code": 0,
+      "stdout_path": "/Users/nirmalhk7/Documents/DevWorld/sueperman/docs/evidence/job-recovery/final-after-cancellation/container-test/stdout.log",
+      "stderr_path": "/Users/nirmalhk7/Documents/DevWorld/sueperman/docs/evidence/job-recovery/final-after-cancellation/container-test/stderr.log",
+      "duration_seconds": 50.05275195802096
+    }
+  ],
+  "source_digest_after": "3651f00b034cc008bb6bdd0e67a02ff2dba8afaf64a53dc61491a5993bac6a34",
+  "source_unchanged": true,
+  "checks_pass": true,
+  "frozen_integrity_findings": [
+    "Changed protected input: docs/v2-status.md",
+    "Changed protected input: services/api/app/api/demo.py"
+  ]
+}

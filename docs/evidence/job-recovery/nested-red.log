@@ -1,0 +1,190 @@
+FFFF.                                                                    [100%]
+=================================== FAILURES ===================================
+_ test_invalid_nested_intent_is_partial_without_startup_failure[recoveries-bad] _
+
+tmp_path = PosixPath('/private/var/folders/k0/w3xrb_d95jn2t7nf2f0s05yr0000gp/T/pytest-of-nirmalhk7/pytest-329/test_invalid_nested_intent_is_0')
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x10a3ce9f0>
+field = 'recoveries', value = 'bad'
+
+    @pytest.mark.parametrize("field,value", [("recoveries", "bad"), ("recoveries", -1),
+        ("attempts", False), ("queued_at", "not-a-date"), ("configuration", "z" * 64)])
+    def test_invalid_nested_intent_is_partial_without_startup_failure(tmp_path, monkeypatch, field, value):
+        url, endpoint, run_id = admit_without_dispatch(tmp_path, monkeypatch, "deterministic")
+        engine, factory = database(url)
+        with factory.begin() as session:
+            run = session.get(AgentRun, run_id)
+            run.payload = run.payload | {"job": run.payload["job"] | {field: value}}
+        engine.dispose()
+>       with TestClient(create_app(url)) as client:
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+services/api/tests/integration/test_job_recovery.py:124:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+services/api/.venv/lib/python3.12/site-packages/starlette/testclient.py:572: in __enter__
+    portal.call(self.wait_startup)
+services/api/.venv/lib/python3.12/site-packages/anyio/from_thread.py:347: in call
+    return cast(T_Retval, self.start_task_soon(func, *args).result())
+                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+/private/tmp/sueperman-python/cpython-3.12.13-macos-aarch64-none/lib/python3.12/concurrent/futures/_base.py:456: in result
+    return self.__get_result()
+           ^^^^^^^^^^^^^^^^^^^
+/private/tmp/sueperman-python/cpython-3.12.13-macos-aarch64-none/lib/python3.12/concurrent/futures/_base.py:401: in __get_result
+    raise self._exception
+services/api/.venv/lib/python3.12/site-packages/anyio/from_thread.py:272: in _call_func
+    retval = await retval_or_awaitable
+             ^^^^^^^^^^^^^^^^^^^^^^^^^
+services/api/.venv/lib/python3.12/site-packages/starlette/testclient.py:608: in wait_startup
+    await receive()
+services/api/.venv/lib/python3.12/site-packages/starlette/testclient.py:599: in receive
+    self.task.result()
+/private/tmp/sueperman-python/cpython-3.12.13-macos-aarch64-none/lib/python3.12/concurrent/futures/_base.py:449: in result
+    return self.__get_result()
+           ^^^^^^^^^^^^^^^^^^^
+/private/tmp/sueperman-python/cpython-3.12.13-macos-aarch64-none/lib/python3.12/concurrent/futures/_base.py:401: in __get_result
+    raise self._exception
+services/api/.venv/lib/python3.12/site-packages/anyio/from_thread.py:272: in _call_func
+    retval = await retval_or_awaitable
+             ^^^^^^^^^^^^^^^^^^^^^^^^^
+services/api/.venv/lib/python3.12/site-packages/starlette/testclient.py:589: in lifespan
+    await self.app(scope, self.stream_receive.receive, self.stream_send.send)
+services/api/.venv/lib/python3.12/site-packages/fastapi/applications.py:1181: in __call__
+    await lifespan(
+services/api/.venv/lib/python3.12/site-packages/fastapi/telemetry/_runtime.py:238: in lifespan
+    await app(scope, wrapped_receive, wrapped_send)
+services/api/.venv/lib/python3.12/site-packages/starlette/applications.py:96: in __call__
+    await self.middleware_stack(scope, receive, send)
+services/api/.venv/lib/python3.12/site-packages/starlette/middleware/errors.py:151: in __call__
+    await self.app(scope, receive, send)
+services/api/.venv/lib/python3.12/site-packages/fastapi/telemetry/_asgi.py:151: in __call__
+    await self.app(scope, receive, send)
+services/api/.venv/lib/python3.12/site-packages/starlette/middleware/base.py:103: in __call__
+    await self.app(scope, receive, send)
+services/api/.venv/lib/python3.12/site-packages/starlette/middleware/cors.py:79: in __call__
+    await self.app(scope, receive, send)
+services/api/.venv/lib/python3.12/site-packages/starlette/middleware/exceptions.py:49: in __call__
+    await self.app(scope, receive, send)
+services/api/.venv/lib/python3.12/site-packages/fastapi/middleware/asyncexitstack.py:18: in __call__
+    await self.app(scope, receive, send)
+services/api/.venv/lib/python3.12/site-packages/starlette/routing.py:683: in __call__
+    await self.middleware_stack(scope, receive, send)
+services/api/.venv/lib/python3.12/site-packages/fastapi/routing.py:2798: in app
+    await self.lifespan(scope, receive, send)
+services/api/.venv/lib/python3.12/site-packages/starlette/routing.py:661: in lifespan
+    async with self.lifespan_context(app) as maybe_state:
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^
+/private/tmp/sueperman-python/cpython-3.12.13-macos-aarch64-none/lib/python3.12/contextlib.py:210: in __aenter__
+    return await anext(self.gen)
+           ^^^^^^^^^^^^^^^^^^^^^
+services/api/app/main.py:82: in lifespan
+    async with worker_lifespan(app):
+               ^^^^^^^^^^^^^^^^^^^^
+/private/tmp/sueperman-python/cpython-3.12.13-macos-aarch64-none/lib/python3.12/contextlib.py:210: in __aenter__
+    return await anext(self.gen)
+           ^^^^^^^^^^^^^^^^^^^^^
+services/api/app/main.py:41: in worker_lifespan
+    jobs.recover(s)
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+session = <sqlalchemy.orm.session.Session object at 0x10a53b770>
+
+    def recover(session):
+        for model in MODELS:
+            for run in session.scalars(select(model)):
+                job = run.payload.get("job")
+                if "job" in run.payload and not isinstance(job, dict):
+                    run.payload = run.payload | {"job": {"state": "interrupted", "attempts": 0, "recoveries": 0}}
+                    if run.status in ACTIVE:
+                        interrupt(run, "Invalid queued intent; start a new run.")
+                    continue
+                if not job:
+                    continue
+                if recoverable(run):
+>                   run.payload = run.payload | {"job": job | {"recoveries": job.get("recoveries", 0) + 1}}
+                                                                             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E                   TypeError: can only concatenate str (not "int") to str
+
+services/api/app/jobs.py:81: TypeError
+_ test_invalid_nested_intent_is_partial_without_startup_failure[recoveries--1] _
+
+tmp_path = PosixPath('/private/var/folders/k0/w3xrb_d95jn2t7nf2f0s05yr0000gp/T/pytest-of-nirmalhk7/pytest-329/test_invalid_nested_intent_is_1')
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x10a3ced20>
+field = 'recoveries', value = -1
+
+    @pytest.mark.parametrize("field,value", [("recoveries", "bad"), ("recoveries", -1),
+        ("attempts", False), ("queued_at", "not-a-date"), ("configuration", "z" * 64)])
+    def test_invalid_nested_intent_is_partial_without_startup_failure(tmp_path, monkeypatch, field, value):
+        url, endpoint, run_id = admit_without_dispatch(tmp_path, monkeypatch, "deterministic")
+        engine, factory = database(url)
+        with factory.begin() as session:
+            run = session.get(AgentRun, run_id)
+            run.payload = run.payload | {"job": run.payload["job"] | {field: value}}
+        engine.dispose()
+        with TestClient(create_app(url)) as client:
+            result = client.get(f"{endpoint}/{run_id}").json()
+>           assert result["status"] == "partial"
+E           AssertionError: assert 'completed' == 'partial'
+E
+E             - partial
+E             + completed
+
+services/api/tests/integration/test_job_recovery.py:126: AssertionError
+_ test_invalid_nested_intent_is_partial_without_startup_failure[attempts-False] _
+
+tmp_path = PosixPath('/private/var/folders/k0/w3xrb_d95jn2t7nf2f0s05yr0000gp/T/pytest-of-nirmalhk7/pytest-329/test_invalid_nested_intent_is_2')
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x10a3ceff0>
+field = 'attempts', value = False
+
+    @pytest.mark.parametrize("field,value", [("recoveries", "bad"), ("recoveries", -1),
+        ("attempts", False), ("queued_at", "not-a-date"), ("configuration", "z" * 64)])
+    def test_invalid_nested_intent_is_partial_without_startup_failure(tmp_path, monkeypatch, field, value):
+        url, endpoint, run_id = admit_without_dispatch(tmp_path, monkeypatch, "deterministic")
+        engine, factory = database(url)
+        with factory.begin() as session:
+            run = session.get(AgentRun, run_id)
+            run.payload = run.payload | {"job": run.payload["job"] | {field: value}}
+        engine.dispose()
+        with TestClient(create_app(url)) as client:
+            result = client.get(f"{endpoint}/{run_id}").json()
+>           assert result["status"] == "partial"
+E           AssertionError: assert 'completed' == 'partial'
+E
+E             - partial
+E             + completed
+
+services/api/tests/integration/test_job_recovery.py:126: AssertionError
+_ test_invalid_nested_intent_is_partial_without_startup_failure[queued_at-not-a-date] _
+
+tmp_path = PosixPath('/private/var/folders/k0/w3xrb_d95jn2t7nf2f0s05yr0000gp/T/pytest-of-nirmalhk7/pytest-329/test_invalid_nested_intent_is_3')
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x10a3cf020>
+field = 'queued_at', value = 'not-a-date'
+
+    @pytest.mark.parametrize("field,value", [("recoveries", "bad"), ("recoveries", -1),
+        ("attempts", False), ("queued_at", "not-a-date"), ("configuration", "z" * 64)])
+    def test_invalid_nested_intent_is_partial_without_startup_failure(tmp_path, monkeypatch, field, value):
+        url, endpoint, run_id = admit_without_dispatch(tmp_path, monkeypatch, "deterministic")
+        engine, factory = database(url)
+        with factory.begin() as session:
+            run = session.get(AgentRun, run_id)
+            run.payload = run.payload | {"job": run.payload["job"] | {field: value}}
+        engine.dispose()
+        with TestClient(create_app(url)) as client:
+            result = client.get(f"{endpoint}/{run_id}").json()
+>           assert result["status"] == "partial"
+E           AssertionError: assert 'completed' == 'partial'
+E
+E             - partial
+E             + completed
+
+services/api/tests/integration/test_job_recovery.py:126: AssertionError
+=============================== warnings summary ===============================
+services/api/.venv/lib/python3.12/site-packages/fastapi/testclient.py:1
+  /Users/nirmalhk7/Documents/DevWorld/sueperman/services/api/.venv/lib/python3.12/site-packages/fastapi/testclient.py:1: StarletteDeprecationWarning: Using `httpx` with `starlette.testclient` is deprecated; install `httpx2` instead.
+    from starlette.testclient import TestClient as TestClient  # noqa
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+=========================== short test summary info ============================
+FAILED services/api/tests/integration/test_job_recovery.py::test_invalid_nested_intent_is_partial_without_startup_failure[recoveries-bad]
+FAILED services/api/tests/integration/test_job_recovery.py::test_invalid_nested_intent_is_partial_without_startup_failure[recoveries--1]
+FAILED services/api/tests/integration/test_job_recovery.py::test_invalid_nested_intent_is_partial_without_startup_failure[attempts-False]
+FAILED services/api/tests/integration/test_job_recovery.py::test_invalid_nested_intent_is_partial_without_startup_failure[queued_at-not-a-date]
+4 failed, 1 passed, 14 deselected, 1 warning in 26.16s

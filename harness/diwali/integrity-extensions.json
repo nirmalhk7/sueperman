@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "reason": "Owner-requested V2.1/P1 documentation and pinned BAND 8.1.0 SDK additions; frozen baseline bytes must remain intact. Issue 4 adds guards for superseded purchase revisions.",
+  "reason": "Owner-requested V2.1/P1 documentation and pinned BAND 8.1.0 SDK additions; frozen baseline bytes must remain intact. Issue 4 adds guards for superseded purchase revisions. Owner approved exact additive issue #6 hooks in controller.py and ledger.py on November 17, 2026 Pacific.",
   "files": {
     "README.md": {
       "baseline_sha256": "191462a08e69add9505e649a8259adbf1d54462065a1cac11bb927bd885033ce",
@@ -71,24 +71,78 @@
       ]
     },
     "services/api/app/api/collaborations.py": {
-      "reason": "User-authorized safety repair: reject fixture collaboration approval/export after source monitoring requires a fresh official review. Exact inserted guard only; original source remains frozen.",
+      "reason": "Owner-approved issue #6 durable queue hooks. Exact reviewed insertions preserve every frozen original byte; prior approved safety insertions remain included.",
       "baseline_sha256": "ed8747747327fded487827f585830cbb895edc1d87226da296079283c9b97c53",
-      "extended_sha256": "9ddca7516d4b0d8952417bdd2bd1db9b76229a523792df67e4d192716cd037d1",
+      "extended_sha256": "113ac0da08684fdb61a46a8a59b8467d0d748c72631dc0e668a6088710fdd9e5",
       "insertions": [
         {
-          "offset": 1707,
-          "length": 146,
-          "sha256": "f1d424dd185edd38bf1730d0ef7e946b505f9511a1b3ccca48b3060f9791c5f1"
+          "offset": 245,
+          "length": 21,
+          "sha256": "6f1bd5eb2a4576f79655dbc1e11b79538124f98bbb40fadb893d855c8478b192"
         },
         {
-          "offset": 6929,
+          "offset": 1742,
+          "length": 146,
+          "sha256": "9777623ab2cfed742c1d8d43fcf5d9c9f81398d7b03189fc037df624ec4b331d"
+        },
+        {
+          "offset": 2879,
+          "length": 40,
+          "sha256": "dc5c10610dbf14e7fc94c3273e0d12a41d663931b522723690247bcd34c1aaef"
+        },
+        {
+          "offset": 6453,
+          "length": 40,
+          "sha256": "8a2cb82af5e5f13be6287262282e3c5410d6e075f5055ba1e4a2d9fa4042b6fe"
+        },
+        {
+          "offset": 7030,
           "length": 164,
           "sha256": "0b92b1e7d033b1bc86a228f3831dbac9aac6a591d2391230071964902f70f161"
         },
         {
-          "offset": 7619,
+          "offset": 7720,
           "length": 425,
           "sha256": "7dca6455b16dd40279959e60b76ed77381363558c8c4ae9e7543eb2cfe4f2b76"
+        }
+      ]
+    },
+    "services/api/app/collaboration/controller.py": {
+      "reason": "Owner-approved issue #6 durable queue hooks. Exact reviewed insertions preserve every frozen original byte; prior approved safety insertions remain included.",
+      "baseline_sha256": "5df1c969962c660d198f301341854fc8f82a25eb091406db98be6a274db684b5",
+      "extended_sha256": "ee3e09c30187538378f0a0da2797256f48e9cb6a867a59c3ee60bbe094086c5f",
+      "insertions": [
+        {
+          "offset": 193,
+          "length": 21,
+          "sha256": "6f1bd5eb2a4576f79655dbc1e11b79538124f98bbb40fadb893d855c8478b192"
+        },
+        {
+          "offset": 3567,
+          "length": 37,
+          "sha256": "0e58fc863cf44d4db4719021ed5d19f2c0a236464db74df35e52c534373da1f7"
+        },
+        {
+          "offset": 4054,
+          "length": 32,
+          "sha256": "d3a0869e0cb2997f83cbf3a2a50c02921c6e72006a5258264701fcffbbbf2c5c"
+        }
+      ]
+    },
+    "services/api/app/collaboration/ledger.py": {
+      "reason": "Owner-approved issue #6 durable queue hooks. Exact reviewed insertions preserve every frozen original byte; prior approved safety insertions remain included.",
+      "baseline_sha256": "efe077b8766de0ecef73c9bf32737457b73a1ce8f0a71394d524e92eb2271eae",
+      "extended_sha256": "676a0bc00107afd9c89540605d597e5aa5fab02bee9cdbab8b4c179a92b192a2",
+      "insertions": [
+        {
+          "offset": 8027,
+          "length": 37,
+          "sha256": "e50ef650aa0c5d048b1fe71019721e34897d2f84c4187c864639df3bd1fca77b"
+        },
+        {
+          "offset": 8237,
+          "length": 50,
+          "sha256": "ab08bbb8443b59059dce0bc0df578289bf099cac7d24f1fc91843fac66fba44a"
         }
       ]
     }

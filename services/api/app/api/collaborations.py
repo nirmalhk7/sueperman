@@ -5,6 +5,7 @@ from fastapi.responses import Response
 from pydantic import ValidationError
 from sqlalchemy import select
 
+from app import jobs
 from app.collaboration import controller, ledger, roles
 from app.db import view
 from app.models import CaseDraft, CaseRecord, CollaborationEvent, CollaborationRun, Product
@@ -55,6 +56,7 @@ def register(app, factory, settings, get):
                 raise HTTPException(409, "Case belongs to another product")
             run = controller.begin(s, case, body.idempotency_key, body.mode)
             run.payload = run.payload | {"request_signature": signature}
+            jobs.enqueue(run, settings)
             s.commit()
             background.add_task(controller.execute, factory, run.id, settings)
             return controller.run_view(s, run)
@@ -132,6 +134,7 @@ def register(app, factory, settings, get):
             }
             new = controller.begin(s, case, body.idempotency_key, run.payload["mode"])
             new.payload = new.payload | {"request_signature": signature, "parent_run_id": run.id}
+            jobs.enqueue(new, settings)
             s.commit()
             background.add_task(controller.execute, factory, new.id, settings)
             return controller.run_view(s, new)

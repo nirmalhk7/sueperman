@@ -133,6 +133,9 @@ export function RunResults({ id }: { id: string }) {
                 {w}
               </div>
             ))}
+            {(run.job?.recoveries ?? 0) > 0 && (
+              <p className="notice">Queued work recovered after restart.</p>
+            )}
             {Object.keys(run.summary).length > 0 && (
               <div className="stats">
                 {[
