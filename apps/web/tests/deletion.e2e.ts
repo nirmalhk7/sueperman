@@ -21,6 +21,7 @@ for (const width of [1280, 390]) {
     await expect(row).toHaveCount(0);
     await page.getByLabel("Upload purchases or receipt").setInputFiles({ name: "deletion.csv", mimeType: "text/csv", buffer: csv });
     await expect(page.getByRole("group", { name: "Confirm fresh import" })).toBeVisible();
+    await expect(page.getByText("Purchase and associated local records deleted.", { exact: true })).toHaveCount(0);
     await expect(page.getByRole("button", { name: "Import again", exact: true })).toBeDisabled();
     await page.getByLabel("I want to import this previously deleted file again").check();
     await page.getByRole("button", { name: "Import again", exact: true }).click();

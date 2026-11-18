@@ -261,6 +261,7 @@ export function Dashboard() {
   async function upload(file: File, token?: string) {
     setBusy(true);
     setError("");
+    setCorrectionMessage("");
     setReimport(null); setConfirmReimport(false);
     setUploadMessage(file.type.startsWith("image/") || file.type === "application/pdf"
       ? "Reading receipt…" : "Importing purchases…");

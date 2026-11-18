@@ -1,0 +1,97 @@
+✓ Lockfile passes supply-chain policies (verified 4d ago)
+Lockfile is up to date, resolution step is skipped
+Already up to date
+
+Done in 585ms using pnpm v11.25.0
+
+Running 2 tests using 1 worker
+
+(node:84074) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✘  1 tests/deletion.e2e.ts:5:3 › Delete purchase and explicitly re-import at 1280px (7.1s)
+(node:84203) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✘  2 tests/deletion.e2e.ts:5:3 › Delete purchase and explicitly re-import at 390px (6.8s)
+
+
+  1) tests/deletion.e2e.ts:5:3 › Delete purchase and explicitly re-import at 1280px ────────────────
+
+    Error: expect(locator).toHaveCount(expected) failed
+
+    Locator:  getByText('Purchase and associated local records deleted.', { exact: true })
+    Expected: 0
+    Received: 1
+    Timeout:  5000ms
+
+    Call log:
+      - Expect "toHaveCount" getByText('Purchase and associated local records deleted.', { exact: true }) with timeout 5000ms
+      - waiting for getByText('Purchase and associated local records deleted.', { exact: true })
+        14 × locator resolved to 1 element
+           - unexpected value "1"
+
+
+      22 |     await page.getByLabel("Upload purchases or receipt").setInputFiles({ name: "deletion.csv", mimeType: "text/csv", buffer: csv });
+      23 |     await expect(page.getByRole("group", { name: "Confirm fresh import" })).toBeVisible();
+    > 24 |     await expect(page.getByText("Purchase and associated local records deleted.", { exact: true })).toHaveCount(0);
+         |                                                                                                     ^
+      25 |     await expect(page.getByRole("button", { name: "Import again", exact: true })).toBeDisabled();
+      26 |     await page.getByLabel("I want to import this previously deleted file again").check();
+      27 |     await page.getByRole("button", { name: "Import again", exact: true }).click();
+        at /Users/nirmalhk7/Documents/DevWorld/sueperman/apps/web/tests/deletion.e2e.ts:24:101
+
+    attachment #1: video (video/webm) ──────────────────────────────────────────────────────────────
+    ../../output/playwright/deletion-status-red/deletion.e2e.ts-Delete-pur-3c199-licitly-re-import-at-1280px/video.webm
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: ../../output/playwright/deletion-status-red/deletion.e2e.ts-Delete-pur-3c199-licitly-re-import-at-1280px/error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    ../../output/playwright/deletion-status-red/deletion.e2e.ts-Delete-pur-3c199-licitly-re-import-at-1280px/trace.zip
+    Usage:
+
+        pnpm exec playwright show-trace ../../output/playwright/deletion-status-red/deletion.e2e.ts-Delete-pur-3c199-licitly-re-import-at-1280px/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  2) tests/deletion.e2e.ts:5:3 › Delete purchase and explicitly re-import at 390px ─────────────────
+
+    Error: expect(locator).toHaveCount(expected) failed
+
+    Locator:  getByText('Purchase and associated local records deleted.', { exact: true })
+    Expected: 0
+    Received: 1
+    Timeout:  5000ms
+
+    Call log:
+      - Expect "toHaveCount" getByText('Purchase and associated local records deleted.', { exact: true }) with timeout 5000ms
+      - waiting for getByText('Purchase and associated local records deleted.', { exact: true })
+        14 × locator resolved to 1 element
+           - unexpected value "1"
+
+
+      22 |     await page.getByLabel("Upload purchases or receipt").setInputFiles({ name: "deletion.csv", mimeType: "text/csv", buffer: csv });
+      23 |     await expect(page.getByRole("group", { name: "Confirm fresh import" })).toBeVisible();
+    > 24 |     await expect(page.getByText("Purchase and associated local records deleted.", { exact: true })).toHaveCount(0);
+         |                                                                                                     ^
+      25 |     await expect(page.getByRole("button", { name: "Import again", exact: true })).toBeDisabled();
+      26 |     await page.getByLabel("I want to import this previously deleted file again").check();
+      27 |     await page.getByRole("button", { name: "Import again", exact: true }).click();
+        at /Users/nirmalhk7/Documents/DevWorld/sueperman/apps/web/tests/deletion.e2e.ts:24:101
+
+    attachment #1: video (video/webm) ──────────────────────────────────────────────────────────────
+    ../../output/playwright/deletion-status-red/deletion.e2e.ts-Delete-pur-af6fd-plicitly-re-import-at-390px/video.webm
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: ../../output/playwright/deletion-status-red/deletion.e2e.ts-Delete-pur-af6fd-plicitly-re-import-at-390px/error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    ../../output/playwright/deletion-status-red/deletion.e2e.ts-Delete-pur-af6fd-plicitly-re-import-at-390px/trace.zip
+    Usage:
+
+        pnpm exec playwright show-trace ../../output/playwright/deletion-status-red/deletion.e2e.ts-Delete-pur-af6fd-plicitly-re-import-at-390px/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  2 failed
+    tests/deletion.e2e.ts:5:3 › Delete purchase and explicitly re-import at 1280px ─────────────────
+    tests/deletion.e2e.ts:5:3 › Delete purchase and explicitly re-import at 390px ──────────────────

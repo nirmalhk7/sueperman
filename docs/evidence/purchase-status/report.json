@@ -1,0 +1,97 @@
+{
+  "issue": 9,
+  "summary": "Starting a new upload clears obsolete correction/deletion status before fresh-import consent.",
+  "base_commit": "9d00e97e2a9950982d0de09890d4bb957ae51ffd",
+  "source_hashes": {
+    "apps/web/app/components.tsx": "a9cc683514aebc28ef50223efdf6edacf3d51a00f7eb5a767bbe9e0f0cc24425",
+    "apps/web/tests/deletion.e2e.ts": "5d7d57f0ada6cba72acd27831f01201f2011d34d7e47fdfc9e71a5a81a263f83"
+  },
+  "verification": [
+    {
+      "name": "test",
+      "command": [
+        "make",
+        "test"
+      ],
+      "exit_code": 0,
+      "unchanged": true
+    },
+    {
+      "name": "lint",
+      "command": [
+        "make",
+        "lint"
+      ],
+      "exit_code": 0,
+      "unchanged": true
+    },
+    {
+      "name": "typecheck",
+      "command": [
+        "make",
+        "typecheck"
+      ],
+      "exit_code": 0,
+      "unchanged": true
+    },
+    {
+      "name": "build",
+      "command": [
+        "make",
+        "build"
+      ],
+      "exit_code": 0,
+      "unchanged": true
+    },
+    {
+      "name": "smoke",
+      "command": [
+        "make",
+        "smoke",
+        "API_URL=http://127.0.0.1:57046",
+        "WEB_URL=http://127.0.0.1:57047"
+      ],
+      "exit_code": 0,
+      "unchanged": true
+    },
+    {
+      "name": "e2e",
+      "command": [
+        "make",
+        "e2e"
+      ],
+      "exit_code": 0,
+      "unchanged": true
+    },
+    {
+      "name": "container-test",
+      "command": [
+        "make",
+        "container-test"
+      ],
+      "exit_code": 0,
+      "unchanged": true
+    },
+    {
+      "name": "storage-test",
+      "command": [
+        "make",
+        "storage-test"
+      ],
+      "exit_code": 0,
+      "unchanged": true
+    }
+  ],
+  "counts": {
+    "python": 523,
+    "frontend_unit": 12,
+    "browser_passed": 28,
+    "live_probes_skipped": 3,
+    "container_browser": 3,
+    "restored_browser": 1
+  },
+  "tdd": "Two desktop/mobile failures on unchanged production preview; three browser cases passed after the minimal repair.",
+  "independent_review": "Separate reviewer inspected both observed RED/GREEN logs, preserved assertions and exact final candidate hashes; no blocker.",
+  "runtime": "No backend or provider behavior changed.",
+  "discovery": "Actual synthetic-data screen recording under issue #3; original capture is explicitly pre-repair."
+}
