@@ -1,6 +1,6 @@
 # Current workspace usability protocol
 
-Application revision: `03010a6`. This supersedes the historical walkthrough for future sessions, not its observations. No human sessions have been run under this protocol.
+Application revision: `8c073aa517a886584aa0e0976ecaeef10e50926e`. Use the [facilitator setup](facilitator.md) and record this application revision in each observation. The previous `03010a6` software preflight remains documented separately. No human sessions have been run under this protocol.
 
 ## Sample and configuration
 
