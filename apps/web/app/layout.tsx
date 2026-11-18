@@ -28,20 +28,19 @@ export default function Layout({ children }: { children: React.ReactNode }) {
               height={44}
               preload
             />
-            Sueperman
+            <span>Sueperman<span className="brand-dot">.</span></span>
           </Link>
           <nav aria-label="Primary">
             <Link href="/#purchases">My purchases</Link>
             <Link href="/#opportunities">Opportunities</Link>
             <Link href="/#activity">Activity</Link>
-            <Link href="/demo-login">Demo sign in</Link>
           </nav>
-          <span className="mode">{sharedDemo ? "SHARED DEMO" : "LOCAL"} / EVIDENCE FIRST</span>
+          <span className="mode"><span className="mode-dot" aria-hidden="true" />{sharedDemo ? "SHARED WORKSPACE" : "LOCAL WORKSPACE"}</span>
         </header>
         <div className="banner">
           {sharedDemo
-            ? "SHARED DEMO · Use synthetic purchases. Uploaded purchase details are shared with other visitors."
-            : "REPLAY AVAILABLE · Demo purchases are synthetic. Source timestamps and provider modes shown on every result."}
+            ? "SHARED WORKSPACE · Uploaded purchase details are visible to other visitors."
+            : "Official sources. Exact identifiers. Your approval stays local."}
         </div>
         <main id="main">{children}</main>
         <footer>

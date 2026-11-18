@@ -16,6 +16,7 @@ from app.models import (
     CollaborationEvent,
     CollaborationRun,
     CollaborationTask,
+    Product,
     now,
 )
 
@@ -47,7 +48,7 @@ def migrate(engine):
 
 def create_case(s, product_id):
     case = CaseRecord(
-        product_id=product_id, demo=True, current_revision=0, payload={"answers": {}, "current_run_id": None}
+        product_id=product_id, demo=s.get(Product, product_id).demo, current_revision=0, payload={"answers": {}, "current_run_id": None}
     )
     s.add(case)
     s.flush()

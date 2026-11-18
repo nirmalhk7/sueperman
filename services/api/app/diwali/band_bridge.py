@@ -174,7 +174,7 @@ class BandTransport:
 
     mode = "band"
 
-    def __init__(self, credentials, *, reviewer=None):
+    def __init__(self, credentials, *, reviewer=None, adapter_factory=None, cycle_seconds=10):
         from importlib.metadata import version
 
         if version("band-sdk") != "8.1.0" or version("band-sdk-core") != "6.1.1":
@@ -194,6 +194,10 @@ class BandTransport:
             raise ValueError("Four distinct BAND identities required")
         self._credentials = credentials
         self.reviewer = reviewer
+        if not 1 <= cycle_seconds <= 90:
+            raise ValueError("Bounded actor cycle required")
+        self.adapter_factory = adapter_factory or CaseBandAdapter
+        self.cycle_seconds = cycle_seconds
         self.room_id = credentials["room_id"]
         self.clock = lambda: datetime.now(UTC)
         self.contexts: dict = {}
@@ -244,7 +248,7 @@ class BandTransport:
                 self.sent[wire.case_id] = count + 1
                 return await send_wire(rest, self.room_id, wire, self.identities, timeout=10)
 
-            adapter = CaseBandAdapter(role, self.identities, self.room_id,
+            adapter = self.adapter_factory(role, self.identities, self.room_id,
                 lambda wire: self.contexts[wire.case_id], send, clock=self.clock, reviewer=self.reviewer, authorize=self.authorize)
             self.adapters[role] = adapter
             runtime = PlatformRuntime(actor["agent_id"], actor["api_key"],
@@ -252,7 +256,7 @@ class BandTransport:
                 config=AgentConfig(single_instance=True, conflict_policy=ConflictPolicy.REJECT),
                 session_config=SessionConfig(max_message_retries=1, enable_context_hydration=False,
                     consume_all_queued=False, enable_working_state=False,
-                    report_turn_failures_to_room=False, max_cycle_seconds=10), link_factory=link_factory)
+                    report_turn_failures_to_room=False, max_cycle_seconds=self.cycle_seconds), link_factory=link_factory)
             self.agents.append(Agent(runtime=runtime, adapter=adapter))
 
     async def __aenter__(self):

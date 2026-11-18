@@ -1,0 +1,36 @@
+{
+  "version": 1,
+  "authorization": "User explicitly approved recording a new audited baseline while preserving the original baseline and all fixtures, November 17, 2026 Pacific.",
+  "reason": "Live imported-purchase admission, sponsor lifecycle dispatch, real-product provenance and current official-source approval/export validation.",
+  "original_baseline": "harness/diwali/baseline-before-live-workspace.json",
+  "original_baseline_sha256": "70deb73080ceadd2129be6b9df3c3cd657d9ea6b27e5956de29ea50a30b2bbf7",
+  "changed_files": {
+    "services/api/app/api/collaborations.py": {
+      "before_sha256": "ed8747747327fded487827f585830cbb895edc1d87226da296079283c9b97c53",
+      "after_sha256": "b885a96dd0a02f6938c80bbd82e705c413863844420b1710a9ee080128c800cd"
+    },
+    "services/api/app/collaboration/controller.py": {
+      "before_sha256": "5df1c969962c660d198f301341854fc8f82a25eb091406db98be6a274db684b5",
+      "after_sha256": "7d606081357cc12534cbe54c708788e817785e626d6c2c78fe38cd166a949c9a"
+    },
+    "services/api/app/collaboration/ledger.py": {
+      "before_sha256": "efe077b8766de0ecef73c9bf32737457b73a1ce8f0a71394d524e92eb2271eae",
+      "after_sha256": "2731b48ea7c3ecf4ed8fc7fb148eb7d31e612e49ee5ebf8c4e88f4e05ea9f0f4"
+    },
+    "apps/web/app/collaborations/team.tsx": {
+      "before_sha256": "354c5d5849e3c556ed611583d0a954f7fb469b95c5d5fef2ca5a8472f67cc28e",
+      "after_sha256": "d6b3923751a954f8c97a7bcbda6dd241bf85655af09ad5f7f08235529615b340"
+    },
+    "apps/web/tests/collaboration.e2e.ts": {
+      "before_sha256": "1ea0a6f0305bef1a55b980fa4cf02217618ebcf398aafa6085ab094c100c072b",
+      "after_sha256": "ee4f9a5bcec38963f287562f4070a8fa48bc8e1808ef502b837b9fad7cc74d31"
+    },
+    "services/api/app/collaboration/contracts.py": {
+      "before_sha256": "f319c5399d558ad01e4f6309983b487b2590d8f45297871ccdd2ba0e80b1d572",
+      "after_sha256": "e66561c437c18db8e9a74cc8c53696b80184d50a753cd85ef21862057782cdb9"
+    }
+  },
+  "fixture_digests_unchanged": true,
+  "oracle_digests_unchanged": true,
+  "scope": "Required live workflow implementation and its public UI/contract acceptance tests only. Unrelated pre-existing drift is not approved by this migration."
+}

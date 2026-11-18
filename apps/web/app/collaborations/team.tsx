@@ -13,14 +13,14 @@ export function TeamStart({ productId }: { productId: string }) {
     setError("");
     try {
       const run = await post<Collaboration>("/collaborations", {
-        product_ids: [productId], idempotency_key: crypto.randomUUID(), mode: "replay",
+        product_ids: [productId], idempotency_key: crypto.randomUUID(), mode: "live",
       });
       router.push(`/collaborations/${run.id}`);
     } catch (err) { setError((err as Error).message); setBusy(false); }
   }
-  return <div>
-    <button className="secondary" disabled={busy} onClick={() => void start()}>Investigate with agent team</button>
-    <span className="small">Offline replay · synthetic case</span>
+  return <div className="team-entry">
+    <button className="secondary" aria-busy={busy} disabled={busy} onClick={() => void start()}>{busy ? "Opening investigation…" : "Investigate with agent team"}</button>
+    <span className="small">Official evidence · three-role investigation</span>
     {error && <p role="alert">{error}</p>}
   </div>;
 }
@@ -66,22 +66,23 @@ export function TeamBoard({ id }: { id: string }) {
     } finally { setBusy(false); }
   }
   if (!run) return <><h1>Agent team case</h1><p role={error ? "alert" : "status"}>{error || "Loading case…"}</p></>;
+  if (run.demo || run.mode !== "live") return <section className="panel"><h1>Investigation unavailable</h1><p>Start a new investigation from your imported purchases.</p><Link href="/">My purchases</Link></section>;
   const current = run.current && run.revision === run.current_revision;
   return <>
-    <section className="section">
+    <section className="case-heading">
       <Link href="/">My purchases</Link>
       <h1>Agent team case</h1>
-      <p className="pill" data-testid="case-status">{run.status}</p>
-      <p>{run.mode === "replay" ? "OFFLINE REPLAY — no live sponsor execution" : "Live team requested — inspect outcomes and warnings"}</p>
+      <p className={`pill case-status ${run.status}`} data-testid="case-status">{run.status}</p>
+      <p>Live investigation · inspect sources and role outcomes</p>
       <p>Case revision {run.revision} · Current revision {run.current_revision}</p>
       {!current && <p role="alert">Historical case. Review current revision before preparing or exporting a draft.</p>}
       {run.warnings.map(w => <p className="error" role="status" key={w}>{w}</p>)}
       {error && <p className="error" role="alert">{error}</p>}
     </section>
-    <div className="cards section">
-      <section className="panel"><h2>Finding</h2><p>{run.board.finding || "No completed finding."}</p></section>
-      <section className="panel"><h2>Challenge</h2><p data-testid="challenge">{run.board.challenge || "Challenge unavailable."}</p></section>
-      <section className="panel"><h2>Missing information</h2>
+    <div className="case-workbench section">
+      <section className="case-finding"><h2>Finding</h2><span className="role-credit">Scout / source research</span><p>{run.board.finding || "No completed finding."}</p></section>
+      <section className="case-challenge"><h2>Challenge</h2><span className="role-credit">Skeptic / counterexample review</span><p data-testid="challenge">{run.board.challenge || "Challenge unavailable."}</p></section>
+      <section className="case-missing"><h2>Missing information</h2>
         <p>{run.board.missing_information?.join(", ") || "No missing hard condition reported. Remedy documents may still be required."}</p>
         {run.board.question_field && run.status === "needs_information" && current && <form onSubmit={e => {
           e.preventDefault();
@@ -102,7 +103,7 @@ export function TeamBoard({ id }: { id: string }) {
           <button disabled={!confirmed || !answer.trim() || busy}>Send answer</button>
         </form>}
       </section>
-      <section className="panel"><h2>Decision</h2><p>{run.board.decision || "Unresolved"}</p>
+      <section className="case-decision"><h2>Decision</h2><span className="role-credit">Deterministic verification</span><p>{run.board.decision || "Unresolved"}</p>
         <p>Deterministic checks control review and export. Local approval sends no claim.</p>
         {run.board.conditions?.map(c => <p key={c.name}><strong>{c.name}</strong>: {c.status}</p>)}
       </section>
@@ -115,8 +116,8 @@ export function TeamBoard({ id }: { id: string }) {
       </article>)}
       <p><a href={`${API}/api/collaborations/${id}/history`} target="_blank" rel="noreferrer">Inspect revision and evidence history</a></p>
     </section>
-    <section className="section panel"><h2>Role timeline</h2>
-      <p>Local addressed tasks and results. Transport is local replay; no BAND room was used.</p>
+    <section className="section panel case-timeline"><h2>Role timeline</h2>
+      <p>Addressed tasks and validated results from this investigation.</p>
       <ol>{events.map(e => <li key={e.id} data-testid={e.kind === "result" ? "role-result" : undefined}>
         <strong>{e.sender} to {e.recipient}</strong> · {e.kind} · {e.task_kind?.replaceAll("_", " ")} · {e.mode} {e.status}
         {e.source_refs.length > 0 && <span> · Sources: {e.source_refs.join(", ")}</span>}

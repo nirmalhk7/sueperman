@@ -35,7 +35,7 @@ test("camera photo is read into reviewable purchases without confirming identifi
   await expect(camera).toHaveAttribute("capture", "environment");
   await expect(camera).toHaveAttribute("accept", "image/jpeg,image/png");
   try {
-    await camera.setInputFiles(path.resolve("../../demo/receipt-synthetic.jpg"));
+    await camera.setInputFiles(process.env.RECEIPT_FIXTURE_PATH || path.resolve("../../demo/receipt-synthetic.jpg"));
     await expect(page.getByRole("status").filter({ hasText: "Reading receipt" })).toBeVisible();
     await expect(camera).toBeDisabled();
   } finally { release(); }
@@ -52,7 +52,7 @@ test("camera upload failure permits another photo without starting a purchase ch
     json: { message: "Daily receipt-photo limit reached; try tomorrow or upload CSV" } }));
   await page.goto("/");
   const camera = page.getByLabel("Take receipt photo", { exact: true });
-  await camera.setInputFiles(path.resolve("../../demo/receipt-synthetic.jpg"));
+  await camera.setInputFiles(process.env.RECEIPT_FIXTURE_PATH || path.resolve("../../demo/receipt-synthetic.jpg"));
   await expect(page.getByRole("alert").filter({ hasText: "Daily receipt-photo limit reached" })).toBeVisible();
   await expect(camera).toBeEnabled();
   await expect(camera).toHaveValue("");

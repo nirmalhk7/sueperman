@@ -30,6 +30,8 @@ def register(app, factory, settings, get):
                         or old.payload.get("collaboration_mode", "deterministic") != body.collaboration_mode
                         or old.payload.get("fallback_of") != body.fallback_of):
                     raise HTTPException(409, "Idempotency key already used for different input")
+                if old.payload.get("allow_recorded_fallback", True) != body.allow_recorded_fallback:
+                    raise HTTPException(409, "Idempotency key already used for different input")
                 return run_view(old)
             if body.collaboration_mode != "deterministic":
                 if not settings.diwali_enabled:
@@ -46,6 +48,8 @@ def register(app, factory, settings, get):
                     raise HTTPException(422, "One case per unique purchase is required")
             for identifier in body.purchase_ids:
                 purchase = get(s, Purchase, identifier)
+                if body.mode == "live" and not body.allow_recorded_fallback and purchase.demo:
+                    raise HTTPException(422, "Only imported purchases can be investigated in this workspace")
                 if body.collaboration_mode != "deterministic" and not purchase.demo:
                     raise HTTPException(422, "Local collaboration accepts synthetic demo data only")
             if body.collaboration_mode == "band":
@@ -61,6 +65,7 @@ def register(app, factory, settings, get):
                 payload={
                     "purchase_ids": body.purchase_ids,
                     "mode": body.mode,
+                    "allow_recorded_fallback": body.allow_recorded_fallback,
                     "started_at": now(),
                     "summary": {},
                     "opportunities": [],

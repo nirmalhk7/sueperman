@@ -1,0 +1,291 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-11-18T00:29:54.260343+00:00",
+  "title": "Design System: Sueperman",
+  "extensions": {
+    "colorMeta": {
+      "blue": {
+        "role": "primary",
+        "displayName": "Blue",
+        "canonical": "#2148c0",
+        "tonalRamp": [
+          "oklch(15% 0.19283 265.27)",
+          "oklch(27% 0.19283 265.27)",
+          "oklch(38% 0.19283 265.27)",
+          "oklch(50% 0.19283 265.27)",
+          "oklch(61% 0.19283 265.27)",
+          "oklch(73% 0.19283 265.27)",
+          "oklch(84% 0.19283 265.27)",
+          "oklch(95% 0.19283 265.27)"
+        ]
+      },
+      "blue-dark": {
+        "role": "primary",
+        "displayName": "Blue Dark",
+        "canonical": "#173487",
+        "tonalRamp": [
+          "oklch(15% 0.14322 265.07)",
+          "oklch(27% 0.14322 265.07)",
+          "oklch(38% 0.14322 265.07)",
+          "oklch(50% 0.14322 265.07)",
+          "oklch(61% 0.14322 265.07)",
+          "oklch(73% 0.14322 265.07)",
+          "oklch(84% 0.14322 265.07)",
+          "oklch(95% 0.14322 265.07)"
+        ]
+      },
+      "yellow": {
+        "role": "secondary",
+        "displayName": "Yellow",
+        "canonical": "#f5da57",
+        "tonalRamp": [
+          "oklch(15% 0.15017 97.55)",
+          "oklch(27% 0.15017 97.55)",
+          "oklch(38% 0.15017 97.55)",
+          "oklch(50% 0.15017 97.55)",
+          "oklch(61% 0.15017 97.55)",
+          "oklch(73% 0.15017 97.55)",
+          "oklch(84% 0.15017 97.55)",
+          "oklch(95% 0.15017 97.55)"
+        ]
+      },
+      "ink": {
+        "role": "neutral",
+        "displayName": "Ink",
+        "canonical": "#18273e",
+        "tonalRamp": [
+          "oklch(15% 0.04772 258.69)",
+          "oklch(27% 0.04772 258.69)",
+          "oklch(38% 0.04772 258.69)",
+          "oklch(50% 0.04772 258.69)",
+          "oklch(61% 0.04772 258.69)",
+          "oklch(73% 0.04772 258.69)",
+          "oklch(84% 0.04772 258.69)",
+          "oklch(95% 0.04772 258.69)"
+        ]
+      },
+      "muted": {
+        "role": "neutral",
+        "displayName": "Muted",
+        "canonical": "#536074",
+        "tonalRamp": [
+          "oklch(15% 0.03609 258.91)",
+          "oklch(27% 0.03609 258.91)",
+          "oklch(38% 0.03609 258.91)",
+          "oklch(50% 0.03609 258.91)",
+          "oklch(61% 0.03609 258.91)",
+          "oklch(73% 0.03609 258.91)",
+          "oklch(84% 0.03609 258.91)",
+          "oklch(95% 0.03609 258.91)"
+        ]
+      },
+      "line": {
+        "role": "neutral",
+        "displayName": "Line",
+        "canonical": "#ccd3db",
+        "tonalRamp": [
+          "oklch(15% 0.01345 251.57)",
+          "oklch(27% 0.01345 251.57)",
+          "oklch(38% 0.01345 251.57)",
+          "oklch(50% 0.01345 251.57)",
+          "oklch(61% 0.01345 251.57)",
+          "oklch(73% 0.01345 251.57)",
+          "oklch(84% 0.01345 251.57)",
+          "oklch(95% 0.01345 251.57)"
+        ]
+      },
+      "paper": {
+        "role": "neutral",
+        "displayName": "Paper",
+        "canonical": "#f3f5f0",
+        "tonalRamp": [
+          "oklch(15% 0.00693 124.45)",
+          "oklch(27% 0.00693 124.45)",
+          "oklch(38% 0.00693 124.45)",
+          "oklch(50% 0.00693 124.45)",
+          "oklch(61% 0.00693 124.45)",
+          "oklch(73% 0.00693 124.45)",
+          "oklch(84% 0.00693 124.45)",
+          "oklch(95% 0.00693 124.45)"
+        ]
+      },
+      "white": {
+        "role": "neutral",
+        "displayName": "White",
+        "canonical": "#fff",
+        "tonalRamp": [
+          "oklch(15% 0.00000 89.88)",
+          "oklch(27% 0.00000 89.88)",
+          "oklch(38% 0.00000 89.88)",
+          "oklch(50% 0.00000 89.88)",
+          "oklch(61% 0.00000 89.88)",
+          "oklch(73% 0.00000 89.88)",
+          "oklch(84% 0.00000 89.88)",
+          "oklch(95% 0.00000 89.88)"
+        ]
+      }
+    },
+    "typographyMeta": {
+      "display": {
+        "displayName": "Display",
+        "purpose": "Page headings."
+      },
+      "headline": {
+        "displayName": "Headline",
+        "purpose": "Section headings."
+      },
+      "title": {
+        "displayName": "Title",
+        "purpose": "Card headings."
+      },
+      "body": {
+        "displayName": "Body",
+        "purpose": "Readable supporting copy."
+      },
+      "label": {
+        "displayName": "Label",
+        "purpose": "Action labels."
+      }
+    },
+    "shadows": [],
+    "motion": [
+      {
+        "name": "control-color",
+        "value": "180ms ease-out",
+        "purpose": "Color feedback; 100ms under reduced motion."
+      },
+      {
+        "name": "role-selection",
+        "value": "360ms cubic-bezier(.16,1,.3,1)",
+        "purpose": "Shared marker follows the selected role; instant under reduced motion."
+      },
+      {
+        "name": "inspection-sequence",
+        "value": "680ms cubic-bezier(.16,1,.3,1)",
+        "purpose": "One bounded scan with icon drawing and role explanation reveal; disabled under reduced motion."
+      },
+      {
+        "name": "record-arrival",
+        "value": "300ms cubic-bezier(.16,1,.3,1)",
+        "purpose": "New purchase rows arrive with maximum 175ms stagger; disabled under reduced motion."
+      },
+      {
+        "name": "case-arrival",
+        "value": "520ms ease-out",
+        "purpose": "Case sections reveal with maximum 180ms stagger; disabled under reduced motion."
+      },
+      {
+        "name": "pending-feedback",
+        "value": "800ms linear infinite",
+        "purpose": "Spinner only during real aria-busy state; static dotted marker under reduced motion."
+      }
+    ],
+    "breakpoints": [
+      {
+        "name": "compact-desktop",
+        "value": "1080px"
+      },
+      {
+        "name": "stacked",
+        "value": "760px"
+      },
+      {
+        "name": "narrow-mobile",
+        "value": "380px"
+      }
+    ]
+  },
+  "components": [
+    {
+      "name": "Primary Button",
+      "kind": "button",
+      "refersTo": "button-primary",
+      "description": "Action control extracted from the implemented workspace.",
+      "html": "<button class=\"ds-primary\">Check purchases</button>",
+      "css": ".ds-primary{font:600 12px/1.5 var(--body, \"DM Sans\", sans-serif); border:1px solid transparent; border-radius:7px; padding:13px 19px; cursor:pointer; display:inline-flex; align-items:center; justify-content:center; gap:9px; text-decoration:none;background:var(--blue,#2148c0);color:var(--white,#fff);}.ds-primary:hover{background:var(--blue-dark,#173487);color:white;}.ds-primary:focus-visible { outline:3px solid #bc591c; outline-offset:4px; }.ds-primary:disabled{opacity:.46;cursor:not-allowed;}@media(prefers-reduced-motion:no-preference){.ds-primary{transition:background-color 180ms ease-out,color 180ms ease-out,border-color 180ms ease-out;}}"
+    },
+    {
+      "name": "Secondary Button",
+      "kind": "button",
+      "refersTo": "button-secondary",
+      "description": "Action control extracted from the implemented workspace.",
+      "html": "<button class=\"ds-secondary\">Reset demo purchases</button>",
+      "css": ".ds-secondary{font:600 12px/1.5 var(--body, \"DM Sans\", sans-serif); border:1px solid transparent; border-radius:7px; padding:13px 19px; cursor:pointer; display:inline-flex; align-items:center; justify-content:center; gap:9px; text-decoration:none;background:transparent;color:var(--ink,#18273e);border-color:#b7c1cd;}.ds-secondary:hover{background:#e5eaf3;border-color:var(--blue,#2148c0);color:var(--blue,#2148c0);}.ds-secondary:focus-visible { outline:3px solid #bc591c; outline-offset:4px; }.ds-secondary:disabled{opacity:.46;cursor:not-allowed;}@media(prefers-reduced-motion:no-preference){.ds-secondary{transition:background-color 180ms ease-out,color 180ms ease-out,border-color 180ms ease-out;}}"
+    },
+    {
+      "name": "Demo Button",
+      "kind": "button",
+      "refersTo": "button-demo",
+      "description": "Action control extracted from the implemented workspace.",
+      "html": "<button class=\"ds-demo\">Try demo data</button>",
+      "css": ".ds-demo{font:600 12px/1.5 var(--body, \"DM Sans\", sans-serif); border:1px solid transparent; border-radius:7px; padding:13px 19px; cursor:pointer; display:inline-flex; align-items:center; justify-content:center; gap:9px; text-decoration:none;background:var(--yellow,#f5da57);color:var(--ink,#18273e);border-color:var(--yellow,#f5da57);}.ds-demo:hover{background:#ead044;border-color:#ead044;color:var(--ink,#18273e);}.ds-demo:focus-visible { outline:3px solid #bc591c; outline-offset:4px; }.ds-demo:disabled{opacity:.46;cursor:not-allowed;}@media(prefers-reduced-motion:no-preference){.ds-demo{transition:background-color 180ms ease-out,color 180ms ease-out,border-color 180ms ease-out;}}"
+    },
+    {
+      "name": "Identifier Field",
+      "kind": "input",
+      "refersTo": "input",
+      "description": "Editable identifier awaiting user verification.",
+      "html": "<label class=\"ds-label\">Model number<input class=\"ds-input\" value=\"PB20\" /></label>",
+      "css": ".ds-label{font:400 12px/1.65 var(--body,\"DM Sans\",sans-serif);color:var(--ink,#18273e);}.ds-input{display:block;max-width:100%;padding:10px 12px;font:400 13px var(--body,\"DM Sans\",sans-serif);background:white;color:var(--ink,#18273e);border:1px solid #a5b2c7;border-radius:5px;margin:6px 0 14px;caret-color:var(--blue,#2148c0);}.ds-input:focus-visible { outline:3px solid #bc591c; outline-offset:4px; }"
+    },
+    {
+      "name": "Primary Navigation",
+      "kind": "nav",
+      "description": "Muted links to workspace sections.",
+      "html": "<nav class=\"ds-nav\" aria-label=\"Primary\"><a href=\"#purchases\">My purchases</a><a href=\"#opportunities\">Opportunities</a><a href=\"#activity\">Activity</a></nav>",
+      "css": ".ds-nav{display:flex;flex-wrap:wrap;gap:30px;font-family:var(--body,\"DM Sans\",sans-serif);}.ds-nav a{font-size:13px;color:var(--muted,#536074);text-decoration:none;padding:6px 0;}.ds-nav a:hover{color:var(--blue,#2148c0);text-decoration:underline;text-underline-offset:4px;}.ds-nav a:focus-visible { outline:3px solid #bc591c; outline-offset:4px; }"
+    },
+    {
+      "name": "Review State",
+      "kind": "chip",
+      "description": "Written status and color support each other.",
+      "html": "<span class=\"ds-pill\">Needs information</span>",
+      "css": ".ds-pill{display:inline-flex;background:#fff3c5;color:#6c5013;border:1px solid #dcca8d;border-radius:4px;font:600 9px/1.65 var(--body,\"DM Sans\",sans-serif);letter-spacing:.035em;text-transform:uppercase;padding:5px 8px;}"
+    },
+    {
+      "name": "Evidence Card",
+      "kind": "card",
+      "refersTo": "card",
+      "description": "Flat record container with supporting metadata and a review link.",
+      "html": "<article class=\"ds-card\"><h3>Recall evidence</h3><p>Your model: PB20</p><a href=\"#evidence\">Review details</a></article>",
+      "css": ".ds-card{border:1px solid var(--line,#ccd3db);background:white;border-radius:12px;padding:28px;color:var(--ink,#18273e);font:400 15px/1.65 var(--body,\"DM Sans\",sans-serif);}.ds-card h3{font:700 26px/1.2 var(--display,\"Barlow Condensed\",sans-serif);margin:12px 0;}.ds-card p{font-size:12px;color:var(--muted,#536074);}.ds-card a{display:inline-block;padding-top:18px;color:var(--blue,#2148c0);font-size:12px;font-weight:600;text-underline-offset:4px;}.ds-card a:hover{color:var(--blue-dark,#173487);}.ds-card a:focus-visible { outline:3px solid #bc591c; outline-offset:4px; }"
+    }
+  ],
+  "narrative": {
+    "northStar": "Consumer Test Lab",
+    "overview": "A cool paper work surface pairs saturated laboratory blue with warm yellow signals. Condensed headings supply a strong, practical voice; precise ruled records and readable supporting text keep purchase evidence central. The receipt-shaped Sueperman mark remains the identity anchor.\n\nDepth comes from contrasting work surfaces and divisions rather than shadows. Role explanations and case decisions use the same blue workbench vocabulary; explicit preview, replay and provider labels keep the presentation grounded in what the product actually did.",
+    "keyCharacteristics": [
+      "Cool paper, laboratory blue and warm yellow signals.",
+      "Condensed headings with calm sans-serif supporting text.",
+      "Ruled evidence records and flat work surfaces.",
+      "Explicit preview and execution modes."
+    ],
+    "rules": [
+      {
+        "name": "The Evidence Together Rule",
+        "body": "Keep identifiers, source modes and observed timestamps close to the finding they qualify.",
+        "section": "layout"
+      },
+      {
+        "name": "The Flat Workbench Rule",
+        "body": "Separate records with thin rules and changes in surface color; the implemented system uses no box shadows.",
+        "section": "elevation"
+      },
+      {
+        "name": "The Honest State Rule",
+        "body": "Preserve visible preview, replay and simulation labels; color supports a written state rather than replacing it.",
+        "section": "components"
+      }
+    ],
+    "dos": [
+      "Do use the self-hosted condensed family for headings and the body family for controls and supporting copy.",
+      "Do keep case finding, challenge, missing information and deterministic decision visibly distinct.",
+      "Do preserve keyboard focus, roving role-tab selection and reduced-motion behavior."
+    ],
+    "donts": [
+      "Don't present the role preview as execution progress.",
+      "Don't use color alone to distinguish review, rejection or simulation.",
+      "Don't hide source modes or imply local approval submits an external claim."
+    ]
+  }
+}

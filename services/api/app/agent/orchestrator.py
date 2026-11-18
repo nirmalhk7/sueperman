@@ -374,6 +374,9 @@ async def execute(factory, run_id, settings):
             select(Product).where(Product.purchase_id.in_(run.payload["purchase_ids"]), Product.payload["superseded"].as_boolean().is_not(True))
         ).all()
         live = run.payload["mode"] == "live"
+        recorded_allowed = settings.demo_mode and run.payload.get("allow_recorded_fallback", True)
+        if live and not recorded_allowed:
+            modes["recall"] = "unavailable"
         source: FixtureRecallSource | CPSCRecallSource = FixtureRecallSource()
         research_cache: dict[str, ResearchEvidence | None] = {}
         settlements = VerifiedSettlementSource()
@@ -391,7 +394,7 @@ async def execute(factory, run_id, settings):
                     if settings.cpsc_live_enabled:
                         source = CPSCRecallSource(reviewed_notices=settings.p1_enabled)
                         modes["recall"] = "cpsc"
-                    elif settings.demo_mode:
+                    elif recorded_allowed:
                         warnings.append("LIVE PROVIDER UNAVAILABLE — DEMO DATA")
                         modes["recall"] = "replay_fallback"
                     else:
@@ -402,7 +405,7 @@ async def execute(factory, run_id, settings):
                     try:
                         records = await source.search(product)
                     except ProviderUnavailable:
-                        if not settings.demo_mode:
+                        if not recorded_allowed:
                             raise
                         source = FixtureRecallSource()
                         modes["recall"] = "replay_fallback"

@@ -1,8 +1,9 @@
 import { test, expect } from "@playwright/test";
+import { importPurchases } from "./purchases";
 
 test("correct a checked model and renew local review before export", async ({ page }) => {
+  await importPurchases(page, ["ZHX-PB22"]);
   await page.goto("/");
-  await page.getByRole("button", { name: "Try demo data" }).click();
   await page.getByRole("button", { name: "Check my purchases" }).click();
   await expect(page.getByRole("heading", { name: "Run completed" })).toBeVisible();
   const exact = page.getByTestId("opportunity-card").filter({ hasText: "Your model: ZHX-PB22" });

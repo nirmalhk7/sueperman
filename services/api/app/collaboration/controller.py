@@ -106,10 +106,11 @@ def run_view(s, run):
         "status": run.status,
         "job": jobs.public_job(run),
         "mode": run.payload["mode"],
+        "demo": run.demo,
         "warnings": run.payload.get("warnings", []),
         "board": run.payload.get("board", {}),
         "evidence": run.payload.get("evidence", []),
-        "live_sponsor_proof": [],
+        "live_sponsor_proof": run.payload.get("live_sponsor_proof", []),
         "skill": run.payload.get("skill"),
         "model_calls": run.payload.get("model_calls", 0),
         "task_requests": run.payload.get("task_requests", 0),
@@ -121,6 +122,10 @@ def run_view(s, run):
 async def execute(factory, run_id, settings):
     with factory() as s:
         run = s.get(CollaborationRun, run_id)
+        if run and run.payload["mode"] == "live" and settings.collaboration_live_enabled:
+            from app.collaboration import live
+            await live.execute(factory, run_id, settings)
+            return
         if run is None or run.status != "queued":
             return
         case = s.get(CaseRecord, run.case_id)

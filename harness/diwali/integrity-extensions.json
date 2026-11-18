@@ -15,12 +15,12 @@
     },
     ".env.example": {
       "baseline_sha256": "5b5ded69278475a9c2c2d7e372ad5b9003972bfb7551f3cf1d19e7975c413f11",
-      "extended_sha256": "b554fa8535462dec73988084b53f8ee24f042127add97897b3b468555dbdc9fb",
+      "extended_sha256": "54c9b1ff64a715f0569cd2e8a275094325fae95122fd9a875f255adfa604aea1",
       "insertions": [
         {
           "offset": 972,
-          "length": 233,
-          "sha256": "9a193742ee8607848c048e6597eb75fa944280e9a6ae93527e20c51842e04812"
+          "length": 930,
+          "sha256": "6e413237fd955678abe30fa0c5c31cadfb4ada5a61716fb16d1fb8a70a776af6"
         }
       ]
     },

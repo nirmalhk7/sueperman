@@ -33,6 +33,7 @@ export default function Page() {
     return (
       <p role={error ? "alert" : "status"}>{error || "Loading evidence…"}</p>
     );
+  if (d.demo || d.product.demo || d.simulated || d.mode !== "live") return <section className="panel"><h1>Investigation unavailable</h1><p>Start a new check from your imported purchases.</p><Link href="/">My purchases</Link></section>;
   return (
     <>
       <Link className="back" href="/#opportunities">

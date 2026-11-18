@@ -16,8 +16,10 @@ import {
 import { TeamStart } from "./collaborations/team";
 import { opportunityLabel, sourceLabel } from "@/lib/labels";
 import { DiwaliAgentTimeline } from "@/components/diwali-agent-timeline";
+import { AgentWorkbench } from "@/components/agent-workbench";
 
 export function Opportunities({ items }: { items: Opportunity[] }) {
+  items = items.filter(item => !item.demo && !item.simulated && item.mode === "live");
   return (
     <section className="section" id="opportunities">
       <div className="section-head">
@@ -101,6 +103,9 @@ export function RunResults({ id }: { id: string }) {
       clearTimeout(timer);
     };
   }, [id]);
+  if (run && (run.demo || (run.mode && run.mode !== "live") || run.source_mode === "recorded" || run.source_mode === "fixture" || Object.values(run.provider_modes).some(mode => /replay|recorded|fixture|simulated/.test(mode)))) {
+    return <section className="panel"><h2>Investigation unavailable</h2><p>Start a new check from your imported purchases.</p><Link href="/">My purchases</Link></section>;
+  }
   return (
     <>
       {error && (
@@ -234,41 +239,21 @@ export function Dashboard() {
   const [health, setHealth] = useState<Health | null>(null);
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState("");
-  const [mode, setMode] = useState<"demo" | "live">("demo");
-  const [collaborationMode, setCollaborationMode] = useState<"deterministic" | "local" | "band">("deterministic");
-  const [diwaliEnabled, setDiwaliEnabled] = useState(false);
   const [uploadMessage, setUploadMessage] = useState("");
   async function refresh() {
-    setProducts(await api<Product[]>("/products"));
+    setProducts((await api<Product[]>("/products")).filter(p => !p.demo));
   }
   useEffect(() => {
     void api<Product[]>("/products")
       .then((p) => {
-        setProducts(p);
+        setProducts(p.filter(product => !product.demo));
         setLastRun(localStorage.getItem("sueperman-last-run") || "");
       })
       .catch((e) => setError(e.message));
     void api<Health>("/health")
       .then(setHealth)
       .catch(() => {});
-    void api<{ enabled: boolean }>("/integrations/diwali/status")
-      .then(status => setDiwaliEnabled(status.enabled)).catch(() => {});
   }, []);
-  async function demo() {
-    setBusy(true);
-    setError("");
-    try {
-      const imported = await post<Imported>("/demo/reset");
-      localStorage.removeItem("sueperman-last-run");
-      setLastRun("");
-      const all = await api<Product[]>("/products");
-      setProducts(all.filter((p) => imported.product_ids.includes(p.id)));
-    } catch (e) {
-      setError((e as Error).message);
-    } finally {
-      setBusy(false);
-    }
-  }
   async function upload(file: File) {
     setBusy(true);
     setError("");
@@ -292,8 +277,8 @@ export function Dashboard() {
     try {
       const r = await post<Run>("/runs", {
         purchase_ids: products.map((p) => p.purchase_id),
-        mode,
-        ...(collaborationMode !== "deterministic" ? { collaboration_mode: collaborationMode } : {}),
+        mode: "live",
+        allow_recorded_fallback: false,
         idempotency_key: crypto.randomUUID(),
       });
       localStorage.setItem("sueperman-last-run", r.run_id);
@@ -306,40 +291,21 @@ export function Dashboard() {
   return (
     <>
       <section className="hero">
-        <div>
-          <span className="eyebrow">Your purchases. Your rights.</span>
-          <h1>Find recalls and settlements hiding in your purchase history.</h1>
+        <div className="hero-copy">
+          <h1>Find recalls and settlements <span>hiding in your</span> purchase history.</h1>
           <p>
             Turn forgotten orders into evidence-backed next steps. Check
             official recalls, understand what applies, and review a remedy draft
             before taking action.
           </p>
-          <p className="small">Automatic verification covers NEWDERY 26-792, plus Flaunt 26-610, iStore 25-390 and Baseus 25-248 when reviewed coverage is enabled. Baseus requires the exact model and a complete serial number in the CSV. Other notices or missing restrictions require review.</p>
-          <div className="actions">
-            <label>Workflow <select data-testid="diwali-mode" aria-label="Collaboration mode"
-              value={collaborationMode} onChange={e => setCollaborationMode(e.target.value as typeof collaborationMode)}>
-              <option value="deterministic">Existing workflow</option>
-              <option value="local" disabled={!diwaliEnabled}>Local agent test</option>
-              <option value="band" disabled>BAND collaboration</option>
-            </select></label>
-            <button disabled={busy || !products.length} onClick={start}>
+          <div className="actions hero-actions">
+            <button aria-busy={busy} disabled={busy || !products.length} onClick={start}>
               Check my purchases
             </button>
-            <button className="secondary" disabled={busy} onClick={demo}>
-              Try demo data
-            </button>
           </div>
+          <details className="coverage"><summary>Supported recall coverage</summary><p className="small">Automatic verification covers NEWDERY 26-792, plus Flaunt 26-610, iStore 25-390 and Baseus 25-248 when reviewed coverage is enabled. Baseus requires the exact model and a complete serial number in the CSV. Other notices or missing restrictions require review.</p></details>
         </div>
-        <aside className="hero-aside">
-          <strong>Evidence, first.</strong>
-          <p>
-            Exact product identifiers.
-            <br />
-            Official sources.
-            <br />
-            Your approval, always.
-          </p>
-        </aside>
+        <AgentWorkbench />
       </section>
       {error && (
         <div className="error" role="alert">
@@ -384,7 +350,7 @@ export function Dashboard() {
               if (f) void upload(f);
             }}
           />
-          <div className="section">
+          <div className="receipt-upload">
             <label htmlFor="receipt-camera"><strong>Take receipt photo</strong></label>
             <p className="small">
               Use your phone’s rear camera, or choose a saved JPEG or PNG photo.
@@ -426,7 +392,7 @@ export function Dashboard() {
                       <span className="small">
                         {p.product.brand} · {p.product.merchant}
                       </span>
-                      {p.demo && <TeamStart productId={p.id} />}
+                      <TeamStart productId={p.id} />
                     </td>
                     <td className="mono">
                       {p.product.model_number || "Missing model number"}
@@ -446,7 +412,7 @@ export function Dashboard() {
                     <td>{p.product.date_purchased || "Unknown"}</td>
                     <td>
                       <span className="pill">
-                        {p.demo ? "Synthetic demo" : ["image", "pdf"].includes(p.source_type || "") ? "Receipt extraction" : "CSV upload"}
+                        {["image", "pdf"].includes(p.source_type || "") ? "Receipt extraction" : "CSV upload"}
                       </span>
                     </td>
                   </tr>
@@ -458,27 +424,8 @@ export function Dashboard() {
         {busy && <p role="status">Processing…</p>}
       </section>
       <details className="section panel">
-        <summary>Demo controls & provider health</summary>
-        <p>
-          Recorded sources work without paid keys. Live calls require explicit
-          backend flags; unavailable providers are labeled.
-        </p>
-        <label>
-          Run mode{" "}
-          <select
-            aria-label="Run mode"
-            value={mode}
-            onChange={(e) => setMode(e.target.value as "demo" | "live")}
-          >
-            <option value="demo">Offline replay</option>
-            <option value="live">Live APIs with labeled fallback</option>
-          </select>
-        </label>
-        <div className="actions">
-          <button className="secondary" disabled={busy} onClick={demo}>
-            Reset demo purchases
-          </button>
-        </div>
+        <summary>Connected services</summary>
+        <p>Investigations use current official sources. Unavailable services are reported without substituting recorded results.</p>
         <div className="providers section">
           {health?.providers.map((p) => (
             <span key={p.name}>

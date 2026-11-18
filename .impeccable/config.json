@@ -20,7 +20,17 @@
         ],
         "createdAt": "2026-11-13T20:30:25.928Z",
         "reason": "Agent review: existing P0 system-font stack supports the SPEC offline-first, no-key demo without external font downloads; typography redesign is outside current P1 scope."
+      },
+      {
+        "rule": "design-system-font",
+        "value": "sfmono-regular",
+        "files": [
+          "apps/web/app/globals.css"
+        ],
+        "createdAt": "2026-11-18T00:31:24.630Z",
+        "reason": "Agent review: DESIGN.md explicitly documents system monospace for identifiers and source hashes; SFMono-Regular is a platform fallback in that stack, not an additional display font."
       }
     ]
-  }
+  },
+  "buildPath": "code"
 }

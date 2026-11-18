@@ -1,17 +1,24 @@
 import { test, expect } from "@playwright/test";
+import { api, importPurchases } from "./purchases";
 import { readFile } from "node:fs/promises";
 
 // Removing the opt-in entry, dropping the challenge or enabling stale export breaks these flows.
-test("offline team board explains exact, excluded and missing-model cases with safe local export", async ({ page }) => {
+test("live team board explains exact, excluded and missing-model cases with safe local export", async ({ page }) => {
+  await importPurchases(page);
   await page.goto("/");
-  await page.getByRole("button", { name: "Try demo data" }).click();
   const rows = page.getByTestId("purchase-row");
   await rows.filter({ hasText: "ZHX-PB23" }).getByRole("button", { name: "Investigate with agent team" }).click();
   await expect(page.getByRole("heading", { name: "Agent team case" })).toBeVisible();
   await expect(page.getByTestId("case-status")).toHaveText("rejected");
   await expect(page.getByTestId("challenge")).toContainText("ZHX-PB23");
   await expect(page.getByTestId("challenge")).toContainText("ZHX-PB22");
-  await expect(page.getByText("OFFLINE REPLAY — no live sponsor execution", { exact: true })).toBeVisible();
+  await expect(page.getByText("Live investigation · inspect sources and role outcomes", { exact: true })).toBeVisible();
+  await page.evaluate(() => document.fonts.ready);
+  await page.setViewportSize({ width: 1440, height: 1000 });
+  await page.screenshot({ path: "../../.impeccable/review/case.png", fullPage: true, animations: "disabled" });
+  await page.setViewportSize({ width: 390, height: 844 });
+  await page.screenshot({ path: "../../.impeccable/review/case-mobile.png", fullPage: true, animations: "disabled" });
+  await page.setViewportSize({ width: 1280, height: 720 });
   await expect(page.getByRole("button", { name: "Prepare claim packet" })).toHaveCount(0);
   await page.reload();
   await expect(page.getByTestId("case-status")).toHaveText("rejected");
@@ -38,15 +45,15 @@ test("offline team board explains exact, excluded and missing-model cases with s
   const download = await downloadPromise;
   const path = await download.path();
   const content = await readFile(path!, "utf8");
-  expect(content).toContain("OFFLINE REPLAY");
+  expect(content).not.toContain("OFFLINE REPLAY");
   expect(content).toContain("not an external submission");
-  expect(content).toContain("https://www.cpsc.gov/Recalls/");
+  expect(content).toMatch(/https:\/\/(www\.)?cpsc\.gov\/Recalls\//);
 });
 
 test("a newer case run blocks export from an already open approved draft", async ({ page }) => {
-  const seeded = await (await page.request.post("http://localhost:8000/api/demo/reset")).json();
-  const started = await (await page.request.post("http://localhost:8000/api/collaborations", {
-    data: { product_ids: [seeded.product_ids[0]], mode: "replay", idempotency_key: crypto.randomUUID() },
+  const seeded = await importPurchases(page, ["ZHX-PB22"]);
+  const started = await (await page.request.post(`${api}/api/collaborations`, {
+    data: { product_ids: [seeded.product_ids[0]], mode: "live", idempotency_key: crypto.randomUUID() },
   })).json();
   await page.goto(`/collaborations/${started.id}`);
   await expect(page.getByTestId("case-status")).toHaveText("ready_for_review");
@@ -54,8 +61,8 @@ test("a newer case run blocks export from an already open approved draft", async
   await page.getByLabel("I reviewed this draft and understand approval stays local.").check();
   await page.getByRole("button", { name: "Approve draft locally" }).click();
   await expect(page.getByRole("button", { name: "Export Markdown" })).toBeEnabled();
-  const newer = await page.request.post("http://localhost:8000/api/collaborations", {
-    data: { case_id: started.case_id, product_ids: [seeded.product_ids[0]], mode: "replay", idempotency_key: crypto.randomUUID() },
+  const newer = await page.request.post(`${api}/api/collaborations`, {
+    data: { case_id: started.case_id, product_ids: [seeded.product_ids[0]], mode: "live", idempotency_key: crypto.randomUUID() },
   });
   expect(newer.ok()).toBeTruthy();
   await page.getByRole("button", { name: "Export Markdown" }).click();

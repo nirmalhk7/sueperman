@@ -79,6 +79,7 @@ class RunRequest(BaseModel):
     idempotency_key: str = Field(min_length=1, max_length=200)
     collaboration_mode: Literal["deterministic", "local", "band"] = "deterministic"
     fallback_of: str | None = Field(default=None, max_length=100)
+    allow_recorded_fallback: bool = True
 
 
 class Approval(BaseModel):

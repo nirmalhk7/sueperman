@@ -1,22 +1,23 @@
 import { test, expect } from "@playwright/test";
+import { api, importPurchases } from "./purchases";
 import { readFile } from "node:fs/promises";
 
-test("five purchases produce evidence-backed recall, safe export and visible negative cases", async ({
+test("imported purchases produce evidence-backed recall, safe export and visible negative cases", async ({
   page,
 }, testInfo) => {
+  await importPurchases(page);
   await page.goto("/");
   await expect(
     page.getByRole("heading", {
       name: "Find recalls and settlements hiding in your purchase history.",
     }),
   ).toBeVisible();
-  await page.getByRole("button", { name: "Try demo data" }).click();
-  await expect(page.getByTestId("purchase-row")).toHaveCount(5);
+  await expect(page.getByTestId("purchase-row")).toHaveCount(3);
   await page.getByRole("button", { name: "Check my purchases" }).click();
   await expect(page.getByText("Run completed", { exact: true })).toBeVisible({
     timeout: 15000,
   });
-  await expect(page.getByTestId("opportunity-card")).toHaveCount(4);
+  await expect(page.getByTestId("opportunity-card")).toHaveCount(3);
   await page.screenshot({
     path: testInfo.outputPath("dashboard.png"),
     fullPage: true,
@@ -30,12 +31,12 @@ test("five purchases produce evidence-backed recall, safe export and visible neg
   ).toBeVisible();
   await expect(
     page.getByRole("link", { name: /U.S. Consumer Product Safety Commission/ }),
-  ).toHaveAttribute("href", /https:\/\/www.cpsc.gov\/Recalls\//);
+  ).toHaveAttribute("href", /https:\/\/(www\.)?cpsc\.gov\/Recalls\//);
   await expect(
     page.getByText("ZHX-PB22", { exact: true }).first(),
   ).toBeVisible();
   await expect(
-    page.getByText(/OFFLINE REPLAY of a real published recall/).first(),
+    page.getByText(/LIVE CPSC lookup/).first(),
   ).toBeVisible();
   await page.screenshot({
     path: testInfo.outputPath("evidence.png"),
@@ -63,7 +64,7 @@ test("five purchases produce evidence-backed recall, safe export and visible neg
   const content = await readFile(path!, "utf8");
   expect(content).toContain("ZHX-PB22");
   expect(content).toContain("not an external submission");
-  expect(content).toContain("https://www.cpsc.gov/Recalls/");
+  expect(content).toMatch(/https:\/\/(www\.)?cpsc\.gov\/Recalls\//);
   await page.getByRole("link", { name: "Opportunities", exact: true }).click();
   await page
     .getByTestId("opportunity-card")
@@ -91,50 +92,30 @@ test("five purchases produce evidence-backed recall, safe export and visible neg
   await expect(
     page.getByText("Missing model number", { exact: true }),
   ).toBeVisible();
-  await page.getByRole("link", { name: "Opportunities", exact: true }).click();
-  await page
-    .getByTestId("opportunity-card")
-    .filter({ hasText: "Simulated settlement" })
-    .getByRole("link", { name: "Review details" })
-    .click();
-  await expect(page).toHaveURL(/\/opportunities\//);
-  await expect(page.getByRole("heading", { level: 1 })).toHaveText(/DEMO SETTLEMENT/);
-  await expect(
-    page
-      .getByText("SIMULATED CASE — NO REAL CLAIM AVAILABLE", { exact: true })
-      .first(),
-  ).toBeVisible();
-  await expect(page.getByText("Claim submitted", { exact: true })).toHaveCount(
-    0,
-  );
+
 });
 
-test("demo selection stays five purchases after CSV import without deleting imported history", async ({
-  page,
-}) => {
+test("CSV import preserves purchase history", async ({ page }) => {
+  const seeded = await importPurchases(page, ["ZHX-PB22"]);
   await page.goto("/");
+  await expect(page.getByTestId("purchase-row")).toHaveCount(1);
   await page.getByLabel("Upload purchases or receipt").setInputFiles({
-    name: "purchase.csv",
-    mimeType: "text/csv",
-    buffer: Buffer.from(
-      "order_id,purchased_at,merchant,product_name,brand,model_number\nUPLOAD-TEST,2024-06-12,Fixture Upload,Portable Power Bank,NEWDERY,ZHX-PB22\n",
-    ),
+    name: "purchase.csv", mimeType: "text/csv", buffer: Buffer.from(
+      `order_id,purchased_at,merchant,product_name,brand,model_number\nUPLOAD-TEST,2024-06-12,${seeded.merchant},Portable Power Bank,NEWDERY,ZHX-PB23\n`),
   });
-  await expect(
-    page.getByTestId("purchase-row").filter({ hasText: "Fixture Upload" }),
-  ).toHaveCount(1);
-  await page.getByRole("button", { name: "Try demo data" }).click();
-  await expect(page.getByTestId("purchase-row")).toHaveCount(5);
+  await expect(page.getByTestId("purchase-row")).toHaveCount(2);
+  await page.reload();
+  await expect(page.getByTestId("purchase-row")).toHaveCount(2);
 });
 
 test("decision detail explains selected action and hard-gate evidence", async ({ page }) => {
-  const seeded = await (await page.request.post("http://localhost:8000/api/demo/reset")).json();
-  const started = await (await page.request.post("http://localhost:8000/api/runs", {
-    data: { purchase_ids: seeded.purchase_ids, mode: "demo", idempotency_key: crypto.randomUUID() },
+  const seeded = await importPurchases(page);
+  const started = await (await page.request.post(`${api}/api/runs`, {
+    data: { purchase_ids: seeded.purchase_ids, mode: "live", allow_recorded_fallback: false, idempotency_key: crypto.randomUUID() },
   })).json();
   await page.goto(`/runs/${started.run_id}`);
   await expect(page.getByText("Run completed", { exact: true })).toBeVisible();
-  const response = await page.request.get(`http://localhost:8000/api/opportunities?run_id=${started.run_id}`);
+  const response = await page.request.get(`${api}/api/opportunities?run_id=${started.run_id}`);
   const items = await response.json();
   const excluded = items.find((item: { status: string }) => item.status === "rejected");
   expect(excluded).toBeTruthy();

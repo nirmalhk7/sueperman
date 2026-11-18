@@ -20,6 +20,9 @@ class Settings(BaseSettings):
     lyzr_enabled: bool = False
     lyzr_api_key: str = ""
     lyzr_review_agent_id: str = ""
+    lyzr_agent_id: str = ""
+    lyzr_user_id: str = ""
+    lyzr_api_url: str = "https://agent-prod.studio.lyzr.ai/v3/inference/chat/"
     finch_enabled: bool = False
     finch_skill_path: str = ""
     finch_skill_sha256: str = ""

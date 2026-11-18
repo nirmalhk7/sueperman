@@ -153,7 +153,8 @@ def validate_result(task: CaseTask, result: CaseResult, available: set[str]) -> 
     ):
         raise ValueError("Stale or wrong-case result")
     expected_provider = {"scout": "agent37", "skeptic": "adal", "builder": "lyzr"}[task.recipient]
-    if result.provider != ("offline_rules" if task.mode == "replay" else expected_provider):
+    if result.provider not in ({"offline_rules"} if task.mode == "replay" else
+                               {expected_provider, "lyzr"} if task.recipient == "skeptic" else {expected_provider}):
         raise ValueError("Wrong provider identity")
     refs = set(result.source_refs) | {finding.source_ref for finding in result.findings}
     if not refs <= available or (task.source_refs and not refs <= set(task.source_refs)):

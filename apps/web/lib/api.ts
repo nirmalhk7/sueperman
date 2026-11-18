@@ -41,6 +41,7 @@ export interface Product {
   source_type?: string;
 }
 export interface Opportunity {
+  demo?: boolean;
   stale?: boolean;
   id: string;
   title: string;
@@ -101,6 +102,8 @@ export interface Detail extends Opportunity {
   };
 }
 export interface Run {
+  demo?: boolean;
+  mode?: string;
   job?: { state: string; attempts: number; recoveries: number } | null;
   purchase_ids?: string[];
   collaboration_mode?: "deterministic" | "local" | "band";
@@ -139,6 +142,7 @@ export interface Audit {
   source_refs: string[];
 }
 export interface Packet {
+  demo?: boolean;
   verification_status?: string;
   kind?: string;
   id: string;
@@ -160,6 +164,7 @@ export interface Health {
 }
 
 export interface Collaboration {
+  demo?: boolean;
   id: string;
   case_id: string;
   product_ids: string[];

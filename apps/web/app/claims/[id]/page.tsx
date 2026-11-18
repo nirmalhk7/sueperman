@@ -1,6 +1,7 @@
 "use client";
 import { useCallback, useEffect, useState } from "react";
 import { EvidenceReadiness } from "@/components/p1-controls";
+import Link from "next/link";
 import { useParams } from "next/navigation";
 import { API, api, post, type Packet } from "@/lib/api";
 export default function Page() {
@@ -58,6 +59,7 @@ export default function Page() {
     return (
       <p role={error ? "alert" : "status"}>{error || "Loading packet…"}</p>
     );
+  if (p.demo || p.mode !== "live") return <section className="panel"><h1>Investigation unavailable</h1><p>Start a new check from your imported purchases.</p><Link href="/">My purchases</Link></section>;
   const approved = ["approved_local", "exported"].includes(p.status);
   const blocked = p.status === "needs_evidence" || p.verification_status === "unavailable";
   return (
@@ -67,8 +69,6 @@ export default function Page() {
       <p className="mono small">
         {p.verification_status === "unavailable"
           ? "SETTLEMENT VERIFICATION UNAVAILABLE — PRIOR DRAFT ONLY"
-          : p.mode === "replay"
-          ? "OFFLINE REPLAY of a real published recall"
           : p.kind === "settlement" ? "LIVE verified settlement sources" : "LIVE CPSC source"}
       </p>
       <div className="notice">

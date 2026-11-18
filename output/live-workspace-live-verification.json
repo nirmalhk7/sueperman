@@ -1,0 +1,45 @@
+{
+  "status": "ready_for_review",
+  "mode": "live",
+  "warnings": [],
+  "live_sponsor_proof": [
+    "band",
+    "agent37",
+    "lyzr-reviewer",
+    "lyzr-builder"
+  ],
+  "roles": [
+    {
+      "role": "scout",
+      "provider": "agent37",
+      "status": "completed"
+    },
+    {
+      "role": "skeptic",
+      "provider": "lyzr",
+      "status": "completed"
+    },
+    {
+      "role": "builder",
+      "provider": "lyzr",
+      "status": "completed"
+    }
+  ],
+  "evidence": [
+    {
+      "source_id": "26-792",
+      "mode": "live",
+      "content_sha256": "03ef806b04fc6ed0a86a16f1a997f8eb4858ed7540502ab1030fce483ef6cbce"
+    }
+  ],
+  "export_before_approval": 409,
+  "approval": 200,
+  "export_after_approval": 200,
+  "agent37_delta_usd": 0.000105,
+  "errors": [],
+  "max_lyzr_calls": 2,
+  "instances_after_count": 0,
+  "verification_purchase": "Explicit test purchase facts; not an actual consumer purchase.",
+  "scope": "One real BAND/Agent37/Lyzr run; no AdaL or Finch execution claimed.",
+  "lyzr_billing": "Two inference calls; exact Lyzr account charge was not exposed by saved inference endpoint. No additional paid verification calls."
+}

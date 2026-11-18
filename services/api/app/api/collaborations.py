@@ -42,7 +42,7 @@ def register(app, factory, settings, get):
             if product.payload.get("superseded"):
                 raise HTTPException(409, "Purchase corrected; start with the current revision")
             facts = ProductInput(**product.payload["product"])
-            if settings.collaboration_public_demo and not product.demo:
+            if body.mode == "replay" and settings.collaboration_public_demo and not product.demo:
                 raise HTTPException(422, "Public team demo accepts synthetic demo purchases only")
             if (
                 product.payload.get("source_type") in {"image", "pdf"}
@@ -51,6 +51,16 @@ def register(app, factory, settings, get):
                 raise HTTPException(422, "Confirm scanned identifiers before team investigation")
             if body.mode == "replay" and not settings.demo_mode:
                 raise HTTPException(422, "Offline replay disabled")
+            if body.mode == "live" and not product.demo and not settings.collaboration_live_enabled:
+                raise HTTPException(503, "Live investigation is currently unavailable")
+            if body.mode == "live" and settings.collaboration_live_enabled:
+                if product.demo:
+                    raise HTTPException(422, "Live investigation requires imported purchases")
+                from app.collaboration.live import credentials
+                try:
+                    credentials(settings)
+                except ValueError:
+                    raise HTTPException(503, "Live investigation configuration incomplete") from None
             case = get(s, CaseRecord, body.case_id) if body.case_id else ledger.create_case(s, product.id)
             if case.product_id != product.id:
                 raise HTTPException(409, "Case belongs to another product")
@@ -139,7 +149,7 @@ def register(app, factory, settings, get):
             background.add_task(controller.execute, factory, new.id, settings)
             return controller.run_view(s, new)
 
-    def reviewed_case(s, identifier):
+    async def reviewed_case(s, identifier):
         run = get(s, CollaborationRun, identifier)
         case = get(s, CaseRecord, run.case_id)
         if (
@@ -153,10 +163,14 @@ def register(app, factory, settings, get):
         product = controller.product_for_case(s, case)
         binding = ledger.current_revision(s, case)
         try:
-            recall = roles.load_recall()
-        except (OSError, ValueError):
+            if run.payload["mode"] == "live":
+                from app.collaboration.live import current_recall
+                recall = await current_recall(product, run.payload["evidence"][0]["source_id"], settings)
+            else:
+                recall = roles.load_recall()
+        except Exception:  # noqa: BLE001 - sanitize current source failures
             run.status = "partial"
-            run.payload = run.payload | {"warnings": ["Recorded source unavailable; current review revoked."]}
+            run.payload = run.payload | {"warnings": ["Source unavailable; current review revoked."]}
             ledger.revise(s, case, binding.payload | {"evidence_hashes": []})
             s.commit()
             raise HTTPException(409, "Source unavailable; new review required") from None
@@ -172,6 +186,9 @@ def register(app, factory, settings, get):
             "rule_version": roles.RULE_VERSION,
             "skill_hash": ledger.fingerprint(roles.OFFLINE_SKILL),
         }
+        if run.payload["mode"] == "live":
+            from app.collaboration.live import POLICY
+            expected["skill_hash"] = ledger.fingerprint(POLICY)
         if binding.fingerprint != ledger.fingerprint(expected):
             controller.snapshot(s, case, recall)
             ledger.revise(s, case, expected)
@@ -185,26 +202,26 @@ def register(app, factory, settings, get):
         return case, draft
 
     @app.post("/api/collaborations/{identifier}/claim-packet")
-    def packet(identifier: str):
+    async def packet(identifier: str):
         with factory() as s:
             lock(s)
-            _, draft = reviewed_case(s, identifier)
+            _, draft = await reviewed_case(s, identifier)
             return view(draft) | {"revision": draft.revision}
 
     @app.post("/api/collaborations/{identifier}/approve-local")
-    def approve(identifier: str, body: Approval):
+    async def approve(identifier: str, body: Approval):
         with factory() as s:
             lock(s)
-            case, draft = reviewed_case(s, identifier)
+            case, draft = await reviewed_case(s, identifier)
             ledger.approve_draft(s, case, draft)
             s.commit()
             return view(draft)
 
     @app.post("/api/collaborations/{identifier}/export")
-    def export(identifier: str):
+    async def export(identifier: str):
         with factory() as s:
             lock(s)
-            case, draft = reviewed_case(s, identifier)
+            case, draft = await reviewed_case(s, identifier)
             try:
                 markdown = ledger.export_draft(s, case, draft)
             except ValueError:

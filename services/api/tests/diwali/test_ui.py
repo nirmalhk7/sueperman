@@ -36,7 +36,7 @@ def browser_env(tmp_path_factory):
             shutil.copy2(path, web / path.name)
     (web / "node_modules").symlink_to(source / "node_modules", target_is_directory=True)
     api_port, web_port = free_port(), free_port()
-    env = os.environ | {"DATABASE_URL": f"sqlite:///{folder}/browser.db", "DIWALI_ENABLED": "true",
+    env = {key: value for key, value in os.environ.items() if key in {"PATH", "HOME", "TMPDIR", "LANG", "LC_ALL"}} | {"DATABASE_URL": f"sqlite:///{folder}/browser.db", "DIWALI_ENABLED": "true",
         "SENTRY_DSN": "", "SENTRY_AUTH_TOKEN": "", "NEXT_PUBLIC_SENTRY_DSN": "",
         "PYTHONPATH": str(ROOT / "services/api"), "API_URL": f"http://127.0.0.1:{api_port}",
         "NEXT_PUBLIC_API_BASE_URL": f"http://127.0.0.1:{api_port}",
@@ -45,7 +45,15 @@ def browser_env(tmp_path_factory):
                 "CPSC_LIVE_ENABLED", "SYSTEM_ONE_ENABLED", "SETTLEMENT_LIVE_ENABLED", "BAND_ENABLED",
                 "LYZR_ENABLED", "AGENT37_ENABLED", "DIWALI_LIVE_AUTHORIZED"):
         env[key] = "false"
-    logs = ROOT / "docs/evidence/diwali/v2.1/browser"
+    env.update({"CPSC_LIVE_ENABLED": "true", "COLLABORATION_LIVE_ENABLED": "true",
+        "AGENT37_API_KEY": "test-key", "LYZR_API_KEY": "test-key", "LYZR_REVIEW_AGENT_ID": "reviewer",
+        "LYZR_AGENT_ID": "builder", "LYZR_USER_ID": "test-user", "BAND_ROOM_ID": "test-room",
+        "LIVE_BROWSER_CONTROL": str(folder / "live-control"),
+        "RECEIPT_FIXTURE_PATH": str(ROOT / "demo/receipt-synthetic.jpg"),
+        **{f"BAND_{role}_{field}": f"{role}-{field}" for role in ("CONTROLLER", "SCOUT", "SKEPTIC", "BUILDER")
+           for field in ("AGENT_ID", "API_KEY")}})
+    env["PYTHONPATH"] += os.pathsep + str(ROOT / "services/api/tests")
+    logs = ROOT / "output/live-workspace-browser"
     logs.mkdir(parents=True, exist_ok=True)
     env["DIWALI_EVIDENCE_DIR"] = str(logs)
     processes = []
@@ -56,7 +64,7 @@ def browser_env(tmp_path_factory):
         (logs / "build.log").write_text(build.stdout + build.stderr)
         assert build.returncode == 0, build.stdout + build.stderr
         for name, command, cwd, url in [
-            ("api", [sys.executable, "-m", "uvicorn", "app.main:app", "--host", "127.0.0.1", "--port", str(api_port)],
+            ("api", [sys.executable, "-m", "uvicorn", "browser_server:app", "--host", "127.0.0.1", "--port", str(api_port)],
              folder, env["API_URL"] + "/api/health"),
             ("web", ["node", str(source / "node_modules/next/dist/bin/next"), "start", "--hostname", "127.0.0.1", "--port", str(web_port)],
              web, env["WEB_URL"]),
@@ -108,3 +116,11 @@ def test_browser_packet_workflow(browser_env):
 
 def test_browser_recovered_work_guidance(browser_env):
     check_browser(browser_env, "Recovered investigation shows recovery")
+
+
+def test_public_workspace_browser_acceptance(browser_env):
+    web, env, logs = browser_env
+    result = subprocess.run(["node", str(ROOT / "apps/web/node_modules/@playwright/test/cli.js"), "test"],
+        cwd=web, env=env, capture_output=True, text=True, timeout=240, check=False)
+    (logs / "public-acceptance.log").write_text(result.stdout + result.stderr)
+    assert result.returncode == 0, result.stdout + result.stderr
