@@ -117,6 +117,9 @@ test("P1 rejected stale export offers reload and renewed approval", async ({ pag
   const downloaded = page.waitForEvent("download");
   await page.getByRole("button", { name: "Export Markdown" }).click();
   expect(await readFile((await (await downloaded).path())!, "utf8")).toContain("Preparation guidance");
+  // Export also refreshes the packet asynchronously. Drain interception before
+  // closing its context so response.json() cannot race disposed responses.
+  await page.unrouteAll({ behavior: "wait" });
 });
 
 test("P1 daily monitor records source change and blocks old export", async ({ page }) => {

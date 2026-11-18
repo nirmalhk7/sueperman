@@ -1,0 +1,70 @@
+FFF                                                                      [100%]
+=================================== FAILURES ===================================
+__ test_bound_database_reopens_with_same_history_and_rejects_another_journal ___
+
+tmp_path = PosixPath('/private/var/folders/k0/w3xrb_d95jn2t7nf2f0s05yr0000gp/T/pytest-of-nirmalhk7/pytest-408/test_bound_database_reopens_wi0')
+
+    def test_bound_database_reopens_with_same_history_and_rejects_another_journal(tmp_path):
+>       implementation = binding()
+                         ^^^^^^^^^
+
+services/api/tests/integration/test_deletion_binding.py:16:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+    def binding():
+        from app import deletion
+
+>       assert callable(getattr(deletion, "bind_database", None)), "Database/journal binding is not implemented"
+E       AssertionError: Database/journal binding is not implemented
+E       assert False
+E        +  where False = callable(None)
+E        +    where None = getattr(<module 'app.deletion' from '/private/var/folders/k0/w3xrb_d95jn2t7nf2f0s05yr0000gp/T/sueperman-issue9-cxm9o9bw/services/api/app/deletion.py'>, 'bind_database', None)
+
+services/api/tests/integration/test_deletion_binding.py:11: AssertionError
+_______ test_missing_history_is_not_reinitialized_even_with_install_flag _______
+
+tmp_path = PosixPath('/private/var/folders/k0/w3xrb_d95jn2t7nf2f0s05yr0000gp/T/pytest-of-nirmalhk7/pytest-408/test_missing_history_is_not_re0')
+
+    def test_missing_history_is_not_reinitialized_even_with_install_flag(tmp_path):
+>       implementation = binding()
+                         ^^^^^^^^^
+
+services/api/tests/integration/test_deletion_binding.py:37:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+    def binding():
+        from app import deletion
+
+>       assert callable(getattr(deletion, "bind_database", None)), "Database/journal binding is not implemented"
+E       AssertionError: Database/journal binding is not implemented
+E       assert False
+E        +  where False = callable(None)
+E        +    where None = getattr(<module 'app.deletion' from '/private/var/folders/k0/w3xrb_d95jn2t7nf2f0s05yr0000gp/T/sueperman-issue9-cxm9o9bw/services/api/app/deletion.py'>, 'bind_database', None)
+
+services/api/tests/integration/test_deletion_binding.py:11: AssertionError
+_ test_old_snapshot_source_can_be_verified_but_unrelated_empty_history_cannot __
+
+tmp_path = PosixPath('/private/var/folders/k0/w3xrb_d95jn2t7nf2f0s05yr0000gp/T/pytest-of-nirmalhk7/pytest-408/test_old_snapshot_source_can_b0')
+
+    def test_old_snapshot_source_can_be_verified_but_unrelated_empty_history_cannot(tmp_path):
+>       implementation = binding()
+                         ^^^^^^^^^
+
+services/api/tests/integration/test_deletion_binding.py:54:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+    def binding():
+        from app import deletion
+
+>       assert callable(getattr(deletion, "bind_database", None)), "Database/journal binding is not implemented"
+E       AssertionError: Database/journal binding is not implemented
+E       assert False
+E        +  where False = callable(None)
+E        +    where None = getattr(<module 'app.deletion' from '/private/var/folders/k0/w3xrb_d95jn2t7nf2f0s05yr0000gp/T/sueperman-issue9-cxm9o9bw/services/api/app/deletion.py'>, 'bind_database', None)
+
+services/api/tests/integration/test_deletion_binding.py:11: AssertionError
+=========================== short test summary info ============================
+FAILED services/api/tests/integration/test_deletion_binding.py::test_bound_database_reopens_with_same_history_and_rejects_another_journal
+FAILED services/api/tests/integration/test_deletion_binding.py::test_missing_history_is_not_reinitialized_even_with_install_flag
+FAILED services/api/tests/integration/test_deletion_binding.py::test_old_snapshot_source_can_be_verified_but_unrelated_empty_history_cannot
+3 failed in 0.19s

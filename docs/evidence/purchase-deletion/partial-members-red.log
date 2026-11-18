@@ -1,0 +1,67 @@
+F                                                                        [100%]
+=================================== FAILURES ===================================
+___ test_later_partial_for_another_purchase_cannot_revoke_independent_draft ____
+
+tmp_path = PosixPath('/private/var/folders/k0/w3xrb_d95jn2t7nf2f0s05yr0000gp/T/pytest-of-nirmalhk7/pytest-470/test_later_partial_for_another0')
+
+    def test_later_partial_for_another_purchase_cannot_revoke_independent_draft(tmp_path):
+        """A+B partial, B success, then A+C partial must not reset B's approval."""
+        from app.db import database
+        from app.deletion_lifecycle import erase_purchase, plan_purchase
+        from app.models import AgentRun, ClaimPacket, Opportunity, Product, Purchase
+    
+        engine, factory = database(f"sqlite:///{tmp_path / 'partial-members.db'}")
+        try:
+            with factory.begin() as session:
+                removed = Purchase(import_key="removed", payload={})
+                kept = Purchase(import_key="kept", payload={})
+                unrelated = Purchase(import_key="unrelated", payload={})
+                session.add_all([removed, kept, unrelated])
+                session.flush()
+                product = Product(purchase_id=kept.id, payload={})
+                session.add(product)
+                session.flush()
+                opportunity = Opportunity(product_id=product.id, kind="recall", source_id="26-792",
+                    official_url="https://www.cpsc.gov/Recalls/2026/NEWDERY", payload={"status": "verified_match"})
+                session.add(opportunity)
+                session.flush()
+                packet = ClaimPacket(opportunity_id=opportunity.id,
+                    payload={"status": "approved_local", "approved_at": "2026-01-01T00:02:30Z"})
+                old_partial = AgentRun(idempotency_key="old-partial", status="partial",
+                    created_at="2026-01-01T00:01:00Z", payload={"purchase_ids": [removed.id, kept.id],
+                    "opportunities": []})
+                independent = AgentRun(idempotency_key="independent", status="completed",
+                    created_at="2026-01-01T00:02:00Z", payload={"purchase_ids": [kept.id],
+                    "opportunities": [opportunity.id], "completed_at": "2026-01-01T00:02:10Z"})
+                other_partial = AgentRun(idempotency_key="other-partial", status="partial",
+                    created_at="2026-01-01T00:03:00Z", payload={"purchase_ids": [removed.id, unrelated.id],
+                    "opportunities": []})
+                session.add_all([packet, old_partial, independent, other_partial])
+                session.flush()
+                removed_id, kept_id, unrelated_id = removed.id, kept.id, unrelated.id
+                opportunity_id, packet_id, independent_id = opportunity.id, packet.id, independent.id
+            with factory.begin() as session:
+                erase_purchase(session, plan_purchase(session, removed_id))
+            with factory() as session:
+                assert session.get(Purchase, removed_id) is None
+                assert session.get(Purchase, kept_id) is not None
+                assert session.get(Purchase, unrelated_id) is not None
+                assert session.get(AgentRun, independent_id) is not None
+>               assert not session.get(Opportunity, opportunity_id).payload.get("stale", False)
+E               AssertionError: assert not True
+E                +  where True = <built-in method get of dict object at 0x1092db5c0>('stale', False)
+E                +    where <built-in method get of dict object at 0x1092db5c0> = {'status': 'verified_match', 'stale': True, 'stale_reason': 'related_history_removed'}.get
+E                +      where {'status': 'verified_match', 'stale': True, 'stale_reason': 'related_history_removed'} = <app.models.Opportunity object at 0x1092e5cd0>.payload
+E                +        where <app.models.Opportunity object at 0x1092e5cd0> = get(<class 'app.models.Opportunity'>, 'e11519b7-30f5-4cf4-aef3-1391ee6f66c8')
+E                +          where get = <sqlalchemy.orm.session.Session object at 0x108edf4a0>.get
+
+services/api/tests/integration/test_deletion_provenance.py:166: AssertionError
+=============================== warnings summary ===============================
+services/api/.venv/lib/python3.12/site-packages/fastapi/testclient.py:1
+  /Users/nirmalhk7/Documents/DevWorld/sueperman/services/api/.venv/lib/python3.12/site-packages/fastapi/testclient.py:1: StarletteDeprecationWarning: Using `httpx` with `starlette.testclient` is deprecated; install `httpx2` instead.
+    from starlette.testclient import TestClient as TestClient  # noqa
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+=========================== short test summary info ============================
+FAILED services/api/tests/integration/test_deletion_provenance.py::test_later_partial_for_another_purchase_cannot_revoke_independent_draft
+1 failed, 1 warning in 0.57s

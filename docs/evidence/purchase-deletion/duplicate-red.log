@@ -1,0 +1,21 @@
+F                                                                        [100%]
+=================================== FAILURES ===================================
+____________ test_duplicate_json_keys_cannot_erase_deletion_history ____________
+
+tmp_path = PosixPath('/private/var/folders/k0/w3xrb_d95jn2t7nf2f0s05yr0000gp/T/pytest-of-nirmalhk7/pytest-400/test_duplicate_json_keys_canno0')
+
+    def test_duplicate_json_keys_cannot_erase_deletion_history(tmp_path):
+        implementation = journal()
+        path = tmp_path / "deletions.json"
+        path.write_text('{"format":2,"lineage":"' + FIRST + '","revision":0,'
+                        '"records":{"' + SECOND + '":{"import_fingerprint":"' + FINGERPRINT
+                        + '","revision":1}},"records":{}}')
+        path.chmod(0o600)
+>       with pytest.raises(implementation.DeletionJournalError):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE DeletionJournalError
+
+services/api/tests/integration/test_deletion_journal.py:157: Failed
+=========================== short test summary info ============================
+FAILED services/api/tests/integration/test_deletion_journal.py::test_duplicate_json_keys_cannot_erase_deletion_history
+1 failed, 8 deselected in 0.57s

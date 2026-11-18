@@ -1,0 +1,76 @@
+[
+  {
+    "name": "test",
+    "command": [
+      "make",
+      "test"
+    ],
+    "exit_code": 0,
+    "unchanged": true
+  },
+  {
+    "name": "lint",
+    "command": [
+      "make",
+      "lint"
+    ],
+    "exit_code": 0,
+    "unchanged": true
+  },
+  {
+    "name": "typecheck",
+    "command": [
+      "make",
+      "typecheck"
+    ],
+    "exit_code": 0,
+    "unchanged": true
+  },
+  {
+    "name": "build",
+    "command": [
+      "make",
+      "build"
+    ],
+    "exit_code": 0,
+    "unchanged": true
+  },
+  {
+    "name": "smoke",
+    "command": [
+      "make",
+      "smoke",
+      "API_URL=http://127.0.0.1:55336",
+      "WEB_URL=http://127.0.0.1:55337"
+    ],
+    "exit_code": 0,
+    "unchanged": true
+  },
+  {
+    "name": "e2e",
+    "command": [
+      "make",
+      "e2e"
+    ],
+    "exit_code": 0,
+    "unchanged": true
+  },
+  {
+    "name": "container-test",
+    "command": [
+      "make",
+      "container-test"
+    ],
+    "exit_code": 0,
+    "unchanged": true
+  },
+  {
+    "name": "storage-test",
+    "command": [
+      "make",
+      "storage-test"
+    ],
+    "exit_code": 0,
+    "unchanged": true
+  }
+]

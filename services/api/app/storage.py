@@ -221,10 +221,10 @@ def load_snapshot(snapshot):
     return manifest
 
 
-def restore(snapshot, database):
+def restore(snapshot, database, *, deletion_journal=None):
     snapshot, database = Path(snapshot), Path(database)
     with operation(snapshot.parent):
-        load_snapshot(snapshot)
+        manifest = load_snapshot(snapshot)
         database.parent.mkdir(parents=True, mode=0o700, exist_ok=True)
         require_new_database(database)
         engine = create_engine("sqlite:///" + str(database.resolve()))
@@ -236,17 +236,73 @@ def restore(snapshot, database):
                 os.close(fd)
                 temporary = Path(name)
                 shutil.copyfile(snapshot / "database.sqlite3", temporary)
-                reconcile_restore(temporary)
-                with temporary.open("rb") as stream:
-                    os.fsync(stream.fileno())
-                # Atomic no-clobber publication, including a racing application start/restore.
-                os.link(temporary, database, follow_symlinks=False)
-                sync_directory(database.parent)
+                with reconcile_deletions(temporary, manifest["source_id"], deletion_journal=deletion_journal):
+                    reconcile_restore(temporary)
+                    with temporary.open("rb") as stream:
+                        os.fsync(stream.fileno())
+                    # Keep the deletion-authority lock through publication: a new
+                    # tombstone cannot land between replay and publishing this file.
+                    os.link(temporary, database, follow_symlinks=False)
+                    sync_directory(database.parent)
         finally:
             if temporary is not None:
                 temporary.unlink(missing_ok=True)
             engine.dispose()
     return database
+
+
+@contextmanager
+def reconcile_deletions(database, source_id, *, deletion_journal=None):
+    """Replay the current authority, never a journal rolled back with a snapshot."""
+    from sqlalchemy import inspect, select
+    from sqlalchemy.orm import Session
+
+    from app import deletion
+    from app.deletion_lifecycle import erase_purchase, plan_purchase
+
+    engine = create_engine("sqlite:///" + str(database))
+    try:
+        with engine.connect() as connection:
+            present = inspect(connection).has_table(deletion._policy.name)
+            if present:
+                columns = {column["name"] for column in inspect(connection).get_columns(deletion._policy.name)}
+                if not set(deletion._policy.columns.keys()).issubset(columns):
+                    raise StorageError("Incompatible deletion policy; explicit migration required")
+                rows = connection.execute(select(deletion._policy)).mappings().all()
+                if len(rows) != 1 or rows[0]["id"] != 1 or not deletion._valid_identifier(rows[0]["lineage"]):
+                    raise StorageError("Invalid snapshot deletion policy")
+                row = rows[0]
+                if not isinstance(row["journal_path"], str):
+                    raise StorageError("Invalid snapshot deletion authority path")
+                path, lineage = Path(row["journal_path"]), row["lineage"]
+                if not path.is_absolute() or str(path.resolve()) != row["journal_path"]:
+                    raise StorageError("Invalid snapshot deletion authority path")
+                if deletion_journal is not None and Path(deletion_journal).resolve() != path:
+                    raise StorageError("Explicit journal differs from the snapshot recovery authority")
+            else:
+                if deletion_journal is None:
+                    raise StorageError("Pre-policy snapshot requires --deletion-journal bound to its original source")
+                path, lineage = Path(deletion_journal).resolve(), None
+        # The journal owns its canonical location and records trusted source
+        # identities. An arbitrary empty file cannot authorize an old backup.
+        lineage = deletion.verify_snapshot_journal(path, source_id, expected_lineage=lineage)
+        with deletion._journal_lock(path):
+            data = deletion._read_journal(path, lineage)
+            if source_id not in data["sources"]:
+                raise StorageError("Snapshot source does not belong to this deletion journal")
+            with Session(engine) as session, session.begin():
+                session.connection().exec_driver_sql("PRAGMA foreign_keys=ON")
+                if not present:
+                    deletion._policy.create(session.connection())
+                    session.execute(deletion._policy.insert().values(id=1, lineage=lineage, journal_path=str(path)))
+                for identifier in data["records"]:
+                    erase_purchase(session, plan_purchase(session, identifier, require_purchase=False), recovering=True)
+            # Close SQLite before linking its final file. All deletion writes are
+            # committed into that file, not a companion WAL that is left behind.
+            engine.dispose()
+            yield
+    finally:
+        engine.dispose()
 
 
 def require_new_database(database):
@@ -408,12 +464,15 @@ def main(argv=None):
         sub.add_argument("--snapshot" if command == "restore" else "--directory", type=Path, required=True)
         if command == "schedule":
             sub.add_argument("--poll-seconds", type=float, default=60)
+        if command == "restore":
+            sub.add_argument("--deletion-journal", type=Path)
     args = parser.parse_args(argv)
     try:
         if args.command == "backup":
             print(json.dumps({"snapshot": str(backup(args.database, args.directory))}))
         elif args.command == "restore":
-            print(json.dumps({"database": str(restore(args.snapshot, args.database))}))
+            print(json.dumps({"database": str(restore(args.snapshot, args.database,
+                                                     deletion_journal=args.deletion_journal))}))
         elif args.command == "cycle":
             print(json.dumps(cycle(args.database, args.directory)))
         elif args.command == "status":

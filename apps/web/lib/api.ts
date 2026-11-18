@@ -1,5 +1,10 @@
 export const API =
   process.env.NEXT_PUBLIC_API_BASE_URL ?? "http://localhost:8000";
+export class ApiError extends Error {
+  constructor(message: string, readonly details: { code?: string; reimport_token?: string }) {
+    super(message);
+  }
+}
 export async function api<T>(path: string, init?: RequestInit): Promise<T> {
   const response = await fetch(`${API}/api${path}`, {
     ...init,
@@ -7,7 +12,7 @@ export async function api<T>(path: string, init?: RequestInit): Promise<T> {
   });
   if (!response.ok) {
     const body = await response.json().catch(() => ({}));
-    throw new Error(body.message || "Service unavailable. Please retry.");
+    throw new ApiError(body.message || "Service unavailable. Please retry.", body);
   }
   return response.json();
 }
@@ -43,6 +48,7 @@ export interface Product {
 export interface Opportunity {
   demo?: boolean;
   stale?: boolean;
+  stale_reason?: string;
   id: string;
   title: string;
   product_id: string;

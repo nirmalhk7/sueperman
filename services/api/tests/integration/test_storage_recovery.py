@@ -6,6 +6,7 @@ import sqlite3
 import stat
 import subprocess
 import sys
+from contextlib import ExitStack
 from pathlib import Path
 
 import pytest
@@ -28,34 +29,40 @@ def rows(path):
 
 
 @pytest.fixture
-def populated(tmp_path, monkeypatch):
+def app_lifecycles():
+    with ExitStack() as stack:
+        yield stack
+
+
+@pytest.fixture
+def populated(tmp_path, monkeypatch, app_lifecycles):
     monkeypatch.setenv("DIWALI_ENABLED", "true")
     monkeypatch.setenv("P1_ENABLED", "true")
     from app.main import create_app
     path = tmp_path / "source.db"
-    with TestClient(create_app(f"sqlite:///{path}")) as client:
-        seed = client.post("/api/demo/reset").json()
-        run = client.post("/api/runs", json={"mode": "demo", "purchase_ids": seed["purchase_ids"],
-            "idempotency_key": "storage-fixture"}).json()
-        cases = client.get("/api/opportunities", params={"run_id": run["run_id"]}).json()
-        exact = next(c for c in cases if c["status"] == "verified_match")
-        packet = client.post(f"/api/opportunities/{exact['id']}/claim-packet").json()
-        endpoint = f"/api/claim-packets/{packet['id']}"
-        client.post(endpoint + "/approve-local", json={"confirmed": True}).raise_for_status()
-        exported = client.post(endpoint + "/export").raise_for_status().text
-        product = client.get("/api/products").json()[0]
-        team = client.post("/api/collaborations", json={"product_ids": [product["id"]],
-            "mode": "replay", "idempotency_key": "storage-team"}).json()
-        assert client.get(f"/api/collaborations/{team['id']}").json()["status"] == "ready_for_review"
-        # Keep WAL open and committed: a plain file copy could miss these rows.
-        with sqlite3.connect(path) as writer:
-            writer.execute("PRAGMA wal_autocheckpoint=0")
-            writer.execute("INSERT INTO receipt_ocr_usage(day,calls) VALUES ('2026-11-17',7)")
-            writer.commit()
-            yield path, client, endpoint, exported
+    client = app_lifecycles.enter_context(TestClient(create_app(f"sqlite:///{path}")))
+    seed = client.post("/api/demo/reset").json()
+    run = client.post("/api/runs", json={"mode": "demo", "purchase_ids": seed["purchase_ids"],
+        "idempotency_key": "storage-fixture"}).json()
+    cases = client.get("/api/opportunities", params={"run_id": run["run_id"]}).json()
+    exact = next(c for c in cases if c["status"] == "verified_match")
+    packet = client.post(f"/api/opportunities/{exact['id']}/claim-packet").json()
+    endpoint = f"/api/claim-packets/{packet['id']}"
+    client.post(endpoint + "/approve-local", json={"confirmed": True}).raise_for_status()
+    exported = client.post(endpoint + "/export").raise_for_status().text
+    product = client.get("/api/products").json()[0]
+    team = client.post("/api/collaborations", json={"product_ids": [product["id"]],
+        "mode": "replay", "idempotency_key": "storage-team"}).json()
+    assert client.get(f"/api/collaborations/{team['id']}").json()["status"] == "ready_for_review"
+    # Keep WAL open and committed: a plain file copy could miss these rows.
+    with sqlite3.connect(path) as writer:
+        writer.execute("PRAGMA wal_autocheckpoint=0")
+        writer.execute("INSERT INTO receipt_ocr_usage(day,calls) VALUES ('2026-11-17',7)")
+        writer.commit()
+        yield path, client, endpoint, exported
 
 
-def test_snapshot_copies_committed_wal_and_restores_all_rows(populated, tmp_path):
+def test_snapshot_copies_committed_wal_and_restores_all_rows(populated, tmp_path, app_lifecycles):
     source, _client, endpoint, expected_export = populated
     (source.parent / ".env.private").write_text("PRIVATE_TOKEN=must-not-be-backed-up")
     directory = tmp_path / "backups"
@@ -74,6 +81,8 @@ def test_snapshot_copies_committed_wal_and_restores_all_rows(populated, tmp_path
     assert rows(restored) == expected
     assert rows(source) == expected
     assert stat.S_IMODE(restored.stat().st_mode) == 0o600
+    # Recovery keeps the journal lineage; only one app may own that lineage.
+    app_lifecycles.close()
     from app.main import create_app
     with TestClient(create_app(f"sqlite:///{restored}")) as client:
         assert client.post(endpoint + "/export").raise_for_status().text == expected_export
@@ -357,14 +366,14 @@ def test_backup_outage_preserves_last_valid_recovery_copy(populated, tmp_path):
     assert not old.exists()
 
 
-def test_restored_queue_cannot_repeat_work_executed_after_backup(populated, tmp_path):
+def test_restored_queue_cannot_repeat_work_executed_after_backup(populated, tmp_path, app_lifecycles):
     import asyncio
     from contextlib import closing
 
     from sqlalchemy import create_engine, select
     from sqlalchemy.orm import Session
 
-    from app import jobs
+    from app import deletion, jobs
     from app.agent.orchestrator import execute
     from app.config import Settings
     from app.models import AgentRun, Purchase
@@ -373,6 +382,7 @@ def test_restored_queue_cannot_repeat_work_executed_after_backup(populated, tmp_
     with closing(sqlite3.connect(source)) as origin, closing(sqlite3.connect(isolated)) as output:
         origin.backup(output)
     engine = create_engine(f"sqlite:///{isolated}")
+    deletion.bind_database(engine, _client.app.state.deletion_runtime.path)
     from sqlalchemy.orm import sessionmaker
     factory = sessionmaker(engine, expire_on_commit=False)
     with Session(engine) as session, session.begin():
@@ -393,6 +403,7 @@ def test_restored_queue_cannot_repeat_work_executed_after_backup(populated, tmp_
     destination = tmp_path / "from-old-snapshot.db"
     snapshot = Path(json.loads(result.stdout)["snapshot"])
     assert cli("restore", "--snapshot", snapshot, "--database", destination).returncode == 0
+    app_lifecycles.close()
     from app.main import create_app
     with TestClient(create_app(f"sqlite:///{destination}")) as client:
         restored = client.get(f"/api/runs/{identifier}").json()
@@ -402,13 +413,14 @@ def test_restored_queue_cannot_repeat_work_executed_after_backup(populated, tmp_
         assert client.get(f"/api/runs/{identifier}/events").json() == []
 
 
-def test_restore_of_inflight_source_check_revokes_only_related_approval(populated, tmp_path):
+def test_restore_of_inflight_source_check_revokes_only_related_approval(populated, tmp_path, app_lifecycles):
     from contextlib import closing
     from datetime import UTC, datetime
 
     from sqlalchemy import create_engine, select
     from sqlalchemy.orm import Session
 
+    from app import deletion
     from app.models import Opportunity
     from app.p1 import monitoring
     source, _client, endpoint, _export = populated
@@ -416,6 +428,7 @@ def test_restore_of_inflight_source_check_revokes_only_related_approval(populate
     with closing(sqlite3.connect(source)) as origin, closing(sqlite3.connect(isolated)) as output:
         origin.backup(output)
     engine = create_engine(f"sqlite:///{isolated}")
+    deletion.bind_database(engine, _client.app.state.deletion_runtime.path)
     with Session(engine) as session, session.begin():
         opportunity = session.scalar(select(Opportunity).where(Opportunity.payload["status"].as_string() == "verified_match"))
         watch = monitoring.set_watch(session, opportunity.id, enabled=True, observed_at=datetime.now(UTC))
@@ -433,6 +446,7 @@ def test_restore_of_inflight_source_check_revokes_only_related_approval(populate
         watch = session.get(monitoring.SourceWatch, watch_id)
         assert watch.enabled and watch.status == "interrupted" and watch.lease is None
     engine.dispose()
+    app_lifecycles.close()
     from app.main import create_app
     with TestClient(create_app(f"sqlite:///{destination}")) as client:
         assert client.post(endpoint + "/export").status_code == 409

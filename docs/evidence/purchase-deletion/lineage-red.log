@@ -1,0 +1,32 @@
+FF                                                                       [100%]
+=================================== FAILURES ===================================
+___ test_reimport_confirmation_changes_when_the_same_import_is_deleted_again ___
+
+tmp_path = PosixPath('/private/var/folders/k0/w3xrb_d95jn2t7nf2f0s05yr0000gp/T/pytest-of-nirmalhk7/pytest-397/test_reimport_confirmation_cha0')
+
+    def test_reimport_confirmation_changes_when_the_same_import_is_deleted_again(tmp_path):
+        implementation = journal()
+        challenge = getattr(implementation, "reimport_challenge", None)
+>       assert callable(challenge), "Generation-bound re-import confirmation is not implemented"
+E       AssertionError: Generation-bound re-import confirmation is not implemented
+E       assert False
+E        +  where False = callable(None)
+
+services/api/tests/integration/test_deletion_journal.py:120: AssertionError
+______ test_wrong_empty_journal_cannot_satisfy_expected_database_lineage _______
+
+tmp_path = PosixPath('/private/var/folders/k0/w3xrb_d95jn2t7nf2f0s05yr0000gp/T/pytest-of-nirmalhk7/pytest-397/test_wrong_empty_journal_canno0')
+
+    def test_wrong_empty_journal_cannot_satisfy_expected_database_lineage(tmp_path):
+        implementation = journal()
+        identity = getattr(implementation, "journal_identity", None)
+>       assert callable(identity), "Database-lineage verification is not implemented"
+E       AssertionError: Database-lineage verification is not implemented
+E       assert False
+E        +  where False = callable(None)
+
+services/api/tests/integration/test_deletion_journal.py:137: AssertionError
+=========================== short test summary info ============================
+FAILED services/api/tests/integration/test_deletion_journal.py::test_reimport_confirmation_changes_when_the_same_import_is_deleted_again
+FAILED services/api/tests/integration/test_deletion_journal.py::test_wrong_empty_journal_cannot_satisfy_expected_database_lineage
+2 failed, 6 deselected in 0.55s

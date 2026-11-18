@@ -29,11 +29,17 @@ def draft_allowed(opportunity):
     )
 
 
+def stale_message(opportunity):
+    if opportunity.payload.get("stale_reason") == "related_history_removed":
+        return "Related investigation history was deleted; run a fresh check and review a new draft"
+    return "Purchase corrected; recheck and review a new draft"
+
+
 def register(app, factory, get, settings=None):
     def p1_guard(session, packet):
         opportunity = get(session, Opportunity, packet.opportunity_id)
         if opportunity.payload.get("stale"):
-            raise HTTPException(409, "Purchase corrected; recheck and review a new draft")
+            raise HTTPException(409, stale_message(opportunity))
         if review_required(session, opportunity):
             raise HTTPException(409, "Current official source requires a new live review")
         if settings and settings.p1_enabled and obligations.invalidate_approval(session, packet):
@@ -44,7 +50,7 @@ def register(app, factory, get, settings=None):
         with factory() as s:
             o = get(s, Opportunity, identifier)
             if o.payload.get("stale"):
-                raise HTTPException(409, "Purchase corrected; recheck and review a new draft")
+                raise HTTPException(409, stale_message(o))
             if not draft_allowed(o):
                 raise HTTPException(409, "Hard gates have not passed; no real remedy packet available")
             packet = s.scalar(select(ClaimPacket).where(ClaimPacket.opportunity_id == identifier))

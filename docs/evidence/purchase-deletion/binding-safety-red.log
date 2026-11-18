@@ -1,0 +1,45 @@
+FF                                                                       [100%]
+=================================== FAILURES ===================================
+_______ test_missing_lineage_in_malformed_policy_cannot_disable_binding ________
+
+tmp_path = PosixPath('/private/var/folders/k0/w3xrb_d95jn2t7nf2f0s05yr0000gp/T/pytest-of-nirmalhk7/pytest-411/test_missing_lineage_in_malfor0')
+
+    def test_missing_lineage_in_malformed_policy_cannot_disable_binding(tmp_path):
+        implementation = binding()
+        from app.db import database
+
+        engine, _factory = database(f"sqlite:///{tmp_path / 'source.db'}")
+        journal = tmp_path / "deletions.json"
+        implementation.initialize_journal(journal)
+        try:
+            with engine.begin() as connection:
+                connection.exec_driver_sql("CREATE TABLE purchase_deletion_policy (id INTEGER PRIMARY KEY, lineage TEXT, journal_path TEXT)")
+                connection.exec_driver_sql("INSERT INTO purchase_deletion_policy VALUES (1,NULL,?)", (str(journal.resolve()),))
+>           with pytest.raises(implementation.DeletionJournalError):
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E           Failed: DID NOT RAISE DeletionJournalError
+
+services/api/tests/integration/test_deletion_binding.py:91: Failed
+___________ test_journal_cannot_be_installed_inside_public_web_files ___________
+
+tmp_path = PosixPath('/private/var/folders/k0/w3xrb_d95jn2t7nf2f0s05yr0000gp/T/pytest-of-nirmalhk7/pytest-411/test_journal_cannot_be_install0')
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x107cf82f0>
+
+    def test_journal_cannot_be_installed_inside_public_web_files(tmp_path, monkeypatch):
+        implementation = binding()
+        from app import config
+        from app.db import database
+
+        monkeypatch.setattr(config, "ROOT", tmp_path)
+        engine, _factory = database(f"sqlite:///{tmp_path / 'source.db'}")
+        journal = tmp_path / "apps/web/public/deletions.json"
+        try:
+>           with pytest.raises(implementation.DeletionJournalError):
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E           Failed: DID NOT RAISE DeletionJournalError
+
+services/api/tests/integration/test_deletion_binding.py:106: Failed
+=========================== short test summary info ============================
+FAILED services/api/tests/integration/test_deletion_binding.py::test_missing_lineage_in_malformed_policy_cannot_disable_binding
+FAILED services/api/tests/integration/test_deletion_binding.py::test_journal_cannot_be_installed_inside_public_web_files
+2 failed, 3 deselected in 0.62s

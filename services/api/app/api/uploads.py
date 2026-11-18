@@ -2,10 +2,11 @@ import hashlib
 from pathlib import Path
 from typing import Annotated
 
-from fastapi import File, HTTPException, UploadFile
+from fastapi import File, Form, HTTPException, UploadFile
 from sqlalchemy import select
 
 from app.db import view
+from app.deletion_import import ReceiptAlignmentError, check_import, receipt_row_indices
 from app.models import (
     AgentRun,
     CaseRecord,
@@ -31,7 +32,8 @@ from app.schemas import (
 
 def register(app, factory, settings, import_products):
     @app.post("/api/uploads/purchases", response_model=ImportResponse)
-    async def upload(file: Annotated[UploadFile, File()]):
+    async def upload(file: Annotated[UploadFile, File()],
+                     reimport_confirmation: Annotated[str | None, Form(max_length=64)] = None):
         extension = Path(file.filename or "").suffix.lower()
         content = await file.read(MAX_UPLOAD + 1)
         await file.close()
@@ -45,6 +47,10 @@ def register(app, factory, settings, import_products):
         }:
             try:
                 with factory() as s:
+                    s.connection().exec_driver_sql("BEGIN IMMEDIATE")
+                    error, _deleted = check_import(app, "csv", content, reimport_confirmation)
+                    if error is not None:
+                        return error
                     return import_products(s, content)
             except ValueError:
                 raise HTTPException(422, "Invalid CSV; product_name and valid dates required") from None
@@ -61,10 +67,14 @@ def register(app, factory, settings, import_products):
         source_type = "pdf" if extension == ".pdf" else "image"
         digest = hashlib.sha256(content).hexdigest()
         with factory() as s:
+            s.connection().exec_driver_sql("BEGIN IMMEDIATE")
+            error, previously_deleted = check_import(app, source_type, content, reimport_confirmation)
+            if error is not None:
+                return error
             existing = s.scalars(
                 select(Purchase).where(Purchase.import_key.like(f"{source_type}:{digest}:%"))
             ).all()
-            if existing:
+            if existing and not previously_deleted:
                 ids = [p.id for p in existing]
                 return {
                     "purchase_ids": ids,
@@ -93,10 +103,27 @@ def register(app, factory, settings, import_products):
         except ProviderUnavailable:
             raise HTTPException(503, "Receipt extraction unavailable; upload a UTF-8 CSV instead") from None
         with factory() as s:
-            result = import_products(s, content, extracted=extracted, source_type=source_type)
+            s.connection().exec_driver_sql("BEGIN IMMEDIATE")
+            error, previously_deleted = check_import(app, source_type, content, reimport_confirmation)
+            if error is not None:
+                return error
+            row_indices = None
+            if previously_deleted:
+                remaining = s.scalars(select(Purchase).where(
+                    Purchase.import_key.like(f"{source_type}:{digest}:%"))).all()
+                try:
+                    row_indices = receipt_row_indices(remaining, extracted)
+                except ReceiptAlignmentError as exc:
+                    raise HTTPException(409, str(exc)) from None
+            result = import_products(s, content, extracted=extracted, source_type=source_type,
+                                     row_indices=row_indices)
             result["parse_warnings"] = [
                 "Scanned identifiers are unverified suggestions. Review and confirm them before checking purchases."
             ]
+            if previously_deleted:
+                result["parse_warnings"].append(
+                    "Fresh re-import confirmed. Receipt read again; normal usage limits apply, "
+                    "including repeated confirmed uploads of a previously deleted receipt.")
             return result
 
     @app.post("/api/products/{identifier}/confirm-identifiers", response_model=ProductResponse)

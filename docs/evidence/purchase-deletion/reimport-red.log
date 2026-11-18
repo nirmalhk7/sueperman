@@ -1,0 +1,177 @@
+FFF                                                                      [100%]
+=================================== FAILURES ===================================
+_ test_deleted_csv_requires_current_confirmation_and_new_deletion_invalidates_old_token _
+
+workspace = (<starlette.testclient.TestClient object at 0x10ed98440>, PosixPath('/private/var/folders/k0/w3xrb_d95jn2t7nf2f0s05yr0.../T/pytest-of-nirmalhk7/pytest-440/test_deleted_csv_requires_curr0/imports.db), autoflush=True, expire_on_commit=False))
+
+    def test_deleted_csv_requires_current_confirmation_and_new_deletion_invalidates_old_token(workspace):
+        client, journal, lineage, factory = workspace
+        first = request(client).raise_for_status().json()
+        erase_import(workspace, first["purchase_ids"])
+        denied = request(client)
+>       assert denied.status_code == 409
+E       assert 200 == 409
+E        +  where 200 = <Response [200 OK]>.status_code
+
+services/api/tests/integration/test_reimport_confirmation.py:64: AssertionError
+_____ test_deleted_receipt_is_blocked_before_model_configuration_or_quota ______
+
+workspace = (<starlette.testclient.TestClient object at 0x10efa7b60>, PosixPath('/private/var/folders/k0/w3xrb_d95jn2t7nf2f0s05yr0.../T/pytest-of-nirmalhk7/pytest-440/test_deleted_receipt_is_blocke0/imports.db), autoflush=True, expire_on_commit=False))
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x10d459cd0>
+
+    def test_deleted_receipt_is_blocked_before_model_configuration_or_quota(workspace, monkeypatch):
+        from app.providers.gemini import GeminiReceiptExtractor
+    
+        async def forbidden(*_args):
+            raise AssertionError("Receipt extraction happened before re-import consent")
+    
+        monkeypatch.setattr(GeminiReceiptExtractor, "extract", forbidden)
+        client, journal, lineage, _factory = workspace
+        content = (Path(__file__).parents[4] / "demo/receipt-synthetic.png").read_bytes()
+        deletion.record_deletion(journal, str(uuid4()), import_fingerprint=file_fingerprint("image", content),
+                                 expected_lineage=lineage)
+>       response = request(client, content, kind="image")
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+services/api/tests/integration/test_reimport_confirmation.py:92: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+services/api/tests/integration/test_reimport_confirmation.py:46: in request
+    return client.post("/api/uploads/purchases", files={"file": (name, content, mime)},
+services/api/.venv/lib/python3.12/site-packages/httpx/_client.py:1144: in post
+    return self.request(
+services/api/.venv/lib/python3.12/site-packages/starlette/testclient.py:518: in request
+    return super().request(
+services/api/.venv/lib/python3.12/site-packages/httpx/_client.py:825: in request
+    return self.send(request, auth=auth, follow_redirects=follow_redirects)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+services/api/.venv/lib/python3.12/site-packages/httpx/_client.py:928: in send
+    raise exc
+services/api/.venv/lib/python3.12/site-packages/httpx/_client.py:922: in send
+    response.read()
+services/api/.venv/lib/python3.12/site-packages/httpx/_models.py:881: in read
+    self._content = b"".join(self.iter_bytes())
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+services/api/.venv/lib/python3.12/site-packages/httpx/_models.py:897: in iter_bytes
+    for raw_bytes in self.iter_raw():
+                     ^^^^^^^^^^^^^^^
+services/api/.venv/lib/python3.12/site-packages/httpx/_models.py:951: in iter_raw
+    for raw_stream_bytes in self.stream:
+                            ^^^^^^^^^^^
+services/api/.venv/lib/python3.12/site-packages/httpx/_client.py:153: in __iter__
+    for chunk in self._stream:
+                 ^^^^^^^^^^^^
+services/api/.venv/lib/python3.12/site-packages/starlette/testclient.py:384: in iter_body
+    exit_stack.close()
+/private/tmp/sueperman-python/cpython-3.12.13-macos-aarch64-none/lib/python3.12/contextlib.py:618: in close
+    self.__exit__(None, None, None)
+/private/tmp/sueperman-python/cpython-3.12.13-macos-aarch64-none/lib/python3.12/contextlib.py:610: in __exit__
+    raise exc_details[1]
+/private/tmp/sueperman-python/cpython-3.12.13-macos-aarch64-none/lib/python3.12/contextlib.py:595: in __exit__
+    if cb(*exc_details):
+       ^^^^^^^^^^^^^^^^
+services/api/.venv/lib/python3.12/site-packages/starlette/testclient.py:399: in close_app
+    raise exception
+services/api/.venv/lib/python3.12/site-packages/anyio/from_thread.py:272: in _call_func
+    retval = await retval_or_awaitable
+             ^^^^^^^^^^^^^^^^^^^^^^^^^
+services/api/.venv/lib/python3.12/site-packages/starlette/testclient.py:366: in run_app
+    await self.app(scope, receive, send)
+services/api/.venv/lib/python3.12/site-packages/fastapi/applications.py:1194: in __call__
+    await super().__call__(scope, receive, send)
+services/api/.venv/lib/python3.12/site-packages/starlette/applications.py:96: in __call__
+    await self.middleware_stack(scope, receive, send)
+services/api/.venv/lib/python3.12/site-packages/starlette/middleware/errors.py:186: in __call__
+    raise exc
+services/api/.venv/lib/python3.12/site-packages/starlette/middleware/errors.py:164: in __call__
+    await self.app(scope, receive, _send)
+services/api/.venv/lib/python3.12/site-packages/fastapi/telemetry/_asgi.py:151: in __call__
+    await self.app(scope, receive, send)
+services/api/.venv/lib/python3.12/site-packages/starlette/middleware/base.py:203: in __call__
+    response = await self.dispatch_func(request, call_next)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+services/api/app/main.py:105: in restrict_mutations
+    return await call_next(request)
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+services/api/.venv/lib/python3.12/site-packages/starlette/middleware/base.py:179: in call_next
+    raise app_exc from app_exc.__cause__ or app_exc.__context__
+services/api/.venv/lib/python3.12/site-packages/starlette/middleware/base.py:149: in coro
+    await self.app(scope, receive_or_disconnect, send_no_error)
+services/api/.venv/lib/python3.12/site-packages/starlette/middleware/cors.py:91: in __call__
+    await self.simple_response(scope, receive, send, request_headers=headers)
+services/api/.venv/lib/python3.12/site-packages/starlette/middleware/cors.py:149: in simple_response
+    await self.app(scope, receive, send)
+services/api/.venv/lib/python3.12/site-packages/starlette/middleware/exceptions.py:63: in __call__
+    await wrap_app_handling_exceptions(self.app, conn)(scope, receive, send)
+services/api/.venv/lib/python3.12/site-packages/starlette/_exception_handler.py:53: in wrapped_app
+    raise exc
+services/api/.venv/lib/python3.12/site-packages/starlette/_exception_handler.py:42: in wrapped_app
+    await app(scope, receive, sender)
+services/api/.venv/lib/python3.12/site-packages/fastapi/middleware/asyncexitstack.py:18: in __call__
+    await self.app(scope, receive, send)
+services/api/.venv/lib/python3.12/site-packages/starlette/routing.py:683: in __call__
+    await self.middleware_stack(scope, receive, send)
+services/api/.venv/lib/python3.12/site-packages/fastapi/routing.py:2811: in app
+    await route.handle(scope, receive, send)
+services/api/.venv/lib/python3.12/site-packages/fastapi/routing.py:1330: in handle
+    await super().handle(scope, receive, send)
+services/api/.venv/lib/python3.12/site-packages/starlette/routing.py:289: in handle
+    await self.app(scope, receive, send)
+services/api/.venv/lib/python3.12/site-packages/fastapi/routing.py:166: in app
+    await wrap_app_handling_exceptions(app, request)(scope, receive, send)
+services/api/.venv/lib/python3.12/site-packages/starlette/_exception_handler.py:53: in wrapped_app
+    raise exc
+services/api/.venv/lib/python3.12/site-packages/starlette/_exception_handler.py:42: in wrapped_app
+    await app(scope, receive, sender)
+services/api/.venv/lib/python3.12/site-packages/fastapi/routing.py:152: in app
+    response = await f(request)
+               ^^^^^^^^^^^^^^^^
+services/api/.venv/lib/python3.12/site-packages/fastapi/routing.py:745: in app
+    raw_response = await run_endpoint_function(
+services/api/.venv/lib/python3.12/site-packages/fastapi/routing.py:372: in run_endpoint_function
+    return await dependant.call(**values)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+services/api/app/api/uploads.py:90: in upload
+    extracted = await GeminiReceiptExtractor(settings.gemini_api_key, settings.gemini_model).extract(
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+_args = (<app.providers.gemini.GeminiReceiptExtractor object at 0x10efdf170>, b'\x89PNG\r\n\x1a\n\x00\x00\x00\rIHDR\x00\x00\x0...x80P\x00\x00\x84\x02\x00\x80P\x00\x00~\x8a\xff\x0f\xd6\x8aZ\x06\x9b\x81\ri\x00\x00\x00\x00IEND\xaeB`\x82', 'image/png')
+
+    async def forbidden(*_args):
+>       raise AssertionError("Receipt extraction happened before re-import consent")
+E       AssertionError: Receipt extraction happened before re-import consent
+
+services/api/tests/integration/test_reimport_confirmation.py:85: AssertionError
+_________ test_deletion_during_extraction_prevents_delayed_recreation __________
+
+workspace = (<starlette.testclient.TestClient object at 0x10f002210>, PosixPath('/private/var/folders/k0/w3xrb_d95jn2t7nf2f0s05yr0.../T/pytest-of-nirmalhk7/pytest-440/test_deletion_during_extractio0/imports.db), autoflush=True, expire_on_commit=False))
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x10d459df0>
+
+    def test_deletion_during_extraction_prevents_delayed_recreation(workspace, monkeypatch):
+        from app.providers.gemini import GeminiReceiptExtractor
+        from app.schemas import ProductInput
+    
+        client, journal, lineage, factory = workspace
+        content = (Path(__file__).parents[4] / "demo/receipt-synthetic.png").read_bytes()
+        async def extracting(_self, _content, _mime):
+            deletion.record_deletion(journal, str(uuid4()), import_fingerprint=file_fingerprint("image", content),
+                                     expected_lineage=lineage)
+            return [ProductInput(product_name="Power Bank")]
+    
+        monkeypatch.setattr(GeminiReceiptExtractor, "extract", extracting)
+        response = request(client, content, kind="image")
+>       assert response.status_code == 409
+E       assert 200 == 409
+E        +  where 200 = <Response [200 OK]>.status_code
+
+services/api/tests/integration/test_reimport_confirmation.py:110: AssertionError
+=============================== warnings summary ===============================
+services/api/.venv/lib/python3.12/site-packages/fastapi/testclient.py:1
+  /Users/nirmalhk7/Documents/DevWorld/sueperman/services/api/.venv/lib/python3.12/site-packages/fastapi/testclient.py:1: StarletteDeprecationWarning: Using `httpx` with `starlette.testclient` is deprecated; install `httpx2` instead.
+    from starlette.testclient import TestClient as TestClient  # noqa
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+=========================== short test summary info ============================
+FAILED services/api/tests/integration/test_reimport_confirmation.py::test_deleted_csv_requires_current_confirmation_and_new_deletion_invalidates_old_token
+FAILED services/api/tests/integration/test_reimport_confirmation.py::test_deleted_receipt_is_blocked_before_model_configuration_or_quota
+FAILED services/api/tests/integration/test_reimport_confirmation.py::test_deletion_during_extraction_prevents_delayed_recreation
+3 failed, 1 warning in 1.73s

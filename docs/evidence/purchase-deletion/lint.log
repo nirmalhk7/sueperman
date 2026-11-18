@@ -1,0 +1,4 @@
+services/api/.venv/bin/ruff check services/api/app services/api/tests scripts
+All checks passed!
+pnpm --dir apps/web lint
+$ eslint app lib tests

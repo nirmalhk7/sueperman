@@ -1,0 +1,108 @@
+FFFFF                                                                    [100%]
+=================================== FAILURES ===================================
+_____ test_restore_reapplies_current_deletions_before_publishing_database ______
+
+deletion_snapshot = (PosixPath('/private/var/folders/k0/w3xrb_d95jn2t7nf2f0s05yr0000gp/T/pytest-of-nirmalhk7/pytest-441/test_restore_reapp...'a31b8e54-090b-4bb2-b451-19b39982ca2d', '1e6d82b2-0f88-4f7e-b219-11e99c0eb00b', '21a20f18-95de-47c6-9109-9499be0ab19d')
+tmp_path = PosixPath('/private/var/folders/k0/w3xrb_d95jn2t7nf2f0s05yr0000gp/T/pytest-of-nirmalhk7/pytest-441/test_restore_reapplies_current0')
+
+    def test_restore_reapplies_current_deletions_before_publishing_database(deletion_snapshot, tmp_path):
+        source, snapshot, _journal, removed_id, kept_id, run_id = deletion_snapshot
+        restored = storage.restore(snapshot, tmp_path / "restored.db")
+        with sqlite3.connect(restored) as connection:
+>           assert connection.execute("SELECT id FROM purchases").fetchall() == [(kept_id,)]
+E           AssertionError: assert [('1e6d82b2-0...b39982ca2d',)] == [('1e6d82b2-0...e99c0eb00b',)]
+E             
+E             Left contains one more item: ('a31b8e54-090b-4bb2-b451-19b39982ca2d',)
+E             Use -v to get more diff
+
+services/api/tests/integration/test_deletion_restore.py:43: AssertionError
+_____ test_unavailable_deletion_authority_never_publishes_restore[missing] _____
+
+deletion_snapshot = (PosixPath('/private/var/folders/k0/w3xrb_d95jn2t7nf2f0s05yr0000gp/T/pytest-of-nirmalhk7/pytest-441/test_unavailable_d...'7d9386f7-f3b9-42c3-81db-54d24b4b5441', '7ffb2a86-4736-4442-bf02-c9c534efda49', 'fd12673e-c4b7-48b9-8cd4-1973d1f3049a')
+tmp_path = PosixPath('/private/var/folders/k0/w3xrb_d95jn2t7nf2f0s05yr0000gp/T/pytest-of-nirmalhk7/pytest-441/test_unavailable_deletion_auth0')
+failure = 'missing'
+
+    @pytest.mark.parametrize("failure", ["missing", "corrupt", "different_lineage"])
+    def test_unavailable_deletion_authority_never_publishes_restore(deletion_snapshot, tmp_path, failure):
+        _source, snapshot, journal, _removed, _kept, _run = deletion_snapshot
+        journal.unlink()
+        if failure == "corrupt":
+            journal.write_text("{}"); journal.chmod(0o600)
+        elif failure == "different_lineage":
+            deletion.initialize_journal(journal)
+        target = tmp_path / "must-not-exist.db"
+>       with pytest.raises(ValueError):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE ValueError
+
+services/api/tests/integration/test_deletion_restore.py:63: Failed
+_____ test_unavailable_deletion_authority_never_publishes_restore[corrupt] _____
+
+deletion_snapshot = (PosixPath('/private/var/folders/k0/w3xrb_d95jn2t7nf2f0s05yr0000gp/T/pytest-of-nirmalhk7/pytest-441/test_unavailable_d...'f63ca7f5-7a6e-4698-ab75-f98debe0007b', 'ff920415-1c7e-4602-aef5-05db7af68f78', '05d95cb2-5544-4868-addb-d95349ced499')
+tmp_path = PosixPath('/private/var/folders/k0/w3xrb_d95jn2t7nf2f0s05yr0000gp/T/pytest-of-nirmalhk7/pytest-441/test_unavailable_deletion_auth1')
+failure = 'corrupt'
+
+    @pytest.mark.parametrize("failure", ["missing", "corrupt", "different_lineage"])
+    def test_unavailable_deletion_authority_never_publishes_restore(deletion_snapshot, tmp_path, failure):
+        _source, snapshot, journal, _removed, _kept, _run = deletion_snapshot
+        journal.unlink()
+        if failure == "corrupt":
+            journal.write_text("{}"); journal.chmod(0o600)
+        elif failure == "different_lineage":
+            deletion.initialize_journal(journal)
+        target = tmp_path / "must-not-exist.db"
+>       with pytest.raises(ValueError):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE ValueError
+
+services/api/tests/integration/test_deletion_restore.py:63: Failed
+_ test_unavailable_deletion_authority_never_publishes_restore[different_lineage] _
+
+deletion_snapshot = (PosixPath('/private/var/folders/k0/w3xrb_d95jn2t7nf2f0s05yr0000gp/T/pytest-of-nirmalhk7/pytest-441/test_unavailable_d...'927d5d4f-74bf-456f-8348-5261b0a114aa', '1076253e-a36f-4901-8afc-66fde2121494', '382b41cd-1372-4797-b093-5e2fba944dba')
+tmp_path = PosixPath('/private/var/folders/k0/w3xrb_d95jn2t7nf2f0s05yr0000gp/T/pytest-of-nirmalhk7/pytest-441/test_unavailable_deletion_auth2')
+failure = 'different_lineage'
+
+    @pytest.mark.parametrize("failure", ["missing", "corrupt", "different_lineage"])
+    def test_unavailable_deletion_authority_never_publishes_restore(deletion_snapshot, tmp_path, failure):
+        _source, snapshot, journal, _removed, _kept, _run = deletion_snapshot
+        journal.unlink()
+        if failure == "corrupt":
+            journal.write_text("{}"); journal.chmod(0o600)
+        elif failure == "different_lineage":
+            deletion.initialize_journal(journal)
+        target = tmp_path / "must-not-exist.db"
+>       with pytest.raises(ValueError):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE ValueError
+
+services/api/tests/integration/test_deletion_restore.py:63: Failed
+__________ test_prepolicy_snapshot_requires_verified_explicit_journal __________
+
+tmp_path = PosixPath('/private/var/folders/k0/w3xrb_d95jn2t7nf2f0s05yr0000gp/T/pytest-of-nirmalhk7/pytest-441/test_prepolicy_snapshot_requir0')
+
+    def test_prepolicy_snapshot_requires_verified_explicit_journal(tmp_path):
+        source = tmp_path / "legacy-source.db"
+        engine, factory = database(f"sqlite:///{source}")
+        try:
+            with factory.begin() as session:
+                purchase = Purchase(import_key="csv:legacy:0", payload={})
+                session.add(purchase)
+                session.flush()
+                identifier = purchase.id
+            snapshot = storage.backup(source, tmp_path / "legacy-backups")
+            journal = tmp_path / "legacy-deletions.json"
+            state = deletion.bind_database(engine, journal, initialize=True)
+            deletion.record_deletion(journal, identifier, import_fingerprint="d" * 64,
+                                     expected_lineage=state["lineage"])
+>           with pytest.raises(ValueError):
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^
+E           Failed: DID NOT RAISE ValueError
+
+services/api/tests/integration/test_deletion_restore.py:83: Failed
+=========================== short test summary info ============================
+FAILED services/api/tests/integration/test_deletion_restore.py::test_restore_reapplies_current_deletions_before_publishing_database
+FAILED services/api/tests/integration/test_deletion_restore.py::test_unavailable_deletion_authority_never_publishes_restore[missing]
+FAILED services/api/tests/integration/test_deletion_restore.py::test_unavailable_deletion_authority_never_publishes_restore[corrupt]
+FAILED services/api/tests/integration/test_deletion_restore.py::test_unavailable_deletion_authority_never_publishes_restore[different_lineage]
+FAILED services/api/tests/integration/test_deletion_restore.py::test_prepolicy_snapshot_requires_verified_explicit_journal
+5 failed in 1.13s

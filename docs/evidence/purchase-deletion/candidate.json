@@ -1,0 +1,32 @@
+{
+  "base": "88e4593d3a340bb1c099a71dfc778a100ebe8acf",
+  "path": "/var/folders/k0/w3xrb_d95jn2t7nf2f0s05yr0000gp/T/sueperman-issue9-final-nyy9op6u",
+  "hashes": {
+    "apps/web/app/components.tsx": "808d26d075d8cd47e6b9878f253139074f90ef5a6cb061df9edfa6b89627e79e",
+    "apps/web/app/opportunities/[id]/page.tsx": "d3f63029a3324803d554df399907011732bff6c968ff640f2f776ddb1e64d5b0",
+    "apps/web/components/delete-purchase.tsx": "b1a9a410ad0ee9f0170e2775ad4c2ad2222482379aa4f1aa23f246cccdea836c",
+    "apps/web/lib/api.ts": "8eeca8c0b46ec44682c62403ec208112a6bbd07f388547b528db0b4ace58932c",
+    "apps/web/tests/deletion.e2e.ts": "ee069e772c0703f2a660a0ffc5399af7408bd1fdc9b032dc106d37cbc04b0d52",
+    "apps/web/tests/p1.e2e.ts": "c8fcef81c0637c2619fdde1ce5db826c101fbd2cf7dfb0cee2692c65bc52707b",
+    "apps/web/tests/storage.e2e.ts": "f27cbc28e28b4d2225fa17ffa17d0b8886aff33feeafb5ed5d44be6298d61f61",
+    "deploy/DURABLE_STORAGE.md": "06046c2b82ba5c888707eb97371557b5fab2e067107677aded020ed9da012e4c",
+    "scripts/container_smoke.py": "6ce3a9db472f0ba34b4f0f45d4a68789749e8239fca7dd38a1174d52b1b351c9",
+    "scripts/storage_smoke.py": "97ed26e856526c913942dae426f24ddd38c7d5e377aefaf8edc7fd3530a3175c",
+    "services/api/app/api/claims.py": "51a0fa39e5675f9159762cc649c116a43a4c3d621ca014520a6b3269facd6f3a",
+    "services/api/app/api/purchases.py": "67cdd9a9ab13b5805115eada893050a6d0e6f4a6b7f4aba834055295037d8cd3",
+    "services/api/app/api/uploads.py": "34d30f61e162590c7166057c66c769e640f57431177fe0877856510f800ad64a",
+    "services/api/app/deletion.py": "bb4e553fd02d8bc53d498029fc090b5e69c7c2a7cf3d6b9e06e7397cdff2cf0f",
+    "services/api/app/deletion_import.py": "8d65ca9dfe3c349d9f020857dea8fdb81d34268294f9f252e7730603d0113fca",
+    "services/api/app/deletion_lifecycle.py": "e65484af71d97424021d2f0273759f678a8843040e9d86b1ca7afa780aff848d",
+    "services/api/app/deletion_runtime.py": "3a9c6e2150cd8a22d49bc2d882d64989a04ef1c085bc8311db3df3da9e759849",
+    "services/api/app/main.py": "ed06d3aaff81b5bdbf83e77d5be16690ced2180461d5ee940976e22423dd228a",
+    "services/api/app/storage.py": "015f90dfebd57bf0aa1e0fed6c4c0309a92ab6ac580c6f7527a5263c66316875",
+    "services/api/tests/integration/test_deletion_binding.py": "b95156f5d21626216b17ad87853610eb4ab7e72e2e278aab8cefa393ad3a53ef",
+    "services/api/tests/integration/test_deletion_journal.py": "98300b2a7e4b5d438d5e372321af3dd41d0cd9384093f05f7bdf14a40fcc5e33",
+    "services/api/tests/integration/test_deletion_provenance.py": "43c5f6d6f5e186c5681117692cbb5d5a27bd0c41dafd23e2b7326b185be82229",
+    "services/api/tests/integration/test_deletion_restore.py": "879bf8e5063984c1d3ec84b5a2839cecf7209fbbab9190c2c314cb99e36fc019",
+    "services/api/tests/integration/test_purchase_deletion.py": "3368136db0abb52ee863206030e88f421252e29e703ad42d72db133494910a94",
+    "services/api/tests/integration/test_reimport_confirmation.py": "477d10bc979e5bb203b72717712399da574ac9e829f6da769f4b8aca143a0223",
+    "services/api/tests/integration/test_storage_recovery.py": "cf93f8edaf1121ffc9303321d6fa812d36c67a46bcd78b211d9b6402da8510a9"
+  }
+}

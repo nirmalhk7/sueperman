@@ -55,7 +55,8 @@ def main():
             )
             home = wait_for(client, "/").text
             assert "Sueperman" in home
-            assert "SHARED DEMO" in home and "Use synthetic purchases" in home
+            assert "SHARED WORKSPACE" in home and "Upload purchases or receipt" in home
+            assert "Uploaded purchase details are visible to other visitors." in home
             seeded = client.post("/api/demo/reset")
             seeded.raise_for_status()
             started = client.post(
@@ -140,7 +141,7 @@ def main():
             "    identifiers=session.scalars(select(Purchase.id).where(Purchase.demo.is_(True))).all()\n"
             "    assert len(identifiers)==5\n"
             "    validate_synthetic(session,identifiers)\n")
-        subprocess.run(
+        browser = subprocess.run(
             [
                 "pnpm",
                 "--dir",
@@ -148,19 +149,23 @@ def main():
                 "exec",
                 "playwright",
                 "test",
-                "tests/workflow.e2e.ts",
-                "--grep",
-                "five purchases produce evidence-backed recall",
+                "tests/deletion.e2e.ts",
                 "--output",
                 "../../output/playwright/container-" + PROJECT,
             ],
             cwd=ROOT,
-            env=os.environ | {"WEB_URL": ORIGIN},
-            check=True,
+            env=os.environ | {"WEB_URL": ORIGIN, "API_URL": ORIGIN},
+            capture_output=True,
+            text=True,
+            check=False,
             timeout=120,
         )
+        print(browser.stdout, end="")
+        print(browser.stderr, end="")
+        assert browser.returncode == 0 and "3 passed" in browser.stdout
         print(
-            "PASS: production containers, same-origin API, exact/negative demo, local export, non-root users, no env files."
+            "PASS: production containers, same-origin API, exact/negative demo and local export via API, "
+            "desktop/mobile deletion and confirmed re-import, shared-history consent, non-root users, no env files."
         )
     finally:
         subprocess.run(

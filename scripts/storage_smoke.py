@@ -110,14 +110,15 @@ engine.dispose()
             assert client.post(endpoint + "/export").raise_for_status().text == exported
             browser = subprocess.run(["pnpm", "--dir", "apps/web", "exec", "playwright", "test",
                 "tests/storage.e2e.ts", "--output", "../../output/playwright/storage-" + PROJECT],
-                cwd=ROOT, env=os.environ | {"WEB_URL": ORIGIN, "STORAGE_RESTORE_PACKET_ID": packet["id"],
+                cwd=ROOT, env=os.environ | {"WEB_URL": ORIGIN, "API_URL": ORIGIN, "STORAGE_RESTORE_PACKET_ID": packet["id"],
                     "STORAGE_EXPORT_SHA256": hashlib.sha256(exported.encode()).hexdigest()},
                 capture_output=True, text=True, timeout=120, check=False)
             print(browser.stdout, end="")
             print(browser.stderr, end="")
             assert browser.returncode == 0 and "1 passed" in browser.stdout
             print("PASS: persistent Compose recreation, WAL backup, exact all-row restore, original unchanged, "
-                  "approval/export and quota/watch/job state, non-root private snapshots, restored browser workflow.")
+                  "approval/export via API and quota/watch/job state, non-root private snapshots, "
+                  "restored imported purchases visible and historical demo drafts hidden in the browser.")
     finally:
         # Only this script's disposable project/volumes are removed.
         subprocess.run([*COMMAND, "down", "--volumes", "--remove-orphans"], cwd=ROOT, env=ENV,

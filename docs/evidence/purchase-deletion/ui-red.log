@@ -1,0 +1,75 @@
+
+Running 2 tests using 1 worker
+
+  ✘  1 tests/deletion.e2e.ts:5:3 › Delete purchase and explicitly re-import at 1280px (32.7s)
+  ✘  2 tests/deletion.e2e.ts:5:3 › Delete purchase and explicitly re-import at 390px (31.9s)
+
+
+  1) tests/deletion.e2e.ts:5:3 › Delete purchase and explicitly re-import at 1280px ────────────────
+
+    Test timeout of 30000ms exceeded.
+
+    Error: locator.click: Test timeout of 30000ms exceeded.
+    Call log:
+      - waiting for getByTestId('purchase-row').filter({ hasText: 'Deletion test 1280' }).getByRole('button', { name: 'Delete purchase', exact: true })
+
+
+      13 |     await page.goto("/");
+      14 |     const row = page.getByTestId("purchase-row").filter({ hasText: `Deletion test ${width}` });
+    > 15 |     await row.getByRole("button", { name: "Delete purchase", exact: true }).click();
+         |                                                                             ^
+      16 |     const review = row.getByRole("group", { name: "Review purchase deletion" });
+      17 |     await expect(review.getByRole("button", { name: "Delete permanently" })).toBeDisabled();
+      18 |     await review.getByLabel("I understand this permanently deletes this purchase and its local records").check();
+        at /private/var/folders/k0/w3xrb_d95jn2t7nf2f0s05yr0000gp/T/diwali-browser9jc8qwlf/web/tests/deletion.e2e.ts:15:77
+
+    attachment #1: video (video/webm) ──────────────────────────────────────────────────────────────
+    test-results/deletion.e2e.ts-Delete-pur-3c199-licitly-re-import-at-1280px/video.webm
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: test-results/deletion.e2e.ts-Delete-pur-3c199-licitly-re-import-at-1280px/error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results/deletion.e2e.ts-Delete-pur-3c199-licitly-re-import-at-1280px/trace.zip
+    Usage:
+
+        npx playwright show-trace test-results/deletion.e2e.ts-Delete-pur-3c199-licitly-re-import-at-1280px/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  2) tests/deletion.e2e.ts:5:3 › Delete purchase and explicitly re-import at 390px ─────────────────
+
+    Test timeout of 30000ms exceeded.
+
+    Error: locator.click: Test timeout of 30000ms exceeded.
+    Call log:
+      - waiting for getByTestId('purchase-row').filter({ hasText: 'Deletion test 390' }).getByRole('button', { name: 'Delete purchase', exact: true })
+
+
+      13 |     await page.goto("/");
+      14 |     const row = page.getByTestId("purchase-row").filter({ hasText: `Deletion test ${width}` });
+    > 15 |     await row.getByRole("button", { name: "Delete purchase", exact: true }).click();
+         |                                                                             ^
+      16 |     const review = row.getByRole("group", { name: "Review purchase deletion" });
+      17 |     await expect(review.getByRole("button", { name: "Delete permanently" })).toBeDisabled();
+      18 |     await review.getByLabel("I understand this permanently deletes this purchase and its local records").check();
+        at /private/var/folders/k0/w3xrb_d95jn2t7nf2f0s05yr0000gp/T/diwali-browser9jc8qwlf/web/tests/deletion.e2e.ts:15:77
+
+    attachment #1: video (video/webm) ──────────────────────────────────────────────────────────────
+    test-results/deletion.e2e.ts-Delete-pur-af6fd-plicitly-re-import-at-390px/video.webm
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: test-results/deletion.e2e.ts-Delete-pur-af6fd-plicitly-re-import-at-390px/error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results/deletion.e2e.ts-Delete-pur-af6fd-plicitly-re-import-at-390px/trace.zip
+    Usage:
+
+        npx playwright show-trace test-results/deletion.e2e.ts-Delete-pur-af6fd-plicitly-re-import-at-390px/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  2 failed
+    tests/deletion.e2e.ts:5:3 › Delete purchase and explicitly re-import at 1280px ─────────────────
+    tests/deletion.e2e.ts:5:3 › Delete purchase and explicitly re-import at 390px ──────────────────
+

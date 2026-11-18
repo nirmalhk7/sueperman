@@ -1,6 +1,6 @@
 # Persistent Compose storage and recovery
 
-Owner-approved issue #7 deployment: one Linux Docker host, one API worker, the existing persistent `demo-state` volume, and a separate `state-backups` volume. This supports the shared synthetic-data demo. Dummy sign-in does not provide private account isolation. The existing App Platform demo remains ephemeral and is not migrated by these instructions.
+Owner-approved issue #7 deployment: one Linux Docker host, one API worker, the existing persistent `demo-state` volume, and a separate `state-backups` volume. This supports the shared synthetic-data demo. The shared workspace does not provide private account isolation. The existing App Platform demo remains ephemeral and is not migrated by these instructions.
 
 Use a stable project name. Changing `-p sueperman` selects different volumes. Run all commands from the repository root, with Docker/Compose available:
 
@@ -65,12 +65,26 @@ Restore verifies private ownership markers, checksum, SQLite integrity, foreign 
 
 Historical snapshots cannot prove what executed after their capture. The owner approved conservative recovery: unfinished restored investigations become partial and require a fresh user action; pending case tasks are cancelled. Interrupted source watches retain opt-in but wait at least another day, with related approvals revoked. Completed data, existing approval bindings, quota counters and watch history otherwise retain their snapshot values. Calls or purchases after the snapshot cannot be reconstructed. Reconcile post-snapshot provider usage before re-enabling paid features; application counters are not a provider billing guarantee.
 
-Issue #9 deletion reconciliation is still pending. This version must not be used to claim deleted data stays deleted across restoration of older backups. That requirement must be implemented and verified before the broader deletion feature is complete.
+Purchase deletion history has a separate, private journal at the database's persisted authority path. Keep that journal on the persistent data volume. Ordinary database snapshots deliberately do not copy it: restoring yesterday's database must still apply today's deletion records. Restore verifies the snapshot's source identity against the current journal, removes deleted purchases and associated local history before publishing the new database, and preserves other purchases. Retained drafts whose investigation history was removed require a fresh check and approval. Normal startup must reconcile the journal again before serving data or starting workers.
+
+A missing, unreadable, corrupt or mismatched journal blocks restore. Do not replace it with an empty file, move it, restore an older journal over it, or remove deletion records while an older database copy could still be recovered. Minimal purchase identifiers and import fingerprints remain in this journal; receipt contents are not stored there. Losing the data volume loses this authority too. The same-host backup setup does not recover that loss safely.
+
+Snapshots taken before the deletion policy was installed require an explicit current journal, already bound to the original source database. Initialize the policy against the intact original source before recovery, then add `--deletion-journal /data/ACTUAL_JOURNAL_FILE` to the restore command. Use its actual canonical path. An unrelated empty journal is rejected; if the original source and its verified authority cannot be established, automatic restore is refused and requires a separately reviewed migration. An explicit journal cannot override a different authority persisted in a newer snapshot.
 
 ## Executable acceptance
 
-`make storage-test` builds a disposable production stack, inserts synthetic state, takes a WAL-safe snapshot, recreates containers on the same volumes, restores into a new filename, and compares every domain table without changing the original. It checks approval/export, receipt quota and watch/job state, private non-root backup storage, and an actual browser download of the original approved draft. It does not touch the real `sueperman` project or deploy anything publicly.
+`make storage-test` builds a disposable production stack, inserts synthetic state, takes a WAL-safe snapshot, recreates containers on the same volumes, restores into a new filename, and compares every domain table without changing the original. It checks approval/export, receipt quota and watch/job state, and private non-root backup storage. The original synthetic draft is exported and hash-verified through the API; the public browser correctly hides its historical demo approval and shows the imported purchase. Positive public browser export is tested separately with controlled vendor responses, not live-provider proof. These checks do not touch the real `sueperman` project or deploy anything publicly.
 
 `make test` includes focused CLI/scheduler/retention/restore safety checks. `storage.e2e.ts` is excluded from bare `make e2e` because it requires the isolated restored database; `make storage-test` supplies it and requires the browser scenario to execute without skip. Existing test/lint/typecheck/build/smoke/browser/container checks remain mandatory.
 
 Implementation references: [Python SQLite backup API](https://docs.python.org/3.12/library/sqlite3.html#sqlite3.Connection.backup), [SQLite WAL read-only behavior](https://www.sqlite.org/wal.html#read_only_databases), and [Docker volume lifecycle](https://docs.docker.com/engine/storage/volumes/#a-volumes-lifecycle).
+
+## Install deletion history on an existing database
+
+Fresh, empty installations create a private journal automatically. An existing populated database without a deletion policy keeps ordinary features available but refuses deletion until the operator installs its authority. Stop the app first, keep the original database file in place, then run:
+
+```sh
+docker compose -f compose.production.yaml -f compose.durable.yaml -p sueperman run --rm --no-deps backup python -m app.deletion initialize --database /data/sueperman.db
+```
+
+Use the actual selected database filename. The command prints its fixed journal path and lineage. Restart the app with that same data volume. Re-running installation validates the existing authority; it cannot recreate a missing established journal. Retain the journal and its private permissions. Restored filenames retain the same journal authority; only one application worker may own that lineage at a time.

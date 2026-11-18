@@ -1,0 +1,51 @@
+F                                                                        [100%]
+=================================== FAILURES ===================================
+__________ test_fifo_journal_is_rejected_without_waiting_for_a_writer __________
+
+tmp_path = PosixPath('/private/var/folders/k0/w3xrb_d95jn2t7nf2f0s05yr0000gp/T/pytest-of-nirmalhk7/pytest-388/test_fifo_journal_is_rejected_0')
+
+    def test_fifo_journal_is_rejected_without_waiting_for_a_writer(tmp_path):
+        journal()
+        path = tmp_path / "deletions.json"
+        os.mkfifo(path, 0o600)
+        code = (
+            "import sys;from app.deletion import journal_records,DeletionJournalError\n"
+            "try: journal_records(sys.argv[1])\n"
+            "except DeletionJournalError: print('refused')\n"
+        )
+>       result = subprocess.run([sys.executable, "-c", code, str(path)], capture_output=True,
+                                text=True, timeout=2, check=False,
+                                env=os.environ | {"PYTHONPATH": str(Path(__file__).resolve().parents[2])})
+
+services/api/tests/integration/test_deletion_journal.py:94:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+/private/tmp/sueperman-python/cpython-3.12.13-macos-aarch64-none/lib/python3.12/subprocess.py:550: in run
+    stdout, stderr = process.communicate(input, timeout=timeout)
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+/private/tmp/sueperman-python/cpython-3.12.13-macos-aarch64-none/lib/python3.12/subprocess.py:1209: in communicate
+    stdout, stderr = self._communicate(input, endtime, timeout)
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+/private/tmp/sueperman-python/cpython-3.12.13-macos-aarch64-none/lib/python3.12/subprocess.py:2116: in _communicate
+    self._check_timeout(endtime, orig_timeout, stdout, stderr)
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+self = <Popen: returncode: -9 args: ['/Users/nirmalhk7/Documents/DevWorld/sueperman...>
+endtime = 902948.788870791, orig_timeout = 2, stdout_seq = [], stderr_seq = []
+skip_check_and_raise = False
+
+    def _check_timeout(self, endtime, orig_timeout, stdout_seq, stderr_seq,
+                       skip_check_and_raise=False):
+        """Convenience for checking if a timeout has expired."""
+        if endtime is None:
+            return
+        if skip_check_and_raise or _time() > endtime:
+>           raise TimeoutExpired(
+                    self.args, orig_timeout,
+                    output=b''.join(stdout_seq) if stdout_seq else None,
+                    stderr=b''.join(stderr_seq) if stderr_seq else None)
+E           subprocess.TimeoutExpired: Command '['/Users/nirmalhk7/Documents/DevWorld/sueperman/services/api/.venv/bin/python', '-c', "import sys;from app.deletion import journal_records,DeletionJournalError\ntry: journal_records(sys.argv[1])\nexcept DeletionJournalError: print('refused')\n", '/private/var/folders/k0/w3xrb_d95jn2t7nf2f0s05yr0000gp/T/pytest-of-nirmalhk7/pytest-388/test_fifo_journal_is_rejected_0/deletions.json']' timed out after 2 seconds
+
+/private/tmp/sueperman-python/cpython-3.12.13-macos-aarch64-none/lib/python3.12/subprocess.py:1253: TimeoutExpired
+=========================== short test summary info ============================
+FAILED services/api/tests/integration/test_deletion_journal.py::test_fifo_journal_is_rejected_without_waiting_for_a_writer
+1 failed, 5 deselected in 2.32s

@@ -1,0 +1,46 @@
+F                                                                        [100%]
+=================================== FAILURES ===================================
+______ test_purchase_purge_removes_linked_findings_packets_and_cases_only ______
+
+client = <starlette.testclient.TestClient object at 0x10ace8050>
+tmp_path = PosixPath('/private/var/folders/k0/w3xrb_d95jn2t7nf2f0s05yr0000gp/T/pytest-of-nirmalhk7/pytest-379/test_purchase_purge_removes_li0')
+
+    def test_purchase_purge_removes_linked_findings_packets_and_cases_only(client, tmp_path):
+        """Catches incomplete child cleanup or deleting another purchase's findings."""
+        from importlib import import_module
+    
+        from sqlalchemy import select
+    
+        from app.db import database
+        from app.models import CaseRecord, ClaimPacket, Opportunity, Product, Purchase
+    
+        seeded = client.post("/api/demo/reset").json()
+        removed = {key: [seeded[key][0]] for key in ["purchase_ids", "product_ids"]}
+        kept = upload(client, "PURGE-KEPT")
+        for item in [removed, kept]:
+            response = client.post("/api/runs", json={"mode": "demo", "purchase_ids": item["purchase_ids"],
+                                                    "idempotency_key": item["purchase_ids"][0]})
+            response.raise_for_status()
+        response = client.post("/api/collaborations", json={"product_ids": removed["product_ids"],
+                                                           "mode": "replay", "idempotency_key": "purge-team"})
+        response.raise_for_status()
+        try:
+            module = import_module("app.deletion")
+        except ModuleNotFoundError:
+            module = None
+        purge = getattr(module, "purge_purchase", None)
+>       assert callable(purge), "Purchase-dependent record purge is not implemented"
+E       AssertionError: Purchase-dependent record purge is not implemented
+E       assert False
+E        +  where False = callable(None)
+
+services/api/tests/integration/test_purchase_deletion.py:79: AssertionError
+=============================== warnings summary ===============================
+../../../../../../../Users/nirmalhk7/Documents/DevWorld/sueperman/services/api/.venv/lib/python3.12/site-packages/fastapi/testclient.py:1
+  /Users/nirmalhk7/Documents/DevWorld/sueperman/services/api/.venv/lib/python3.12/site-packages/fastapi/testclient.py:1: StarletteDeprecationWarning: Using `httpx` with `starlette.testclient` is deprecated; install `httpx2` instead.
+    from starlette.testclient import TestClient as TestClient  # noqa
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+=========================== short test summary info ============================
+FAILED services/api/tests/integration/test_purchase_deletion.py::test_purchase_purge_removes_linked_findings_packets_and_cases_only
+1 failed, 3 deselected, 1 warning in 0.81s

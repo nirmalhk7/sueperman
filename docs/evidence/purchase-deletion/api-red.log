@@ -1,0 +1,136 @@
+FF.FFF...                                                                [100%]
+=================================== FAILURES ===================================
+_ test_confirmed_deletion_removes_purchase_without_touching_other_imports_or_demo _
+
+client = <starlette.testclient.TestClient object at 0x10c814080>
+
+    def test_confirmed_deletion_removes_purchase_without_touching_other_imports_or_demo(client):
+        seed = client.post("/api/demo/reset").json()
+        removed, kept = upload(client, "REMOVE-ME"), upload(client, "KEEP-ME")
+        identifier = removed["purchase_ids"][0]
+        response = client.post(f"/api/purchases/{identifier}/delete", json={"confirmed": True})
+>       assert response.status_code == 200
+E       assert 404 == 200
+E        +  where 404 = <Response [404 Not Found]>.status_code
+
+services/api/tests/integration/test_purchase_deletion.py:32: AssertionError
+_______________ test_missing_confirmation_never_deletes_purchase _______________
+
+client = <starlette.testclient.TestClient object at 0x10c9e4800>
+
+    def test_missing_confirmation_never_deletes_purchase(client):
+        imported = upload(client, "CONFIRM-FIRST")
+        identifier = imported["purchase_ids"][0]
+        for body in [{}, {"confirmed": False}]:
+>           assert client.post(f"/api/purchases/{identifier}/delete", json=body).status_code == 422
+E           AssertionError: assert 404 == 422
+E            +  where 404 = <Response [404 Not Found]>.status_code
+E            +    where <Response [404 Not Found]> = post('/api/purchases/2e8c1c2c-1394-4cc8-9d11-0fa3e81b630c/delete', json={})
+E            +      where post = <starlette.testclient.TestClient object at 0x10c9e4800>.post
+
+services/api/tests/integration/test_purchase_deletion.py:43: AssertionError
+________ test_shared_history_requires_preview_and_separate_confirmation ________
+
+client = <starlette.testclient.TestClient object at 0x10cadb9b0>
+tmp_path = PosixPath('/private/var/folders/k0/w3xrb_d95jn2t7nf2f0s05yr0000gp/T/pytest-of-nirmalhk7/pytest-442/test_shared_history_requires_p0')
+
+    def test_shared_history_requires_preview_and_separate_confirmation(client, tmp_path):
+        from sqlalchemy import select
+    
+        from app.db import database
+        from app.models import AgentRun, Opportunity, Purchase
+    
+        removed, kept = upload(client, "SHARED-REMOVE"), upload(client, "SHARED-KEEP")
+        run = client.post("/api/runs", json={"mode": "demo",
+            "purchase_ids": removed["purchase_ids"] + kept["purchase_ids"], "idempotency_key": "shared-history"})
+        run.raise_for_status()
+        identifier = removed["purchase_ids"][0]
+        preview = client.get(f"/api/purchases/{identifier}/deletion-preview")
+>       assert preview.status_code == 200
+E       assert 404 == 200
+E        +  where 404 = <Response [404 Not Found]>.status_code
+
+services/api/tests/integration/test_purchase_deletion.py:67: AssertionError
+___________ test_changed_preview_cannot_authorize_new_shared_history ___________
+
+client = <starlette.testclient.TestClient object at 0x10cbb2000>
+
+    def test_changed_preview_cannot_authorize_new_shared_history(client):
+        removed, kept = upload(client, "PREVIEW-REMOVE"), upload(client, "PREVIEW-KEEP")
+        identifier = removed["purchase_ids"][0]
+        preview = client.get(f"/api/purchases/{identifier}/deletion-preview")
+>       assert preview.status_code == 200
+E       assert 404 == 200
+E        +  where 404 = <Response [404 Not Found]>.status_code
+
+services/api/tests/integration/test_purchase_deletion.py:91: AssertionError
+_____ test_pending_deletion_is_reconciled_before_restart_serves_purchases ______
+
+path = PosixPath('/private/var/folders/k0/w3xrb_d95jn2t7nf2f0s05yr0000gp/T/pytest-of-nirmalhk7/pytest-442/test_pending_deletion_is_recon0/purchases.db.deletions.json')
+expected_lineage = None
+
+    def _read_journal(path, expected_lineage=None):
+        try:
+>           fd = os.open(path, os.O_RDONLY | os.O_NOFOLLOW | os.O_NONBLOCK)
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E           FileNotFoundError: [Errno 2] No such file or directory: '/private/var/folders/k0/w3xrb_d95jn2t7nf2f0s05yr0000gp/T/pytest-of-nirmalhk7/pytest-442/test_pending_deletion_is_recon0/purchases.db.deletions.json'
+
+services/api/app/deletion.py:68: FileNotFoundError
+
+The above exception was the direct cause of the following exception:
+
+client = <starlette.testclient.TestClient object at 0x10cc4aff0>
+tmp_path = PosixPath('/private/var/folders/k0/w3xrb_d95jn2t7nf2f0s05yr0000gp/T/pytest-of-nirmalhk7/pytest-442/test_pending_deletion_is_recon0')
+
+    def test_pending_deletion_is_reconciled_before_restart_serves_purchases(client, tmp_path):
+        from app import deletion
+        from app.db import database
+        from app.models import Purchase
+    
+        imported = upload(client, "INTENT-ONLY")
+        engine, factory = database(f"sqlite:///{tmp_path / 'purchases.db'}")
+        try:
+            with factory() as session:
+                purchase = session.get(Purchase, imported["purchase_ids"][0])
+                import hashlib
+    
+                fingerprint = hashlib.sha256(purchase.import_key.rsplit(":", 1)[0].encode()).hexdigest()
+            path = tmp_path / "purchases.db.deletions.json"
+>           deletion.record_deletion(path, imported["purchase_ids"][0], import_fingerprint=fingerprint)
+
+services/api/tests/integration/test_purchase_deletion.py:115: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+services/api/app/deletion.py:147: in record_deletion
+    data = _read_journal(path, expected_lineage)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+path = PosixPath('/private/var/folders/k0/w3xrb_d95jn2t7nf2f0s05yr0000gp/T/pytest-of-nirmalhk7/pytest-442/test_pending_deletion_is_recon0/purchases.db.deletions.json')
+expected_lineage = None
+
+    def _read_journal(path, expected_lineage=None):
+        try:
+            fd = os.open(path, os.O_RDONLY | os.O_NOFOLLOW | os.O_NONBLOCK)
+            with os.fdopen(fd, "r", encoding="utf-8") as stream:
+                info = os.fstat(stream.fileno())
+                if not stat.S_ISREG(info.st_mode) or info.st_mode & 0o077:
+                    raise DeletionJournalError("Deletion journal must be a private regular file")
+                data = json.load(stream, object_pairs_hook=_unique_object)
+        except (OSError, UnicodeError, json.JSONDecodeError) as exc:
+>           raise DeletionJournalError("Deletion history unavailable; refusing to assume no deletions") from exc
+E           app.deletion.DeletionJournalError: Deletion history unavailable; refusing to assume no deletions
+
+services/api/app/deletion.py:75: DeletionJournalError
+=============================== warnings summary ===============================
+services/api/.venv/lib/python3.12/site-packages/fastapi/testclient.py:1
+  /Users/nirmalhk7/Documents/DevWorld/sueperman/services/api/.venv/lib/python3.12/site-packages/fastapi/testclient.py:1: StarletteDeprecationWarning: Using `httpx` with `starlette.testclient` is deprecated; install `httpx2` instead.
+    from starlette.testclient import TestClient as TestClient  # noqa
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+=========================== short test summary info ============================
+FAILED services/api/tests/integration/test_purchase_deletion.py::test_confirmed_deletion_removes_purchase_without_touching_other_imports_or_demo
+FAILED services/api/tests/integration/test_purchase_deletion.py::test_missing_confirmation_never_deletes_purchase
+FAILED services/api/tests/integration/test_purchase_deletion.py::test_shared_history_requires_preview_and_separate_confirmation
+FAILED services/api/tests/integration/test_purchase_deletion.py::test_changed_preview_cannot_authorize_new_shared_history
+FAILED services/api/tests/integration/test_purchase_deletion.py::test_pending_deletion_is_reconciled_before_restart_serves_purchases
+5 failed, 4 passed, 1 warning in 2.07s

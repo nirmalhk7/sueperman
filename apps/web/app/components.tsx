@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import {
   api,
+  ApiError,
   post,
   type Audit,
   type DiwaliMessage,
@@ -17,6 +18,7 @@ import { TeamStart } from "./collaborations/team";
 import { opportunityLabel, sourceLabel } from "@/lib/labels";
 import { DiwaliAgentTimeline } from "@/components/diwali-agent-timeline";
 import { AgentWorkbench } from "@/components/agent-workbench";
+import { DeletePurchase } from "@/components/delete-purchase";
 
 export function Opportunities({ items }: { items: Opportunity[] }) {
   items = items.filter(item => !item.demo && !item.simulated && item.mode === "live");
@@ -240,6 +242,8 @@ export function Dashboard() {
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState("");
   const [uploadMessage, setUploadMessage] = useState("");
+  const [reimport, setReimport] = useState<{ file: File; token: string } | null>(null);
+  const [confirmReimport, setConfirmReimport] = useState(false);
   async function refresh() {
     setProducts((await api<Product[]>("/products")).filter(p => !p.demo));
   }
@@ -254,18 +258,23 @@ export function Dashboard() {
       .then(setHealth)
       .catch(() => {});
   }, []);
-  async function upload(file: File) {
+  async function upload(file: File, token?: string) {
     setBusy(true);
     setError("");
+    setReimport(null); setConfirmReimport(false);
     setUploadMessage(file.type.startsWith("image/") || file.type === "application/pdf"
       ? "Reading receipt…" : "Importing purchases…");
     try {
       const form = new FormData();
       form.append("file", file);
+      if (token) form.append("reimport_confirmation", token);
       await api<Imported>("/uploads/purchases", { method: "POST", body: form });
       await refresh();
     } catch (e) {
       setError((e as Error).message);
+      if (e instanceof ApiError && e.details.code === "REIMPORT_CONFIRMATION_REQUIRED" && e.details.reimport_token) {
+        setReimport({ file, token: e.details.reimport_token });
+      }
     } finally {
       setUploadMessage("");
       setBusy(false);
@@ -372,6 +381,14 @@ export function Dashboard() {
             />
           </div>
           {uploadMessage && <p role="status">{uploadMessage}</p>}
+          {reimport && <div role="group" aria-label="Confirm fresh import">
+            <p>This file contains previously deleted purchases. Importing again recreates them. Receipt files will be read again and normal usage limits apply.</p>
+            <label><input type="checkbox" checked={confirmReimport} onChange={event => setConfirmReimport(event.target.checked)} /> I want to import this previously deleted file again</label>
+            <div className="actions">
+              <button disabled={busy || !confirmReimport} onClick={() => upload(reimport.file, reimport.token)}>Import again</button>
+              <button disabled={busy} onClick={() => { setReimport(null); setConfirmReimport(false); setError(""); }}>Cancel import</button>
+            </div>
+          </div>}
         </div>
         {products.length > 0 && (
           <div className="panel table-wrap section">
@@ -393,6 +410,10 @@ export function Dashboard() {
                         {p.product.brand} · {p.product.merchant}
                       </span>
                       <TeamStart productId={p.id} />
+                      <DeletePurchase purchaseId={p.purchase_id} onDeleted={async () => {
+                        localStorage.removeItem("sueperman-last-run"); setLastRun("");
+                        await refresh(); setCorrectionMessage("Purchase and associated local records deleted.");
+                      }} />
                     </td>
                     <td className="mono">
                       {p.product.model_number || "Missing model number"}

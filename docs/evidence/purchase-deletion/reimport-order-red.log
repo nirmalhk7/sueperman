@@ -1,0 +1,220 @@
+FFFFF                                                                    [100%]
+=================================== FAILURES ===================================
+_ test_reordered_partial_receipt_restores_deleted_item_and_preserves_corrected_survivor _
+
+workspace = (<starlette.testclient.TestClient object at 0x10a229d00>, PosixPath('/private/var/folders/k0/w3xrb_d95jn2t7nf2f0s05yr0.../T/pytest-of-nirmalhk7/pytest-472/test_reordered_partial_receipt0/imports.db), autoflush=True, expire_on_commit=False))
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x10887e450>
+
+    def test_reordered_partial_receipt_restores_deleted_item_and_preserves_corrected_survivor(workspace, monkeypatch):
+        """OCR row order cannot replace missing first item with a duplicate survivor."""
+        from app.providers.gemini import GeminiReceiptExtractor
+        from app.schemas import ProductInput
+    
+        client, _journal, _lineage, _factory = workspace
+        content = (Path(__file__).parents[4] / "demo/receipt-synthetic.png").read_bytes()
+        rows = [ProductInput(product_name="First item", merchant="First shop"),
+                ProductInput(product_name="Second item", merchant="Second shop")]
+    
+        async def extracting(_self, _content, _mime):
+            return list(rows)
+    
+        monkeypatch.setattr(GeminiReceiptExtractor, "extract", extracting)
+        first = request(client, content, kind="image").raise_for_status().json()
+        corrected = client.post(f"/api/products/{first['product_ids'][1]}/corrections", json={
+            "confirmed": True, "model_number": "USER-VERIFIED", "brand": "Reviewed brand"})
+        corrected.raise_for_status()
+        client.post(f"/api/purchases/{first['purchase_ids'][0]}/delete", json={"confirmed": True}).raise_for_status()
+        rows.reverse()
+        denied = request(client, content, kind="image")
+        assert denied.status_code == 409
+        restored = request(client, content, kind="image", token=denied.json()["reimport_token"])
+        assert restored.status_code == 200
+        products = client.get("/api/products").json()
+>       assert sorted(row["product"]["product_name"] for row in products) == ["First item", "Second item"]
+E       AssertionError: assert ['Second item', 'Second item'] == ['First item', 'Second item']
+E         
+E         At index 0 diff: 'Second item' != 'First item'
+E         Use -v to get more diff
+
+services/api/tests/integration/test_reimport_confirmation.py:193: AssertionError
+_ test_partial_receipt_uncertain_alignment_refuses_without_changing_survivor[missing] _
+
+workspace = (<starlette.testclient.TestClient object at 0x10a45ce60>, PosixPath('/private/var/folders/k0/w3xrb_d95jn2t7nf2f0s05yr0.../T/pytest-of-nirmalhk7/pytest-472/test_partial_receipt_uncertain0/imports.db), autoflush=True, expire_on_commit=False))
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x10887e300>
+replacement = 'missing'
+
+    @pytest.mark.parametrize("replacement", ["missing", "changed", "legacy", "ambiguous"])
+    def test_partial_receipt_uncertain_alignment_refuses_without_changing_survivor(workspace, monkeypatch, replacement):
+        """Changed/missing OCR facts or absent provenance must not silently lose an item."""
+        from app.providers.gemini import GeminiReceiptExtractor
+        from app.schemas import ProductInput
+    
+        client, _journal, _lineage, factory = workspace
+        content = (Path(__file__).parents[4] / "demo/receipt-synthetic.png").read_bytes()
+        rows = [ProductInput(product_name="First item"), ProductInput(product_name="Second item")]
+        if replacement == "ambiguous":
+            rows = [ProductInput(product_name="Same item"), ProductInput(product_name="Same item")]
+    
+        async def extracting(_self, _content, _mime):
+            return list(rows)
+    
+        monkeypatch.setattr(GeminiReceiptExtractor, "extract", extracting)
+        imported = request(client, content, kind="image").raise_for_status().json()
+        client.post(f"/api/purchases/{imported['purchase_ids'][0]}/delete", json={"confirmed": True}).raise_for_status()
+        before = client.get("/api/products").json()
+        if replacement == "missing":
+            rows[:] = rows[1:]
+        elif replacement == "changed":
+            rows[1] = ProductInput(product_name="Different surviving item")
+        elif replacement == "legacy":
+            with factory.begin() as session:
+                remaining = session.get(Purchase, imported["purchase_ids"][1])
+                remaining.payload = {key: value for key, value in remaining.payload.items()
+                                     if key not in {"import_facts", "import_count"}}
+        denied = request(client, content, kind="image")
+        assert denied.status_code == 409
+        response = request(client, content, kind="image", token=denied.json()["reimport_token"])
+>       assert response.status_code == 409
+E       assert 200 == 409
+E        +  where 200 = <Response [200 OK]>.status_code
+
+services/api/tests/integration/test_reimport_confirmation.py:232: AssertionError
+_ test_partial_receipt_uncertain_alignment_refuses_without_changing_survivor[changed] _
+
+workspace = (<starlette.testclient.TestClient object at 0x10a5e2510>, PosixPath('/private/var/folders/k0/w3xrb_d95jn2t7nf2f0s05yr0.../T/pytest-of-nirmalhk7/pytest-472/test_partial_receipt_uncertain1/imports.db), autoflush=True, expire_on_commit=False))
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x10887dfd0>
+replacement = 'changed'
+
+    @pytest.mark.parametrize("replacement", ["missing", "changed", "legacy", "ambiguous"])
+    def test_partial_receipt_uncertain_alignment_refuses_without_changing_survivor(workspace, monkeypatch, replacement):
+        """Changed/missing OCR facts or absent provenance must not silently lose an item."""
+        from app.providers.gemini import GeminiReceiptExtractor
+        from app.schemas import ProductInput
+    
+        client, _journal, _lineage, factory = workspace
+        content = (Path(__file__).parents[4] / "demo/receipt-synthetic.png").read_bytes()
+        rows = [ProductInput(product_name="First item"), ProductInput(product_name="Second item")]
+        if replacement == "ambiguous":
+            rows = [ProductInput(product_name="Same item"), ProductInput(product_name="Same item")]
+    
+        async def extracting(_self, _content, _mime):
+            return list(rows)
+    
+        monkeypatch.setattr(GeminiReceiptExtractor, "extract", extracting)
+        imported = request(client, content, kind="image").raise_for_status().json()
+        client.post(f"/api/purchases/{imported['purchase_ids'][0]}/delete", json={"confirmed": True}).raise_for_status()
+        before = client.get("/api/products").json()
+        if replacement == "missing":
+            rows[:] = rows[1:]
+        elif replacement == "changed":
+            rows[1] = ProductInput(product_name="Different surviving item")
+        elif replacement == "legacy":
+            with factory.begin() as session:
+                remaining = session.get(Purchase, imported["purchase_ids"][1])
+                remaining.payload = {key: value for key, value in remaining.payload.items()
+                                     if key not in {"import_facts", "import_count"}}
+        denied = request(client, content, kind="image")
+        assert denied.status_code == 409
+        response = request(client, content, kind="image", token=denied.json()["reimport_token"])
+>       assert response.status_code == 409
+E       assert 200 == 409
+E        +  where 200 = <Response [200 OK]>.status_code
+
+services/api/tests/integration/test_reimport_confirmation.py:232: AssertionError
+_ test_partial_receipt_uncertain_alignment_refuses_without_changing_survivor[legacy] _
+
+workspace = (<starlette.testclient.TestClient object at 0x10a72b2c0>, PosixPath('/private/var/folders/k0/w3xrb_d95jn2t7nf2f0s05yr0.../T/pytest-of-nirmalhk7/pytest-472/test_partial_receipt_uncertain2/imports.db), autoflush=True, expire_on_commit=False))
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x10a65e240>
+replacement = 'legacy'
+
+    @pytest.mark.parametrize("replacement", ["missing", "changed", "legacy", "ambiguous"])
+    def test_partial_receipt_uncertain_alignment_refuses_without_changing_survivor(workspace, monkeypatch, replacement):
+        """Changed/missing OCR facts or absent provenance must not silently lose an item."""
+        from app.providers.gemini import GeminiReceiptExtractor
+        from app.schemas import ProductInput
+    
+        client, _journal, _lineage, factory = workspace
+        content = (Path(__file__).parents[4] / "demo/receipt-synthetic.png").read_bytes()
+        rows = [ProductInput(product_name="First item"), ProductInput(product_name="Second item")]
+        if replacement == "ambiguous":
+            rows = [ProductInput(product_name="Same item"), ProductInput(product_name="Same item")]
+    
+        async def extracting(_self, _content, _mime):
+            return list(rows)
+    
+        monkeypatch.setattr(GeminiReceiptExtractor, "extract", extracting)
+        imported = request(client, content, kind="image").raise_for_status().json()
+        client.post(f"/api/purchases/{imported['purchase_ids'][0]}/delete", json={"confirmed": True}).raise_for_status()
+        before = client.get("/api/products").json()
+        if replacement == "missing":
+            rows[:] = rows[1:]
+        elif replacement == "changed":
+            rows[1] = ProductInput(product_name="Different surviving item")
+        elif replacement == "legacy":
+            with factory.begin() as session:
+                remaining = session.get(Purchase, imported["purchase_ids"][1])
+                remaining.payload = {key: value for key, value in remaining.payload.items()
+                                     if key not in {"import_facts", "import_count"}}
+        denied = request(client, content, kind="image")
+        assert denied.status_code == 409
+        response = request(client, content, kind="image", token=denied.json()["reimport_token"])
+>       assert response.status_code == 409
+E       assert 200 == 409
+E        +  where 200 = <Response [200 OK]>.status_code
+
+services/api/tests/integration/test_reimport_confirmation.py:232: AssertionError
+_ test_partial_receipt_uncertain_alignment_refuses_without_changing_survivor[ambiguous] _
+
+workspace = (<starlette.testclient.TestClient object at 0x10a764620>, PosixPath('/private/var/folders/k0/w3xrb_d95jn2t7nf2f0s05yr0.../T/pytest-of-nirmalhk7/pytest-472/test_partial_receipt_uncertain3/imports.db), autoflush=True, expire_on_commit=False))
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x10a65f530>
+replacement = 'ambiguous'
+
+    @pytest.mark.parametrize("replacement", ["missing", "changed", "legacy", "ambiguous"])
+    def test_partial_receipt_uncertain_alignment_refuses_without_changing_survivor(workspace, monkeypatch, replacement):
+        """Changed/missing OCR facts or absent provenance must not silently lose an item."""
+        from app.providers.gemini import GeminiReceiptExtractor
+        from app.schemas import ProductInput
+    
+        client, _journal, _lineage, factory = workspace
+        content = (Path(__file__).parents[4] / "demo/receipt-synthetic.png").read_bytes()
+        rows = [ProductInput(product_name="First item"), ProductInput(product_name="Second item")]
+        if replacement == "ambiguous":
+            rows = [ProductInput(product_name="Same item"), ProductInput(product_name="Same item")]
+    
+        async def extracting(_self, _content, _mime):
+            return list(rows)
+    
+        monkeypatch.setattr(GeminiReceiptExtractor, "extract", extracting)
+        imported = request(client, content, kind="image").raise_for_status().json()
+        client.post(f"/api/purchases/{imported['purchase_ids'][0]}/delete", json={"confirmed": True}).raise_for_status()
+        before = client.get("/api/products").json()
+        if replacement == "missing":
+            rows[:] = rows[1:]
+        elif replacement == "changed":
+            rows[1] = ProductInput(product_name="Different surviving item")
+        elif replacement == "legacy":
+            with factory.begin() as session:
+                remaining = session.get(Purchase, imported["purchase_ids"][1])
+                remaining.payload = {key: value for key, value in remaining.payload.items()
+                                     if key not in {"import_facts", "import_count"}}
+        denied = request(client, content, kind="image")
+        assert denied.status_code == 409
+        response = request(client, content, kind="image", token=denied.json()["reimport_token"])
+>       assert response.status_code == 409
+E       assert 200 == 409
+E        +  where 200 = <Response [200 OK]>.status_code
+
+services/api/tests/integration/test_reimport_confirmation.py:232: AssertionError
+=============================== warnings summary ===============================
+services/api/.venv/lib/python3.12/site-packages/fastapi/testclient.py:1
+  /Users/nirmalhk7/Documents/DevWorld/sueperman/services/api/.venv/lib/python3.12/site-packages/fastapi/testclient.py:1: StarletteDeprecationWarning: Using `httpx` with `starlette.testclient` is deprecated; install `httpx2` instead.
+    from starlette.testclient import TestClient as TestClient  # noqa
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+=========================== short test summary info ============================
+FAILED services/api/tests/integration/test_reimport_confirmation.py::test_reordered_partial_receipt_restores_deleted_item_and_preserves_corrected_survivor
+FAILED services/api/tests/integration/test_reimport_confirmation.py::test_partial_receipt_uncertain_alignment_refuses_without_changing_survivor[missing]
+FAILED services/api/tests/integration/test_reimport_confirmation.py::test_partial_receipt_uncertain_alignment_refuses_without_changing_survivor[changed]
+FAILED services/api/tests/integration/test_reimport_confirmation.py::test_partial_receipt_uncertain_alignment_refuses_without_changing_survivor[legacy]
+FAILED services/api/tests/integration/test_reimport_confirmation.py::test_partial_receipt_uncertain_alignment_refuses_without_changing_survivor[ambiguous]
+5 failed, 6 deselected, 1 warning in 1.49s

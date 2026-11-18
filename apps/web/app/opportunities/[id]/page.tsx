@@ -39,7 +39,7 @@ export default function Page() {
       <Link className="back" href="/#opportunities">
         Back to opportunities
       </Link>
-      {d.stale && <p role="alert">Purchase corrected. These results describe the prior revision. <Link href="/">Check my purchases to investigate the new revision.</Link></p>}
+      {d.stale && <p role="alert">{d.stale_reason === "related_history_removed" ? "Related investigation history was deleted. These findings require a fresh check and approval." : "Purchase corrected. These results describe the prior revision."} <Link href="/">Check my purchases again.</Link></p>}
       <div className="section">
         <span className={`pill ${d.simulated ? "simulated" : d.status}`}>
           {opportunityLabel(d.status, d.simulated)}

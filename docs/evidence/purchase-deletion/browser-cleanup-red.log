@@ -1,0 +1,109 @@
+services/api/.venv/bin/pytest services/api/tests -q
+........................................................................ [ 13%]
+........................................................................ [ 27%]
+........................................................................ [ 41%]
+........................................................................ [ 55%]
+........................................................................ [ 68%]
+........................................................................ [ 82%]
+...........F............................................................ [ 96%]
+...................                                                      [100%]
+=================================== FAILURES ===================================
+__________________________ test_p1_browser_acceptance __________________________
+
+p1_browser_env = (PosixPath('/private/var/folders/k0/w3xrb_d95jn2t7nf2f0s05yr0000gp/T/pytest-of-nirmalhk7/pytest-477/p1-browser0/web'),...vate/var/folders/k0/w3xrb_d95jn2t7nf2f0s05yr0000gp/T/sueperman-issue9-final-ixdivm9c/docs/evidence/diwali/p1/browser'))
+
+    def test_p1_browser_acceptance(p1_browser_env):
+        web, env, logs = p1_browser_env
+        result = subprocess.run(["node", str(ROOT / "apps/web/node_modules/@playwright/test/cli.js"),
+            "test", "p1.e2e.ts"], cwd=web, env=env, capture_output=True, text=True, timeout=180, check=False)
+        (logs / "acceptance.log").write_text(result.stdout + result.stderr)
+>       assert result.returncode == 0, result.stdout + result.stderr
+E       AssertionError: 
+E         Running 6 tests using 1 worker
+E         
+E           ✓  1 tests/p1.e2e.ts:28:1 › P1 additional notices preserve exact negative and missing cases (3.2s)
+E           ✓  2 tests/p1.e2e.ts:42:1 › P1 readiness persists and requires renewed local approval (4.5s)
+E           ✓  3 tests/p1.e2e.ts:76:1 › P1 conditional photo guidance stays unknown and does not declare disposal (1.4s)
+E           ✘  4 tests/p1.e2e.ts:88:1 › P1 rejected stale export offers reload and renewed approval (1.6s)
+E           ✓  5 tests/p1.e2e.ts:122:1 › P1 daily monitor records source change and blocks old export (12.9s)
+E           ✓  6 tests/p1.e2e.ts:154:1 › P1 controls show empty and failure states without claiming a save (2.0s)
+E         
+E         
+E           1) tests/p1.e2e.ts:88:1 › P1 rejected stale export offers reload and renewed approval ────────────
+E         
+E             Error: apiResponse.json: Response has been disposed
+E         
+E               103 |   await page.route(`**/api/claim-packets/${packet}`, async route => {
+E               104 |     const response = await route.fetch();
+E             > 105 |     const body = await response.json();
+E                   |                                 ^
+E               106 |     if (refresh) { body.status = "ready_for_review"; body.approved_at = null; body.reviewed_at = null; refresh = false; }
+E               107 |     await route.fulfill({ response, json: body });
+E               108 |   });
+E                 at /private/var/folders/k0/w3xrb_d95jn2t7nf2f0s05yr0000gp/T/pytest-of-nirmalhk7/pytest-477/p1-browser0/web/tests/p1.e2e.ts:105:33
+E         
+E             Error: browserContext.close: Test ended.
+E             Browser logs:
+E         
+E             <launching> /Users/nirmalhk7/Library/Caches/ms-playwright/chromium-1254/chrome-mac-arm64/Google Chrome for Testing.app/Contents/MacOS/Google Chrome for Testing --disable-field-trial-config --disable-background-networking --disable-background-timer-throttling --disable-backgrounding-occluded-windows --disable-back-forward-cache --disable-breakpad --disable-component-extensions-with-background-pages --disable-component-update --no-default-browser-check --disable-default-apps --disable-dev-shm-usage --disable-edgeupdater --disable-extensions --disable-features=AvoidUnnecessaryBeforeUnloadCheckSync,DestroyProfileOnBrowserClose,HttpsUpgrades,HttpsFirstBalancedModeAutoEnable,LensOverlay,MediaRouter,PaintHolding,ThirdPartyStoragePartitioning,AvoidCorsURLLoaderRestartOnRedirect,TcpPortRandomizationWin,OptimizationHints,NetworkTimeServiceQuerying,AimEnabled,PreconnectToSearch,msForceBrowserSignIn,msEdgeUpdateLaunchServicesPreferredVersion --enable-features=CDPScreenshotNewSurface,SkipListAccountsWithoutGaiaCookies --allow-pre-commit-input --disable-hang-monitor --disable-ipc-flooding-protection --disable-popup-blocking --disable-prompt-on-repost --disable-renderer-backgrounding --disable-updater-scheduler --force-color-profile=srgb --metrics-recording-only --no-first-run --password-store=basic --use-mock-keychain --no-service-autorun --disable-search-engine-choice-screen --unsafely-disable-devtools-self-xss-warnings --enable-unsafe-swiftshader --edge-skip-compat-layer-relaunch --disable-stack-profiler --disable-infobars --disable-sync --do-not-de-elevate --headless --hide-scrollbars --mute-audio --blink-settings=primaryHoverType=2,availableHoverTypes=2,primaryPointerType=4,availablePointerTypes=4 --no-sandbox --user-data-dir=/var/folders/k0/w3xrb_d95jn2t7nf2f0s05yr0000gp/T/playwright_chromiumdev_profile-tZap4T --remote-debugging-pipe --no-startup-window
+E             <launched> pid=60890
+E             [pid=60890][err] [60901:67714948:1117/223747.019120:ERROR:ui/display/mac/cv_display_link_mac.mm:191] CVDisplayLinkCreateWithCGDisplay failed. CVReturn: -6670
+E             [pid=60890][err] [60901:67714993:1117/223747.021311:ERROR:ui/display/mac/cv_display_link_mac.mm:191] CVDisplayLinkCreateWithCGDisplay failed. CVReturn: -6670
+E             [pid=60890][err] [60901:67714948:1117/223747.024819:ERROR:ui/display/mac/cv_display_link_mac.mm:191] CVDisplayLinkCreateWithCGDisplay failed. CVReturn: -6670
+E             [pid=60890][err] [60901:67714993:1117/223747.025033:ERROR:ui/display/mac/cv_display_link_mac.mm:191] CVDisplayLinkCreateWithCGDisplay failed. CVReturn: -6670
+E             [pid=60890][err] [60901:67714948:1117/223747.025720:ERROR:ui/display/mac/cv_display_link_mac.mm:191] CVDisplayLinkCreateWithCGDisplay failed. CVReturn: -6670
+E             [pid=60890][err] [60901:67714993:1117/223747.025786:ERROR:ui/display/mac/cv_display_link_mac.mm:191] CVDisplayLinkCreateWithCGDisplay failed. CVReturn: -6670
+E             [pid=60890][err] [60901:67714948:1117/223749.994884:ERROR:ui/display/mac/cv_display_link_mac.mm:191] CVDisplayLinkCreateWithCGDisplay failed. CVReturn: -6670
+E             [pid=60890][err] [60901:67714993:1117/223749.994991:ERROR:ui/display/mac/cv_display_link_mac.mm:191] CVDisplayLinkCreateWithCGDisplay failed. CVReturn: -6670
+E             [pid=60890][err] [60901:67714948:1117/223749.996097:ERROR:ui/display/mac/cv_display_link_mac.mm:191] CVDisplayLinkCreateWithCGDisplay failed. CVReturn: -6670
+E             [pid=60890][err] [60901:67714993:1117/223749.996202:ERROR:ui/display/mac/cv_display_link_mac.mm:191] CVDisplayLinkCreateWithCGDisplay failed. CVReturn: -6670
+E             [pid=60890][err] [60901:67714948:1117/223750.002136:ERROR:ui/display/mac/cv_display_link_mac.mm:191] CVDisplayLinkCreateWithCGDisplay failed. CVReturn: -6670
+E             [pid=60890][err] [60901:67714993:1117/223750.002289:ERROR:ui/display/mac/cv_display_link_mac.mm:191] CVDisplayLinkCreateWithCGDisplay failed. CVReturn: -6670
+E             [pid=60890][err] [60901:67714948:1117/223754.702586:ERROR:ui/display/mac/cv_display_link_mac.mm:191] CVDisplayLinkCreateWithCGDisplay failed. CVReturn: -6670
+E             [pid=60890][err] [60901:67714993:1117/223754.702699:ERROR:ui/display/mac/cv_display_link_mac.mm:191] CVDisplayLinkCreateWithCGDisplay failed. CVReturn: -6670
+E             [pid=60890][err] [60901:67714948:1117/223754.708595:ERROR:ui/display/mac/cv_display_link_mac.mm:191] CVDisplayLinkCreateWithCGDisplay failed. CVReturn: -6670
+E             [pid=60890][err] [60901:67714993:1117/223754.708775:ERROR:ui/display/mac/cv_display_link_mac.mm:191] CVDisplayLinkCreateWithCGDisplay failed. CVReturn: -6670
+E             [pid=60890][err] [60901:67714948:1117/223754.709113:ERROR:ui/display/mac/cv_display_link_mac.mm:191] CVDisplayLinkCreateWithCGDisplay failed. CVReturn: -6670
+E             [pid=60890][err] [60901:67714993:1117/223754.709204:ERROR:ui/display/mac/cv_display_link_mac.mm:191] CVDisplayLinkCreateWithCGDisplay failed. CVReturn: -6670
+E             [pid=60890][err] [60901:67714948:1117/223756.129619:ERROR:ui/display/mac/cv_display_link_mac.mm:191] CVDisplayLinkCreateWithCGDisplay failed. CVReturn: -6670
+E             [pid=60890][err] [60901:67714993:1117/223756.129717:ERROR:ui/display/mac/cv_display_link_mac.mm:191] CVDisplayLinkCreateWithCGDisplay failed. CVReturn: -6670
+E             [pid=60890][err] [60901:67714948:1117/223756.130555:ERROR:ui/display/mac/cv_display_link_mac.mm:191] CVDisplayLinkCreateWithCGDisplay failed. CVReturn: -6670
+E             [pid=60890][err] [60901:67714993:1117/223756.130619:ERROR:ui/display/mac/cv_display_link_mac.mm:191] CVDisplayLinkCreateWithCGDisplay failed. CVReturn: -6670
+E             [pid=60890][err] [60901:67714948:1117/223756.135156:ERROR:ui/display/mac/cv_display_link_mac.mm:191] CVDisplayLinkCreateWithCGDisplay failed. CVReturn: -6670
+E             [pid=60890][err] [60901:67714993:1117/223756.135233:ERROR:ui/display/mac/cv_display_link_mac.mm:191] CVDisplayLinkCreateWithCGDisplay failed. CVReturn: -6670
+E             [pid=60890] <gracefully close start>
+E             [pid=60890][err] [60901:67714948:1117/223757.575456:ERROR:gpu/command_buffer/service/shared_image/shared_image_manager.cc:376] SharedImageManager::ProduceOverlay: Trying to Produce a Overlay representation from a non-existent mailbox.
+E             [pid=60890][err] [60901:67714948:1117/223757.575523:ERROR:components/viz/service/display_embedder/skia_output_device_buffer_queue.cc:258] Invalid mailbox.
+E         
+E             Error Context: test-results/p1.e2e.ts-P1-rejected-stal-b22d4-reload-and-renewed-approval/error-context.md
+E         
+E             attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+E             test-results/p1.e2e.ts-P1-rejected-stal-b22d4-reload-and-renewed-approval/trace.zip
+E             Usage:
+E         
+E                 npx playwright show-trace test-results/p1.e2e.ts-P1-rejected-stal-b22d4-reload-and-renewed-approval/trace.zip
+E         
+E             ────────────────────────────────────────────────────────────────────────────────────────────────
+E         
+E           1 failed
+E             tests/p1.e2e.ts:88:1 › P1 rejected stale export offers reload and renewed approval ─────────────
+E           5 passed (29.8s)
+E         (node:60832) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+E         (Use `node --trace-warnings ...` to show where the warning was created)
+E         (node:61035) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+E         (Use `node --trace-warnings ...` to show where the warning was created)
+E         
+E       assert 1 == 0
+E        +  where 1 = CompletedProcess(args=['node', '/private/var/folders/k0/w3xrb_d95jn2t7nf2f0s05yr0000gp/T/sueperman-issue9-final-ixdivm...ed due to the 'FORCE_COLOR' env being set.\n(Use `node --trace-warnings ...` to show where the warning was created)\n").returncode
+
+services/api/tests/p1/test_p1_browser.py:106: AssertionError
+=============================== warnings summary ===============================
+../../../../../../../Users/nirmalhk7/Documents/DevWorld/sueperman/services/api/.venv/lib/python3.12/site-packages/fastapi/testclient.py:1
+  /Users/nirmalhk7/Documents/DevWorld/sueperman/services/api/.venv/lib/python3.12/site-packages/fastapi/testclient.py:1: StarletteDeprecationWarning: Using `httpx` with `starlette.testclient` is deprecated; install `httpx2` instead.
+    from starlette.testclient import TestClient as TestClient  # noqa
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+=========================== short test summary info ============================
+FAILED services/api/tests/p1/test_p1_browser.py::test_p1_browser_acceptance
+1 failed, 522 passed, 1 warning in 219.67s (0:03:39)
+make: *** [test] Error 1

@@ -1,0 +1,20 @@
+F                                                                        [100%]
+=================================== FAILURES ===================================
+______ test_missing_earlier_deletion_cannot_be_hidden_by_later_generation ______
+
+tmp_path = PosixPath('/private/var/folders/k0/w3xrb_d95jn2t7nf2f0s05yr0000gp/T/pytest-of-nirmalhk7/pytest-403/test_missing_earlier_deletion_0')
+
+    def test_missing_earlier_deletion_cannot_be_hidden_by_later_generation(tmp_path):
+        implementation = journal()
+        path = tmp_path / "deletions.json"
+        path.write_text(json.dumps({"format": 2, "lineage": FIRST, "revision": 2,
+                                   "records": {SECOND: {"import_fingerprint": FINGERPRINT, "revision": 2}}}))
+        path.chmod(0o600)
+>       with pytest.raises(implementation.DeletionJournalError):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE DeletionJournalError
+
+services/api/tests/integration/test_deletion_journal.py:167: Failed
+=========================== short test summary info ============================
+FAILED services/api/tests/integration/test_deletion_journal.py::test_missing_earlier_deletion_cannot_be_hidden_by_later_generation
+1 failed, 9 deselected in 0.17s

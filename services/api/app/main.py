@@ -10,11 +10,12 @@ from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
 from sqlalchemy import select
 
-from app import jobs
-from app.api import claims, collaborations, demo, health, opportunities, runs, uploads
+from app import deletion, jobs
+from app.api import claims, collaborations, demo, health, opportunities, purchases, runs, uploads
 from app.collaboration import ledger
 from app.config import Settings
 from app.db import database
+from app.deletion_runtime import DeletionRuntime
 from app.diwali import api as diwali_api
 from app.diwali import persistence as diwali_persistence
 from app.models import (
@@ -33,10 +34,14 @@ def create_app(database_url=None):
     initialize_telemetry(settings.sentry_dsn, settings.sentry_environment)
     engine, factory = database(database_url or settings.database_url)
     ledger.migrate(engine)
+    deletion_runtime = DeletionRuntime(engine, factory)
 
     @asynccontextmanager
     async def worker_lifespan(app):
         diwali_persistence.setup_schema(engine)
+        if settings.p1_enabled:
+            monitoring.setup_schema(engine)
+        deletion_runtime.reconcile()
         with factory() as s:
             jobs.recover(s)
             diwali_persistence.recover_interrupted(s)
@@ -79,10 +84,13 @@ def create_app(database_url=None):
     @asynccontextmanager
     async def lifespan(app):
         with jobs.worker_lock(engine):
-            async with worker_lifespan(app):
-                yield
+            deletion_runtime.initialize()
+            with deletion_runtime.owner():
+                async with worker_lifespan(app):
+                    yield
 
     app = FastAPI(title="Sueperman", lifespan=lifespan)
+    app.state.deletion_runtime = deletion_runtime
     app.add_middleware(
         CORSMiddleware,
         allow_origins=[settings.frontend_origin],
@@ -102,7 +110,15 @@ def create_app(database_url=None):
                     "trace_id": str(uuid4()),
                 },
             )
+        try:
+            deletion_runtime.reconcile()
+        except deletion.DeletionJournalError as exc:
+            return JSONResponse(status_code=503, content={"code": "DELETION_HISTORY_UNAVAILABLE", "message": str(exc)})
         return await call_next(request)
+
+    @app.exception_handler(deletion.DeletionJournalError)
+    async def deletion_error(request, exc):
+        return JSONResponse(status_code=503, content={"code": "DELETION_HISTORY_UNAVAILABLE", "message": str(exc)})
 
     @app.exception_handler(HTTPException)
     async def http_error(request, exc):
@@ -128,12 +144,13 @@ def create_app(database_url=None):
             raise HTTPException(404, "Resource not found")
         return entity
 
-    def import_products(s, content, demo=False, extracted=None, source_type="csv"):
+    def import_products(s, content, demo=False, extracted=None, source_type="csv", row_indices=None):
         products = extracted if extracted is not None else FixtureReceiptExtractor().extract(content)
         digest = hashlib.sha256(content).hexdigest()
         purchases, ids = [], []
         for i, p in enumerate(products):
-            key = f"{'demo' if demo else source_type}:{digest}:{i}"
+            row_index = row_indices[i] if row_indices is not None else i
+            key = f"{'demo' if demo else source_type}:{digest}:{row_index}"
             purchase = s.scalar(select(Purchase).where(Purchase.import_key == key))
             if purchase is None:
                 purchase = Purchase(
@@ -144,6 +161,8 @@ def create_app(database_url=None):
                         "order_date": p.date_purchased.isoformat() if p.date_purchased else None,
                         "source_type": "demo" if demo else source_type,
                         "order_reference_redacted": p.order_reference_redacted,
+                        **({"import_facts": p.model_dump(mode="json"), "import_count": len(products)}
+                           if source_type in {"image", "pdf"} and not demo else {}),
                     },
                 )
                 s.add(purchase)
@@ -171,6 +190,7 @@ def create_app(database_url=None):
     health.register(app, factory, settings)
     demo.register(app, factory, settings, import_products)
     uploads.register(app, factory, settings, import_products)
+    purchases.register(app, factory, deletion_runtime)
     runs.register(app, factory, settings, get)
     opportunities.register(app, factory, get)
     claims.register(app, factory, get, settings=settings)

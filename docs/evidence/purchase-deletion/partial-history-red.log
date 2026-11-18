@@ -1,0 +1,46 @@
+F                                                                        [100%]
+=================================== FAILURES ===================================
+_ test_partial_shared_run_missing_final_membership_invalidates_dependent_draft _
+
+client = <starlette.testclient.TestClient object at 0x10e208170>
+tmp_path = PosixPath('/private/var/folders/k0/w3xrb_d95jn2t7nf2f0s05yr0000gp/T/pytest-of-nirmalhk7/pytest-456/test_partial_shared_run_missin0')
+
+    def test_partial_shared_run_missing_final_membership_invalidates_dependent_draft(client, tmp_path):
+        from sqlalchemy import select
+    
+        from app.db import database
+        from app.deletion_lifecycle import erase_purchase, plan_purchase
+        from app.models import AgentRun, ClaimPacket, Opportunity
+    
+        removed, kept = upload(client, "PARTIAL-REMOVE"), upload(client, "PARTIAL-KEEP")
+        response = client.post("/api/runs", json={"mode": "demo", "purchase_ids": removed["purchase_ids"] + kept["purchase_ids"],
+                                                "idempotency_key": "partial-shared"}).json()
+        engine, factory = database(f"sqlite:///{tmp_path / 'purchases.db'}")
+        try:
+            # Persisted interruption boundary: findings committed before the final
+            # run membership update. Recovery marks the incomplete run partial.
+            with factory.begin() as session:
+                run = session.get(AgentRun, response["run_id"])
+                run.status = "partial"
+                run.payload = run.payload | {"opportunities": []}
+            with factory.begin() as session:
+                erase_purchase(session, plan_purchase(session, removed["purchase_ids"][0]))
+            with factory() as session:
+                other = session.scalar(select(Opportunity).where(Opportunity.product_id == kept["product_ids"][0]))
+                packet = session.scalar(select(ClaimPacket).where(ClaimPacket.opportunity_id == other.id))
+>               assert other.payload.get("stale") is True
+E               AssertionError: assert None is True
+E                +  where None = <built-in method get of dict object at 0x10e3ca140>('stale')
+E                +    where <built-in method get of dict object at 0x10e3ca140> = {'product_id': '03cee336-6b23-4309-b8c6-0c99dde9d97d', 'kind': 'recall', 'title': 'NEWDERY Power Banks Recalled Due to Fire and Burn Hazards', 'status': 'verified_match', ...}.get
+E                +      where {'product_id': '03cee336-6b23-4309-b8c6-0c99dde9d97d', 'kind': 'recall', 'title': 'NEWDERY Power Banks Recalled Due to Fire and Burn Hazards', 'status': 'verified_match', ...} = <app.models.Opportunity object at 0x10e410ce0>.payload
+
+services/api/tests/integration/test_purchase_deletion.py:258: AssertionError
+=============================== warnings summary ===============================
+services/api/.venv/lib/python3.12/site-packages/fastapi/testclient.py:1
+  /Users/nirmalhk7/Documents/DevWorld/sueperman/services/api/.venv/lib/python3.12/site-packages/fastapi/testclient.py:1: StarletteDeprecationWarning: Using `httpx` with `starlette.testclient` is deprecated; install `httpx2` instead.
+    from starlette.testclient import TestClient as TestClient  # noqa
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+=========================== short test summary info ============================
+FAILED services/api/tests/integration/test_purchase_deletion.py::test_partial_shared_run_missing_final_membership_invalidates_dependent_draft
+1 failed, 11 deselected, 1 warning in 1.38s

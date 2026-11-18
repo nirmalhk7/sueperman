@@ -1,0 +1,97 @@
+FFFF                                                                     [100%]
+=================================== FAILURES ===================================
+____ test_record_survives_another_process_and_repeated_intent_is_idempotent ____
+
+tmp_path = PosixPath('/private/var/folders/k0/w3xrb_d95jn2t7nf2f0s05yr0000gp/T/pytest-of-nirmalhk7/pytest-383/test_record_survives_another_p0')
+
+    def test_record_survives_another_process_and_repeated_intent_is_idempotent(tmp_path):
+>       implementation = journal()
+                         ^^^^^^^^^
+
+services/api/tests/integration/test_deletion_journal.py:24:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+    def journal():
+        from app import deletion
+
+        for name in ["initialize_journal", "record_deletion", "journal_records"]:
+>           assert callable(getattr(deletion, name, None)), "Durable deletion journal is not implemented"
+E           AssertionError: Durable deletion journal is not implemented
+E           assert False
+E            +  where False = callable(None)
+E            +    where None = getattr(<module 'app.deletion' from '/private/var/folders/k0/w3xrb_d95jn2t7nf2f0s05yr0000gp/T/sueperman-issue9-cxm9o9bw/services/api/app/deletion.py'>, 'initialize_journal', None)
+
+services/api/tests/integration/test_deletion_journal.py:19: AssertionError
+___ test_missing_or_corrupt_journal_never_becomes_an_empty_deletion_history ____
+
+tmp_path = PosixPath('/private/var/folders/k0/w3xrb_d95jn2t7nf2f0s05yr0000gp/T/pytest-of-nirmalhk7/pytest-383/test_missing_or_corrupt_journa0')
+
+    def test_missing_or_corrupt_journal_never_becomes_an_empty_deletion_history(tmp_path):
+>       implementation = journal()
+                         ^^^^^^^^^
+
+services/api/tests/integration/test_deletion_journal.py:39:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+    def journal():
+        from app import deletion
+
+        for name in ["initialize_journal", "record_deletion", "journal_records"]:
+>           assert callable(getattr(deletion, name, None)), "Durable deletion journal is not implemented"
+E           AssertionError: Durable deletion journal is not implemented
+E           assert False
+E            +  where False = callable(None)
+E            +    where None = getattr(<module 'app.deletion' from '/private/var/folders/k0/w3xrb_d95jn2t7nf2f0s05yr0000gp/T/sueperman-issue9-cxm9o9bw/services/api/app/deletion.py'>, 'initialize_journal', None)
+
+services/api/tests/integration/test_deletion_journal.py:19: AssertionError
+_ test_failed_publication_preserves_previous_deletions_and_cleans_temporary_file _
+
+tmp_path = PosixPath('/private/var/folders/k0/w3xrb_d95jn2t7nf2f0s05yr0000gp/T/pytest-of-nirmalhk7/pytest-383/test_failed_publication_preser0')
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x109b13fb0>
+
+    def test_failed_publication_preserves_previous_deletions_and_cleans_temporary_file(tmp_path, monkeypatch):
+>       implementation = journal()
+                         ^^^^^^^^^
+
+services/api/tests/integration/test_deletion_journal.py:56:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+    def journal():
+        from app import deletion
+
+        for name in ["initialize_journal", "record_deletion", "journal_records"]:
+>           assert callable(getattr(deletion, name, None)), "Durable deletion journal is not implemented"
+E           AssertionError: Durable deletion journal is not implemented
+E           assert False
+E            +  where False = callable(None)
+E            +    where None = getattr(<module 'app.deletion' from '/private/var/folders/k0/w3xrb_d95jn2t7nf2f0s05yr0000gp/T/sueperman-issue9-cxm9o9bw/services/api/app/deletion.py'>, 'initialize_journal', None)
+
+services/api/tests/integration/test_deletion_journal.py:19: AssertionError
+______________ test_symlink_journal_cannot_overwrite_another_file ______________
+
+tmp_path = PosixPath('/private/var/folders/k0/w3xrb_d95jn2t7nf2f0s05yr0000gp/T/pytest-of-nirmalhk7/pytest-383/test_symlink_journal_cannot_ov0')
+
+    def test_symlink_journal_cannot_overwrite_another_file(tmp_path):
+>       implementation = journal()
+                         ^^^^^^^^^
+
+services/api/tests/integration/test_deletion_journal.py:75:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+    def journal():
+        from app import deletion
+
+        for name in ["initialize_journal", "record_deletion", "journal_records"]:
+>           assert callable(getattr(deletion, name, None)), "Durable deletion journal is not implemented"
+E           AssertionError: Durable deletion journal is not implemented
+E           assert False
+E            +  where False = callable(None)
+E            +    where None = getattr(<module 'app.deletion' from '/private/var/folders/k0/w3xrb_d95jn2t7nf2f0s05yr0000gp/T/sueperman-issue9-cxm9o9bw/services/api/app/deletion.py'>, 'initialize_journal', None)
+
+services/api/tests/integration/test_deletion_journal.py:19: AssertionError
+=========================== short test summary info ============================
+FAILED services/api/tests/integration/test_deletion_journal.py::test_record_survives_another_process_and_repeated_intent_is_idempotent
+FAILED services/api/tests/integration/test_deletion_journal.py::test_missing_or_corrupt_journal_never_becomes_an_empty_deletion_history
+FAILED services/api/tests/integration/test_deletion_journal.py::test_failed_publication_preserves_previous_deletions_and_cleans_temporary_file
+FAILED services/api/tests/integration/test_deletion_journal.py::test_symlink_journal_cannot_overwrite_another_file
+4 failed in 0.20s

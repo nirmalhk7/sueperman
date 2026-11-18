@@ -1,0 +1,83 @@
+F                                                                        [100%]
+=================================== FAILURES ===================================
+__________ test_two_deletions_preserve_newer_independent_local_draft ___________
+
+tmp_path = PosixPath('/private/var/folders/k0/w3xrb_d95jn2t7nf2f0s05yr0000gp/T/pytest-of-nirmalhk7/pytest-463/test_two_deletions_preserve_ne0')
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x10a662a20>
+
+    def test_two_deletions_preserve_newer_independent_local_draft(tmp_path, monkeypatch):
+        """Clearing an old fallback link cannot make its run the latest producer."""
+        monkeypatch.setenv("DATABASE_URL", f"sqlite:///{tmp_path / 'default.db'}")
+        monkeypatch.setenv("DIWALI_ENABLED", "true")
+        from app.db import database
+        from app.deletion_lifecycle import erase_purchase, plan_purchase
+        from app.main import create_app
+        from app.models import AgentRun, ClaimPacket, Opportunity, Purchase
+    
+        url = f"sqlite:///{tmp_path / 'provenance.db'}"
+        with TestClient(create_app(url)) as client:
+            client.post("/api/demo/reset").raise_for_status()
+            products = client.get("/api/products").raise_for_status().json()
+            by_model = {product["product"]["model_number"]: product for product in products}
+            first = by_model["DC-BOTTLE-1"]
+            removed = by_model["ZHX-PB23"]
+            kept = by_model["ZHX-PB22"]
+    
+            def investigate(key, purchases, fallback=None):
+                body = {"mode": "demo", "collaboration_mode": "local",
+                        "purchase_ids": purchases, "idempotency_key": key}
+                if fallback is not None:
+                    body["fallback_of"] = fallback
+                response = client.post("/api/runs", json=body).raise_for_status().json()
+                assert client.get(f"/api/runs/{response['run_id']}").json()["status"] == "completed"
+                return response["run_id"]
+    
+            original = investigate("original", [first["purchase_id"]])
+            shared = investigate("shared-fallback", [removed["purchase_id"], kept["purchase_id"]], original)
+            independent = investigate("newer-independent", [kept["purchase_id"]])
+            engine, factory = database(url)
+            try:
+                with factory() as session:
+                    opportunity = session.scalar(select(Opportunity).where(Opportunity.product_id == kept["id"]))
+                    packet = session.scalar(select(ClaimPacket).where(ClaimPacket.opportunity_id == opportunity.id))
+                    packet_id, opportunity_id = packet.id, opportunity.id
+                    original_case = packet.payload["diwali_case_id"]
+                endpoint = f"/api/claim-packets/{packet_id}"
+                approval = client.post(endpoint + "/approve-local", json={"confirmed": True}).raise_for_status().json()
+                draft = client.post(endpoint + "/export").raise_for_status().text
+    
+                # Both calls represent separate, explicit deletion decisions. The
+                # first one only clears a retained run's fallback metadata.
+                with factory.begin() as session:
+                    erase_purchase(session, plan_purchase(session, first["purchase_id"]))
+                with factory() as session:
+                    assert session.get(AgentRun, original) is None
+                    assert session.get(AgentRun, shared).payload["fallback_of"] is None
+                with factory.begin() as session:
+                    plan = plan_purchase(session, removed["purchase_id"])
+                    assert plan.public()["shared_investigations"] == 1
+                    erase_purchase(session, plan)
+    
+                with factory() as session:
+                    assert session.get(Purchase, removed["purchase_id"]) is None
+                    assert session.get(AgentRun, shared) is None
+                    assert session.get(AgentRun, independent) is not None
+                    assert session.get(Purchase, kept["purchase_id"]) is not None
+>                   assert not session.get(Opportunity, opportunity_id).payload.get("stale", False)
+E                   AssertionError: assert not True
+E                    +  where True = <built-in method get of dict object at 0x10c87b6c0>('stale', False)
+E                    +    where <built-in method get of dict object at 0x10c87b6c0> = {'product_id': 'd373be3d-8c24-4abd-8b10-e6ca23ee4923', 'kind': 'recall', 'title': 'NEWDERY Power Banks Recalled Due to Fire and Burn Hazards', 'status': 'verified_match', ...}.get
+E                    +      where {'product_id': 'd373be3d-8c24-4abd-8b10-e6ca23ee4923', 'kind': 'recall', 'title': 'NEWDERY Power Banks Recalled Due to Fire and Burn Hazards', 'status': 'verified_match', ...} = <app.models.Opportunity object at 0x10c876360>.payload
+E                    +        where <app.models.Opportunity object at 0x10c876360> = get(<class 'app.models.Opportunity'>, 'ded66e28-06fb-4b1a-aa6f-c4e1fc9e3dde')
+E                    +          where get = <sqlalchemy.orm.session.Session object at 0x10c7101a0>.get
+
+services/api/tests/integration/test_deletion_provenance.py:67: AssertionError
+=============================== warnings summary ===============================
+services/api/.venv/lib/python3.12/site-packages/fastapi/testclient.py:1
+  /Users/nirmalhk7/Documents/DevWorld/sueperman/services/api/.venv/lib/python3.12/site-packages/fastapi/testclient.py:1: StarletteDeprecationWarning: Using `httpx` with `starlette.testclient` is deprecated; install `httpx2` instead.
+    from starlette.testclient import TestClient as TestClient  # noqa
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+=========================== short test summary info ============================
+FAILED services/api/tests/integration/test_deletion_provenance.py::test_two_deletions_preserve_newer_independent_local_draft
+1 failed, 1 warning in 0.97s
