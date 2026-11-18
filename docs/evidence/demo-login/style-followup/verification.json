@@ -1,0 +1,8 @@
+{
+  "base_commit": "4ceeb97",
+  "css_sha256": "765535932b2e51a900481c844f4e8353ed3a07fc97bd33d9a58e058d58cf0a49",
+  "command": "WEB_URL=http://127.0.0.1:3028 pnpm exec playwright test demo-login.e2e.ts --timeout=90000",
+  "exit_code": 0,
+  "passed": 3,
+  "scope": "Removed only notice accent border. Cosmetic change; no behavior changes or new tests. Inspected desktop and mobile screenshots; no overflow or lost warning text. No suppression."
+}
