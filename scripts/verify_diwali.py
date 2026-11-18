@@ -2,21 +2,17 @@
 
 import argparse
 import hashlib
+import importlib.util
 import json
 import os
 import shutil
-import signal
-import socket
 import subprocess
 import sys
 import tempfile
-import time
 import xml.etree.ElementTree as ET
 from contextlib import contextmanager
 from pathlib import Path
 from time import monotonic
-from urllib.error import URLError
-from urllib.request import urlopen
 
 GATES = [f"G{i}" for i in range(10)]
 
@@ -51,13 +47,15 @@ def source_tree_digest(root):
     return sha.hexdigest()
 
 
-def run_command(command, root, evidence):
+def run_command(command, root, evidence, *, env_overrides=None):
     evidence.mkdir(parents=True, exist_ok=True)
     started = monotonic()
     result = {"command": command, "status": "BLOCKED", "exit_code": None,
               "stdout_path": str(evidence / "stdout.log"), "stderr_path": str(evidence / "stderr.log")}
     try:
-        process = subprocess.run(command, cwd=root, env=offline_environment(), capture_output=True,
+        env = offline_environment() | (env_overrides or {})
+        result["environment"] = env.get("DIWALI_TEST_ENVIRONMENT", "offline")
+        process = subprocess.run(command, cwd=root, env=env, capture_output=True,
                                  text=True, timeout=360, check=False)
         Path(result["stdout_path"]).write_text(process.stdout)
         Path(result["stderr_path"]).write_text(process.stderr)
@@ -71,49 +69,44 @@ def run_command(command, root, evidence):
 
 @contextmanager
 def app_servers(root, evidence):
-    """Never attach to or stop an existing process; busy required ports block proof."""
-    for port in (8000, 3012):
-        with socket.socket() as sock:
-            sock.bind(("127.0.0.1", port))
+    """Use the owned dynamic-port browser fixture, never an existing server.
+
+    Provider-shaped responses are controlled test boundaries, not live sponsor
+    proof. The fixture owns its copied frontend, database and process cleanup.
+    """
+    import pytest
+
+    source = root / "services/api/tests/diwali/test_ui.py"
+    if not source.is_file():
+        raise RuntimeError("Controlled browser fixture is missing")
+    spec = importlib.util.spec_from_file_location("gate_browser_fixture", source)
+    module = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(module)
     evidence.mkdir(parents=True, exist_ok=True)
-    processes, streams = [], []
     with tempfile.TemporaryDirectory(prefix="sueperman-diwali-") as folder:
-        env = offline_environment() | {"DATABASE_URL": f"sqlite:///{folder}/app.db", "DIWALI_ENABLED": "true",
-                                       "PYTHONPATH": str(root / "services/api")}
+        class Factory:
+            def mktemp(self, name):
+                return Path(tempfile.mkdtemp(prefix=name + "-", dir=folder))
+
+        generator = module.browser_env.__wrapped__(Factory())
+        logs = None
         try:
-            for name, command, url in [
-                ("api", [sys.executable, "-m", "uvicorn", "app.main:app", "--host", "127.0.0.1", "--port", "8000"],
-                 "http://localhost:8000/api/health"),
-                ("web", ["node", str(root / "apps/web/node_modules/next/dist/bin/next"), "start", "--hostname",
-                         "127.0.0.1", "--port", "3012"], "http://localhost:3012"),
-            ]:
-                stream = (evidence / f"{name}.log").open("w")
-                streams.append(stream)
-                process = subprocess.Popen(command, cwd=root / "apps/web", env=env, stdout=stream,
-                                           stderr=stream, start_new_session=True)
-                processes.append(process)
-                deadline = monotonic() + 60
-                while True:
-                    try:
-                        with urlopen(url, timeout=2) as response:
-                            if response.status == 200:
-                                break
-                    except (URLError, TimeoutError):
-                        if process.poll() is not None or monotonic() > deadline:
-                            raise RuntimeError(f"Task-owned {name} server did not become ready") from None
-                        time.sleep(0.2)
-            yield
+            _web, env, logs = next(generator)
+            (evidence / "environment.json").write_text(json.dumps({
+                "mode": "controlled-offline", "api_url": env["API_URL"], "web_url": env["WEB_URL"],
+                "fixture": str(source.relative_to(root)),
+                "limit": "Test-only vendor responses; no live provider or sponsor proof."}, indent=2) + "\n")
+            yield env | {"DIWALI_TEST_ENVIRONMENT": "controlled-offline"}
+        except (pytest.fail.Exception, subprocess.TimeoutExpired, StopIteration) as exc:
+            raise RuntimeError("Controlled browser setup failed: " + str(exc)) from exc
         finally:
-            for process in reversed(processes):
-                if process.poll() is None:
-                    os.killpg(process.pid, signal.SIGTERM)
-                    try:
-                        process.wait(timeout=10)
-                    except subprocess.TimeoutExpired:
-                        os.killpg(process.pid, signal.SIGKILL)
-                        process.wait(timeout=5)
-            for stream in streams:
-                stream.close()
+            try:
+                generator.close()
+            finally:
+                if logs is not None:
+                    for name in ("build.log", "api.log", "web.log"):
+                        if (logs / name).is_file():
+                            shutil.copy2(logs / name, evidence / name)
 
 
 def run_app_checks(root):
@@ -124,8 +117,9 @@ def run_app_checks(root):
         results.append({"status": "BLOCKED", "blocker": "Build prerequisite for smoke/e2e did not pass"})
         return results
     try:
-        with app_servers(root, evidence / "servers"):
-            results.extend(run_command(["make", target], root, evidence / target) for target in ("smoke", "e2e"))
+        with app_servers(root, evidence / "servers") as env:
+            results.extend(run_command(["make", target], root, evidence / target, env_overrides=env)
+                           for target in ("smoke", "e2e"))
     except (OSError, RuntimeError) as exc:
         results.append({"status": "BLOCKED", "blocker": str(exc)})
     return results

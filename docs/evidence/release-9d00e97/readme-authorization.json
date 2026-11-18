@@ -1,0 +1,15 @@
+{
+  "recorded_at": "2026-11-18T07:19:42.767401+00:00",
+  "issue": 3,
+  "owner_approval": "Approve README correction and its hash update",
+  "scope": "Exact reviewed README patch and only its protected-file digest; retain original README/baseline/patch. Runtime, fixtures and expected outcomes unchanged.",
+  "original_protected_readme_sha256": "191462a08e69add9505e649a8259adbf1d54462065a1cac11bb927bd885033ce",
+  "previous_current_readme_sha256": "2fb16e4e90a25e1f0c53753bc3742c97349ac018d4f5fbae154df16f41a23f68",
+  "new_readme_sha256": "cc0d4992c8bd5098f40a706f7e6d55e66694d0660583800bb794cea06afc8557",
+  "patch_sha256": "c4c1f279111bc48bf5b5d0a0cd839e908da6e25c3f0bc32e57afdbc80fb0cd22",
+  "old_baseline_sha256": "0b691a7a6b519cf45cabc9dc3455b63cb813b184c21e26b080ccdc6c12489dd3",
+  "new_baseline_sha256": "7a6594d133ed79e5e1109dfc05dca988933353c05dbb6ceb0536883534c99e41",
+  "changed_baseline_field": "protected_file_digests.README.md",
+  "existing_extension_retained": "The previous README was an audited byte-preserving extension of the original protected bytes. Both originals and their hash chain are retained; its historical extension entry is unchanged.",
+  "independent_review": "Proposal inspected against code/historical provider evidence/current public-access audit; no concrete inaccuracy found."
+}

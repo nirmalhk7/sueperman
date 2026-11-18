@@ -1,0 +1,103 @@
+{
+  "status": "ACTUAL_BASELINE_FOOTAGE_NOT_FINAL_SUBMISSION_VIDEO",
+  "source_commit": "49968cb090e85f13edbaa76ec2f11740bd5f94a9",
+  "path": "output/playwright/release-9d00e97/live-cpsc-walkthrough.webm",
+  "sha256": "f15056d42cae4e61f8f11fef5e18a4a79b2bbebb6030b6648338cdd9873f03db",
+  "probe": {
+    "programs": [],
+    "stream_groups": [],
+    "streams": [
+      {
+        "codec_name": "vp9",
+        "codec_type": "video",
+        "width": 1920,
+        "height": 1080
+      }
+    ],
+    "format": {
+      "duration": "72.433000",
+      "size": "15622205"
+    }
+  },
+  "full_decode": {
+    "command": [
+      "ffmpeg",
+      "-v",
+      "error",
+      "-i",
+      "output/playwright/release-9d00e97/live-cpsc-walkthrough.webm",
+      "-f",
+      "null",
+      "-"
+    ],
+    "exit_code": 0
+  },
+  "measured_interaction_dry_run": {
+    "functional_checks_passed": true,
+    "elapsed_ms": 75222,
+    "marks": [
+      {
+        "name": "empty_workspace",
+        "elapsed_ms": 4974
+      },
+      {
+        "name": "five_synthetic_purchases_imported",
+        "elapsed_ms": 9340
+      },
+      {
+        "name": "actual_live_cpsc_check_completed",
+        "elapsed_ms": 19125
+      },
+      {
+        "name": "exact_match_and_official_citation_visible",
+        "elapsed_ms": 26752
+      },
+      {
+        "name": "unapproved_local_draft_export_blocked",
+        "elapsed_ms": 35959
+      },
+      {
+        "name": "automated_synthetic_local_approval_and_download",
+        "elapsed_ms": 45308
+      },
+      {
+        "name": "near_match_rejected_without_packet",
+        "elapsed_ms": 51872
+      },
+      {
+        "name": "missing_model_remains_unknown",
+        "elapsed_ms": 60261
+      },
+      {
+        "name": "finished",
+        "elapsed_ms": 75214
+      }
+    ],
+    "citation": "https://cpsc.gov/Recalls/2026/NEWDERY-Power-Banks-Recalled-Due-to-Fire-and-Burn-Hazards-Risk-of-Serious-Injury-Sold-on-Amazon",
+    "approval_actor": "Automated browser over synthetic data; no human-review attestation",
+    "live_provider": "CPSC public read only",
+    "paid_providers": "disabled",
+    "agent_team_invoked": false,
+    "human_usability_session": false,
+    "human_presenter_rehearsal": false,
+    "adal_export": false
+  },
+  "input_file": "demo/orders.csv",
+  "input_sha256": "133f2fc86d24372ce84cf4d5ef583c1d4a30d81eb8f0131ca29e488cc84cabc7",
+  "runtime_evidence": "local-runtime-live-cpsc.json",
+  "scope": [
+    "Actual free official CPSC lookup, not a mocked source response.",
+    "PB22 match, PB23 rejection and missing model remain distinct.",
+    "Pre-approval export blocked; automated synthetic local approval/download observed.",
+    "No external claim submission, paid sponsor execution or private account isolation."
+  ],
+  "remaining": [
+    "No human presenter rehearsal or human usability session.",
+    "No audio or captions in this original WebM.",
+    "No AdaL project/export or final public video URL.",
+    "No integrated BAND/Lyzr/Finch/Agent37 footage."
+  ],
+  "adal_project": null,
+  "adal_export_mp4": null,
+  "submission_ready": false
+}

@@ -1,0 +1,62 @@
+{
+  "results": [
+    {
+      "url": "https://api.github.com/repos/nirmalhk7/sueperman",
+      "observed_at": "2026-11-18T06:54:52.849963+00:00",
+      "authenticated": false,
+      "status": 200,
+      "final_url": "https://api.github.com/repos/nirmalhk7/sueperman",
+      "public_repository": {
+        "full_name": "nirmalhk7/sueperman",
+        "private": false,
+        "default_branch": "main",
+        "html_url": "https://github.com/nirmalhk7/sueperman",
+        "updated_at": "2026-11-13T23:23:16Z",
+        "pushed_at": "2026-11-18T06:49:42Z"
+      }
+    },
+    {
+      "url": "https://sueperman-6t4xk.ondigitalocean.app/",
+      "observed_at": "2026-11-18T06:54:53.223179+00:00",
+      "authenticated": false,
+      "error": "URLError: <urlopen error [Errno 8] nodename nor servname provided, or not known>"
+    },
+    {
+      "url": "https://sueperman-6t4xk.ondigitalocean.app/api/health",
+      "observed_at": "2026-11-18T06:54:53.225550+00:00",
+      "authenticated": false,
+      "error": "URLError: <urlopen error [Errno 8] nodename nor servname provided, or not known>"
+    },
+    {
+      "url": "https://dns.google/resolve?name=sueperman-6t4xk.ondigitalocean.app&type=A",
+      "observed_at": "2026-11-18T06:54:53.227643+00:00",
+      "authenticated": false,
+      "status": 200,
+      "final_url": "https://dns.google/resolve?name=sueperman-6t4xk.ondigitalocean.app&type=A",
+      "dns_response": {
+        "Status": 3,
+        "TC": false,
+        "RD": true,
+        "RA": true,
+        "AD": false,
+        "CD": false,
+        "Question": [
+          {
+            "name": "sueperman-6t4xk.ondigitalocean.app.",
+            "type": 1
+          }
+        ],
+        "Authority": [
+          {
+            "name": "ondigitalocean.app.",
+            "type": 6,
+            "TTL": 1800,
+            "data": "elias.ns.cloudflare.com. dns.cloudflare.com. 2420470589 10000 2400 604800 1800"
+          }
+        ],
+        "Comment": "Response from 162.159.44.29."
+      }
+    }
+  ],
+  "limit": "Observed anonymous access only. No deployment changes, public data mutations or paid provider calls."
+}

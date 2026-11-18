@@ -1,0 +1,35 @@
+{
+  "browser": {
+    "command": [
+      "node",
+      "/private/var/folders/k0/w3xrb_d95jn2t7nf2f0s05yr0000gp/T/sueperman-verifier-compatibility-62z_mls4/apps/web/node_modules/@playwright/test/cli.js",
+      "test",
+      "--config",
+      "/private/var/folders/k0/w3xrb_d95jn2t7nf2f0s05yr0000gp/T/sueperman-verifier-compatibility-62z_mls4/apps/web/playwright.config.ts",
+      "tests/workflow.e2e.ts",
+      "--grep",
+      "imported purchases produce",
+      "--output",
+      "/tmp/sueperman-verifier-controlled-green/browser"
+    ],
+    "status": "PASS",
+    "exit_code": 0,
+    "stdout_path": "/tmp/sueperman-verifier-controlled-green/workflow/stdout.log",
+    "stderr_path": "/tmp/sueperman-verifier-controlled-green/workflow/stderr.log",
+    "environment": "controlled-offline",
+    "duration_seconds": 12.767771749990061
+  },
+  "smoke": {
+    "command": [
+      "make",
+      "smoke"
+    ],
+    "status": "PASS",
+    "exit_code": 0,
+    "stdout_path": "/tmp/sueperman-verifier-controlled-green/smoke/stdout.log",
+    "stderr_path": "/tmp/sueperman-verifier-controlled-green/smoke/stderr.log",
+    "environment": "controlled-offline",
+    "duration_seconds": 0.9423266251105815
+  }
+}
+PASS: dynamic owned controlled browser workflow, smoke, cleanup; no live provider proof

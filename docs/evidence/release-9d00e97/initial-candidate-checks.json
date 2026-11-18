@@ -1,0 +1,30 @@
+[
+  {
+    "name": "formal-g3",
+    "command": [
+      "make",
+      "diwali-check",
+      "GATE=G3"
+    ],
+    "exit_code": 2,
+    "candidate_hashes_unchanged": true
+  },
+  {
+    "name": "container",
+    "command": [
+      "make",
+      "container-test"
+    ],
+    "exit_code": 0,
+    "candidate_hashes_unchanged": true
+  },
+  {
+    "name": "storage",
+    "command": [
+      "make",
+      "storage-test"
+    ],
+    "exit_code": 0,
+    "candidate_hashes_unchanged": true
+  }
+]

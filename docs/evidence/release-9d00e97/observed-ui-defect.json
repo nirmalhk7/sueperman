@@ -1,0 +1,16 @@
+{
+  "observed_at": "2026-11-18T07:02:42.179392+00:00",
+  "source_commit": "9d00e97e2a9950982d0de09890d4bb957ae51ffd",
+  "summary": "Deletion confirmation remains visible after explicit re-import recreates the purchase.",
+  "steps": [
+    "Upload demo/orders.csv into isolated empty preview",
+    "Delete synthetic PB22 with explicit confirmation",
+    "Select identical CSV and explicitly confirm fresh import",
+    "Observe five rows again while old deletion status remains"
+  ],
+  "evidence_snapshot": "output/playwright/release-9d00e97/.playwright-cli/page-2026-11-18T07-01-17-952Z.yml",
+  "scope": "UI feedback only; import was explicitly confirmed. No automatic data resurrection observed.",
+  "status": "verified_fixed",
+  "fixed_commit": "49968cb090e85f13edbaa76ec2f11740bd5f94a9",
+  "repair_evidence": "../purchase-status/report.json"
+}

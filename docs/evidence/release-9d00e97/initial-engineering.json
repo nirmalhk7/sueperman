@@ -1,0 +1,79 @@
+{
+  "scope": "Independent engineering checks, outside formal G3 prerequisite evaluation",
+  "tree_digest": "20ebf830ac5260ccdd66f49f5ea50e4e772f3ccfeee2ee9adeed7280512e040a",
+  "source_unchanged": true,
+  "checks": [
+    {
+      "command": [
+        "make",
+        "test"
+      ],
+      "status": "FAIL",
+      "exit_code": 2,
+      "stdout_path": "initial-test-stdout.log",
+      "stderr_path": "initial-test-stderr.log",
+      "environment": "offline",
+      "duration_seconds": 282.6448114999803
+    },
+    {
+      "command": [
+        "make",
+        "lint"
+      ],
+      "status": "PASS",
+      "exit_code": 0,
+      "stdout_path": "initial-lint-stdout.log",
+      "stderr_path": "initial-lint-stderr.log",
+      "environment": "offline",
+      "duration_seconds": 4.040119708050042
+    },
+    {
+      "command": [
+        "make",
+        "typecheck"
+      ],
+      "status": "PASS",
+      "exit_code": 0,
+      "stdout_path": "initial-typecheck-stdout.log",
+      "stderr_path": "initial-typecheck-stderr.log",
+      "environment": "offline",
+      "duration_seconds": 11.457447583088651
+    },
+    {
+      "command": [
+        "make",
+        "build"
+      ],
+      "status": "PASS",
+      "exit_code": 0,
+      "stdout_path": "initial-build-stdout.log",
+      "stderr_path": "initial-build-stderr.log",
+      "environment": "offline",
+      "duration_seconds": 24.703218334005214
+    },
+    {
+      "command": [
+        "make",
+        "smoke"
+      ],
+      "status": "PASS",
+      "exit_code": 0,
+      "stdout_path": "initial-smoke-stdout.log",
+      "stderr_path": "initial-smoke-stderr.log",
+      "environment": "controlled-offline",
+      "duration_seconds": 0.31907095899805427
+    },
+    {
+      "command": [
+        "make",
+        "e2e"
+      ],
+      "status": "PASS",
+      "exit_code": 0,
+      "stdout_path": "initial-e2e-stdout.log",
+      "stderr_path": "initial-e2e-stderr.log",
+      "environment": "controlled-offline",
+      "duration_seconds": 30.047635665978305
+    }
+  ]
+}

@@ -180,7 +180,7 @@
     "vendor/finch/strategy-red-team/v1/manifest.json": "bf9ef8d78b5aa8686b43ab77a20d6fe86a8142ec86c33b948db52d83a4709e0b",
     "vendor/finch/strategy-red-team/v1/strategy-red-team_finchip-v1.zip": "fb2aa27b6e6461c12a06f6a98ff54810b4a0616a6f2f8bafa05046679f1a8550",
     ".env.example": "5b5ded69278475a9c2c2d7e372ad5b9003972bfb7551f3cf1d19e7975c413f11",
-    "README.md": "191462a08e69add9505e649a8259adbf1d54462065a1cac11bb927bd885033ce",
+    "README.md": "cc0d4992c8bd5098f40a706f7e6d55e66694d0660583800bb794cea06afc8557",
     "docs/SPONSORS.md": "b134aca5c92a8a380deb0d5e74fabadc8b5ceac26533b23cd73a5e669292e1a5",
     "output/playwright/container/workflow.e2e.ts-five-purch-49afe--and-visible-negative-cases/dashboard.png": "771dc409d13b9b15fdbb0a419ec50834e06dff2a6e4875de8885461726f491d4",
     "output/playwright/container/workflow.e2e.ts-five-purch-49afe--and-visible-negative-cases/evidence.png": "6c9f32cf90e376aceb0f446cdc1e07372511d091fd394a2c0071f22ba3c5c80a",

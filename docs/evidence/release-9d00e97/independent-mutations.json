@@ -1,0 +1,101 @@
+{
+  "scope": "Isolated mutation checks run separately while G0 remained blocked",
+  "results": [
+    {
+      "target": "services/api/app/matching/recall.py",
+      "status": "PASS",
+      "observed_mutated_test_exit_code": 1,
+      "nodes": [
+        "/Users/nirmalhk7/Documents/DevWorld/sueperman/services/api/.venv/bin/python",
+        "-m",
+        "pytest",
+        "services/api/tests/diwali/test_local_core.py::test_five_golden_outcomes",
+        "-q",
+        "--strict-markers",
+        "-o",
+        "xfail_strict=true",
+        "--junitxml=/var/folders/k0/w3xrb_d95jn2t7nf2f0s05yr0000gp/T/sueperman-release-final-rt0aftm2/docs/evidence/diwali/v2.1/mutations/pb23/pytest.xml"
+      ]
+    },
+    {
+      "target": "services/api/app/diwali/core.py",
+      "status": "PASS",
+      "observed_mutated_test_exit_code": 1,
+      "nodes": [
+        "/Users/nirmalhk7/Documents/DevWorld/sueperman/services/api/.venv/bin/python",
+        "-m",
+        "pytest",
+        "services/api/tests/diwali/test_local_core.py::test_missing_purchase_model",
+        "-q",
+        "--strict-markers",
+        "-o",
+        "xfail_strict=true",
+        "--junitxml=/var/folders/k0/w3xrb_d95jn2t7nf2f0s05yr0000gp/T/sueperman-release-final-rt0aftm2/docs/evidence/diwali/v2.1/mutations/unknown/pytest.xml"
+      ]
+    },
+    {
+      "target": "services/api/app/api/claims.py",
+      "status": "PASS",
+      "observed_mutated_test_exit_code": 1,
+      "nodes": [
+        "/Users/nirmalhk7/Documents/DevWorld/sueperman/services/api/.venv/bin/python",
+        "-m",
+        "pytest",
+        "services/api/tests/diwali/test_api.py::test_unapproved_export",
+        "-q",
+        "--strict-markers",
+        "-o",
+        "xfail_strict=true",
+        "--junitxml=/var/folders/k0/w3xrb_d95jn2t7nf2f0s05yr0000gp/T/sueperman-release-final-rt0aftm2/docs/evidence/diwali/v2.1/mutations/approval/pytest.xml"
+      ]
+    },
+    {
+      "target": "services/api/app/diwali/core.py",
+      "status": "PASS",
+      "observed_mutated_test_exit_code": 1,
+      "nodes": [
+        "/Users/nirmalhk7/Documents/DevWorld/sueperman/services/api/.venv/bin/python",
+        "-m",
+        "pytest",
+        "services/api/tests/diwali/test_reducer.py::test_duplicate_delivery",
+        "-q",
+        "--strict-markers",
+        "-o",
+        "xfail_strict=true",
+        "--junitxml=/var/folders/k0/w3xrb_d95jn2t7nf2f0s05yr0000gp/T/sueperman-release-final-rt0aftm2/docs/evidence/diwali/v2.1/mutations/duplicate/pytest.xml"
+      ]
+    },
+    {
+      "target": "services/api/app/diwali/coordinator.py",
+      "status": "PASS",
+      "observed_mutated_test_exit_code": 1,
+      "nodes": [
+        "/Users/nirmalhk7/Documents/DevWorld/sueperman/services/api/.venv/bin/python",
+        "-m",
+        "pytest",
+        "services/api/tests/diwali/test_failures.py::test_malformed_result_closes_case_without_packet",
+        "-q",
+        "--strict-markers",
+        "-o",
+        "xfail_strict=true",
+        "--junitxml=/var/folders/k0/w3xrb_d95jn2t7nf2f0s05yr0000gp/T/sueperman-release-final-rt0aftm2/docs/evidence/diwali/v2.1/mutations/provider-failure/pytest.xml"
+      ]
+    },
+    {
+      "target": "services/api/app/api/runs.py",
+      "status": "PASS",
+      "observed_mutated_test_exit_code": 1,
+      "nodes": [
+        "/Users/nirmalhk7/Documents/DevWorld/sueperman/services/api/.venv/bin/python",
+        "-m",
+        "pytest",
+        "services/api/tests/diwali/test_api.py::test_provenance",
+        "-q",
+        "--strict-markers",
+        "-o",
+        "xfail_strict=true",
+        "--junitxml=/var/folders/k0/w3xrb_d95jn2t7nf2f0s05yr0000gp/T/sueperman-release-final-rt0aftm2/docs/evidence/diwali/v2.1/mutations/false-band/pytest.xml"
+      ]
+    }
+  ]
+}

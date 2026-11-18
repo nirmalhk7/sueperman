@@ -1,0 +1,60 @@
+{
+  "status": "RAW_PRE_REPAIR_CAPTURE_NOT_SUBMISSION_VIDEO",
+  "recorded_source": "9d00e97e2a9950982d0de09890d4bb957ae51ffd",
+  "path": "output/playwright/release-9d00e97/raw-workspace.webm",
+  "sha256": "841d9b4082fc717c16faa44877753d0dfa11c96f368b36e6432178db53c33772",
+  "probe": {
+    "programs": [],
+    "stream_groups": [],
+    "streams": [
+      {
+        "codec_name": "vp9",
+        "codec_type": "video",
+        "width": 800,
+        "height": 450,
+        "r_frame_rate": "25/1"
+      }
+    ],
+    "format": {
+      "duration": "271.440000",
+      "size": "8123270"
+    }
+  },
+  "decode_check": {
+    "command": [
+      "ffmpeg",
+      "-v",
+      "error",
+      "-i",
+      "output/playwright/release-9d00e97/raw-workspace.webm",
+      "-f",
+      "null",
+      "-"
+    ],
+    "exit_code": 0
+  },
+  "data": {
+    "source": "demo/orders.csv",
+    "sha256": "133f2fc86d24372ce84cf4d5ef583c1d4a30d81eb8f0131ca29e488cc84cabc7",
+    "synthetic_only": true
+  },
+  "runtime_evidence": "local-runtime.json",
+  "actions": [
+    "Import five synthetic CSV rows",
+    "Preview and explicitly confirm purchase deletion",
+    "Observe four rows",
+    "Reselect same file and see mandatory fresh-import consent",
+    "Explicitly confirm import and observe five rows"
+  ],
+  "discovered_defect": "Deletion status remained visible after explicit re-import. Repair 49968cb passed eight checks. See observed-ui-defect.json.",
+  "limitations": [
+    "Raw 271.44-second technical capture, not a timed human rehearsal.",
+    "No audio or captions, no AdaL project or export.",
+    "No sponsor execution or official live lookup: all external providers disabled.",
+    "800x450 raw capture is insufficient evidence of final presentation readability.",
+    "Do not present pre-repair footage as the corrected walkthrough."
+  ],
+  "adal_project": null,
+  "adal_export_mp4": null,
+  "submission_ready": false
+}

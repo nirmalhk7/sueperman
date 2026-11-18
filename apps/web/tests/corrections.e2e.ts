@@ -5,7 +5,9 @@ test("correct a checked model and renew local review before export", async ({ pa
   await importPurchases(page, ["ZHX-PB22"]);
   await page.goto("/");
   await page.getByRole("button", { name: "Check my purchases" }).click();
+  await expect(page).toHaveURL(/\/runs\/[^/]+$/);
   await expect(page.getByRole("heading", { name: "Run completed" })).toBeVisible();
+  const originalRun = page.url();
   const exact = page.getByTestId("opportunity-card").filter({ hasText: "Your model: ZHX-PB22" });
   await exact.getByRole("link", { name: "Review details" }).click();
   await expect(page.getByRole("heading", { name: "Recall matched — review details" })).toBeVisible();
@@ -25,7 +27,10 @@ test("correct a checked model and renew local review before export", async ({ pa
   await corrected.getByLabel("Model number", { exact: true }).fill("ZHX-PB22");
   await corrected.getByLabel("I checked these identifiers against my receipt or product.").check();
   await corrected.getByRole("button", { name: "Save correction" }).click();
+  await expect(page.getByText("Purchase corrected. Check my purchases to investigate the new revision.")).toBeVisible();
   await page.getByRole("button", { name: "Check my purchases" }).click();
+  await expect(page).toHaveURL(/\/runs\/[^/]+$/);
+  await expect(page).not.toHaveURL(originalRun);
   await expect(page.getByRole("heading", { name: "Run completed" })).toBeVisible();
   await page.getByTestId("opportunity-card").filter({ hasText: "Your model: ZHX-PB22" }).getByRole("link", { name: "Review details" }).click();
   await page.getByRole("button", { name: "Prepare claim packet" }).click();

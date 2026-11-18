@@ -1,0 +1,134 @@
+FF                                                                       [100%]
+=================================== FAILURES ===================================
+_ test_command_receives_owned_server_addresses_without_enabling_paid_providers _
+
+tmp_path = PosixPath('/private/var/folders/k0/w3xrb_d95jn2t7nf2f0s05yr0000gp/T/pytest-of-nirmalhk7/pytest-483/test_command_receives_owned_se0')
+
+    def test_command_receives_owned_server_addresses_without_enabling_paid_providers(tmp_path):
+        module = verifier()
+        command = [sys.executable, "-c", ("import os; "
+            "assert os.environ['API_URL']=='http://127.0.0.1:45321'; "
+            "assert os.environ['WEB_URL']=='http://127.0.0.1:45322'; "
+            "assert os.environ['OPENAI_ENABLED']=='false'; print('controlled addresses reached child')")]
+        try:
+>           result = module.run_command(command, tmp_path, tmp_path / "command", env_overrides={
+                "API_URL": "http://127.0.0.1:45321", "WEB_URL": "http://127.0.0.1:45322"})
+E               TypeError: run_command() got an unexpected keyword argument 'env_overrides'
+
+services/api/tests/diwali/test_verifier_environment.py:27: TypeError
+
+During handling of the above exception, another exception occurred:
+
+tmp_path = PosixPath('/private/var/folders/k0/w3xrb_d95jn2t7nf2f0s05yr0000gp/T/pytest-of-nirmalhk7/pytest-483/test_command_receives_owned_se0')
+
+    def test_command_receives_owned_server_addresses_without_enabling_paid_providers(tmp_path):
+        module = verifier()
+        command = [sys.executable, "-c", ("import os; "
+            "assert os.environ['API_URL']=='http://127.0.0.1:45321'; "
+            "assert os.environ['WEB_URL']=='http://127.0.0.1:45322'; "
+            "assert os.environ['OPENAI_ENABLED']=='false'; print('controlled addresses reached child')")]
+        try:
+            result = module.run_command(command, tmp_path, tmp_path / "command", env_overrides={
+                "API_URL": "http://127.0.0.1:45321", "WEB_URL": "http://127.0.0.1:45322"})
+        except TypeError:
+>           pytest.fail("Gate command cannot consume the owned dynamic server environment")
+E           Failed: Gate command cannot consume the owned dynamic server environment
+
+services/api/tests/diwali/test_verifier_environment.py:30: Failed
+_ test_server_adapter_owns_fixture_lifetime_and_preserves_logs_on_body_failure _
+
+tmp_path = PosixPath('/private/var/folders/k0/w3xrb_d95jn2t7nf2f0s05yr0000gp/T/pytest-of-nirmalhk7/pytest-483/test_server_adapter_owns_fixtu0')
+
+    def test_server_adapter_owns_fixture_lifetime_and_preserves_logs_on_body_failure(tmp_path):
+        """A failing regression must release only its fixture resources and keep proof."""
+        module = verifier()
+        source = tmp_path / "services/api/tests/diwali/test_ui.py"
+        source.parent.mkdir(parents=True)
+        source.write_text('''from pathlib import Path
+    import pytest
+    @pytest.fixture
+    def browser_env(tmp_path_factory):
+        folder=tmp_path_factory.mktemp("controlled")
+        marker=folder/"owned-resource"
+        marker.write_text("active")
+        logs=folder/"logs"
+        logs.mkdir()
+        (logs/"api.log").write_text("controlled API retained")
+        (logs/"web.log").write_text("controlled web retained")
+        (logs/"build.log").write_text("copied frontend built")
+        try:
+            yield folder, {"API_URL":"http://127.0.0.1:45323", "WEB_URL":"http://127.0.0.1:45324", "OWNED_RESOURCE":str(marker)}, logs
+        finally:
+            marker.unlink()
+    ''')
+        evidence = tmp_path / "evidence"
+        marker = None
+        with pytest.raises(RuntimeError, match="regression failed"):
+            try:
+>               with module.app_servers(tmp_path, evidence) as environment:
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+services/api/tests/diwali/test_verifier_environment.py:61: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+/private/tmp/sueperman-python/cpython-3.12.13-macos-aarch64-none/lib/python3.12/contextlib.py:137: in __enter__
+    return next(self.gen)
+           ^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+root = PosixPath('/private/var/folders/k0/w3xrb_d95jn2t7nf2f0s05yr0000gp/T/pytest-of-nirmalhk7/pytest-483/test_server_adapter_owns_fixtu0')
+evidence = PosixPath('/private/var/folders/k0/w3xrb_d95jn2t7nf2f0s05yr0000gp/T/pytest-of-nirmalhk7/pytest-483/test_server_adapter_owns_fixtu0/evidence')
+
+    @contextmanager
+    def app_servers(root, evidence):
+        """Never attach to or stop an existing process; busy required ports block proof."""
+        for port in (8000, 3012):
+            with socket.socket() as sock:
+>               sock.bind(("127.0.0.1", port))
+E               PermissionError: [Errno 1] Operation not permitted
+
+scripts/verify_diwali.py:77: PermissionError
+
+During handling of the above exception, another exception occurred:
+
+tmp_path = PosixPath('/private/var/folders/k0/w3xrb_d95jn2t7nf2f0s05yr0000gp/T/pytest-of-nirmalhk7/pytest-483/test_server_adapter_owns_fixtu0')
+
+    def test_server_adapter_owns_fixture_lifetime_and_preserves_logs_on_body_failure(tmp_path):
+        """A failing regression must release only its fixture resources and keep proof."""
+        module = verifier()
+        source = tmp_path / "services/api/tests/diwali/test_ui.py"
+        source.parent.mkdir(parents=True)
+        source.write_text('''from pathlib import Path
+    import pytest
+    @pytest.fixture
+    def browser_env(tmp_path_factory):
+        folder=tmp_path_factory.mktemp("controlled")
+        marker=folder/"owned-resource"
+        marker.write_text("active")
+        logs=folder/"logs"
+        logs.mkdir()
+        (logs/"api.log").write_text("controlled API retained")
+        (logs/"web.log").write_text("controlled web retained")
+        (logs/"build.log").write_text("copied frontend built")
+        try:
+            yield folder, {"API_URL":"http://127.0.0.1:45323", "WEB_URL":"http://127.0.0.1:45324", "OWNED_RESOURCE":str(marker)}, logs
+        finally:
+            marker.unlink()
+    ''')
+        evidence = tmp_path / "evidence"
+        marker = None
+        with pytest.raises(RuntimeError, match="regression failed"):
+            try:
+                with module.app_servers(tmp_path, evidence) as environment:
+                    assert environment["API_URL"] == "http://127.0.0.1:45323"
+                    marker = Path(environment["OWNED_RESOURCE"])
+                    assert marker.read_text() == "active"
+                    raise RuntimeError("regression failed")
+            except OSError:
+>               pytest.fail("Gate server setup did not consume the controlled fixture")
+E               Failed: Gate server setup did not consume the controlled fixture
+
+services/api/tests/diwali/test_verifier_environment.py:67: Failed
+=========================== short test summary info ============================
+FAILED services/api/tests/diwali/test_verifier_environment.py::test_command_receives_owned_server_addresses_without_enabling_paid_providers
+FAILED services/api/tests/diwali/test_verifier_environment.py::test_server_adapter_owns_fixture_lifetime_and_preserves_logs_on_body_failure
+2 failed in 0.37s

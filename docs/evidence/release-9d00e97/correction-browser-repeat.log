@@ -1,0 +1,8 @@
+
+Running 3 tests using 1 worker
+
+  ✓  1 tests/corrections.e2e.ts:4:1 › correct a checked model and renew local review before export (5.4s)
+  ✓  2 tests/corrections.e2e.ts:4:1 › correct a checked model and renew local review before export (6.6s)
+  ✓  3 tests/corrections.e2e.ts:4:1 › correct a checked model and renew local review before export (12.1s)
+
+  3 passed (30.7s)

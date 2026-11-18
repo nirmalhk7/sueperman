@@ -1,0 +1,296 @@
+services/api/.venv/bin/python scripts/storage_smoke.py
+ Image sueperman-storage-check-12114-web Building 
+ Image sueperman-storage-check-12114-gateway Building 
+ Image sueperman-storage-check-12114-backup Building 
+ Image sueperman-storage-check-12114-api Building 
+#1 [internal] load local bake definitions
+#1 reading from stdin 2.67kB done
+#1 DONE 0.0s
+
+#2 [web internal] load build definition from Dockerfile
+#2 transferring dockerfile: 936B 0.0s done
+#2 DONE 0.1s
+
+#3 [backup internal] load build definition from Dockerfile
+#3 transferring dockerfile: 1.66kB done
+#3 DONE 0.1s
+
+#4 [gateway internal] load build definition from gateway.Dockerfile
+#4 transferring dockerfile: 124B done
+#4 DONE 0.1s
+
+#5 [gateway internal] load metadata for docker.io/library/nginx:stable-alpine
+#5 DONE 0.1s
+
+#6 [gateway internal] load .dockerignore
+#6 transferring context: 340B done
+#6 DONE 0.0s
+
+#7 [api internal] load metadata for docker.io/library/node:24-bookworm-slim
+#7 ...
+
+#8 [gateway internal] load build context
+#8 transferring context: 434B 0.0s done
+#8 DONE 0.0s
+
+#9 [gateway 1/2] FROM docker.io/library/nginx:stable-alpine@sha256:901e593c95dc85f5a729f5765516321366ef4ac401821431d408897e95287d0a
+#9 resolve docker.io/library/nginx:stable-alpine@sha256:901e593c95dc85f5a729f5765516321366ef4ac401821431d408897e95287d0a 0.1s done
+#9 DONE 0.1s
+
+#10 [gateway 2/2] COPY deploy/nginx.conf /etc/nginx/conf.d/default.conf
+#10 CACHED
+
+#11 [gateway] exporting to image
+#11 exporting layers done
+#11 exporting manifest sha256:f162eb60477d0d6abd9f84fc3cbf9c51dd22e78cff72fb21136580c2cd352a12 0.1s done
+#11 exporting config sha256:50eb081a9d76b07e975b5bb6aee9168b2640e9b0f17065293ca5a97bbb602a15 0.0s done
+#11 exporting attestation manifest sha256:81dd3922939e9f867616258c12bbe4b255444ef4b93c03f8118a0ad2399f36a2 0.0s done
+#11 exporting manifest list sha256:3c8df5584e49dc37fccfacec065bd12120503e7dd631a7acd17981ac8bfcc110 0.0s done
+#11 naming to docker.io/library/sueperman-storage-check-12114-gateway:latest done
+#11 DONE 0.2s
+
+#12 [api internal] load metadata for ghcr.io/astral-sh/uv:0.10.8
+#12 ...
+
+#6 [web internal] load .dockerignore
+#6 transferring context: 340B done
+#6 DONE 0.0s
+
+#7 [backup internal] load metadata for docker.io/library/node:24-bookworm-slim
+#7 DONE 0.8s
+
+#13 [backup internal] load metadata for docker.io/library/python:3.12-slim-bookworm
+#13 DONE 0.8s
+
+#14 [web internal] load build context
+#14 DONE 0.0s
+
+#15 [gateway] resolving provenance for metadata file
+#15 DONE 0.0s
+
+#16 [web build 1/7] FROM docker.io/library/node:24-bookworm-slim@sha256:dc26ae92c9fb15cf6b1d63e20f0944b2efe0f115b20e00be48fb23fceb061c54
+#16 resolve docker.io/library/node:24-bookworm-slim@sha256:dc26ae92c9fb15cf6b1d63e20f0944b2efe0f115b20e00be48fb23fceb061c54 0.1s done
+#16 DONE 0.1s
+
+#14 [web internal] load build context
+#14 transferring context: 1.14MB 0.0s done
+#14 DONE 0.1s
+
+#17 [web stage-1 2/3] WORKDIR /srv/app/apps/web
+#17 CACHED
+
+#18 [web build 2/7] RUN npm install --global pnpm@11.25.0
+#18 CACHED
+
+#19 [web build 5/7] RUN pnpm install --frozen-lockfile
+#19 CACHED
+
+#20 [web build 4/7] COPY apps/web/package.json apps/web/pnpm-lock.yaml apps/web/pnpm-workspace.yaml ./
+#20 CACHED
+
+#21 [web build 6/7] COPY apps/web/ ./
+#21 CACHED
+
+#22 [web build 3/7] WORKDIR /srv/app/apps/web
+#22 CACHED
+
+#23 [web build 7/7] RUN pnpm build
+#23 CACHED
+
+#24 [web stage-1 3/3] COPY --from=build --chown=node:node /srv/app/apps/web ./
+#24 CACHED
+
+#12 [api internal] load metadata for ghcr.io/astral-sh/uv:0.10.8
+#12 DONE 1.2s
+
+#6 [api internal] load .dockerignore
+#6 transferring context: 340B done
+#6 DONE 0.0s
+
+#16 [api build 1/7] FROM docker.io/library/node:24-bookworm-slim@sha256:dc26ae92c9fb15cf6b1d63e20f0944b2efe0f115b20e00be48fb23fceb061c54
+#16 resolve docker.io/library/node:24-bookworm-slim@sha256:dc26ae92c9fb15cf6b1d63e20f0944b2efe0f115b20e00be48fb23fceb061c54 0.1s done
+#16 DONE 0.1s
+
+#25 [api internal] load build context
+#25 DONE 0.0s
+
+#26 [backup stage-2  1/12] FROM docker.io/library/python:3.12-slim-bookworm@sha256:935c3c5b12357a7e10caa9c1e6ca5692344d97cf229832ef584be2cec9fc03df
+#26 resolve docker.io/library/python:3.12-slim-bookworm@sha256:935c3c5b12357a7e10caa9c1e6ca5692344d97cf229832ef584be2cec9fc03df
+#26 resolve docker.io/library/python:3.12-slim-bookworm@sha256:935c3c5b12357a7e10caa9c1e6ca5692344d97cf229832ef584be2cec9fc03df 0.1s done
+#26 DONE 0.1s
+
+#27 [web] exporting to image
+#27 exporting layers done
+#27 exporting manifest sha256:b597574c3bb0993f1cd39e99a9a35eeb478b480be709d9dd86f9474fbfc9e073 0.0s done
+#27 exporting config sha256:9a67c3773f3c259348ebea9beec8443a2d1282989345f42d6667cd80ca51824c 0.0s done
+#27 exporting attestation manifest sha256:92004faa83ab60b078206f86b1c27f42993683fecc1bc3ffa3461ff2c3aba409 0.1s done
+#27 exporting manifest list sha256:5d5e32b25c71a420c1af8c9bfbc7296402b619a43a9470d5585ad3f2ac157838 0.0s done
+#27 naming to docker.io/library/sueperman-storage-check-12114-web:latest 0.0s done
+#27 DONE 0.4s
+
+#28 [backup uv-runtime 1/1] FROM ghcr.io/astral-sh/uv:0.10.8@sha256:88234bc9e09c2b2f6d176a3daf411419eb0370d450a08129257410de9cfafd2a
+#28 resolve ghcr.io/astral-sh/uv:0.10.8@sha256:88234bc9e09c2b2f6d176a3daf411419eb0370d450a08129257410de9cfafd2a 0.1s done
+#28 DONE 0.1s
+
+#25 [api internal] load build context
+#25 transferring context: 5.12kB done
+#25 DONE 0.0s
+
+#29 [api stage-2  6/12] WORKDIR /srv/app
+#29 CACHED
+
+#30 [api stage-2  2/12] COPY --from=uv-runtime /uv /usr/local/bin/uv
+#30 CACHED
+
+#31 [api stage-2 11/12] COPY --chmod=444 harness/diwali/baseline.json harness/diwali/baseline.json
+#31 CACHED
+
+#32 [api stage-2  3/12] COPY --from=node-runtime /usr/local/bin/node /usr/local/bin/node
+#32 CACHED
+
+#33 [api stage-2  7/12] COPY services/api/pyproject.toml services/api/uv.lock services/api/
+#33 CACHED
+
+#34 [api stage-2  5/12] RUN apt-get update && apt-get install -y --no-install-recommends ca-certificates libstdc++6     && rm -rf /var/lib/apt/lists/*     && ln -s /usr/local/lib/node_modules/npm/bin/npm-cli.js /usr/local/bin/npm     && ln -s /usr/local/lib/node_modules/npm/bin/npx-cli.js /usr/local/bin/npx
+#34 CACHED
+
+#35 [api stage-2  8/12] RUN uv sync --project services/api --locked --no-dev --no-cache
+#35 CACHED
+
+#36 [api stage-2  9/12] COPY services/api/app services/api/app
+#36 CACHED
+
+#37 [api stage-2  4/12] COPY --from=node-runtime /usr/local/lib/node_modules/npm /usr/local/lib/node_modules/npm
+#37 CACHED
+
+#38 [api stage-2 10/12] COPY demo demo
+#38 CACHED
+
+#39 [api stage-2 12/12] RUN useradd --uid 10001 --create-home sueperman     && chmod 755 /srv/app/harness /srv/app/harness/diwali     && mkdir -p /data /backups /srv/app/uploads     && chown -R 10001:10001 /data /backups /srv/app/uploads     && chmod 700 /backups
+#39 CACHED
+
+#40 [api] exporting to image
+#40 exporting layers 0.0s done
+#40 exporting manifest sha256:83b3845357d0a840c8d51c69df2208f0f98a513a3cbbf3dbb3f943af826fce4c
+#40 exporting manifest sha256:83b3845357d0a840c8d51c69df2208f0f98a513a3cbbf3dbb3f943af826fce4c 0.0s done
+#40 exporting config sha256:ff61782b2c22ecea6ada48ffb2c36a8654e4551db0e7fd63c2acb2b63df4c849
+#40 exporting config sha256:ff61782b2c22ecea6ada48ffb2c36a8654e4551db0e7fd63c2acb2b63df4c849 0.1s done
+#40 exporting attestation manifest sha256:1169b2c1bfbe180c5c4fc499e4d6093108ce80bc10fceb6924ca9df17dd587a3 0.1s done
+#40 exporting manifest list sha256:4c4cd022eeace70f3decca2d1effccd896256904677c4e70f0e69aa924286058
+#40 exporting manifest list sha256:4c4cd022eeace70f3decca2d1effccd896256904677c4e70f0e69aa924286058 0.1s done
+#40 naming to docker.io/library/sueperman-storage-check-12114-api:latest
+#40 naming to docker.io/library/sueperman-storage-check-12114-api:latest 0.0s done
+#40 ...
+
+#41 [backup] exporting to image
+#41 exporting layers 0.0s done
+#41 exporting manifest sha256:52979e5dc25514858652645e6d8af12f12988d24a64753e333842f96710efbcd 0.0s done
+#41 exporting config sha256:652cfd8fd571299634db8d0651ea3d97cd570f5e7a8c85a8bcf34027cec8ac70 0.1s done
+#41 exporting attestation manifest sha256:c1a999665f5c6ab80056c42f0c1cbd16e33fd21a109652ed9c03ef3346945032 0.1s done
+#41 exporting manifest list sha256:ba5d08e8d5c206d4d8da809b6ad44af30f90526819493666b12bdd760299a245 0.1s done
+#41 naming to docker.io/library/sueperman-storage-check-12114-backup:latest 0.0s done
+#41 DONE 0.7s
+
+#40 [api] exporting to image
+#40 DONE 0.7s
+
+#42 [web] resolving provenance for metadata file
+#42 DONE 0.0s
+
+#43 [backup] resolving provenance for metadata file
+#43 DONE 0.2s
+
+#44 [api] resolving provenance for metadata file
+#44 DONE 0.0s
+ Image sueperman-storage-check-12114-api Built 
+ Image sueperman-storage-check-12114-backup Built 
+ Image sueperman-storage-check-12114-web Built 
+ Image sueperman-storage-check-12114-gateway Built 
+ Volume sueperman-storage-check-12114_demo-state Creating 
+ Volume sueperman-storage-check-12114_state-backups Creating 
+ Volume sueperman-storage-check-12114_state-backups Creating 
+ Volume sueperman-storage-check-12114_demo-state Creating 
+ Network sueperman-storage-check-12114_default Creating 
+ Network sueperman-storage-check-12114_default Creating 
+ Volume sueperman-storage-check-12114_state-backups Created 
+ Volume sueperman-storage-check-12114_state-backups Created 
+ Volume sueperman-storage-check-12114_demo-state Created 
+ Volume sueperman-storage-check-12114_demo-state Created 
+ Network sueperman-storage-check-12114_default Created 
+ Network sueperman-storage-check-12114_default Created 
+ Container sueperman-storage-check-12114-api-1 Creating 
+ Container sueperman-storage-check-12114-web-1 Creating 
+ Container sueperman-storage-check-12114-web-1 Created 
+ Container sueperman-storage-check-12114-api-1 Created 
+ Container sueperman-storage-check-12114-backup-1 Creating 
+ Container sueperman-storage-check-12114-gateway-1 Creating 
+ Container sueperman-storage-check-12114-gateway-1 Created 
+ Container sueperman-storage-check-12114-backup-1 Created 
+ Container sueperman-storage-check-12114-api-1 Starting 
+ Container sueperman-storage-check-12114-web-1 Starting 
+ Container sueperman-storage-check-12114-web-1 Started 
+ Container sueperman-storage-check-12114-api-1 Started 
+ Container sueperman-storage-check-12114-api-1 Waiting 
+ Container sueperman-storage-check-12114-api-1 Waiting 
+ Container sueperman-storage-check-12114-web-1 Waiting 
+ Container sueperman-storage-check-12114-web-1 Healthy 
+ Container sueperman-storage-check-12114-api-1 Healthy 
+ Container sueperman-storage-check-12114-api-1 Healthy 
+ Container sueperman-storage-check-12114-backup-1 Starting 
+ Container sueperman-storage-check-12114-gateway-1 Starting 
+ Container sueperman-storage-check-12114-backup-1 Started 
+ Container sueperman-storage-check-12114-gateway-1 Started 
+ Container sueperman-storage-check-12114-api-1 Recreate 
+ Container sueperman-storage-check-12114-web-1 Recreate 
+ Container sueperman-storage-check-12114-web-1 Recreated 
+ Container sueperman-storage-check-12114-api-1 Recreated 
+ Container sueperman-storage-check-12114-backup-1 Recreate 
+ Container sueperman-storage-check-12114-gateway-1 Recreate 
+ Container sueperman-storage-check-12114-gateway-1 Recreated 
+ Container sueperman-storage-check-12114-backup-1 Recreated 
+ Container sueperman-storage-check-12114-web-1 Starting 
+ Container sueperman-storage-check-12114-api-1 Starting 
+ Container sueperman-storage-check-12114-web-1 Started 
+ Container sueperman-storage-check-12114-api-1 Started 
+ Container sueperman-storage-check-12114-web-1 Waiting 
+ Container sueperman-storage-check-12114-api-1 Waiting 
+ Container sueperman-storage-check-12114-api-1 Waiting 
+ Container sueperman-storage-check-12114-web-1 Healthy 
+ Container sueperman-storage-check-12114-api-1 Healthy 
+ Container sueperman-storage-check-12114-gateway-1 Starting 
+ Container sueperman-storage-check-12114-api-1 Healthy 
+ Container sueperman-storage-check-12114-backup-1 Starting 
+ Container sueperman-storage-check-12114-gateway-1 Started 
+ Container sueperman-storage-check-12114-backup-1 Started 
+ Container sueperman-storage-check-12114-backup-1 Stopping 
+ Container sueperman-storage-check-12114-backup-1 Stopped 
+ Container sueperman-storage-check-12114-api-1 Stopping 
+ Container sueperman-storage-check-12114-api-1 Stopped 
+ Container sueperman-storage-check-12114-backup-run-00a3cf1e0374 Creating 
+ Container sueperman-storage-check-12114-backup-run-00a3cf1e0374 Created 
+{"database": "/data/restored.db"}
+ Container sueperman-storage-check-12114-gateway-1 Running 
+ Container sueperman-storage-check-12114-web-1 Running 
+ Container sueperman-storage-check-12114-api-1 Recreate 
+ Container sueperman-storage-check-12114-api-1 Recreated 
+ Container sueperman-storage-check-12114-backup-1 Recreate 
+ Container sueperman-storage-check-12114-backup-1 Recreated 
+ Container sueperman-storage-check-12114-api-1 Starting 
+ Container sueperman-storage-check-12114-api-1 Started 
+ Container sueperman-storage-check-12114-api-1 Waiting 
+ Container sueperman-storage-check-12114-web-1 Waiting 
+ Container sueperman-storage-check-12114-api-1 Waiting 
+ Container sueperman-storage-check-12114-web-1 Healthy 
+ Container sueperman-storage-check-12114-api-1 Healthy 
+ Container sueperman-storage-check-12114-api-1 Healthy 
+ Container sueperman-storage-check-12114-backup-1 Starting 
+ Container sueperman-storage-check-12114-backup-1 Started 
+
+Running 1 test using 1 worker
+
+  ✓  1 tests/storage.e2e.ts:4:1 › restored demo export persists via API while public UI shows imported purchases (5.7s)
+
+  1 passed (8.3s)
+(node:15253) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+PASS: persistent Compose recreation, WAL backup, exact all-row restore, original unchanged, approval/export via API and quota/watch/job state, non-root private snapshots, restored imported purchases visible and historical demo drafts hidden in the browser.

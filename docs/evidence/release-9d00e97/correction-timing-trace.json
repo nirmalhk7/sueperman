@@ -1,0 +1,21 @@
+{
+  "source": "pytest-486/diwali-browser0/web/test-results/corrections.e2e.ts-correct-a03ff--local-review-before-export/trace.zip",
+  "observed_call_starts_ms": {
+    "second_save_correction": 9794.509,
+    "second_check_my_purchases": 9830.235,
+    "products_response_fulfilled": 9844.672,
+    "run_completed_assertion": 9884.787,
+    "old_review_details_click": 9894.062
+  },
+  "network_limit": "Network monotonic times represent request starts, not response completion times. Fulfillment event establishes the refreshed products arrived after the Check action.",
+  "database_observation": {
+    "old_opportunity": "ef533413-9841-4408-8aec-bdccaa3f1018",
+    "old_stale": true,
+    "new_run": "88d2f470-4fa3-44ed-95fb-d1648937a3b2",
+    "new_run_status": "completed",
+    "new_opportunity": "1bafd279-adcb-4da2-96ba-6a295cc763b9",
+    "new_stale": false,
+    "new_packet_status": "ready_for_review"
+  },
+  "repair": "Wait for second correction completion and navigation to a new run URL before existing outcome assertions. No production change."
+}

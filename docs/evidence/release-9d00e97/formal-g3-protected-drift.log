@@ -1,0 +1,45 @@
+services/api/.venv/bin/python scripts/verify_diwali.py --through G3 --offline
+{
+  "G0": {
+    "status": "FAIL",
+    "failures": [
+      "Changed protected input: docs/v2-status.md",
+      "Changed protected input: services/api/app/api/demo.py"
+    ],
+    "baseline_checks": [
+      {
+        "command": "make test",
+        "exit_code": 0,
+        "result": "132 backend + 11 frontend passed; 0 skipped; existing Starlette deprecation warning",
+        "evidence": "docs/evidence/diwali/v2.1/baseline-test.log"
+      },
+      {
+        "command": "make lint",
+        "exit_code": 0,
+        "evidence": "docs/evidence/diwali/v2.1/baseline-lint.log"
+      },
+      {
+        "command": "make typecheck",
+        "exit_code": 0,
+        "evidence": "docs/evidence/diwali/v2.1/baseline-typecheck.log"
+      }
+    ],
+    "tested_tree_digest": "20ebf830ac5260ccdd66f49f5ea50e4e772f3ccfeee2ee9adeed7280512e040a"
+  },
+  "G1": {
+    "status": "BLOCKED",
+    "blocker": "Prerequisite gate did not pass",
+    "tested_tree_digest": "20ebf830ac5260ccdd66f49f5ea50e4e772f3ccfeee2ee9adeed7280512e040a"
+  },
+  "G2": {
+    "status": "BLOCKED",
+    "blocker": "Prerequisite gate did not pass",
+    "tested_tree_digest": "20ebf830ac5260ccdd66f49f5ea50e4e772f3ccfeee2ee9adeed7280512e040a"
+  },
+  "G3": {
+    "status": "BLOCKED",
+    "blocker": "Prerequisite gate did not pass",
+    "tested_tree_digest": "20ebf830ac5260ccdd66f49f5ea50e4e772f3ccfeee2ee9adeed7280512e040a"
+  }
+}
+make: *** [diwali-check] Error 1

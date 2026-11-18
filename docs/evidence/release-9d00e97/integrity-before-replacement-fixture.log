@@ -1,0 +1,58 @@
+.......F...................F.........                                    [100%]
+=================================== FAILURES ===================================
+____ test_only_exact_reviewed_additions_are_permitted[extension-README.md] _____
+
+audited_tree = (PosixPath('/private/var/folders/k0/w3xrb_d95jn2t7nf2f0s05yr0000gp/T/pytest-of-nirmalhk7/pytest-481/test_only_exact_re.....}, 'lockfile_digests': {'services/api/uv.lock': 'aca9025d801b750ea79fe009187299225767cb673800c46b3c53c6635ff776dc'}})
+name = 'README.md', change = 'extension'
+
+    @pytest.mark.parametrize("name", ["README.md", ".env.example", "services/api/uv.lock",
+                                      "services/api/app/api/collaborations.py",
+                                      "services/api/app/collaboration/controller.py",
+                                      "services/api/app/collaboration/ledger.py"])
+    @pytest.mark.parametrize("change", ["original", "extension", "append", "delete"])
+    def test_only_exact_reviewed_additions_are_permitted(audited_tree, name, change):
+        root, baseline = audited_tree
+        path = root / name
+        data = path.read_bytes()
+        if change == "delete":
+            path.unlink()
+        elif change == "original":
+            path.write_bytes(b"X" + data[1:])
+        elif change == "extension":
+            before = {"README.md": b"## V2 P1 additions", ".env.example": b"P1_ENABLED=false",
+                      "services/api/uv.lock": b'version = "8.1.0"',
+                      "services/api/app/api/collaborations.py": b"Current official source requires a new live review",
+                      "services/api/app/collaboration/controller.py": b"@jobs.durable(CollaborationRun)",
+                      "services/api/app/collaboration/ledger.py": b"if recoverable(run):"}[name]
+>           assert data.count(before) == 1
+E           AssertionError: assert 0 == 1
+E            +  where 0 = <built-in method count of bytes object at 0x780b15c000>(b'## V2 P1 additions')
+E            +    where <built-in method count of bytes object at 0x780b15c000> = b'# Sueperman \xe2\x80\x94 Your consumer-rights agent\n\nImport purchases, compare exact product identifiers with offi...reports and this revision\'s verification boundary. Historical artifacts do not establish current release readiness.\n'.count
+
+services/api/tests/diwali/test_integrity_extensions.py:51: AssertionError
+________ test_manifest_wrong_insertion_cannot_hide_original_replacement ________
+
+audited_tree = (PosixPath('/private/var/folders/k0/w3xrb_d95jn2t7nf2f0s05yr0000gp/T/pytest-of-nirmalhk7/pytest-481/test_manifest_wron.....}, 'lockfile_digests': {'services/api/uv.lock': 'aca9025d801b750ea79fe009187299225767cb673800c46b3c53c6635ff776dc'}})
+
+    def test_manifest_wrong_insertion_cannot_hide_original_replacement(audited_tree):
+        root, baseline = audited_tree
+        manifest_path = root / "harness/diwali/integrity-extensions.json"
+        manifest = json.loads(manifest_path.read_text())
+        entry = manifest["files"]["README.md"]
+        data = (root / "README.md").read_bytes()
+        # Even a correctly hashed prefix cannot be substituted for the audited addition.
+        length = entry["insertions"][0]["length"]
+        entry["insertions"] = [{"offset": 0, "length": length,
+                                "sha256": hashlib.sha256(data[:length]).hexdigest()}]
+        manifest_path.write_text(json.dumps(manifest))
+>       assert "Changed protected input: README.md" in harness().check_integrity(root, baseline)
+E       AssertionError: assert 'Changed protected input: README.md' in []
+E        +  where [] = <function check_integrity at 0x10bd05f80>(PosixPath('/private/var/folders/k0/w3xrb_d95jn2t7nf2f0s05yr0000gp/T/pytest-of-nirmalhk7/pytest-481/test_manifest_wrong_insertion_0'), {'protected_file_digests': {'services/api/app/api/collaborations.py': 'b885a96dd0a02f6938c80bbd82e705c413863844420b171......}, 'lockfile_digests': {'services/api/uv.lock': 'aca9025d801b750ea79fe009187299225767cb673800c46b3c53c6635ff776dc'}})
+E        +    where <function check_integrity at 0x10bd05f80> = <module 'verify_diwali' from '/Users/nirmalhk7/Documents/DevWorld/sueperman/scripts/verify_diwali.py'>.check_integrity
+E        +      where <module 'verify_diwali' from '/Users/nirmalhk7/Documents/DevWorld/sueperman/scripts/verify_diwali.py'> = harness()
+
+services/api/tests/diwali/test_integrity_extensions.py:87: AssertionError
+=========================== short test summary info ============================
+FAILED services/api/tests/diwali/test_integrity_extensions.py::test_only_exact_reviewed_additions_are_permitted[extension-README.md]
+FAILED services/api/tests/diwali/test_integrity_extensions.py::test_manifest_wrong_insertion_cannot_hide_original_replacement
+2 failed, 35 passed in 4.62s

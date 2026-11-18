@@ -1,0 +1,95 @@
+{
+  "scope": "Independent engineering checks, outside formal G3 prerequisite evaluation",
+  "tree_digest": "0484332d5c7b467b6bcbfa9e961726a17d29a023b6b23bd973ff11ac78fb345c",
+  "source_unchanged": true,
+  "checks": [
+    {
+      "command": [
+        "make",
+        "test"
+      ],
+      "status": "PASS",
+      "exit_code": 0,
+      "stdout_path": "test-stdout.log",
+      "stderr_path": "test-stderr.log",
+      "environment": "offline",
+      "duration_seconds": 325.52201774995774
+    },
+    {
+      "command": [
+        "make",
+        "lint"
+      ],
+      "status": "PASS",
+      "exit_code": 0,
+      "stdout_path": "lint-stdout.log",
+      "stderr_path": "lint-stderr.log",
+      "environment": "offline",
+      "duration_seconds": 3.4668950421037152
+    },
+    {
+      "command": [
+        "make",
+        "typecheck"
+      ],
+      "status": "PASS",
+      "exit_code": 0,
+      "stdout_path": "typecheck-stdout.log",
+      "stderr_path": "typecheck-stderr.log",
+      "environment": "offline",
+      "duration_seconds": 15.379752375069074
+    },
+    {
+      "command": [
+        "make",
+        "build"
+      ],
+      "status": "PASS",
+      "exit_code": 0,
+      "stdout_path": "build-stdout.log",
+      "stderr_path": "build-stderr.log",
+      "environment": "offline",
+      "duration_seconds": 32.5238650420215
+    },
+    {
+      "command": [
+        "make",
+        "smoke"
+      ],
+      "status": "PASS",
+      "exit_code": 0,
+      "stdout_path": "smoke-stdout.log",
+      "stderr_path": "smoke-stderr.log",
+      "environment": "controlled-offline",
+      "duration_seconds": 0.8957202080637217
+    },
+    {
+      "command": [
+        "make",
+        "e2e"
+      ],
+      "status": "PASS",
+      "exit_code": 0,
+      "stdout_path": "e2e-stdout.log",
+      "stderr_path": "e2e-stderr.log",
+      "environment": "controlled-offline",
+      "duration_seconds": 40.45309679105412
+    }
+  ],
+  "candidate_base": "49968cb090e85f13edbaa76ec2f11740bd5f94a9",
+  "candidate_hashes": {
+    "README.md": "cc0d4992c8bd5098f40a706f7e6d55e66694d0660583800bb794cea06afc8557",
+    "harness/diwali/baseline.json": "7a6594d133ed79e5e1109dfc05dca988933353c05dbb6ceb0536883534c99e41",
+    "scripts/verify_diwali.py": "492b277c4d6237110e45da5d83c0a3b8aa4d7c549f30e8384921cdc76170d04c",
+    "services/api/tests/diwali/test_integrity_extensions.py": "dca40a77ef6403b03499285731f0b4e0757ad99c5a5d08c19d9b204b8635eed3",
+    "services/api/tests/diwali/test_verifier_environment.py": "b5a71a699812a512035b3aeaf3f0f18694cf0472bbc1910e6efc1fa5e17a26cb",
+    "docs/evidence/release-9d00e97/README.before.md": "2fb16e4e90a25e1f0c53753bc3742c97349ac018d4f5fbae154df16f41a23f68",
+    "apps/web/tests/corrections.e2e.ts": "357dd4cc5e05ec449698461246aefc32aeca335e65039a1749850331155407a6"
+  },
+  "counts": {
+    "python": 526,
+    "frontend_unit": 12,
+    "browser_passed": 28,
+    "live_browser_skipped": 3
+  }
+}

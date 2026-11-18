@@ -1,0 +1,88 @@
+{
+  "scope": "Diagnostics only. Formal gate ordering unchanged.",
+  "results": {
+    "G1": {
+      "command": [
+        "/Users/nirmalhk7/Documents/DevWorld/sueperman/services/api/.venv/bin/python",
+        "-m",
+        "pytest",
+        "services/api/tests/diwali/test_messages.py",
+        "services/api/tests/diwali/test_harness.py",
+        "services/api/tests/diwali/test_harness.py::test_proof_requires_artifact",
+        "services/api/tests/diwali/test_harness.py::test_skips_cannot_pass",
+        "services/api/tests/diwali/test_harness.py::test_baseline_integrity",
+        "-q",
+        "--strict-markers",
+        "-o",
+        "xfail_strict=true",
+        "--junitxml=/tmp/sueperman-release-diagnostics/G1/pytest.xml"
+      ],
+      "status": "PASS",
+      "exit_code": 0,
+      "duration_seconds": 22.137159165926278,
+      "stdout_path": "diagnostic-g1-stdout.log",
+      "stderr_path": "diagnostic-g1-stderr.log",
+      "tests": 34
+    },
+    "G2": {
+      "command": [
+        "/Users/nirmalhk7/Documents/DevWorld/sueperman/services/api/.venv/bin/python",
+        "-m",
+        "pytest",
+        "services/api/tests/diwali/test_local_core.py::test_five_golden_outcomes",
+        "services/api/tests/diwali/test_local_core.py::test_four_identities",
+        "services/api/tests/diwali/test_local_core.py::test_golden_traces",
+        "services/api/tests/diwali/test_local_core.py::test_transport_parity",
+        "services/api/tests/diwali/test_reducer.py::test_duplicate_delivery",
+        "services/api/tests/diwali/test_reducer.py::test_conflicting_duplicate",
+        "services/api/tests/diwali/test_reducer.py::test_wrong_sender_revision",
+        "services/api/tests/diwali/test_reducer.py::test_terminal_late_message",
+        "services/api/tests/diwali/test_local_core.py::test_missing_purchase_model",
+        "services/api/tests/diwali/test_reducer.py::test_public_followup",
+        "services/api/tests/diwali/test_reducer.py::test_unresolved_second_review",
+        "services/api/tests/diwali/test_local_core.py::test_untrusted_source",
+        "services/api/tests/diwali/test_local_core.py::test_network_denied",
+        "-q",
+        "--strict-markers",
+        "-o",
+        "xfail_strict=true",
+        "--junitxml=/tmp/sueperman-release-diagnostics/G2/pytest.xml"
+      ],
+      "status": "PASS",
+      "exit_code": 0,
+      "duration_seconds": 1.1096209159586579,
+      "stdout_path": "diagnostic-g2-stdout.log",
+      "stderr_path": "diagnostic-g2-stderr.log",
+      "tests": 15
+    },
+    "G3": {
+      "command": [
+        "/Users/nirmalhk7/Documents/DevWorld/sueperman/services/api/.venv/bin/python",
+        "-m",
+        "pytest",
+        "services/api/tests/diwali/test_api.py::test_default_compatibility",
+        "services/api/tests/diwali/test_api.py::test_idempotency_modes",
+        "services/api/tests/diwali/test_api.py::test_feature_off_parity",
+        "services/api/tests/diwali/test_persistence.py::test_finalization_rollback",
+        "services/api/tests/diwali/test_persistence.py::test_restart_cancels_tasks",
+        "services/api/tests/diwali/test_persistence.py::test_stale_evidence",
+        "services/api/tests/diwali/test_persistence.py::test_no_repeat_side_effect",
+        "services/api/tests/diwali/test_api.py::test_unapproved_export",
+        "services/api/tests/diwali/test_api.py::test_provenance",
+        "services/api/tests/diwali/test_ui.py::test_browser_error_empty_states",
+        "services/api/tests/diwali/test_ui.py::test_browser_packet_workflow",
+        "-q",
+        "--strict-markers",
+        "-o",
+        "xfail_strict=true",
+        "--junitxml=/tmp/sueperman-release-diagnostics/G3/pytest.xml"
+      ],
+      "status": "PASS",
+      "exit_code": 0,
+      "duration_seconds": 81.52347025007475,
+      "stdout_path": "diagnostic-g3-stdout.log",
+      "stderr_path": "diagnostic-g3-stderr.log",
+      "tests": 11
+    }
+  }
+}

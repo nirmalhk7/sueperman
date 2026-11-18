@@ -1,0 +1,106 @@
+services/api/.venv/bin/pytest services/api/tests -q
+........................................................................ [ 13%]
+........................................................................ [ 27%]
+........................................................................ [ 41%]
+......................................F................................. [ 54%]
+........................................................................ [ 68%]
+........................................................................ [ 82%]
+........................................................................ [ 95%]
+......................                                                   [100%]
+=================================== FAILURES ===================================
+___________________ test_public_workspace_browser_acceptance ___________________
+
+browser_env = (PosixPath('/private/var/folders/k0/w3xrb_d95jn2t7nf2f0s05yr0000gp/T/pytest-of-nirmalhk7/pytest-486/diwali-browser0/we...ivate/var/folders/k0/w3xrb_d95jn2t7nf2f0s05yr0000gp/T/sueperman-release-final-rt0aftm2/output/live-workspace-browser'))
+
+    def test_public_workspace_browser_acceptance(browser_env):
+        web, env, logs = browser_env
+        result = subprocess.run(["node", str(ROOT / "apps/web/node_modules/@playwright/test/cli.js"), "test"],
+            cwd=web, env=env, capture_output=True, text=True, timeout=240, check=False)
+        (logs / "public-acceptance.log").write_text(result.stdout + result.stderr)
+>       assert result.returncode == 0, result.stdout + result.stderr
+E       AssertionError: 
+E         Running 31 tests using 1 worker
+E         
+E           ✓   1 tests/collaboration.e2e.ts:6:1 › live team board explains exact, excluded and missing-model cases with safe local export (4.1s)
+E           ✓   2 tests/collaboration.e2e.ts:53:1 › a newer case run blocks export from an already open approved draft (1.3s)
+E           ✘   3 tests/corrections.e2e.ts:4:1 › correct a checked model and renew local review before export (32.8s)
+E           ✓   4 tests/deletion.e2e.ts:5:3 › Delete purchase and explicitly re-import at 1280px (2.1s)
+E           ✓   5 tests/deletion.e2e.ts:5:3 › Delete purchase and explicitly re-import at 390px (1.6s)
+E           ✓   6 tests/deletion.e2e.ts:34:1 › Shared history needs separate consent and preserves other purchases (3.2s)
+E           ✓   7 tests/demo-login.e2e.ts:5:3 › retired sign-in redirects to purchases at 1280px (1.4s)
+E           ✓   8 tests/demo-login.e2e.ts:5:3 › retired sign-in redirects to purchases at 390px (843ms)
+E           ✓   9 tests/diwali.e2e.ts:3:1 › Recovered investigation shows recovery and uncertain-outcome guidance (835ms)
+E           ✓  10 tests/diwali.e2e.ts:23:1 › Diwali packet workflow (901ms)
+E           ✓  11 tests/diwali.e2e.ts:37:1 › Diwali error and empty states (915ms)
+E           ✓  12 tests/motion.e2e.ts:6:3 › role motion settles and remains usable with no-preference (1.7s)
+E           ✓  13 tests/motion.e2e.ts:6:3 › role motion settles and remains usable with reduce (881ms)
+E           ✓  14 tests/motion.e2e.ts:37:1 › purchase check shows pending work until the request finishes (1.1s)
+E           -  15 tests/p1-live.e2e.ts:7:1 › live image extraction, human confirmation and CPSC recall export
+E           -  16 tests/p1-live.e2e.ts:47:1 › live PDF extraction returns identifiers for review
+E           -  17 tests/p1-live.e2e.ts:60:1 › live settlement sources stay distinct from personal eligibility and export locally
+E           ✓  18 tests/production-workspace.e2e.ts:5:1 › workspace offers real purchases without demo controls (2.3s)
+E           ✓  19 tests/production-workspace.e2e.ts:31:3 › historical runs cannot expose recorded content or actions (665ms)
+E           ✓  20 tests/production-workspace.e2e.ts:31:3 › historical opportunities cannot expose recorded content or actions (611ms)
+E           ✓  21 tests/production-workspace.e2e.ts:31:3 › historical claims cannot expose recorded content or actions (504ms)
+E           ✓  22 tests/production-workspace.e2e.ts:48:1 › historical synthetic team runs cannot appear as live investigations (850ms)
+E           ✓  23 tests/receipt-camera.e2e.ts:20:1 › camera photo is read into reviewable purchases without confirming identifiers (702ms)
+E           ✓  24 tests/receipt-camera.e2e.ts:48:1 › camera upload failure permits another photo without starting a purchase check (568ms)
+E           ✓  25 tests/stale-packet.e2e.ts:3:1 › withdrawn source verification disables local approval and export (611ms)
+E           ✓  26 tests/workflow.e2e.ts:5:1 › imported purchases produce evidence-backed recall, safe export and visible negative cases (2.5s)
+E           ✓  27 tests/workflow.e2e.ts:98:1 › CSV import preserves purchase history (860ms)
+E           ✓  28 tests/workflow.e2e.ts:111:1 › decision detail explains selected action and hard-gate evidence (1.2s)
+E           ✓  29 tests/workflow.e2e.ts:129:1 › scan identifiers require explicit review before confirmation (2.6s)
+E           ✓  30 tests/workspace-design.e2e.ts:5:1 › workflow preview explains each selected agent without claiming execution (3.4s)
+E           ✓  31 tests/workspace-design.e2e.ts:25:1 › purchase workspace remains usable in a narrow viewport with reduced motion (872ms)
+E         
+E         
+E           1) tests/corrections.e2e.ts:4:1 › correct a checked model and renew local review before export ───
+E         
+E             Test timeout of 30000ms exceeded.
+E         
+E             Error: locator.click: Test timeout of 30000ms exceeded.
+E             Call log:
+E               - waiting for getByRole('button', { name: 'Prepare claim packet' })
+E         
+E         
+E               29 |   await expect(page.getByRole("heading", { name: "Run completed" })).toBeVisible();
+E               30 |   await page.getByTestId("opportunity-card").filter({ hasText: "Your model: ZHX-PB22" }).getByRole("link", { name: "Review details" }).click();
+E             > 31 |   await page.getByRole("button", { name: "Prepare claim packet" }).click();
+E                  |                                                                    ^
+E               32 |   await expect(page.getByRole("button", { name: "Export Markdown" })).toBeDisabled();
+E               33 |   await page.getByLabel("I reviewed this draft and understand approval stays local.").check();
+E               34 |   await page.getByRole("button", { name: "Approve draft locally" }).click();
+E                 at /private/var/folders/k0/w3xrb_d95jn2t7nf2f0s05yr0000gp/T/pytest-of-nirmalhk7/pytest-486/diwali-browser0/web/tests/corrections.e2e.ts:31:68
+E         
+E             attachment #1: video (video/webm) ──────────────────────────────────────────────────────────────
+E             test-results/corrections.e2e.ts-correct-a03ff--local-review-before-export/video.webm
+E             ────────────────────────────────────────────────────────────────────────────────────────────────
+E         
+E             Error Context: test-results/corrections.e2e.ts-correct-a03ff--local-review-before-export/error-context.md
+E         
+E             attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+E             test-results/corrections.e2e.ts-correct-a03ff--local-review-before-export/trace.zip
+E             Usage:
+E         
+E                 npx playwright show-trace test-results/corrections.e2e.ts-correct-a03ff--local-review-before-export/trace.zip
+E         
+E             ────────────────────────────────────────────────────────────────────────────────────────────────
+E         
+E           1 failed
+E             tests/corrections.e2e.ts:4:1 › correct a checked model and renew local review before export ────
+E           3 skipped
+E           27 passed (1.3m)
+E         
+E       assert 1 == 0
+E        +  where 1 = CompletedProcess(args=['node', '/private/var/folders/k0/w3xrb_d95jn2t7nf2f0s05yr0000gp/T/sueperman-release-final-rt0af...4:1 › correct a checked model and renew local review before export ────\n  3 skipped\n  27 passed (1.3m)\n', stderr='').returncode
+
+services/api/tests/diwali/test_ui.py:126: AssertionError
+=============================== warnings summary ===============================
+../../../../../../../Users/nirmalhk7/Documents/DevWorld/sueperman/services/api/.venv/lib/python3.12/site-packages/fastapi/testclient.py:1
+  /Users/nirmalhk7/Documents/DevWorld/sueperman/services/api/.venv/lib/python3.12/site-packages/fastapi/testclient.py:1: StarletteDeprecationWarning: Using `httpx` with `starlette.testclient` is deprecated; install `httpx2` instead.
+    from starlette.testclient import TestClient as TestClient  # noqa
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+=========================== short test summary info ============================
+FAILED services/api/tests/diwali/test_ui.py::test_public_workspace_browser_acceptance
+1 failed, 525 passed, 1 warning in 275.28s (0:04:35)

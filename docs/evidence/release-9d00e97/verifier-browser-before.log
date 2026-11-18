@@ -1,0 +1,47 @@
+
+Running 1 test using 1 worker
+
+  ✘  1 tests/workflow.e2e.ts:5:1 › imported purchases produce evidence-backed recall, safe export and visible negative cases (17.5s)
+
+
+  1) tests/workflow.e2e.ts:5:1 › imported purchases produce evidence-backed recall, safe export and visible negative cases 
+
+    Error: expect(locator).toBeVisible() failed
+
+    Locator: getByText('Run completed', { exact: true })
+    Expected: visible
+    Timeout: 15000ms
+    Error: element(s) not found
+
+    Call log:
+      - Expect "toBeVisible" getByText('Run completed', { exact: true }) with timeout 15000ms
+      - waiting for getByText('Run completed', { exact: true })
+
+
+      15 |   await expect(page.getByTestId("purchase-row")).toHaveCount(3);
+      16 |   await page.getByRole("button", { name: "Check my purchases" }).click();
+    > 17 |   await expect(page.getByText("Run completed", { exact: true })).toBeVisible({
+         |                                                                  ^
+      18 |     timeout: 15000,
+      19 |   });
+      20 |   await expect(page.getByTestId("opportunity-card")).toHaveCount(3);
+        at /private/var/folders/k0/w3xrb_d95jn2t7nf2f0s05yr0000gp/T/sueperman-issue9-final-gn1a9k8b/apps/web/tests/workflow.e2e.ts:17:66
+
+    attachment #1: video (video/webm) ──────────────────────────────────────────────────────────────
+    ../../../../../../../../../tmp/sueperman-verifier-legacy-red/browser/workflow.e2e.ts-imported-p-f65bf--and-visible-negative-cases/video.webm
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: ../../../../../../../../../tmp/sueperman-verifier-legacy-red/browser/workflow.e2e.ts-imported-p-f65bf--and-visible-negative-cases/error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    ../../../../../../../../../tmp/sueperman-verifier-legacy-red/browser/workflow.e2e.ts-imported-p-f65bf--and-visible-negative-cases/trace.zip
+    Usage:
+
+        npx playwright show-trace ../../../../../../../../../tmp/sueperman-verifier-legacy-red/browser/workflow.e2e.ts-imported-p-f65bf--and-visible-negative-cases/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  1 failed
+    tests/workflow.e2e.ts:5:1 › imported purchases produce evidence-backed recall, safe export and visible negative cases 
+(node:2342) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)

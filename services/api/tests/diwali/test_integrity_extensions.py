@@ -11,6 +11,13 @@ from test_harness import ROOT, harness
 @pytest.fixture
 def audited_tree(tmp_path):
     baseline = json.loads((ROOT / "harness/diwali/baseline.json").read_text())
+    # These tests exercise the original byte-preserving README extension,
+    # retained verbatim when the owner approved its documentation replacement.
+    historical_readme = ROOT / "docs/evidence/release-9d00e97/README.before.md"
+    assert hashlib.sha256(historical_readme.read_bytes()).hexdigest() == (
+        "2fb16e4e90a25e1f0c53753bc3742c97349ac018d4f5fbae154df16f41a23f68")
+    baseline["protected_file_digests"]["README.md"] = (
+        "191462a08e69add9505e649a8259adbf1d54462065a1cac11bb927bd885033ce")
     names = ("README.md", ".env.example", "services/api/uv.lock", "services/api/app/api/collaborations.py",
              "services/api/app/collaboration/controller.py", "services/api/app/collaboration/ledger.py")
     limited = {}
@@ -20,7 +27,7 @@ def audited_tree(tmp_path):
         target = tmp_path / name
         target.parent.mkdir(parents=True, exist_ok=True)
         if (ROOT / name).is_file():
-            shutil.copyfile(ROOT / name, target)
+            shutil.copyfile(historical_readme if name == "README.md" else ROOT / name, target)
     return tmp_path, limited
 
 
@@ -85,3 +92,23 @@ def test_manifest_wrong_insertion_cannot_hide_original_replacement(audited_tree)
                             "sha256": hashlib.sha256(data[:length]).hexdigest()}]
     manifest_path.write_text(json.dumps(manifest))
     assert "Changed protected input: README.md" in harness().check_integrity(root, baseline)
+
+
+def test_approved_replacement_rejects_old_readme_and_unreviewed_changes(tmp_path):
+    """Historical extensions cannot authorize rollback or new document drift."""
+    current = (ROOT / "README.md").read_bytes()
+    expected = json.loads((ROOT / "harness/diwali/baseline.json").read_text())["protected_file_digests"]["README.md"]
+    baseline = {"protected_file_digests": {"README.md": expected}}
+    path = tmp_path / "README.md"
+    path.write_bytes(current)
+    manifest_path = tmp_path / "harness/diwali/integrity-extensions.json"
+    manifest_path.parent.mkdir(parents=True)
+    shutil.copyfile(ROOT / "harness/diwali/integrity-extensions.json", manifest_path)
+    assert harness().check_integrity(tmp_path, baseline) == []
+    path.write_bytes((ROOT / "docs/evidence/release-9d00e97/README.before.md").read_bytes())
+    assert "Changed protected input: README.md" in harness().check_integrity(tmp_path, baseline)
+    path.write_bytes(b"X" + current[1:])
+    manifest = json.loads(manifest_path.read_text())
+    manifest["files"]["README.md"]["extended_sha256"] = hashlib.sha256(path.read_bytes()).hexdigest()
+    manifest_path.write_text(json.dumps(manifest))
+    assert "Changed protected input: README.md" in harness().check_integrity(tmp_path, baseline)

@@ -1,0 +1,79 @@
+{
+  "observed_at": "2026-11-18T06:56:05.337558+00:00",
+  "commit": "9d00e97e2a9950982d0de09890d4bb957ae51ffd",
+  "origin": "http://127.0.0.1:3082",
+  "project": "sueperman-release-9d00e97",
+  "isolated_empty_database_confirmed": true,
+  "health": {
+    "db": "ok",
+    "providers": [
+      {
+        "name": "csv",
+        "configured": true,
+        "enabled": true,
+        "healthy": true
+      },
+      {
+        "name": "openai_receipts",
+        "configured": false,
+        "enabled": false,
+        "healthy": null
+      },
+      {
+        "name": "cpsc",
+        "configured": true,
+        "enabled": false,
+        "healthy": null
+      },
+      {
+        "name": "brightdata",
+        "configured": false,
+        "enabled": false,
+        "healthy": null
+      },
+      {
+        "name": "gemini",
+        "configured": false,
+        "enabled": false,
+        "healthy": null
+      },
+      {
+        "name": "openai",
+        "configured": false,
+        "enabled": false,
+        "healthy": null
+      }
+    ],
+    "demo_ready": true
+  },
+  "source_verification": {
+    "api": {
+      "image": "sha256:3fa0f80e84a234450b21067779e9f560c4202c8cbaa3aabfd6c0cea443c064c0",
+      "verified_hashes": {
+        "services/api/app/api/claims.py": "51a0fa39e5675f9159762cc649c116a43a4c3d621ca014520a6b3269facd6f3a",
+        "services/api/app/api/purchases.py": "67cdd9a9ab13b5805115eada893050a6d0e6f4a6b7f4aba834055295037d8cd3",
+        "services/api/app/api/uploads.py": "34d30f61e162590c7166057c66c769e640f57431177fe0877856510f800ad64a",
+        "services/api/app/deletion.py": "bb4e553fd02d8bc53d498029fc090b5e69c7c2a7cf3d6b9e06e7397cdff2cf0f",
+        "services/api/app/deletion_import.py": "8d65ca9dfe3c349d9f020857dea8fdb81d34268294f9f252e7730603d0113fca",
+        "services/api/app/deletion_lifecycle.py": "e65484af71d97424021d2f0273759f678a8843040e9d86b1ca7afa780aff848d",
+        "services/api/app/deletion_runtime.py": "3a9c6e2150cd8a22d49bc2d882d64989a04ef1c085bc8311db3df3da9e759849",
+        "services/api/app/main.py": "ed06d3aaff81b5bdbf83e77d5be16690ced2180461d5ee940976e22423dd228a",
+        "services/api/app/storage.py": "015f90dfebd57bf0aa1e0fed6c4c0309a92ab6ac580c6f7527a5263c66316875"
+      }
+    },
+    "web": {
+      "image": "sha256:b58e673e7c9344d7e10397a54d28ef694702cdeaf9440f9bbfda34fc5ec7057d",
+      "verified_hashes": {
+        "apps/web/app/components.tsx": "808d26d075d8cd47e6b9878f253139074f90ef5a6cb061df9edfa6b89627e79e",
+        "apps/web/app/opportunities/[id]/page.tsx": "d3f63029a3324803d554df399907011732bff6c968ff640f2f776ddb1e64d5b0",
+        "apps/web/components/delete-purchase.tsx": "b1a9a410ad0ee9f0170e2775ad4c2ad2222482379aa4f1aa23f246cccdea836c",
+        "apps/web/lib/api.ts": "8eeca8c0b46ec44682c62403ec208112a6bbd07f388547b528db0b4ace58932c"
+      }
+    }
+  },
+  "limits": [
+    "No external providers enabled.",
+    "Shared local workspace, no private accounts.",
+    "Screen footage cannot prove sponsor execution or official live lookup."
+  ]
+}
