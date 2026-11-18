@@ -1,0 +1,87 @@
+{
+  "issue": 10,
+  "status": "verified for guidance-only scope",
+  "base_commit": "be781c8d1562c29f7772224f28590e937867897a",
+  "snapshot": "/var/folders/k0/w3xrb_d95jn2t7nf2f0s05yr0000gp/T/sueperman-issue10-wv187ee2",
+  "tested_files": {
+    "services/api/app/p1/preparation.py": "614fb512ead0728727d7503372d0703646eb9869c11583c10b6136051e9bbd07",
+    "services/api/app/p1/obligations.py": "0ee34f2c1946f30342cd35809cc7c0c147cd7711f97336675a379c79c827c044",
+    "services/api/tests/p1/test_preparation.py": "1bbecba6caf5579c80a28578aa7a905c10209ac8a086fe30109bee10f001c3e5",
+    "services/api/tests/p1/test_p1_browser.py": "a14aedc0d97a7d9cf66dbec226e87af398e4982f668c107be9c18a87f8dbc1ef",
+    "apps/web/components/p1-controls.tsx": "191a1f8e444da11e446bfddba1a6ba599bea86ce1cb169c3a00282bbde222c8b",
+    "apps/web/tests/p1.e2e.ts": "88d5b17f6713c0a20c512ccc078ef387443e0314b265ca9d8bc2314fd0c7fd4d",
+    "services/api/tests/p1/conftest.py": "2208f1a6254cce626aef5daac1c1ae9077df726b15fd1a7d64d21279af660d10",
+    "apps/web/app/claims/[id]/page.tsx": "7b03d3ec651a242ed858d0aae8d9328cb91a5c8135181612c2ef310619f8f7d4"
+  },
+  "checks": [
+    {
+      "name": "test",
+      "command": [
+        "make",
+        "test"
+      ],
+      "exit_code": 0,
+      "unchanged": true
+    },
+    {
+      "name": "lint",
+      "command": [
+        "make",
+        "lint"
+      ],
+      "exit_code": 0,
+      "unchanged": true
+    },
+    {
+      "name": "typecheck",
+      "command": [
+        "make",
+        "typecheck"
+      ],
+      "exit_code": 0,
+      "unchanged": true
+    },
+    {
+      "name": "build",
+      "command": [
+        "make",
+        "build"
+      ],
+      "exit_code": 0,
+      "unchanged": true
+    },
+    {
+      "name": "smoke",
+      "command": [
+        "make",
+        "smoke",
+        "API_URL=http://127.0.0.1:63372",
+        "WEB_URL=http://127.0.0.1:63373"
+      ],
+      "exit_code": 0,
+      "unchanged": true
+    },
+    {
+      "name": "e2e",
+      "command": [
+        "make",
+        "e2e",
+        "API_URL=http://127.0.0.1:63372",
+        "WEB_URL=http://127.0.0.1:63373"
+      ],
+      "exit_code": 0,
+      "unchanged": true
+    }
+  ],
+  "backend_tests_passed": 472,
+  "frontend_tests_passed": 12,
+  "p1_browser_scenarios_passed": 6,
+  "core_e2e_passed": 25,
+  "core_e2e_skipped_unverified": [
+    "live image extraction",
+    "live PDF extraction",
+    "live settlement acceptance"
+  ],
+  "independent_review": "Agent verified all eight hashes, all final command records, screenshots and scope; independently reran 36 focused safety tests. Recommended narrow commit and closure after refreshing this report.",
+  "scope": "Guidance only behind existing P1 flag; no evidence uploads, declarations, eligibility override or external platform required. No full release, deployment, paid/live-provider verification or issue 9 completion claimed."
+}

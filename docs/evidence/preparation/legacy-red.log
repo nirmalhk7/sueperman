@@ -1,0 +1,48 @@
+FF                                                                       [100%]
+=================================== FAILURES ===================================
+_ test_legacy_approval_cannot_export_new_guidance_until_fresh_approval[approved_local] _
+
+graph = (Engine(sqlite:////private/var/folders/k0/w3xrb_d95jn2t7nf2f0s05yr0000gp/T/pytest-of-nirmalhk7/pytest-423/test_legacy_... official required markings', 'User confirmation of lawful disposal (never prefilled)'], conditions=[], mode='replay'))
+status = 'approved_local'
+
+    @pytest.mark.parametrize("status", ["approved_local", "exported"])
+    def test_legacy_approval_cannot_export_new_guidance_until_fresh_approval(graph, status):
+        _engine, factory, client, _opportunity, packet, _record = graph
+        with factory.begin() as session:
+            stored = session.get(ClaimPacket, packet)
+            stored.payload = stored.payload | {"status": status, "p1_approval_binding": None}
+>       assert client.post(f"/api/claim-packets/{packet}/export").status_code == 409
+E       AssertionError: assert 200 == 409
+E        +  where 200 = <Response [200 OK]>.status_code
+E        +    where <Response [200 OK]> = post('/api/claim-packets/5013844b-45f7-4af5-9180-39716845599e/export')
+E        +      where post = <starlette.testclient.TestClient object at 0x10ed6c320>.post
+
+services/api/tests/p1/test_preparation.py:126: AssertionError
+_ test_legacy_approval_cannot_export_new_guidance_until_fresh_approval[exported] _
+
+graph = (Engine(sqlite:////private/var/folders/k0/w3xrb_d95jn2t7nf2f0s05yr0000gp/T/pytest-of-nirmalhk7/pytest-423/test_legacy_... official required markings', 'User confirmation of lawful disposal (never prefilled)'], conditions=[], mode='replay'))
+status = 'exported'
+
+    @pytest.mark.parametrize("status", ["approved_local", "exported"])
+    def test_legacy_approval_cannot_export_new_guidance_until_fresh_approval(graph, status):
+        _engine, factory, client, _opportunity, packet, _record = graph
+        with factory.begin() as session:
+            stored = session.get(ClaimPacket, packet)
+            stored.payload = stored.payload | {"status": status, "p1_approval_binding": None}
+>       assert client.post(f"/api/claim-packets/{packet}/export").status_code == 409
+E       AssertionError: assert 200 == 409
+E        +  where 200 = <Response [200 OK]>.status_code
+E        +    where <Response [200 OK]> = post('/api/claim-packets/fd6f3dad-31ee-4a44-83a7-0875f83c0a80/export')
+E        +      where post = <starlette.testclient.TestClient object at 0x10d471070>.post
+
+services/api/tests/p1/test_preparation.py:126: AssertionError
+=============================== warnings summary ===============================
+../../../../../../../Users/nirmalhk7/Documents/DevWorld/sueperman/services/api/.venv/lib/python3.12/site-packages/fastapi/testclient.py:1
+  /Users/nirmalhk7/Documents/DevWorld/sueperman/services/api/.venv/lib/python3.12/site-packages/fastapi/testclient.py:1: StarletteDeprecationWarning: Using `httpx` with `starlette.testclient` is deprecated; install `httpx2` instead.
+    from starlette.testclient import TestClient as TestClient  # noqa
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+=========================== short test summary info ============================
+FAILED services/api/tests/p1/test_preparation.py::test_legacy_approval_cannot_export_new_guidance_until_fresh_approval[approved_local]
+FAILED services/api/tests/p1/test_preparation.py::test_legacy_approval_cannot_export_new_guidance_until_fresh_approval[exported]
+2 failed, 7 deselected, 1 warning in 0.81s

@@ -1,0 +1,36 @@
+WEB_URL=http://127.0.0.1:63373 pnpm --dir apps/web e2e
+$ playwright test
+
+Running 28 tests using 1 worker
+
+  ✓   1 tests/collaboration.e2e.ts:6:1 › live team board explains exact, excluded and missing-model cases with safe local export (3.6s)
+  ✓   2 tests/collaboration.e2e.ts:53:1 › a newer case run blocks export from an already open approved draft (993ms)
+  ✓   3 tests/corrections.e2e.ts:4:1 › correct a checked model and renew local review before export (3.1s)
+  ✓   4 tests/demo-login.e2e.ts:5:3 › retired sign-in redirects to purchases at 1280px (467ms)
+  ✓   5 tests/demo-login.e2e.ts:5:3 › retired sign-in redirects to purchases at 390px (383ms)
+  ✓   6 tests/diwali.e2e.ts:3:1 › Recovered investigation shows recovery and uncertain-outcome guidance (530ms)
+  ✓   7 tests/diwali.e2e.ts:23:1 › Diwali packet workflow (699ms)
+  ✓   8 tests/diwali.e2e.ts:37:1 › Diwali error and empty states (921ms)
+  ✓   9 tests/motion.e2e.ts:6:3 › role motion settles and remains usable with no-preference (2.0s)
+  ✓  10 tests/motion.e2e.ts:6:3 › role motion settles and remains usable with reduce (925ms)
+  ✓  11 tests/motion.e2e.ts:37:1 › purchase check shows pending work until the request finishes (576ms)
+  -  12 tests/p1-live.e2e.ts:7:1 › live image extraction, human confirmation and CPSC recall export
+  -  13 tests/p1-live.e2e.ts:47:1 › live PDF extraction returns identifiers for review
+  -  14 tests/p1-live.e2e.ts:60:1 › live settlement sources stay distinct from personal eligibility and export locally
+  ✓  15 tests/production-workspace.e2e.ts:5:1 › workspace offers real purchases without demo controls (535ms)
+  ✓  16 tests/production-workspace.e2e.ts:31:3 › historical runs cannot expose recorded content or actions (595ms)
+  ✓  17 tests/production-workspace.e2e.ts:31:3 › historical opportunities cannot expose recorded content or actions (750ms)
+  ✓  18 tests/production-workspace.e2e.ts:31:3 › historical claims cannot expose recorded content or actions (492ms)
+  ✓  19 tests/production-workspace.e2e.ts:48:1 › historical synthetic team runs cannot appear as live investigations (460ms)
+  ✓  20 tests/receipt-camera.e2e.ts:20:1 › camera photo is read into reviewable purchases without confirming identifiers (798ms)
+  ✓  21 tests/receipt-camera.e2e.ts:48:1 › camera upload failure permits another photo without starting a purchase check (508ms)
+  ✓  22 tests/stale-packet.e2e.ts:3:1 › withdrawn source verification disables local approval and export (707ms)
+  ✓  23 tests/workflow.e2e.ts:5:1 › imported purchases produce evidence-backed recall, safe export and visible negative cases (2.2s)
+  ✓  24 tests/workflow.e2e.ts:98:1 › CSV import preserves purchase history (727ms)
+  ✓  25 tests/workflow.e2e.ts:111:1 › decision detail explains selected action and hard-gate evidence (685ms)
+  ✓  26 tests/workflow.e2e.ts:129:1 › scan identifiers require explicit review before confirmation (965ms)
+  ✓  27 tests/workspace-design.e2e.ts:5:1 › workflow preview explains each selected agent without claiming execution (841ms)
+  ✓  28 tests/workspace-design.e2e.ts:25:1 › purchase workspace remains usable in a narrow viewport with reduced motion (756ms)
+
+  3 skipped
+  25 passed (27.4s)

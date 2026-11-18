@@ -1,0 +1,13 @@
+
+Running 6 tests using 1 worker
+
+  ✓  1 tests/p1.e2e.ts:28:1 › P1 additional notices preserve exact negative and missing cases (2.0s)
+  ✓  2 tests/p1.e2e.ts:42:1 › P1 readiness persists and requires renewed local approval (1.6s)
+  ✓  3 tests/p1.e2e.ts:76:1 › P1 conditional photo guidance stays unknown and does not declare disposal (727ms)
+  ✓  4 tests/p1.e2e.ts:88:1 › P1 rejected stale export offers reload and renewed approval (1.1s)
+  ✓  5 tests/p1.e2e.ts:122:1 › P1 daily monitor records source change and blocks old export (9.0s)
+  ✓  6 tests/p1.e2e.ts:154:1 › P1 controls show empty and failure states without claiming a save (1.2s)
+
+  6 passed (17.4s)
+(node:64500) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)

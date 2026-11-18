@@ -8,6 +8,7 @@ from sqlalchemy.orm import Mapped, mapped_column
 
 from app.matching.recall import match_recall
 from app.models import ClaimPacket, Entity, Opportunity, Product, SourceEvidence
+from app.p1 import preparation
 from app.p1.monitoring import P1Base, digest, review_required
 from app.schemas import ProductInput, RecallRecord
 
@@ -25,7 +26,7 @@ class StaleReadiness(ValueError):
 
 def policy_digest():
     return hashlib.sha256(Path(__file__).with_name("normalizers.json").read_bytes()
-                          + b"obligation-readiness-v1").hexdigest()
+                          + b"obligation-readiness-v2" + preparation.policy_digest().encode()).hexdigest()
 
 
 def inputs(session, packet):
@@ -76,8 +77,12 @@ def view(session, packet):
     current = binding(session, packet)
     state = state_for(session, packet, current)
     values = state.payload.get("items", {}) if state else {}
+    opportunity, _product, _evidence = inputs(session, packet)
+    guide = preparation.plan(RecallRecord.model_validate(opportunity.payload["recall"]), packet.payload["required_documents"])
+    prepared = [item | values.get(item["id"], {"ready": False, "confirmed_at": None}) | steps
+                for item, steps in zip(items(packet), guide["items"], strict=True)]
     return {"binding": current, "mode": "self_reported", "eligible": eligible(session, packet),
-        "items": [item | values.get(item["id"], {"ready": False, "confirmed_at": None}) for item in items(packet)],
+        "items": prepared, "preparation": {key: value for key, value in guide.items() if key != "items"},
         "previous_versions": len(session.scalars(select(ObligationState).where(
             ObligationState.packet_id == packet.id, ObligationState.binding != current)).all())}
 
@@ -113,7 +118,12 @@ def invalidate_approval(session, packet):
     if opportunity.kind != "recall":
         return False
     saved = packet.payload.get("p1_approval_binding")
-    if not eligible(session, packet) or (saved and saved != approval_binding(session, packet)):
+    current_eligible = eligible(session, packet)
+    if current_eligible and not saved and packet.payload["status"] in {"approved_local", "exported"}:
+        packet.payload = packet.payload | {"status": "ready_for_review", "approved_at": None,
+            "reviewed_at": None, "p1_approval_binding": None}
+        return True
+    if not current_eligible or (saved and saved != approval_binding(session, packet)):
         packet.payload = packet.payload | {"status": "needs_evidence", "approved_at": None,
             "reviewed_at": None, "p1_approval_binding": None}
         return True
@@ -125,10 +135,19 @@ def appendix(session, packet):
     if opportunity.kind != "recall":
         return ""
     current = view(session, packet)
-    if state_for(session, packet, current["binding"]) is None:
-        return ""
-    lines = ["", "## Evidence readiness — self-reported, not verified",
-             "No declaration or submission is recorded. Required proof remains your responsibility."]
-    lines += [f"- [{'x' if item['ready'] else ' '}] {'Ready locally' if item['ready'] else 'Still needed'}: {item['label']}"
-              for item in current["items"]]
+    lines = []
+    if state_for(session, packet, current["binding"]) is not None:
+        lines = ["", "## Evidence readiness — self-reported, not verified",
+                 "No declaration or submission is recorded. Required proof remains your responsibility."]
+        lines += [f"- [{'x' if item['ready'] else ' '}] {'Ready locally' if item['ready'] else 'Still needed'}: {item['label']}"
+                  for item in current["items"]]
+    guide = current["preparation"]
+    lines += ["", "## Preparation guidance", guide["limitation"],
+              f"Official preparation requirements: {guide['source_url']}",
+              f"Source mode: {guide['source_mode']}; observed: {guide['observed_at']}"]
+    for item in current["items"]:
+        qualifier = "Required by reviewed notice" if item["requirement"] == "required" else "Requirement unknown — confirm with official notice"
+        lines.append(f"- {qualifier}: {item['label']}")
+        lines.extend(f"  - {step}" for step in item["preparation_steps"])
+    lines.extend(f"- Optional organizer tip (not an official requirement): {tip['label']}" for tip in guide["optional_tips"])
     return "\n".join(lines)

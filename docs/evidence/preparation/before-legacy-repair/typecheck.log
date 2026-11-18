@@ -1,0 +1,4 @@
+services/api/.venv/bin/mypy --config-file services/api/pyproject.toml services/api/app
+Success: no issues found in 67 source files
+pnpm --dir apps/web typecheck
+$ tsc --noEmit

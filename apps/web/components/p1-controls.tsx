@@ -7,7 +7,10 @@ type Readiness = {
   binding: string;
   eligible: boolean;
   previous_versions: number;
-  items: { id: string; label: string; ready: boolean; confirmed_at: string | null }[];
+  items: { id: string; label: string; ready: boolean; confirmed_at: string | null;
+    requirement?: "required" | "unknown"; preparation_steps?: string[] }[];
+  preparation?: { source_url: string; source_mode: string; observed_at: string; limitation: string;
+    optional_tips: { label: string; requirement: "optional"; origin: "organizer_tip" }[] };
 };
 type PublicRecord = { models: string[]; excerpt: string; instructions: string };
 type SourceCheck = { id: string; sequence: number; status: string; observed_at: string;
@@ -50,12 +53,25 @@ export function EvidenceReadiness({ packetId, onChanged, onPending }: {
     {state && <>
       {!state.eligible && <p role="status">Current source or purchase requires a new review. Readiness updates are paused.</p>}
       {state.previous_versions > 0 && <p>Earlier readiness belongs to a previous version and has been reset.</p>}
+      {state.preparation && <>
+        <h3>Preparation guidance</h3>
+        <p>{state.preparation.limitation}</p>
+        <p><a href={state.preparation.source_url} target="_blank" rel="noopener noreferrer">Official preparation requirements</a></p>
+        <p className="small">{state.preparation.source_mode === "replay" ? "Offline replay" : "Live public source"} · Observed {state.preparation.observed_at}</p>
+        {state.preparation.optional_tips.map(tip => <p key={tip.label}>
+          Optional organizer tip (not an official requirement): {tip.label}
+        </p>)}
+      </>}
       {!state.items.length && <p>No document checklist is available for this draft.</p>}
-      {state.items.map(item => <label className="check" key={item.id}>
-        <input type="checkbox" checked={pending?.id === item.id ? pending.ready : item.ready}
-          disabled={!!pending || !state.eligible} onChange={e => void change(item.id, e.target.checked)} />
-        I have this ready locally: {item.label}
-      </label>)}
+      {state.items.map(item => <div key={item.id} data-testid="item-preparation">
+        <p className="small">{item.requirement === "required" ? "Required by reviewed notice" : "Requirement unknown — confirm with official notice"}</p>
+        <label className="check">
+          <input type="checkbox" checked={pending?.id === item.id ? pending.ready : item.ready}
+            disabled={!!pending || !state.eligible} onChange={e => void change(item.id, e.target.checked)} />
+          I have this ready locally: {item.label}
+        </label>
+        {!!item.preparation_steps?.length && <ul>{item.preparation_steps.map(step => <li key={step}>{step}</li>)}</ul>}
+      </div>)}
     </>}
     {pending && <p role="status">Saving readiness…</p>}
     {saved && <p role="status" data-testid="readiness-saved">Readiness saved locally</p>}

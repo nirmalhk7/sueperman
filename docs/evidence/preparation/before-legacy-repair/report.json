@@ -1,0 +1,56 @@
+{
+  "issue": 10,
+  "base_commit": "be781c8d1562c29f7772224f28590e937867897a",
+  "snapshot": "/var/folders/k0/w3xrb_d95jn2t7nf2f0s05yr0000gp/T/sueperman-issue10-wv187ee2",
+  "tested_files": {
+    "services/api/app/p1/preparation.py": "614fb512ead0728727d7503372d0703646eb9869c11583c10b6136051e9bbd07",
+    "services/api/app/p1/obligations.py": "82d910faba1815df556bafb0ee5c45bc47307b29a590f41353aa09319a212f8a",
+    "services/api/tests/p1/test_preparation.py": "36e289e0e4184b7b016a328b9008a6757843ba28146c8caac7e3da633fbe22ab",
+    "services/api/tests/p1/test_p1_browser.py": "7b3069aa2d6e1b52d0452e03168d4c63004f4297cc6c5368a3e12bf59704c46a",
+    "apps/web/components/p1-controls.tsx": "191a1f8e444da11e446bfddba1a6ba599bea86ce1cb169c3a00282bbde222c8b",
+    "apps/web/tests/p1.e2e.ts": "62046f3e56f0c368019b41ebf2d075646f52d0e9342dc7c04f198f94a1c2fadb"
+  },
+  "checks": [
+    {
+      "name": "test",
+      "command": [
+        "make",
+        "test"
+      ],
+      "exit_code": 0,
+      "unchanged": true
+    },
+    {
+      "name": "lint",
+      "command": [
+        "make",
+        "lint"
+      ],
+      "exit_code": 0,
+      "unchanged": true
+    },
+    {
+      "name": "typecheck",
+      "command": [
+        "make",
+        "typecheck"
+      ],
+      "exit_code": 0,
+      "unchanged": true
+    },
+    {
+      "name": "build",
+      "command": [
+        "make",
+        "build"
+      ],
+      "exit_code": 0,
+      "unchanged": true
+    }
+  ],
+  "browser_scenarios": 5,
+  "browser_log": "acceptance.log",
+  "scope": "Guidance only behind existing P1 flag; no evidence uploads, declarations, eligibility override or external platform required.",
+  "independent_review": "Focused13 API/readiness tests independently passed; final whole-candidate review pending.",
+  "status": "incomplete: independent review found unbound legacy approval bypass; repair and required smoke/full E2E verification pending"
+}

@@ -1,0 +1,8 @@
+{
+  "services/api/app/p1/preparation.py": "8eadf11d7f886ad9e048d3563a66f8f511275696c2fccd5678ba4c86dc54be4e",
+  "services/api/app/p1/obligations.py": "82d910faba1815df556bafb0ee5c45bc47307b29a590f41353aa09319a212f8a",
+  "services/api/tests/p1/test_preparation.py": "36e289e0e4184b7b016a328b9008a6757843ba28146c8caac7e3da633fbe22ab",
+  "services/api/tests/p1/test_p1_browser.py": "7b3069aa2d6e1b52d0452e03168d4c63004f4297cc6c5368a3e12bf59704c46a",
+  "apps/web/components/p1-controls.tsx": "191a1f8e444da11e446bfddba1a6ba599bea86ce1cb169c3a00282bbde222c8b",
+  "apps/web/tests/p1.e2e.ts": "62046f3e56f0c368019b41ebf2d075646f52d0e9342dc7c04f198f94a1c2fadb"
+}

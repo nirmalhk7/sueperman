@@ -41,7 +41,7 @@ export default function Page() {
         method: "POST",
       });
       if (!r.ok)
-        throw new Error("Export unavailable; confirm local approval first.");
+        throw new Error("Export unavailable; reload the draft and review current requirements before approving again.");
       const url = URL.createObjectURL(await r.blob());
       const a = document.createElement("a");
       a.href = url;
@@ -112,6 +112,9 @@ export default function Page() {
         {error && (
           <div role="alert" className="error">
             {error}
+            <button type="button" className="secondary" onClick={() => window.location.reload()}>
+              Reload draft
+            </button>
           </div>
         )}
         <div className="actions">

@@ -3,7 +3,7 @@
 import pytest
 from fastapi.testclient import TestClient
 from monitor_helpers import NOW
-from sqlalchemy import select
+from sqlalchemy import inspect, select
 
 from app.db import database
 from app.models import ClaimPacket, Opportunity
@@ -26,6 +26,11 @@ def graph(tmp_path, monkeypatch):
             packet.payload = packet.payload | {"status": "approved_local", "approved_at": NOW.isoformat()}
             opportunity = s.get(Opportunity, packet.opportunity_id)
             record = RecallRecord.model_validate(opportunity.payload["recall"])
+            from app.p1 import obligations
+            # API fixtures represent a current approval; monitoring unit fixtures
+            # may intentionally leave the optional P1 schema disabled.
+            if inspect(s.connection()).has_table(obligations.ObligationState.__tablename__):
+                packet.payload = packet.payload | {"p1_approval_binding": obligations.approval_binding(s, packet)}
             identifiers = (opportunity.id, packet.id)
         yield engine, factory, client, *identifiers, record
         engine.dispose()

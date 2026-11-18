@@ -1,0 +1,25 @@
+F                                                                        [100%]
+=================================== FAILURES ===================================
+________ test_guidance_is_exported_even_when_no_readiness_was_reported _________
+
+graph = (Engine(sqlite:////private/var/folders/k0/w3xrb_d95jn2t7nf2f0s05yr0000gp/T/pytest-of-nirmalhk7/pytest-419/test_guidanc... official required markings', 'User confirmation of lawful disposal (never prefilled)'], conditions=[], mode='replay'))
+
+    def test_guidance_is_exported_even_when_no_readiness_was_reported(graph):
+        _engine, factory, client, _opportunity, packet, _record = graph
+        from app.p1.obligations import ObligationState
+
+        client.post(f"/api/claim-packets/{packet}/approve-local", json={"confirmed": True}).raise_for_status()
+        text = client.post(f"/api/claim-packets/{packet}/export").raise_for_status().text
+>       assert "Preparation guidance" in text
+E       AssertionError: assert 'Preparation guidance' in '# Recall remedy draft\n\nLocal draft only; not an external submission.\nVerify official terms and submit requests you...of-Serious-Injury-Sold-on-Amazon\nObserved: 2026-11-13T17:48:00+00:00\nMode: OFFLINE REPLAY of a real published recall'
+
+services/api/tests/p1/test_preparation.py:105: AssertionError
+=============================== warnings summary ===============================
+../../../../../../../Users/nirmalhk7/Documents/DevWorld/sueperman/services/api/.venv/lib/python3.12/site-packages/fastapi/testclient.py:1
+  /Users/nirmalhk7/Documents/DevWorld/sueperman/services/api/.venv/lib/python3.12/site-packages/fastapi/testclient.py:1: StarletteDeprecationWarning: Using `httpx` with `starlette.testclient` is deprecated; install `httpx2` instead.
+    from starlette.testclient import TestClient as TestClient  # noqa
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+=========================== short test summary info ============================
+FAILED services/api/tests/p1/test_preparation.py::test_guidance_is_exported_even_when_no_readiness_was_reported
+1 failed, 6 deselected, 1 warning in 0.38s

@@ -11,8 +11,8 @@ async function source(mode = "unchanged") {
 async function imported(request: APIRequestContext, brand = "Flaunt", model = "E33A", variants = false) {
   await source();
   const products = variants ? [model, model + "X", ""] : [model];
-  const csv = "order_id,purchased_at,merchant,product_name,brand,model_number,upc\n" + products.map(m =>
-    `${crypto.randomUUID()},2024-09-01,Synthetic shop,Magnetic power bank,${brand},${m},`).join("\n");
+  const csv = "order_id,purchased_at,merchant,product_name,brand,model_number,upc,serial_number\n" + products.map(m =>
+    `${crypto.randomUUID()},2024-09-01,Synthetic shop,Magnetic power bank,${brand},${m},,${brand === "Baseus" ? "SN123D" : ""}`).join("\n");
   const upload = await request.post(`${api}/api/uploads/purchases`, { multipart: {
     file: { name: "p1-synthetic.csv", mimeType: "text/csv", buffer: Buffer.from(csv) },
   } });
@@ -43,6 +43,17 @@ test("P1 readiness persists and requires renewed local approval", async ({ page 
   const [opportunity] = await imported(page.request);
   await page.goto(`/opportunities/${opportunity.id}`);
   await page.getByRole("button", { name: "Prepare claim packet" }).click();
+  const guidance = page.getByTestId("evidence-readiness");
+  await expect(guidance.getByRole("heading", { name: "Preparation guidance" })).toBeVisible();
+  await expect(guidance.getByRole("link", { name: "Official preparation requirements" })).toHaveAttribute("href", /^https:\/\/www.cpsc.gov\/Recalls\//);
+  await expect(guidance).toContainText("Optional organizer tip");
+  await expect(guidance.getByTestId("item-preparation").first()).toContainText("Required by reviewed notice");
+  const evidence = process.env.DIWALI_EVIDENCE_DIR;
+  if (evidence) await guidance.screenshot({ path: `${evidence}/preparation-desktop.png` });
+  await page.setViewportSize({ width: 390, height: 844 });
+  await expect(guidance).toBeVisible();
+  expect(await guidance.evaluate(element => element.getBoundingClientRect().right <= innerWidth)).toBe(true);
+  if (evidence) await guidance.screenshot({ path: `${evidence}/preparation-mobile.png` });
   const ready = page.getByTestId("evidence-readiness").getByRole("checkbox").first();
   await ready.check();
   await expect(page.getByTestId("readiness-saved")).toHaveText("Readiness saved locally");
@@ -55,9 +66,57 @@ test("P1 readiness persists and requires renewed local approval", async ({ page 
   const text = await readFile((await (await downloaded).path())!, "utf8");
   expect(text).toContain("Evidence readiness — self-reported, not verified");
   expect(text).toContain("[x] Ready locally:");
+  expect(text).toContain("Preparation guidance");
+  expect(text).toContain("No evidence files are collected or verified by this checklist");
   await ready.uncheck();
   await expect(page.getByRole("button", { name: "Export Markdown" })).toBeDisabled();
   await expect(page.getByLabel("I reviewed this draft and understand approval stays local.")).not.toBeChecked();
+});
+
+test("P1 conditional photo guidance stays unknown and does not declare disposal", async ({ page }) => {
+  const [opportunity] = await imported(page.request, "Baseus", "BS-30KP365");
+  await page.goto(`/opportunities/${opportunity.id}`);
+  await page.getByRole("button", { name: "Prepare claim packet" }).click();
+  const guidance = page.getByTestId("evidence-readiness");
+  const conditional = guidance.getByTestId("item-preparation").nth(1);
+  await expect(conditional).toContainText("Requirement unknown");
+  await expect(conditional).toContainText("order number");
+  await expect(conditional.getByRole("checkbox")).not.toBeChecked();
+  await expect(guidance).toContainText("does not attest disposal");
+});
+
+test("P1 rejected stale export offers reload and renewed approval", async ({ page }) => {
+  const [opportunity] = await imported(page.request);
+  await page.goto(`/opportunities/${opportunity.id}`);
+  await page.getByRole("button", { name: "Prepare claim packet" }).click();
+  await expect(page.getByRole("heading", { name: "Evidence readiness" })).toBeVisible();
+  const packet = page.url().split("/").at(-1)!;
+  await page.getByLabel("I reviewed this draft and understand approval stays local.").check();
+  await page.getByRole("button", { name: "Approve draft locally" }).click();
+  let stale = true;
+  let refresh = false;
+  await page.route(`**/api/claim-packets/${packet}/export`, async route => {
+    if (!stale) { await route.continue(); return; }
+    stale = false; refresh = true;
+    await route.fulfill({ status: 409, json: { code: "409", message: "Current preparation policy requires a new review" } });
+  });
+  await page.route(`**/api/claim-packets/${packet}`, async route => {
+    const response = await route.fetch();
+    const body = await response.json();
+    if (refresh) { body.status = "ready_for_review"; body.approved_at = null; body.reviewed_at = null; refresh = false; }
+    await route.fulfill({ response, json: body });
+  });
+  await page.getByRole("button", { name: "Export Markdown" }).click();
+  await expect(page.getByRole("alert").filter({ hasText: "Export unavailable" })).toContainText("reload");
+  await page.getByRole("button", { name: "Reload draft", exact: true }).click();
+  const confirm = page.getByLabel("I reviewed this draft and understand approval stays local.");
+  await expect(confirm).not.toBeChecked();
+  await expect(page.getByRole("button", { name: "Approve draft locally" })).toBeDisabled();
+  await confirm.check();
+  await page.getByRole("button", { name: "Approve draft locally" }).click();
+  const downloaded = page.waitForEvent("download");
+  await page.getByRole("button", { name: "Export Markdown" }).click();
+  expect(await readFile((await (await downloaded).path())!, "utf8")).toContain("Preparation guidance");
 });
 
 test("P1 daily monitor records source change and blocks old export", async ({ page }) => {
