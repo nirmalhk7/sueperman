@@ -1,0 +1,11 @@
+{
+  "base_commit": "f79cd6f6ede2924f43bd1f25aed6531fcf1a905a",
+  "snapshot": "/var/folders/k0/w3xrb_d95jn2t7nf2f0s05yr0000gp/T/sueperman-issue8-clean-16tehqhv",
+  "files": {
+    "apps/web/app/demo-login/page.tsx": "d835230a550e5acd5dd8389922f882293e44cc0eea44ec031773c6d2690d0a51",
+    "apps/web/app/demo-login/page.module.css": "65d6fa63dd3086429ed13f08818b4199e1e16cb508cc53cc64cf3a23f88a27ef",
+    "apps/web/tests/demo-login.e2e.ts": "fb4cb819a7047425e45654aba6981924effd52413d052491e39ed5edeba39d02",
+    "apps/web/app/layout.tsx": "daa4abfe9e4b917eacfa067602cb9fbae2a6cc398651516a615fb0d11a513b85"
+  },
+  "note": "Clean git archive of base commit with only demo-login route/CSS/test and one header link. Concurrent workspace design/backend changes excluded."
+}

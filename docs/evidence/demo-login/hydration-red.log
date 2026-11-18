@@ -1,0 +1,45 @@
+
+Running 1 test using 1 worker
+
+(node:48641) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✘  1 tests/demo-login-hydration.e2e.ts:3:1 › fake sign-in cannot submit before JavaScript is ready (9.3s)
+
+
+  1) tests/demo-login-hydration.e2e.ts:3:1 › fake sign-in cannot submit before JavaScript is ready ─
+
+    Error: expect(locator).toBeDisabled() failed
+
+    Locator:  getByRole('button', { name: 'Sign in to demo', exact: true })
+    Expected: disabled
+    Received: enabled
+    Timeout:  5000ms
+
+    Call log:
+      - Expect "toBeDisabled" getByRole('button', { name: 'Sign in to demo', exact: true }) with timeout 5000ms
+      - waiting for getByRole('button', { name: 'Sign in to demo', exact: true })
+        13 × locator resolved to <button type="submit">Sign in to demo</button>
+           - unexpected value "enabled"
+
+
+       6 |     const page = await context.newPage();
+       7 |     await page.goto("/demo-login");
+    >  8 |     await expect(page.getByRole("button", { name: "Sign in to demo", exact: true })).toBeDisabled();
+         |                                                                                      ^
+       9 |   } finally {
+      10 |     await context.close();
+      11 |   }
+        at /private/var/folders/k0/w3xrb_d95jn2t7nf2f0s05yr0000gp/T/sueperman-issue8-m142pcnc/web/tests/demo-login-hydration.e2e.ts:8:86
+
+    Error Context: test-results/demo-login-hydration.e2e.t-d1ec4--before-JavaScript-is-ready/error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results/demo-login-hydration.e2e.t-d1ec4--before-JavaScript-is-ready/trace.zip
+    Usage:
+
+        pnpm exec playwright show-trace test-results/demo-login-hydration.e2e.t-d1ec4--before-JavaScript-is-ready/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  1 failed
+    tests/demo-login-hydration.e2e.ts:3:1 › fake sign-in cannot submit before JavaScript is ready ──

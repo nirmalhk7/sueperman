@@ -1,0 +1,10 @@
+
+Running 3 tests using 1 worker
+
+(node:51508) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✓  1 tests/demo-login.e2e.ts:3:1 › fake sign-in cannot submit before JavaScript is ready (6.0s)
+  ✓  2 tests/demo-login.e2e.ts:17:3 › fake sign-in is local and reversible at 1280px (18.4s)
+  ✓  3 tests/demo-login.e2e.ts:17:3 › fake sign-in is local and reversible at 390px (13.3s)
+
+  3 passed (43.7s)

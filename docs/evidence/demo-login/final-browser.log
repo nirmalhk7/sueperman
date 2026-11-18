@@ -1,0 +1,43 @@
+
+Running 2 tests using 1 worker
+
+(node:43024) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✓  1 tests/demo-login.e2e.ts:6:3 › fake sign-in is local and reversible at 1280px (25.3s)
+  ✘  2 tests/demo-login.e2e.ts:6:3 › fake sign-in is local and reversible at 390px (1.0m)
+
+
+  1) tests/demo-login.e2e.ts:6:3 › fake sign-in is local and reversible at 390px ───────────────────
+
+    Test timeout of 30000ms exceeded.
+
+    Tearing down "context" exceeded the test timeout of 30000ms.
+
+    Error: page.reload: Test timeout of 30000ms exceeded.
+    Call log:
+      - waiting for navigation until "load"
+        - navigated to "http://127.0.0.1:3028/demo-login"
+
+
+      29 |     await page.getByRole("button", { name: "Sign in to demo", exact: true }).click();
+      30 |     await expect(page.getByRole("status")).toContainText("Demo session started");
+    > 31 |     await page.reload();
+         |                ^
+      32 |     await expect(page.getByRole("button", { name: "Sign in to demo", exact: true })).toBeVisible();
+      33 |     expect(submissions).toEqual([]);
+      34 |   });
+        at /private/var/folders/k0/w3xrb_d95jn2t7nf2f0s05yr0000gp/T/sueperman-issue8-m142pcnc/web/tests/demo-login.e2e.ts:31:16
+
+    Error Context: test-results/demo-login.e2e.ts-fake-sig-4b24e-cal-and-reversible-at-390px/error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results/demo-login.e2e.ts-fake-sig-4b24e-cal-and-reversible-at-390px/trace.zip
+    Usage:
+
+        pnpm exec playwright show-trace test-results/demo-login.e2e.ts-fake-sig-4b24e-cal-and-reversible-at-390px/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  1 failed
+    tests/demo-login.e2e.ts:6:3 › fake sign-in is local and reversible at 390px ────────────────────
+  1 passed (1.7m)

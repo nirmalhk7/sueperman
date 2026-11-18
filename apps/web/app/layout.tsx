@@ -34,6 +34,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
             <Link href="/#purchases">My purchases</Link>
             <Link href="/#opportunities">Opportunities</Link>
             <Link href="/#activity">Activity</Link>
+            <Link href="/demo-login">Demo sign in</Link>
           </nav>
           <span className="mode">{sharedDemo ? "SHARED DEMO" : "LOCAL"} / EVIDENCE FIRST</span>
         </header>

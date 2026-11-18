@@ -1,0 +1,51 @@
+
+Running 2 tests using 1 worker
+
+(node:39819) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✓  1 tests/demo-login.e2e.ts:6:3 › fake sign-in is local and reversible at 1280px (4.6s)
+  ✘  2 tests/demo-login.e2e.ts:6:3 › fake sign-in is local and reversible at 390px (25.2s)
+
+
+  1) tests/demo-login.e2e.ts:6:3 › fake sign-in is local and reversible at 390px ───────────────────
+
+    Error: expect(locator).toContainText(expected) failed
+
+    Locator: getByRole('status')
+    Expected substring: "Demo session started"
+    Timeout: 5000ms
+    Error: element(s) not found
+
+    Call log:
+      - Expect "toContainText" getByRole('status') with timeout 5000ms
+      - waiting for getByRole('status')
+        2 × waiting for "http://127.0.0.1:3028/demo-login?" navigation to finish...
+          - navigated to "http://127.0.0.1:3028/demo-login?"
+
+
+      19 |     await page.screenshot({ path: `test-results/demo-login-form-${width}.png`, fullPage: true });
+      20 |     await page.getByRole("button", { name: "Sign in to demo", exact: true }).focus();
+    > 21 |     await page.keyboard.press("Enter");
+         |                                        ^
+      22 |     await expect(page.getByRole("status")).toContainText("Demo session started");
+      23 |     await expect(page.getByRole("link", { name: "Continue to workspace" })).toHaveAttribute("href", "/");
+      24 |     await expect(page.getByText(/no private account or data isolation/i)).toBeVisible();
+        at /private/var/folders/k0/w3xrb_d95jn2t7nf2f0s05yr0000gp/T/sueperman-issue8-m142pcnc/web/tests/demo-login.e2e.ts:21:44
+
+    attachment #1: video (video/webm) ──────────────────────────────────────────────────────────────
+    test-results/demo-login.e2e.ts-fake-sig-4b24e-cal-and-reversible-at-390px/video.webm
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: test-results/demo-login.e2e.ts-fake-sig-4b24e-cal-and-reversible-at-390px/error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results/demo-login.e2e.ts-fake-sig-4b24e-cal-and-reversible-at-390px/trace.zip
+    Usage:
+
+        pnpm exec playwright show-trace test-results/demo-login.e2e.ts-fake-sig-4b24e-cal-and-reversible-at-390px/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  1 failed
+    tests/demo-login.e2e.ts:6:3 › fake sign-in is local and reversible at 390px ────────────────────
+  1 passed (34.9s)

@@ -1,0 +1,34 @@
+[
+  {
+    "name": "test",
+    "command": [
+      "make",
+      "test"
+    ],
+    "exit_code": 0
+  },
+  {
+    "name": "lint",
+    "command": [
+      "make",
+      "lint"
+    ],
+    "exit_code": 0
+  },
+  {
+    "name": "typecheck",
+    "command": [
+      "make",
+      "typecheck"
+    ],
+    "exit_code": 0
+  },
+  {
+    "name": "build",
+    "command": [
+      "make",
+      "build"
+    ],
+    "exit_code": 0
+  }
+]

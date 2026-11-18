@@ -1,0 +1,42 @@
+services/api/.venv/bin/pytest services/api/tests -q
+........................................................................ [ 16%]
+........................................................................ [ 32%]
+........................................................................ [ 49%]
+........................................................................ [ 65%]
+........................................................................ [ 82%]
+........................................................................ [ 98%]
+.......                                                                  [100%]
+=============================== warnings summary ===============================
+../../../../../../../Users/nirmalhk7/Documents/DevWorld/sueperman/services/api/.venv/lib/python3.12/site-packages/fastapi/testclient.py:1
+  /Users/nirmalhk7/Documents/DevWorld/sueperman/services/api/.venv/lib/python3.12/site-packages/fastapi/testclient.py:1: StarletteDeprecationWarning: Using `httpx` with `starlette.testclient` is deprecated; install `httpx2` instead.
+    from starlette.testclient import TestClient as TestClient  # noqa
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+439 passed, 1 warning in 207.54s (0:03:27)
+pnpm --dir apps/web test
+✓ Lockfile passes supply-chain policies (verified 4d ago)
+Lockfile is up to date, resolution step is skipped
+Already up to date
+
+Done in 895ms using pnpm v11.25.0
+$ node --import tsx --test tests/*.test.ts
+✔ API request respects local default base (298.073625ms)
+✔ API request respects "" base (233.585708ms)
+✔ API request respects "https://app.example.test" base (217.287875ms)
+✔ failed BAND startup never claims local fallback or live delivery (0.613708ms)
+✔ browser events keep readable stack locations but drop uploaded facts and credentials (2.104833ms)
+✔ trace attributes cannot retain request bodies or URL parameters (0.738542ms)
+✔ privacy filtering preserves source-map debug IDs needed for readable stacks (0.579333ms)
+✔ streamed spans scrub URL names and request attributes before export (9.538791ms)
+✔ replay correlation survives filtering while user tags are removed (0.339667ms)
+✔ simulation label takes priority over candidate status (1.308916ms)
+✔ real settlement labels identify public sources and keep eligibility uncertain (9.539ms)
+✔ failed settlement verification never keeps a live-verified badge (3.107167ms)
+ℹ tests 12
+ℹ suites 0
+ℹ pass 12
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 1230.669875

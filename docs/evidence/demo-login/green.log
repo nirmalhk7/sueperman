@@ -1,0 +1,46 @@
+
+Running 2 tests using 1 worker
+
+(node:37462) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✘  1 tests/demo-login.e2e.ts:6:3 › fake sign-in is local and reversible at 1280px (44.7s)
+(node:38808) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✓  2 tests/demo-login.e2e.ts:6:3 › fake sign-in is local and reversible at 390px (19.4s)
+
+
+  1) tests/demo-login.e2e.ts:6:3 › fake sign-in is local and reversible at 1280px ──────────────────
+
+    Test timeout of 30000ms exceeded.
+
+    Error: page.goto: Test timeout of 30000ms exceeded.
+    Call log:
+      - navigating to "http://127.0.0.1:3028/demo-login", waiting until "load"
+
+
+      10 |       if (!["GET", "HEAD"].includes(request.method())) submissions.push(request.url());
+      11 |     });
+    > 12 |     await page.goto("/demo-login");
+         |                ^
+      13 |     await expect(page.getByRole("heading", { name: "Demo sign in", exact: true })).toBeVisible();
+      14 |     await expect(page.getByText(/no private account or data isolation/i)).toBeVisible();
+      15 |     await expect(page.getByLabel("Demo email")).toHaveValue("visitor@example.invalid");
+        at /private/var/folders/k0/w3xrb_d95jn2t7nf2f0s05yr0000gp/T/sueperman-issue8-m142pcnc/web/tests/demo-login.e2e.ts:12:16
+
+    attachment #1: video (video/webm) ──────────────────────────────────────────────────────────────
+    test-results/demo-login.e2e.ts-fake-sig-46728-al-and-reversible-at-1280px/video.webm
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: test-results/demo-login.e2e.ts-fake-sig-46728-al-and-reversible-at-1280px/error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results/demo-login.e2e.ts-fake-sig-46728-al-and-reversible-at-1280px/trace.zip
+    Usage:
+
+        pnpm exec playwright show-trace test-results/demo-login.e2e.ts-fake-sig-46728-al-and-reversible-at-1280px/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  1 failed
+    tests/demo-login.e2e.ts:6:3 › fake sign-in is local and reversible at 1280px ───────────────────
+  1 passed (1.5m)
