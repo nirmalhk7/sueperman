@@ -1,3 +1,5 @@
+Persistent Compose deployment, daily backups, seven-day retention and recovery: [durable storage runbook](DURABLE_STORAGE.md). The App Platform history below remains explicitly ephemeral.
+
 # App Platform deployment
 
 `app-spec.json` targets the existing `nirmalhk7/sueperman` repository and `codex/sueperman` branch. It uses the public Git clone source rather than GitHub OAuth, which is not connected in this account. It defines one API instance and one web instance, with `/api` preserved by ingress. The deployment is a shared hackathon demo, not private account storage. SQLite state is ephemeral on App Platform and can disappear on redeploy; keep durable personal records outside this demo. No Postgres/P2 dependency was added.

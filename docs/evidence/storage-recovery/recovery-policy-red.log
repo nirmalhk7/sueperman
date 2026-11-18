@@ -1,0 +1,112 @@
+FFF                                                                      [100%]
+=================================== FAILURES ===================================
+______ test_switching_database_cannot_reuse_another_sources_daily_success ______
+
+populated = (PosixPath('/private/var/folders/k0/w3xrb_d95jn2t7nf2f0s05yr0000gp/T/pytest-of-nirmalhk7/pytest-353/test_switching_dat...f-Serious-Injury-Sold-on-Amazon\nObserved: 2026-11-13T17:48:00+00:00\nMode: OFFLINE REPLAY of a real published recall')
+tmp_path = PosixPath('/private/var/folders/k0/w3xrb_d95jn2t7nf2f0s05yr0000gp/T/pytest-of-nirmalhk7/pytest-353/test_switching_database_cannot0')
+
+    def test_switching_database_cannot_reuse_another_sources_daily_success(populated, tmp_path):
+        from contextlib import closing
+        from datetime import UTC, datetime, timedelta
+        from app import storage
+        source, _client, _endpoint, _export = populated
+        directory = tmp_path / "backups"
+        now = datetime(2026, 11, 17, 12, tzinfo=UTC)
+        first = cycle(source, directory, now)
+        other = tmp_path / "other.db"
+        with closing(sqlite3.connect(source)) as origin, closing(sqlite3.connect(other)) as output:
+            origin.backup(output)
+            output.execute("UPDATE receipt_ocr_usage SET calls=9")
+            output.commit()
+        result = cycle(other, directory, now + timedelta(hours=1))
+>       assert result["state"] == "created", "Another database's backup postponed the selected database"
+E       AssertionError: Another database's backup postponed the selected database
+E       assert 'not_due' == 'created'
+E
+E         - created
+E         + not_due
+
+services/api/tests/integration/test_storage_recovery.py:338: AssertionError
+____________ test_backup_outage_preserves_last_valid_recovery_copy _____________
+
+populated = (PosixPath('/private/var/folders/k0/w3xrb_d95jn2t7nf2f0s05yr0000gp/T/pytest-of-nirmalhk7/pytest-353/test_backup_outage...f-Serious-Injury-Sold-on-Amazon\nObserved: 2026-11-13T17:48:00+00:00\nMode: OFFLINE REPLAY of a real published recall')
+tmp_path = PosixPath('/private/var/folders/k0/w3xrb_d95jn2t7nf2f0s05yr0000gp/T/pytest-of-nirmalhk7/pytest-353/test_backup_outage_preserves_l0')
+
+    def test_backup_outage_preserves_last_valid_recovery_copy(populated, tmp_path):
+        from datetime import UTC, datetime, timedelta
+        from app import storage
+        source, _client, _endpoint, _export = populated
+        directory = tmp_path / "backups"
+        now = datetime(2026, 11, 17, 12, tzinfo=UTC)
+        old = storage.backup(source, directory, now=now - timedelta(days=8))
+        with pytest.raises(storage.StorageError):
+            cycle(tmp_path / "missing.db", directory, now)
+>       assert old.is_dir(), "Source failure deleted the last valid recovery copy"
+E       AssertionError: Source failure deleted the last valid recovery copy
+E       assert False
+E        +  where False = is_dir()
+E        +    where is_dir = PosixPath('/private/var/folders/k0/w3xrb_d95jn2t7nf2f0s05yr0000gp/T/pytest-of-nirmalhk7/pytest-353/test_backup_outage_preserves_l0/backups/snapshot-20261109T120000000000Z-fdcb9303afe1441b8a018c794f69ae7b').is_dir
+
+services/api/tests/integration/test_storage_recovery.py:353: AssertionError
+_________ test_restored_queue_cannot_repeat_work_executed_after_backup _________
+
+populated = (PosixPath('/private/var/folders/k0/w3xrb_d95jn2t7nf2f0s05yr0000gp/T/pytest-of-nirmalhk7/pytest-353/test_restored_queu...f-Serious-Injury-Sold-on-Amazon\nObserved: 2026-11-13T17:48:00+00:00\nMode: OFFLINE REPLAY of a real published recall')
+tmp_path = PosixPath('/private/var/folders/k0/w3xrb_d95jn2t7nf2f0s05yr0000gp/T/pytest-of-nirmalhk7/pytest-353/test_restored_queue_cannot_rep0')
+
+    def test_restored_queue_cannot_repeat_work_executed_after_backup(populated, tmp_path):
+        import asyncio
+        from contextlib import closing
+        from sqlalchemy import create_engine
+        from sqlalchemy.orm import Session
+        from app import jobs
+        from app.agent.orchestrator import execute
+        from app.config import Settings
+        from app.models import AgentRun, Purchase
+        from sqlalchemy import select
+        source, _client, _endpoint, _export = populated
+        isolated = tmp_path / "isolated.db"
+        with closing(sqlite3.connect(source)) as origin, closing(sqlite3.connect(isolated)) as output:
+            origin.backup(output)
+        engine = create_engine(f"sqlite:///{isolated}")
+        from sqlalchemy.orm import sessionmaker
+        factory = sessionmaker(engine, expire_on_commit=False)
+        with Session(engine) as session, session.begin():
+            purchase_ids = list(session.scalars(select(Purchase.id)))
+            run = AgentRun(idempotency_key="after-snapshot", demo=True, payload={"purchase_ids": purchase_ids,
+                "mode": "demo", "summary": {}, "warnings": [], "provider_modes": {}, "opportunities": []})
+            jobs.enqueue(run, Settings())
+            session.add(run)
+            session.flush()
+            identifier = run.id
+        directory = tmp_path / "backups"
+        result = cli("backup", "--database", isolated, "--directory", directory)
+        assert result.returncode == 0, result.stderr
+        asyncio.run(execute(factory, identifier, Settings()))
+        with Session(engine) as session:
+            assert session.get(AgentRun, identifier).status == "completed"
+        engine.dispose()
+        destination = tmp_path / "from-old-snapshot.db"
+        snapshot = Path(json.loads(result.stdout)["snapshot"])
+        assert cli("restore", "--snapshot", snapshot, "--database", destination).returncode == 0
+        from app.main import create_app
+        with TestClient(create_app(f"sqlite:///{destination}")) as client:
+            restored = client.get(f"/api/runs/{identifier}").json()
+>           assert restored["status"] == "partial", "Restore replayed work with an unknown post-snapshot outcome"
+E           AssertionError: Restore replayed work with an unknown post-snapshot outcome
+E           assert 'completed' == 'partial'
+E
+E             - partial
+E             + completed
+
+services/api/tests/integration/test_storage_recovery.py:396: AssertionError
+=============================== warnings summary ===============================
+services/api/.venv/lib/python3.12/site-packages/fastapi/testclient.py:1
+  /Users/nirmalhk7/Documents/DevWorld/sueperman/services/api/.venv/lib/python3.12/site-packages/fastapi/testclient.py:1: StarletteDeprecationWarning: Using `httpx` with `starlette.testclient` is deprecated; install `httpx2` instead.
+    from starlette.testclient import TestClient as TestClient  # noqa
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+=========================== short test summary info ============================
+FAILED services/api/tests/integration/test_storage_recovery.py::test_switching_database_cannot_reuse_another_sources_daily_success
+FAILED services/api/tests/integration/test_storage_recovery.py::test_backup_outage_preserves_last_valid_recovery_copy
+FAILED services/api/tests/integration/test_storage_recovery.py::test_restored_queue_cannot_repeat_work_executed_after_backup
+3 failed, 15 deselected, 1 warning in 2.37s

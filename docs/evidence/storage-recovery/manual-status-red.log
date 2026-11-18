@@ -1,0 +1,51 @@
+F                                                                        [100%]
+=================================== FAILURES ===================================
+__________ test_successful_manual_backup_clears_previous_error_state ___________
+
+populated = (PosixPath('/private/var/folders/k0/w3xrb_d95jn2t7nf2f0s05yr0000gp/T/pytest-of-nirmalhk7/pytest-359/test_successful_ma...f-Serious-Injury-Sold-on-Amazon\nObserved: 2026-11-13T17:48:00+00:00\nMode: OFFLINE REPLAY of a real published recall')
+tmp_path = PosixPath('/private/var/folders/k0/w3xrb_d95jn2t7nf2f0s05yr0000gp/T/pytest-of-nirmalhk7/pytest-359/test_successful_manual_backup_0')
+
+    def test_successful_manual_backup_clears_previous_error_state(populated, tmp_path):
+        from app import storage
+        source, _client, _endpoint, _export = populated
+        directory = tmp_path / "backups"
+        directory.mkdir(mode=0o700)
+        storage.write_private(directory / ".last-error.json", "[]")
+        storage.backup(source, directory)
+>       state = storage.status(directory, database=source)
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+services/api/tests/integration/test_storage_recovery.py:483:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+directory = PosixPath('/private/var/folders/k0/w3xrb_d95jn2t7nf2f0s05yr0000gp/T/pytest-of-nirmalhk7/pytest-359/test_successful_manual_backup_0/backups')
+database = PosixPath('/private/var/folders/k0/w3xrb_d95jn2t7nf2f0s05yr0000gp/T/pytest-of-nirmalhk7/pytest-359/test_successful_manual_backup_0/source.db')
+now = datetime.datetime(2026, 11, 17, 23, 9, 43, 126418, tzinfo=datetime.timezone.utc)
+
+    def status(directory, *, database=None, now=None):
+        now, directory = utc(now), private_root(directory)
+        identity = source_identity(database) if database is not None else None
+        last = latest(directory, now, source_id=identity)
+        success = utc(datetime.fromisoformat(last["created_at"])) if last else None
+        due_at = success + timedelta(days=1) if success else now
+        error = None
+        path = directory / ".last-error.json"
+        if path.exists():
+            private_file(path)
+            try:
+                failure = json.loads(path.read_text())
+>               selected = (database is None or failure.get("source_path") ==
+                                                ^^^^^^^^^^^
+                            hashlib.sha256(str(Path(database).resolve()).encode()).hexdigest())
+E                           AttributeError: 'list' object has no attribute 'get'
+
+services/api/app/storage.py:342: AttributeError
+=============================== warnings summary ===============================
+services/api/.venv/lib/python3.12/site-packages/fastapi/testclient.py:1
+  /Users/nirmalhk7/Documents/DevWorld/sueperman/services/api/.venv/lib/python3.12/site-packages/fastapi/testclient.py:1: StarletteDeprecationWarning: Using `httpx` with `starlette.testclient` is deprecated; install `httpx2` instead.
+    from starlette.testclient import TestClient as TestClient  # noqa
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+=========================== short test summary info ============================
+FAILED services/api/tests/integration/test_storage_recovery.py::test_successful_manual_backup_clears_previous_error_state
+1 failed, 22 deselected, 1 warning in 1.30s

@@ -43,3 +43,7 @@ build:
 	pnpm --dir apps/web build
 container-test:
 	$(PY) scripts/container_smoke.py
+
+.PHONY: storage-test
+storage-test:
+	$(PY) scripts/storage_smoke.py

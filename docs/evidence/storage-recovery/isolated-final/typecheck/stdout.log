@@ -1,0 +1,3 @@
+services/api/.venv/bin/mypy --config-file services/api/pyproject.toml services/api/app
+Success: no issues found in 63 source files
+pnpm --dir apps/web typecheck

@@ -1,0 +1,110 @@
+FFF                                                                      [100%]
+=================================== FAILURES ===================================
+________ test_daily_schedule_survives_new_invocation_and_reports_status ________
+
+populated = (PosixPath('/private/var/folders/k0/w3xrb_d95jn2t7nf2f0s05yr0000gp/T/pytest-of-nirmalhk7/pytest-346/test_daily_schedul...f-Serious-Injury-Sold-on-Amazon\nObserved: 2026-11-13T17:48:00+00:00\nMode: OFFLINE REPLAY of a real published recall')
+tmp_path = PosixPath('/private/var/folders/k0/w3xrb_d95jn2t7nf2f0s05yr0000gp/T/pytest-of-nirmalhk7/pytest-346/test_daily_schedule_survives_n0')
+
+    def test_daily_schedule_survives_new_invocation_and_reports_status(populated, tmp_path):
+        from datetime import UTC, datetime, timedelta
+        source, _client, _endpoint, _export = populated
+        now = datetime(2026, 11, 17, 12, tzinfo=UTC)
+        directory = tmp_path / "backups"
+>       first = cycle(source, directory, now)
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+services/api/tests/integration/test_storage_recovery.py:124:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+database = PosixPath('/private/var/folders/k0/w3xrb_d95jn2t7nf2f0s05yr0000gp/T/pytest-of-nirmalhk7/pytest-346/test_daily_schedule_survives_n0/source.db')
+directory = PosixPath('/private/var/folders/k0/w3xrb_d95jn2t7nf2f0s05yr0000gp/T/pytest-of-nirmalhk7/pytest-346/test_daily_schedule_survives_n0/backups')
+now = datetime.datetime(2026, 11, 17, 12, 0, tzinfo=datetime.timezone.utc)
+
+    def cycle(database, directory, now):
+        from app import storage
+        implementation = getattr(storage, "cycle", None)
+>       assert callable(implementation), "Persistent daily backup cycle is not implemented"
+E       AssertionError: Persistent daily backup cycle is not implemented
+E       assert False
+E        +  where False = callable(None)
+
+services/api/tests/integration/test_storage_recovery.py:115: AssertionError
+_____________ test_seven_day_retention_only_prunes_owned_snapshots _____________
+
+populated = (PosixPath('/private/var/folders/k0/w3xrb_d95jn2t7nf2f0s05yr0000gp/T/pytest-of-nirmalhk7/pytest-346/test_seven_day_ret...f-Serious-Injury-Sold-on-Amazon\nObserved: 2026-11-13T17:48:00+00:00\nMode: OFFLINE REPLAY of a real published recall')
+tmp_path = PosixPath('/private/var/folders/k0/w3xrb_d95jn2t7nf2f0s05yr0000gp/T/pytest-of-nirmalhk7/pytest-346/test_seven_day_retention_only_0')
+
+    def test_seven_day_retention_only_prunes_owned_snapshots(populated, tmp_path):
+        from datetime import UTC, datetime, timedelta
+        from app import storage
+        source, _client, _endpoint, _export = populated
+        directory = tmp_path / "backups"
+        now = datetime(2026, 11, 1, 12, tzinfo=UTC)
+        snapshots = [storage.backup(source, directory, now=now + timedelta(days=i)) for i in range(9)]
+        foreign = directory / "operator-notes"
+        foreign.mkdir()
+        (foreign / "keep").write_text("unrelated file")
+>       result = cycle(source, directory, now + timedelta(days=8, hours=1))
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+services/api/tests/integration/test_storage_recovery.py:144:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+database = PosixPath('/private/var/folders/k0/w3xrb_d95jn2t7nf2f0s05yr0000gp/T/pytest-of-nirmalhk7/pytest-346/test_seven_day_retention_only_0/source.db')
+directory = PosixPath('/private/var/folders/k0/w3xrb_d95jn2t7nf2f0s05yr0000gp/T/pytest-of-nirmalhk7/pytest-346/test_seven_day_retention_only_0/backups')
+now = datetime.datetime(2026, 11, 9, 13, 0, tzinfo=datetime.timezone.utc)
+
+    def cycle(database, directory, now):
+        from app import storage
+        implementation = getattr(storage, "cycle", None)
+>       assert callable(implementation), "Persistent daily backup cycle is not implemented"
+E       AssertionError: Persistent daily backup cycle is not implemented
+E       assert False
+E        +  where False = callable(None)
+
+services/api/tests/integration/test_storage_recovery.py:115: AssertionError
+____________ test_corrupt_or_future_snapshot_cannot_postpone_backup ____________
+
+populated = (PosixPath('/private/var/folders/k0/w3xrb_d95jn2t7nf2f0s05yr0000gp/T/pytest-of-nirmalhk7/pytest-346/test_corrupt_or_fu...f-Serious-Injury-Sold-on-Amazon\nObserved: 2026-11-13T17:48:00+00:00\nMode: OFFLINE REPLAY of a real published recall')
+tmp_path = PosixPath('/private/var/folders/k0/w3xrb_d95jn2t7nf2f0s05yr0000gp/T/pytest-of-nirmalhk7/pytest-346/test_corrupt_or_future_snapsho0')
+
+    def test_corrupt_or_future_snapshot_cannot_postpone_backup(populated, tmp_path):
+        from datetime import UTC, datetime, timedelta
+        from app import storage
+        source, _client, _endpoint, _export = populated
+        now = datetime(2026, 11, 17, 12, tzinfo=UTC)
+        directory = tmp_path / "backups"
+        future = storage.backup(source, directory, now=now + timedelta(days=365))
+        current = storage.backup(source, directory, now=now - timedelta(hours=1))
+        with (current / "database.sqlite3").open("ab") as stream:
+            stream.write(b"corruption")
+>       result = cycle(source, directory, now)
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+services/api/tests/integration/test_storage_recovery.py:161:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+database = PosixPath('/private/var/folders/k0/w3xrb_d95jn2t7nf2f0s05yr0000gp/T/pytest-of-nirmalhk7/pytest-346/test_corrupt_or_future_snapsho0/source.db')
+directory = PosixPath('/private/var/folders/k0/w3xrb_d95jn2t7nf2f0s05yr0000gp/T/pytest-of-nirmalhk7/pytest-346/test_corrupt_or_future_snapsho0/backups')
+now = datetime.datetime(2026, 11, 17, 12, 0, tzinfo=datetime.timezone.utc)
+
+    def cycle(database, directory, now):
+        from app import storage
+        implementation = getattr(storage, "cycle", None)
+>       assert callable(implementation), "Persistent daily backup cycle is not implemented"
+E       AssertionError: Persistent daily backup cycle is not implemented
+E       assert False
+E        +  where False = callable(None)
+
+services/api/tests/integration/test_storage_recovery.py:115: AssertionError
+=============================== warnings summary ===============================
+services/api/.venv/lib/python3.12/site-packages/fastapi/testclient.py:1
+  /Users/nirmalhk7/Documents/DevWorld/sueperman/services/api/.venv/lib/python3.12/site-packages/fastapi/testclient.py:1: StarletteDeprecationWarning: Using `httpx` with `starlette.testclient` is deprecated; install `httpx2` instead.
+    from starlette.testclient import TestClient as TestClient  # noqa
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+=========================== short test summary info ============================
+FAILED services/api/tests/integration/test_storage_recovery.py::test_daily_schedule_survives_new_invocation_and_reports_status
+FAILED services/api/tests/integration/test_storage_recovery.py::test_seven_day_retention_only_prunes_owned_snapshots
+FAILED services/api/tests/integration/test_storage_recovery.py::test_corrupt_or_future_snapshot_cannot_postpone_backup
+3 failed, 5 deselected, 1 warning in 1.72s

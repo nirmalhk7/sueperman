@@ -1,0 +1,244 @@
+services/api/.venv/bin/python scripts/storage_smoke.py
+#1 [internal] load local bake definitions
+#1 reading from stdin 2.32kB done
+#1 DONE 0.0s
+
+#2 [api internal] load build definition from Dockerfile
+#2 transferring dockerfile: 1.66kB 0.0s done
+#2 transferring dockerfile: 1.66kB 0.0s done
+#2 ...
+
+#3 [web internal] load build definition from Dockerfile
+#3 transferring dockerfile: 936B 0.1s done
+#3 DONE 0.5s
+
+#4 [gateway internal] load build definition from gateway.Dockerfile
+#4 transferring dockerfile: 124B 0.0s done
+#4 ...
+
+#2 [backup internal] load build definition from Dockerfile
+#2 DONE 0.9s
+
+#4 [gateway internal] load build definition from gateway.Dockerfile
+#4 DONE 1.0s
+
+#5 [api internal] load metadata for docker.io/library/node:24-bookworm-slim
+#5 ...
+
+#6 [gateway internal] load metadata for docker.io/library/nginx:stable-alpine
+#6 DONE 0.3s
+
+#7 [gateway internal] load .dockerignore
+#7 transferring context: 340B 0.0s done
+#7 DONE 0.0s
+
+#8 [api internal] load metadata for ghcr.io/astral-sh/uv:0.10.8
+#8 ...
+
+#9 [gateway internal] load build context
+#9 transferring context: 434B 0.1s done
+#9 DONE 0.2s
+
+#10 [gateway 1/2] FROM docker.io/library/nginx:stable-alpine@sha256:901e593c95dc85f5a729f5765516321366ef4ac401821431d408897e95287d0a
+#10 resolve docker.io/library/nginx:stable-alpine@sha256:901e593c95dc85f5a729f5765516321366ef4ac401821431d408897e95287d0a 0.2s done
+#10 DONE 0.2s
+
+#11 [gateway 2/2] COPY deploy/nginx.conf /etc/nginx/conf.d/default.conf
+#11 CACHED
+
+#12 [api internal] load metadata for docker.io/library/python:3.12-slim-bookworm
+#12 DONE 0.8s
+
+#13 [gateway] exporting to image
+#13 exporting layers 0.0s done
+#13 exporting manifest sha256:f54ce3094b082191292ef21c51c9725b909e8518a2c54f9ec7bde2e703fff04f 0.1s done
+#13 exporting config sha256:d7b274d7ed34c31295e3fd1f82c37ed0b5f47790ff0af4b8935d6bb1ccc32008
+#13 ...
+
+#7 [web internal] load .dockerignore
+#7 transferring context: 340B 0.0s done
+#7 DONE 0.1s
+
+#5 [backup internal] load metadata for docker.io/library/node:24-bookworm-slim
+#5 DONE 0.9s
+
+#14 [web internal] load build context
+#14 DONE 0.0s
+
+#13 [gateway] exporting to image
+#13 exporting config sha256:d7b274d7ed34c31295e3fd1f82c37ed0b5f47790ff0af4b8935d6bb1ccc32008 0.1s done
+#13 ...
+
+#7 [api internal] load .dockerignore
+#7 transferring context: 340B 0.0s done
+#7 DONE 0.1s
+
+#8 [api internal] load metadata for ghcr.io/astral-sh/uv:0.10.8
+#8 DONE 1.0s
+
+#15 [backup internal] load build context
+#15 DONE 0.0s
+
+#13 [gateway] exporting to image
+#13 exporting attestation manifest sha256:7ba517c39d0b62e3ce8c494a6336b3a27864454df5c6d7dd67c62df375300463
+#13 exporting attestation manifest sha256:7ba517c39d0b62e3ce8c494a6336b3a27864454df5c6d7dd67c62df375300463 0.4s done
+#13 exporting manifest list sha256:e4a11ca8148fc9b1c11854903417299a533e7b0977be75b9e9c02c7b95ef228f 0.1s done
+#13 naming to docker.io/library/sueperman-storage-check-39817-gateway:latest
+#13 ...
+
+#16 [backup build 1/7] FROM docker.io/library/node:24-bookworm-slim@sha256:dc26ae92c9fb15cf6b1d63e20f0944b2efe0f115b20e00be48fb23fceb061c54
+#16 resolve docker.io/library/node:24-bookworm-slim@sha256:dc26ae92c9fb15cf6b1d63e20f0944b2efe0f115b20e00be48fb23fceb061c54 0.6s done
+#16 DONE 0.6s
+
+#13 [gateway] exporting to image
+#13 naming to docker.io/library/sueperman-storage-check-39817-gateway:latest 0.0s done
+#13 DONE 1.0s
+
+#17 [api uv-runtime 1/1] FROM ghcr.io/astral-sh/uv:0.10.8@sha256:88234bc9e09c2b2f6d176a3daf411419eb0370d450a08129257410de9cfafd2a
+#17 resolve ghcr.io/astral-sh/uv:0.10.8@sha256:88234bc9e09c2b2f6d176a3daf411419eb0370d450a08129257410de9cfafd2a 0.6s done
+#17 DONE 0.6s
+
+#18 [api stage-2  1/12] FROM docker.io/library/python:3.12-slim-bookworm@sha256:935c3c5b12357a7e10caa9c1e6ca5692344d97cf229832ef584be2cec9fc03df
+#18 resolve docker.io/library/python:3.12-slim-bookworm@sha256:935c3c5b12357a7e10caa9c1e6ca5692344d97cf229832ef584be2cec9fc03df 0.6s done
+#18 DONE 0.6s
+
+#14 [web internal] load build context
+#14 transferring context: 3.21kB 0.1s done
+#14 DONE 0.1s
+
+#19 [web build 2/7] RUN npm install --global pnpm@11.25.0
+#19 CACHED
+
+#20 [web build 3/7] WORKDIR /srv/app/apps/web
+#20 CACHED
+
+#21 [web build 4/7] COPY apps/web/package.json apps/web/pnpm-lock.yaml apps/web/pnpm-workspace.yaml ./
+#21 CACHED
+
+#22 [web build 5/7] RUN pnpm install --frozen-lockfile
+#22 CACHED
+
+#23 [web build 6/7] COPY apps/web/ ./
+#23 ...
+
+#15 [api internal] load build context
+#15 transferring context: 661.23kB 0.4s done
+#15 DONE 2.2s
+
+#23 [web build 6/7] COPY apps/web/ ./
+#23 ...
+
+#24 [backup stage-2  7/12] COPY services/api/pyproject.toml services/api/uv.lock services/api/
+#24 CACHED
+
+#25 [backup stage-2  3/12] COPY --from=node-runtime /usr/local/bin/node /usr/local/bin/node
+#25 CACHED
+
+#26 [backup stage-2  6/12] WORKDIR /srv/app
+#26 CACHED
+
+#27 [backup stage-2 10/12] COPY demo demo
+#27 CACHED
+
+#28 [backup stage-2 11/12] COPY --chmod=444 harness/diwali/baseline.json harness/diwali/baseline.json
+#28 CACHED
+
+#29 [backup stage-2  4/12] COPY --from=node-runtime /usr/local/lib/node_modules/npm /usr/local/lib/node_modules/npm
+#29 CACHED
+
+#30 [backup stage-2  8/12] RUN uv sync --project services/api --locked --no-dev --no-cache
+#30 CACHED
+
+#31 [backup stage-2  9/12] COPY services/api/app services/api/app
+#31 CACHED
+
+#32 [backup stage-2  5/12] RUN apt-get update && apt-get install -y --no-install-recommends ca-certificates libstdc++6     && rm -rf /var/lib/apt/lists/*     && ln -s /usr/local/lib/node_modules/npm/bin/npm-cli.js /usr/local/bin/npm     && ln -s /usr/local/lib/node_modules/npm/bin/npx-cli.js /usr/local/bin/npx
+#32 CACHED
+
+#33 [backup stage-2  2/12] COPY --from=uv-runtime /uv /usr/local/bin/uv
+#33 CACHED
+
+#33 [api stage-2  2/12] COPY --from=uv-runtime /uv /usr/local/bin/uv
+#33 CACHED
+
+#29 [api stage-2  4/12] COPY --from=node-runtime /usr/local/lib/node_modules/npm /usr/local/lib/node_modules/npm
+#29 CACHED
+
+#24 [api stage-2  7/12] COPY services/api/pyproject.toml services/api/uv.lock services/api/
+#24 CACHED
+
+#30 [api stage-2  8/12] RUN uv sync --project services/api --locked --no-dev --no-cache
+#30 CACHED
+
+#32 [api stage-2  5/12] RUN apt-get update && apt-get install -y --no-install-recommends ca-certificates libstdc++6     && rm -rf /var/lib/apt/lists/*     && ln -s /usr/local/lib/node_modules/npm/bin/npm-cli.js /usr/local/bin/npm     && ln -s /usr/local/lib/node_modules/npm/bin/npx-cli.js /usr/local/bin/npx
+#32 CACHED
+
+#27 [api stage-2 10/12] COPY demo demo
+#27 CACHED
+
+#28 [api stage-2 11/12] COPY --chmod=444 harness/diwali/baseline.json harness/diwali/baseline.json
+#28 CACHED
+
+#31 [api stage-2  9/12] COPY services/api/app services/api/app
+#31 CACHED
+
+#25 [api stage-2  3/12] COPY --from=node-runtime /usr/local/bin/node /usr/local/bin/node
+#25 CACHED
+
+#26 [api stage-2  6/12] WORKDIR /srv/app
+#26 CACHED
+
+#34 [backup stage-2 12/12] RUN useradd --uid 10001 --create-home sueperman     && chmod 755 /srv/app/harness /srv/app/harness/diwali     && mkdir -p /data /backups /srv/app/uploads     && chown -R 10001:10001 /data /backups /srv/app/uploads     && chmod 700 /backups
+#34 CACHED
+
+#35 [backup] exporting to image
+#35 exporting layers 0.0s done
+#35 exporting manifest sha256:12a1aa77384181334a3463ec2cddcfc6859a44634d73791be54660545aa1aee1
+#35 exporting manifest sha256:12a1aa77384181334a3463ec2cddcfc6859a44634d73791be54660545aa1aee1 0.3s done
+#35 exporting config sha256:f799a36d0f098db2fbca54de9d7299ef0add685531bb7aaef149f8b897bcf416
+#35 exporting config sha256:f799a36d0f098db2fbca54de9d7299ef0add685531bb7aaef149f8b897bcf416 0.3s done
+#35 ...
+
+#23 [web build 6/7] COPY apps/web/ ./
+#23 DONE 3.6s
+
+#36 [web build 7/7] RUN pnpm build
+#36 ...
+
+#37 [api] exporting to image
+#37 exporting layers 0.0s done
+#37 exporting manifest sha256:f0de2354e245f8a8849d040fb4e8e63e6db136cd3939fbd66825dead95d7ff15 0.2s done
+#37 exporting config sha256:2b19056b7f01521db8dfe2bef31353248776f61708ceeed18b400ec49710093e 0.3s done
+#37 exporting attestation manifest sha256:c14a6902c6a314ff48e5716ee02e62199efe98fe0e0ea5e82f5e431e5acb50d8 3.5s done
+#37 exporting manifest list sha256:4da68ee30d01ddde4c68ac96b533d8e8e81ca87c8ab0a0ec2608493bb0dc4485 0.2s done
+#37 naming to docker.io/library/sueperman-storage-check-39817-api:latest 0.3s done
+#37 DONE 5.1s
+
+#38 [gateway] resolving provenance for metadata file
+#38 DONE 0.3s
+
+#35 [backup] exporting to image
+#35 exporting attestation manifest sha256:a080a4b6fedf73681a354217aa019814be6f55c23402319bf58343f2a6284810 3.5s done
+#35 exporting manifest list sha256:a8361a203ece2f6eec8aac7e1179ba13eb1d968da50c0b57f7fc2574f3004f88 0.2s done
+#35 naming to docker.io/library/sueperman-storage-check-39817-backup:latest 0.2s done
+#35 DONE 8.4s
+
+#36 [web build 7/7] RUN pnpm build
+#36 ...
+
+#39 [api] resolving provenance for metadata file
+#39 DONE 0.6s
+
+#40 [backup] resolving provenance for metadata file
+#40 DONE 0.0s
+
+#36 [web build 7/7] RUN pnpm build
+#36 21.78 $ next build --webpack
+#36 26.13 ▲ Next.js 16.4.6 (webpack)
+#36 29.17 ✓ Running next.config.ts took 3.0s
+#36 29.30 - Experiments (use with caution):
+#36 29.30   · clientTraceMetadata
+#36 29.30
+#36 29.41   Creating an optimized production build ...
+#36 283.6 ✓ Compiled successfully in 4.2min
+#36 283.6   Running TypeScript ...

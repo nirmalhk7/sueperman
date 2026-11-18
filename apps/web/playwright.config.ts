@@ -2,7 +2,10 @@ import { defineConfig } from "@playwright/test";
 export default defineConfig({
   testDir: "./tests",
   testMatch: "*.e2e.ts",
-  testIgnore: process.env.P1_BROWSER_CONTROL ? [] : ["p1.e2e.ts"],
+  testIgnore: [
+    ...(process.env.P1_BROWSER_CONTROL ? [] : ["p1.e2e.ts"]),
+    ...(process.env.STORAGE_RESTORE_PACKET_ID ? [] : ["storage.e2e.ts"]),
+  ],
   workers: 1,
   use: {
     channel: "chromium",

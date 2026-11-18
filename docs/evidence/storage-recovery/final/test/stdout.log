@@ -1,0 +1,36 @@
+services/api/.venv/bin/pytest services/api/tests -q
+........................................................................ [ 16%]
+........................................................................ [ 32%]
+........................................................................ [ 49%]
+........................................................................ [ 65%]
+........................................................................ [ 82%]
+........................................................................ [ 98%]
+.......                                                                  [100%]
+=============================== warnings summary ===============================
+services/api/.venv/lib/python3.12/site-packages/fastapi/testclient.py:1
+  /Users/nirmalhk7/Documents/DevWorld/sueperman/services/api/.venv/lib/python3.12/site-packages/fastapi/testclient.py:1: StarletteDeprecationWarning: Using `httpx` with `starlette.testclient` is deprecated; install `httpx2` instead.
+    from starlette.testclient import TestClient as TestClient  # noqa
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+439 passed, 1 warning in 345.65s (0:05:45)
+pnpm --dir apps/web test
+✔ API request respects local default base (418.587125ms)
+✔ API request respects "" base (696.546583ms)
+✔ API request respects "https://app.example.test" base (1015.750958ms)
+✔ failed BAND startup never claims local fallback or live delivery (0.523584ms)
+✔ browser events keep readable stack locations but drop uploaded facts and credentials (1.454333ms)
+✔ trace attributes cannot retain request bodies or URL parameters (0.547292ms)
+✔ privacy filtering preserves source-map debug IDs needed for readable stacks (0.379666ms)
+✔ streamed spans scrub URL names and request attributes before export (23.438334ms)
+✔ replay correlation survives filtering while user tags are removed (0.178875ms)
+✔ simulation label takes priority over candidate status (1.16125ms)
+✔ real settlement labels identify public sources and keep eligibility uncertain (8.533625ms)
+✔ failed settlement verification never keeps a live-verified badge (1.658459ms)
+ℹ tests 12
+ℹ suites 0
+ℹ pass 12
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 2752.301625

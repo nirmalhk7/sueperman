@@ -1,0 +1,12 @@
+open /Users/nirmalhk7/Documents/DevWorld/sueperman/compose.durable.yaml: no such file or directory
+Traceback (most recent call last):
+  File "/Users/nirmalhk7/Documents/DevWorld/sueperman/scripts/storage_smoke.py", line 128, in <module>
+    main()
+  File "/Users/nirmalhk7/Documents/DevWorld/sueperman/scripts/storage_smoke.py", line 53, in main
+    compose("up", "--build", "--detach")
+  File "/Users/nirmalhk7/Documents/DevWorld/sueperman/scripts/storage_smoke.py", line 28, in compose
+    return subprocess.run([*COMMAND, *args], cwd=ROOT, env=ENV, check=True,
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/private/tmp/sueperman-python/cpython-3.12.13-macos-aarch64-none/lib/python3.12/subprocess.py", line 571, in run
+    raise CalledProcessError(retcode, process.args,
+subprocess.CalledProcessError: Command '['docker', 'compose', '-f', '/Users/nirmalhk7/Documents/DevWorld/sueperman/compose.production.yaml', '-f', '/Users/nirmalhk7/Documents/DevWorld/sueperman/compose.durable.yaml', '-p', 'sueperman-storage-check-89081', 'up', '--build', '--detach']' returned non-zero exit status 1.

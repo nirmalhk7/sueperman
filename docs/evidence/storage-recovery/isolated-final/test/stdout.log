@@ -1,0 +1,58 @@
+services/api/.venv/bin/pytest services/api/tests -q
+........................................................................ [ 16%]
+........................................................................ [ 32%]
+........................................................................ [ 49%]
+........................................................................ [ 65%]
+........................................................................ [ 82%]
+........F............................................................... [ 98%]
+.......                                                                  [100%]
+=================================== FAILURES ===================================
+__________________________ test_p1_browser_acceptance __________________________
+
+p1_browser_env = (PosixPath('/private/var/folders/k0/w3xrb_d95jn2t7nf2f0s05yr0000gp/T/pytest-of-nirmalhk7/pytest-365/p1-browser0/web'),...AUTO_UPDATE': 'true', ...}, PosixPath('/private/tmp/sueperman-issue7-verify-6c8cvwq3/docs/evidence/diwali/p1/browser'))
+
+    def test_p1_browser_acceptance(p1_browser_env):
+        web, env, logs = p1_browser_env
+>       result = subprocess.run(["node", str(ROOT / "apps/web/node_modules/@playwright/test/cli.js"),
+            "test", "p1.e2e.ts"], cwd=web, env=env, capture_output=True, text=True, timeout=180, check=False)
+
+services/api/tests/p1/test_p1_browser.py:103:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+../sueperman-python/cpython-3.12.13-macos-aarch64-none/lib/python3.12/subprocess.py:550: in run
+    stdout, stderr = process.communicate(input, timeout=timeout)
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+../sueperman-python/cpython-3.12.13-macos-aarch64-none/lib/python3.12/subprocess.py:1209: in communicate
+    stdout, stderr = self._communicate(input, endtime, timeout)
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+../sueperman-python/cpython-3.12.13-macos-aarch64-none/lib/python3.12/subprocess.py:2116: in _communicate
+    self._check_timeout(endtime, orig_timeout, stdout, stderr)
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+self = <Popen: returncode: -9 args: ['node', '/private/tmp/sueperman-issue7-verify-...>
+endtime = 899884.941326333, orig_timeout = 180
+stdout_seq = [b'\nRunning 4 tests using 1 worker\n\n', b'  \xe2\x9c\x98  1 tests/p1.e2e.ts:28:1 \xe2\x80\xba P1 additional notices preserve exact negative and missing cases (5.1m)\n']
+stderr_seq = [b"(node:96999) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.\n(Use `node --trace-war...ed due to the 'FORCE_COLOR' env being set.\n(Use `node --trace-warnings ...` to show where the warning was created)\n"]
+skip_check_and_raise = False
+
+    def _check_timeout(self, endtime, orig_timeout, stdout_seq, stderr_seq,
+                       skip_check_and_raise=False):
+        """Convenience for checking if a timeout has expired."""
+        if endtime is None:
+            return
+        if skip_check_and_raise or _time() > endtime:
+>           raise TimeoutExpired(
+                    self.args, orig_timeout,
+                    output=b''.join(stdout_seq) if stdout_seq else None,
+                    stderr=b''.join(stderr_seq) if stderr_seq else None)
+E           subprocess.TimeoutExpired: Command '['node', '/private/tmp/sueperman-issue7-verify-6c8cvwq3/apps/web/node_modules/@playwright/test/cli.js', 'test', 'p1.e2e.ts']' timed out after 180 seconds
+
+../sueperman-python/cpython-3.12.13-macos-aarch64-none/lib/python3.12/subprocess.py:1253: TimeoutExpired
+=============================== warnings summary ===============================
+../../../Users/nirmalhk7/Documents/DevWorld/sueperman/services/api/.venv/lib/python3.12/site-packages/fastapi/testclient.py:1
+  /Users/nirmalhk7/Documents/DevWorld/sueperman/services/api/.venv/lib/python3.12/site-packages/fastapi/testclient.py:1: StarletteDeprecationWarning: Using `httpx` with `starlette.testclient` is deprecated; install `httpx2` instead.
+    from starlette.testclient import TestClient as TestClient  # noqa
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+=========================== short test summary info ============================
+FAILED services/api/tests/p1/test_p1_browser.py::test_p1_browser_acceptance
+1 failed, 438 passed, 1 warning in 513.36s (0:08:33)

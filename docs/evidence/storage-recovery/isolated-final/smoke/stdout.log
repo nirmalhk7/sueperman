@@ -1,0 +1,47 @@
+API_URL=http://127.0.0.1:56039 WEB_URL=http://127.0.0.1:56040 bash scripts/smoke_test.sh
+{"db":"ok","providers":[{"name":"csv","configured":true,"enabled":true,"healthy":true},{"name":"openai_receipts","configured":false,"enabled":false,"healthy":null},{"name":"cpsc","configured":true,"enabled":false,"healthy":null},{"name":"brightdata","configured":false,"enabled":false,"healthy":null},{"name":"gemini","configured":false,"enabled":false,"healthy":null},{"name":"openai","configured":false,"enabled":false,"healthy":null}],"demo_ready":true}{
+  "id": "ecbc613e-b882-47ff-87a3-f895b5a39660",
+  "created_at": "2026-11-18T00:27:57.053942Z",
+  "updated_at": "2026-11-18T00:27:57.098522Z",
+  "demo": true,
+  "job": {
+    "state": "finished",
+    "attempts": 1,
+    "recoveries": 0
+  },
+  "run_id": "ecbc613e-b882-47ff-87a3-f895b5a39660",
+  "mode": "demo",
+  "status": "completed",
+  "summary": {
+    "products_scanned": 5,
+    "candidates": 4,
+    "verified_matches": 1,
+    "rejected": 1,
+    "needs_review": 1,
+    "simulated_settlements": 1,
+    "prepared_packets": 1
+  },
+  "provider_modes": {
+    "receipt": "csv",
+    "recall": "replay",
+    "research": "disabled",
+    "decision": "rules"
+  },
+  "warnings": [],
+  "opportunities": [
+    "dae6a7be-a5ad-4dd0-aa93-610e1d999e02",
+    "d6813b0f-7ab2-49b0-b796-c73bbe15aa7e",
+    "49f42ad8-0884-47a2-9e7e-d93edcd0ab97",
+    "884645cd-41b9-464f-86a6-b09bf88b1b54"
+  ],
+  "events_url": "/api/runs/ecbc613e-b882-47ff-87a3-f895b5a39660/events",
+  "purchase_ids": [
+    "6ffd59d9-6f9e-446b-896e-7c114eebf5c4",
+    "d10b1c37-9eab-4d3e-b21b-2a446a858601",
+    "040db679-e0e5-4183-83b7-b1f58d10883b",
+    "0e4837e9-5b29-4e23-ada2-afe5d13558ad",
+    "bd157049-9aa3-49b0-b553-7b0e3c763725"
+  ],
+  "started_at": "2026-11-18T00:27:57.045002+00:00",
+  "completed_at": "2026-11-18T00:27:57.096937+00:00"
+}

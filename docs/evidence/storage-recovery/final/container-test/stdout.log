@@ -1,0 +1,197 @@
+services/api/.venv/bin/python scripts/container_smoke.py
+#1 [internal] load local bake definitions
+#1 reading from stdin 1.71kB done
+#1 DONE 0.0s
+
+#2 [web internal] load build definition from Dockerfile
+#2 transferring dockerfile:
+#2 transferring dockerfile: 936B 0.0s done
+#2 DONE 0.5s
+
+#3 [api internal] load build definition from Dockerfile
+#3 transferring dockerfile: 1.66kB 0.0s done
+#3 DONE 0.6s
+
+#4 [gateway internal] load build definition from gateway.Dockerfile
+#4 transferring dockerfile: 124B 0.0s done
+#4 DONE 0.6s
+
+#5 [gateway internal] load metadata for docker.io/library/nginx:stable-alpine
+#5 DONE 0.1s
+
+#6 [api internal] load metadata for docker.io/library/node:24-bookworm-slim
+#6 ...
+
+#7 [gateway internal] load .dockerignore
+#7 transferring context: 340B 0.0s done
+#7 DONE 0.1s
+
+#8 [gateway 1/2] FROM docker.io/library/nginx:stable-alpine@sha256:901e593c95dc85f5a729f5765516321366ef4ac401821431d408897e95287d0a
+#8 resolve docker.io/library/nginx:stable-alpine@sha256:901e593c95dc85f5a729f5765516321366ef4ac401821431d408897e95287d0a 0.1s done
+#8 DONE 0.1s
+
+#9 [gateway internal] load build context
+#9 transferring context: 434B 0.1s done
+#9 DONE 0.1s
+
+#10 [gateway 2/2] COPY deploy/nginx.conf /etc/nginx/conf.d/default.conf
+#10 CACHED
+
+#11 [gateway] exporting to image
+#11 exporting layers
+#11 exporting layers done
+#11 exporting manifest sha256:0299b2241064b7eac2b8bd9778ee0341a106d8371a74c24cc9aac5f106dc5839 0.0s done
+#11 exporting config sha256:c90801c1c432e850aaab28f147ad15cc2d967241ffdb48d1c8ef9d18436e61ad 0.0s done
+#11 exporting attestation manifest sha256:c4af2aa3249b5eda279e700646bc70de0fc295fd5ad8c74a6380e5dab96b0093 0.0s done
+#11 exporting manifest list sha256:d9ced41392348648aab827e35c3dae06fa4d4d39971094f893891d76340364f3 0.0s done
+#11 naming to docker.io/library/sueperman-check-36898-gateway:latest done
+#11 DONE 0.2s
+
+#12 [api internal] load metadata for ghcr.io/astral-sh/uv:0.10.8
+#12 ...
+
+#13 [api internal] load metadata for docker.io/library/python:3.12-slim-bookworm
+#13 DONE 1.0s
+
+#7 [web internal] load .dockerignore
+#7 transferring context: 340B 0.0s done
+#7 DONE 0.1s
+
+#6 [api internal] load metadata for docker.io/library/node:24-bookworm-slim
+#6 DONE 1.0s
+
+#14 [web internal] load build context
+#14 DONE 0.0s
+
+#15 [web build 1/7] FROM docker.io/library/node:24-bookworm-slim@sha256:dc26ae92c9fb15cf6b1d63e20f0944b2efe0f115b20e00be48fb23fceb061c54
+#15 resolve docker.io/library/node:24-bookworm-slim@sha256:dc26ae92c9fb15cf6b1d63e20f0944b2efe0f115b20e00be48fb23fceb061c54
+#15 resolve docker.io/library/node:24-bookworm-slim@sha256:dc26ae92c9fb15cf6b1d63e20f0944b2efe0f115b20e00be48fb23fceb061c54 0.7s done
+#15 DONE 0.7s
+
+#12 [api internal] load metadata for ghcr.io/astral-sh/uv:0.10.8
+#12 ...
+
+#14 [web internal] load build context
+#14 transferring context: 2.91kB 0.0s done
+#14 DONE 0.3s
+
+#16 [gateway] resolving provenance for metadata file
+#16 DONE 0.0s
+
+#7 [api internal] load .dockerignore
+#7 transferring context: 340B 0.0s done
+#7 DONE 0.1s
+
+#15 [api build 1/7] FROM docker.io/library/node:24-bookworm-slim@sha256:dc26ae92c9fb15cf6b1d63e20f0944b2efe0f115b20e00be48fb23fceb061c54
+#15 resolve docker.io/library/node:24-bookworm-slim@sha256:dc26ae92c9fb15cf6b1d63e20f0944b2efe0f115b20e00be48fb23fceb061c54 0.7s done
+#15 DONE 0.7s
+
+#12 [api internal] load metadata for ghcr.io/astral-sh/uv:0.10.8
+#12 DONE 2.0s
+
+#17 [api internal] load build context
+#17 DONE 0.0s
+
+#18 [web stage-1 2/3] WORKDIR /srv/app/apps/web
+#18 CACHED
+
+#19 [web build 3/7] WORKDIR /srv/app/apps/web
+#19 CACHED
+
+#20 [web build 5/7] RUN pnpm install --frozen-lockfile
+#20 CACHED
+
+#21 [web build 7/7] RUN pnpm build
+#21 CACHED
+
+#22 [web build 2/7] RUN npm install --global pnpm@11.25.0
+#22 CACHED
+
+#23 [web build 4/7] COPY apps/web/package.json apps/web/pnpm-lock.yaml apps/web/pnpm-workspace.yaml ./
+#23 CACHED
+
+#24 [web build 6/7] COPY apps/web/ ./
+#24 CACHED
+
+#25 [web stage-1 3/3] COPY --from=build --chown=node:node /srv/app/apps/web ./
+#25 CACHED
+
+#26 [api stage-2  1/12] FROM docker.io/library/python:3.12-slim-bookworm@sha256:935c3c5b12357a7e10caa9c1e6ca5692344d97cf229832ef584be2cec9fc03df
+#26 resolve docker.io/library/python:3.12-slim-bookworm@sha256:935c3c5b12357a7e10caa9c1e6ca5692344d97cf229832ef584be2cec9fc03df
+#26 resolve docker.io/library/python:3.12-slim-bookworm@sha256:935c3c5b12357a7e10caa9c1e6ca5692344d97cf229832ef584be2cec9fc03df 0.3s done
+#26 DONE 0.3s
+
+#27 [api uv-runtime 1/1] FROM ghcr.io/astral-sh/uv:0.10.8@sha256:88234bc9e09c2b2f6d176a3daf411419eb0370d450a08129257410de9cfafd2a
+#27 resolve ghcr.io/astral-sh/uv:0.10.8@sha256:88234bc9e09c2b2f6d176a3daf411419eb0370d450a08129257410de9cfafd2a 0.2s done
+#27 DONE 0.3s
+
+#17 [api internal] load build context
+#17 transferring context: 661.23kB 0.2s done
+#17 DONE 0.2s
+
+#28 [web] exporting to image
+#28 exporting layers 0.0s done
+#28 exporting manifest sha256:400653e462910aba8e73bf312b888ac56be4ef7acc8a8d2b0e400d90f41c9777 0.1s done
+#28 exporting config sha256:437219861e1bde925c22a9d2e0faa3cb64525dd128d595f419545ef74adabb23 0.1s done
+#28 exporting attestation manifest sha256:9ff95560781c5a1978044b554837295ef73ca909fef43a7b42a98b260340c0a9 0.1s done
+#28 exporting manifest list sha256:8fb2a84531a416f5772c4105c74c402afa243daa24c36185943452d99289dfa2
+#28 exporting manifest list sha256:8fb2a84531a416f5772c4105c74c402afa243daa24c36185943452d99289dfa2 0.0s done
+#28 naming to docker.io/library/sueperman-check-36898-web:latest done
+#28 DONE 0.5s
+
+#29 [api stage-2  3/12] COPY --from=node-runtime /usr/local/bin/node /usr/local/bin/node
+#29 CACHED
+
+#30 [api stage-2  4/12] COPY --from=node-runtime /usr/local/lib/node_modules/npm /usr/local/lib/node_modules/npm
+#30 CACHED
+
+#31 [api stage-2  6/12] WORKDIR /srv/app
+#31 CACHED
+
+#32 [api stage-2  2/12] COPY --from=uv-runtime /uv /usr/local/bin/uv
+#32 CACHED
+
+#33 [api stage-2  5/12] RUN apt-get update && apt-get install -y --no-install-recommends ca-certificates libstdc++6     && rm -rf /var/lib/apt/lists/*     && ln -s /usr/local/lib/node_modules/npm/bin/npm-cli.js /usr/local/bin/npm     && ln -s /usr/local/lib/node_modules/npm/bin/npx-cli.js /usr/local/bin/npx
+#33 CACHED
+
+#34 [api stage-2  7/12] COPY services/api/pyproject.toml services/api/uv.lock services/api/
+#34 CACHED
+
+#35 [api stage-2  8/12] RUN uv sync --project services/api --locked --no-dev --no-cache
+#35 CACHED
+
+#36 [api stage-2  9/12] COPY services/api/app services/api/app
+#36 DONE 2.0s
+
+#37 [web] resolving provenance for metadata file
+#37 DONE 0.1s
+
+#38 [api stage-2 10/12] COPY demo demo
+#38 DONE 0.4s
+
+#39 [api stage-2 11/12] COPY --chmod=444 harness/diwali/baseline.json harness/diwali/baseline.json
+#39 DONE 0.1s
+
+#40 [api stage-2 12/12] RUN useradd --uid 10001 --create-home sueperman     && chmod 755 /srv/app/harness /srv/app/harness/diwali     && mkdir -p /data /backups /srv/app/uploads     && chown -R 10001:10001 /data /backups /srv/app/uploads     && chmod 700 /backups
+#40 DONE 1.4s
+
+#41 [api] exporting to image
+#41 exporting layers 0.5s done
+#41 exporting manifest sha256:db16058eb88c658b3c7111e6c8d76527580f82e77a87e4335423b697ee0ce822 0.0s done
+#41 exporting config sha256:9afe1ed680064c684557ac52d8368348f75c90b0ec74f7d1dd58e16a1793e84e 0.0s done
+#41 exporting attestation manifest sha256:7a7d1bfd72cee45954794a66cd4873c64b47eabb4f41c05551b3db82531eb9a0 0.0s done
+#41 exporting manifest list sha256:5acc28aabe323fe5cc6be12e2907f595da04a5e92ef5940c2170c62d5096498f
+#41 exporting manifest list sha256:5acc28aabe323fe5cc6be12e2907f595da04a5e92ef5940c2170c62d5096498f 0.0s done
+#41 naming to docker.io/library/sueperman-check-36898-api:latest done
+#41 DONE 0.7s
+
+#42 [api] resolving provenance for metadata file
+#42 DONE 1.6s
+11.19.1
+
+Running 1 test using 1 worker
+
+  ✓  1 tests/workflow.e2e.ts:4:1 › five purchases produce evidence-backed recall, safe export and visible negative cases (7.0s)
+
+  1 passed (12.0s)
+PASS: production containers, same-origin API, exact/negative demo, local export, non-root users, no env files.

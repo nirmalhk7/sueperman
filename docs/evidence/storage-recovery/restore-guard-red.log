@@ -1,0 +1,66 @@
+.FF                                                                      [100%]
+=================================== FAILURES ===================================
+_________ test_existing_live_database_is_refused_with_controlled_error _________
+
+populated = (PosixPath('/private/var/folders/k0/w3xrb_d95jn2t7nf2f0s05yr0000gp/T/pytest-of-nirmalhk7/pytest-355/test_existing_live...f-Serious-Injury-Sold-on-Amazon\nObserved: 2026-11-13T17:48:00+00:00\nMode: OFFLINE REPLAY of a real published recall')
+tmp_path = PosixPath('/private/var/folders/k0/w3xrb_d95jn2t7nf2f0s05yr0000gp/T/pytest-of-nirmalhk7/pytest-355/test_existing_live_database_is0')
+
+    def test_existing_live_database_is_refused_with_controlled_error(populated, tmp_path):
+        source, _client, _endpoint, _export = populated
+        result = cli("backup", "--database", source, "--directory", tmp_path / "backups")
+        assert result.returncode == 0
+        expected = rows(source)
+        result = cli("restore", "--snapshot", json.loads(result.stdout)["snapshot"], "--database", source)
+>       assert result.returncode == 2, result.stderr
+E       AssertionError: Traceback (most recent call last):
+E           File "<frozen runpy>", line 198, in _run_module_as_main
+E           File "<frozen runpy>", line 88, in _run_code
+E           File "/Users/nirmalhk7/Documents/DevWorld/sueperman/services/api/app/storage.py", line 415, in <module>
+E             raise SystemExit(main())
+E                              ^^^^^^
+E           File "/Users/nirmalhk7/Documents/DevWorld/sueperman/services/api/app/storage.py", line 398, in main
+E             print(json.dumps({"database": str(restore(args.snapshot, args.database))}))
+E                                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E           File "/Users/nirmalhk7/Documents/DevWorld/sueperman/services/api/app/storage.py", line 228, in restore
+E             with worker_lock(engine):
+E                  ^^^^^^^^^^^^^^^^^^^
+E           File "/private/tmp/sueperman-python/cpython-3.12.13-macos-aarch64-none/lib/python3.12/contextlib.py", line 137, in __enter__
+E             return next(self.gen)
+E                    ^^^^^^^^^^^^^^
+E           File "/Users/nirmalhk7/Documents/DevWorld/sueperman/services/api/app/jobs.py", line 147, in worker_lock
+E             raise RuntimeError("This database already has an application worker; run exactly one worker") from None
+E         RuntimeError: This database already has an application worker; run exactly one worker
+E
+E       assert 1 == 2
+E        +  where 1 = CompletedProcess(args=['/Users/nirmalhk7/Documents/DevWorld/sueperman/services/api/.venv/bin/python', '-m', 'app.stora...actly one worker") from None\nRuntimeError: This database already has an application worker; run exactly one worker\n').returncode
+
+services/api/tests/integration/test_storage_recovery.py:446: AssertionError
+____ test_failure_for_another_source_does_not_poison_selected_backup_status ____
+
+populated = (PosixPath('/private/var/folders/k0/w3xrb_d95jn2t7nf2f0s05yr0000gp/T/pytest-of-nirmalhk7/pytest-355/test_failure_for_a...f-Serious-Injury-Sold-on-Amazon\nObserved: 2026-11-13T17:48:00+00:00\nMode: OFFLINE REPLAY of a real published recall')
+tmp_path = PosixPath('/private/var/folders/k0/w3xrb_d95jn2t7nf2f0s05yr0000gp/T/pytest-of-nirmalhk7/pytest-355/test_failure_for_another_sourc0')
+
+    def test_failure_for_another_source_does_not_poison_selected_backup_status(populated, tmp_path):
+        from datetime import UTC, datetime, timedelta
+        from app import storage
+        source, _client, _endpoint, _export = populated
+        now = datetime(2026, 11, 17, 12, tzinfo=UTC)
+        directory = tmp_path / "backups"
+        cycle(source, directory, now)
+        with pytest.raises(storage.StorageError):
+            cycle(tmp_path / "other-missing.db", directory, now + timedelta(hours=1))
+        state = storage.status(directory, database=source, now=now + timedelta(hours=2))
+>       assert state["due"] is False and state["last_error"] is None
+E       AssertionError: assert (False is False and 'StorageError' is None)
+
+services/api/tests/integration/test_storage_recovery.py:460: AssertionError
+=============================== warnings summary ===============================
+services/api/.venv/lib/python3.12/site-packages/fastapi/testclient.py:1
+  /Users/nirmalhk7/Documents/DevWorld/sueperman/services/api/.venv/lib/python3.12/site-packages/fastapi/testclient.py:1: StarletteDeprecationWarning: Using `httpx` with `starlette.testclient` is deprecated; install `httpx2` instead.
+    from starlette.testclient import TestClient as TestClient  # noqa
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+=========================== short test summary info ============================
+FAILED services/api/tests/integration/test_storage_recovery.py::test_existing_live_database_is_refused_with_controlled_error
+FAILED services/api/tests/integration/test_storage_recovery.py::test_failure_for_another_source_does_not_poison_selected_backup_status
+2 failed, 1 passed, 18 deselected, 1 warning in 3.35s

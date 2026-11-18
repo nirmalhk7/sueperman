@@ -1,0 +1,196 @@
+services/api/.venv/bin/python scripts/storage_smoke.py
+#1 [internal] load local bake definitions
+#1 reading from stdin 2.32kB done
+#1 DONE 0.0s
+
+#2 [gateway internal] load build definition from gateway.Dockerfile
+#2 transferring dockerfile: 124B done
+#2 DONE 0.0s
+
+#3 [backup internal] load build definition from Dockerfile
+#3 transferring dockerfile: 1.66kB done
+#3 DONE 0.0s
+
+#4 [web internal] load build definition from Dockerfile
+#4 transferring dockerfile: 936B done
+#4 DONE 0.1s
+
+#5 [gateway internal] load metadata for docker.io/library/nginx:stable-alpine
+#5 DONE 0.2s
+
+#6 [web internal] load metadata for docker.io/library/node:24-bookworm-slim
+#6 ...
+
+#7 [gateway internal] load .dockerignore
+#7 transferring context: 340B done
+#7 DONE 0.0s
+
+#8 [gateway internal] load build context
+#8 transferring context: 434B done
+#8 DONE 0.0s
+
+#9 [gateway 1/2] FROM docker.io/library/nginx:stable-alpine@sha256:901e593c95dc85f5a729f5765516321366ef4ac401821431d408897e95287d0a
+#9 resolve docker.io/library/nginx:stable-alpine@sha256:901e593c95dc85f5a729f5765516321366ef4ac401821431d408897e95287d0a 0.0s done
+#9 DONE 0.0s
+
+#10 [gateway 2/2] COPY deploy/nginx.conf /etc/nginx/conf.d/default.conf
+#10 CACHED
+
+#11 [gateway] exporting to image
+#11 exporting layers done
+#11 exporting manifest sha256:9b00fa9ec9aa640ab32dd082f0358b5b267253cf341882584ea43a125e4e39d5 0.0s done
+#11 exporting config sha256:9a3526182234d5467d05e75fd6d70725bd856dca0505010fb7f0c5771ca0571c 0.0s done
+#11 exporting attestation manifest sha256:76883bc812aecb4a3367c01105d24e8fb029ee78929b16680de84419950b6a65 0.0s done
+#11 exporting manifest list sha256:7251330140ef7e3e05e9c7576d3d3bcb2ec014ef35e88d84566765a26bc84016 0.0s done
+#11 naming to docker.io/library/sueperman-storage-check-21238-gateway:latest done
+#11 DONE 0.1s
+
+#12 [api internal] load metadata for ghcr.io/astral-sh/uv:0.10.8
+#12 ...
+
+#13 [gateway] resolving provenance for metadata file
+#13 DONE 0.1s
+
+#12 [backup internal] load metadata for ghcr.io/astral-sh/uv:0.10.8
+#12 DONE 0.6s
+
+#14 [api internal] load metadata for docker.io/library/python:3.12-slim-bookworm
+#14 DONE 0.8s
+
+#6 [web internal] load metadata for docker.io/library/node:24-bookworm-slim
+#6 DONE 0.8s
+
+#7 [api internal] load .dockerignore
+#7 DONE 0.0s
+
+#7 [api internal] load .dockerignore
+#7 CACHED
+
+#7 [web internal] load .dockerignore
+#7 CACHED
+
+#15 [backup uv-runtime 1/1] FROM ghcr.io/astral-sh/uv:0.10.8@sha256:88234bc9e09c2b2f6d176a3daf411419eb0370d450a08129257410de9cfafd2a
+#15 resolve ghcr.io/astral-sh/uv:0.10.8@sha256:88234bc9e09c2b2f6d176a3daf411419eb0370d450a08129257410de9cfafd2a 0.1s done
+#15 DONE 0.1s
+
+#16 [backup stage-2  1/12] FROM docker.io/library/python:3.12-slim-bookworm@sha256:935c3c5b12357a7e10caa9c1e6ca5692344d97cf229832ef584be2cec9fc03df
+#16 resolve docker.io/library/python:3.12-slim-bookworm@sha256:935c3c5b12357a7e10caa9c1e6ca5692344d97cf229832ef584be2cec9fc03df 0.1s done
+#16 DONE 0.1s
+
+#17 [backup node-runtime 1/1] FROM docker.io/library/node:24-bookworm-slim@sha256:dc26ae92c9fb15cf6b1d63e20f0944b2efe0f115b20e00be48fb23fceb061c54
+#17 resolve docker.io/library/node:24-bookworm-slim@sha256:dc26ae92c9fb15cf6b1d63e20f0944b2efe0f115b20e00be48fb23fceb061c54 0.1s done
+#17 DONE 0.1s
+
+#18 [api internal] load build context
+#18 transferring context: 661.23kB 0.0s done
+#18 transferring context: 661.23kB 0.0s done
+#18 DONE 0.1s
+
+#19 [web internal] load build context
+#19 transferring context: 2.87kB done
+#19 DONE 0.0s
+
+#20 [web build 4/7] COPY apps/web/package.json apps/web/pnpm-lock.yaml apps/web/pnpm-workspace.yaml ./
+#20 CACHED
+
+#21 [web build 7/7] RUN pnpm build
+#21 CACHED
+
+#22 [web build 6/7] COPY apps/web/ ./
+#22 CACHED
+
+#23 [web stage-1 2/3] WORKDIR /srv/app/apps/web
+#23 CACHED
+
+#24 [web build 3/7] WORKDIR /srv/app/apps/web
+#24 CACHED
+
+#25 [web build 2/7] RUN npm install --global pnpm@11.25.0
+#25 CACHED
+
+#26 [web build 5/7] RUN pnpm install --frozen-lockfile
+#26 CACHED
+
+#27 [web stage-1 3/3] COPY --from=build --chown=node:node /srv/app/apps/web ./
+#27 CACHED
+
+#28 [api stage-2  4/12] COPY --from=node-runtime /usr/local/lib/node_modules/npm /usr/local/lib/node_modules/npm
+#28 CACHED
+
+#29 [api stage-2  2/12] COPY --from=uv-runtime /uv /usr/local/bin/uv
+#29 CACHED
+
+#30 [api stage-2  3/12] COPY --from=node-runtime /usr/local/bin/node /usr/local/bin/node
+#30 CACHED
+
+#31 [api stage-2  5/12] RUN apt-get update && apt-get install -y --no-install-recommends ca-certificates libstdc++6     && rm -rf /var/lib/apt/lists/*     && ln -s /usr/local/lib/node_modules/npm/bin/npm-cli.js /usr/local/bin/npm     && ln -s /usr/local/lib/node_modules/npm/bin/npx-cli.js /usr/local/bin/npx
+#31 CACHED
+
+#32 [api stage-2 11/12] COPY --chmod=444 harness/diwali/baseline.json harness/diwali/baseline.json
+#32 CACHED
+
+#33 [api stage-2 10/12] COPY demo demo
+#33 CACHED
+
+#34 [api stage-2  9/12] COPY services/api/app services/api/app
+#34 CACHED
+
+#35 [api stage-2  6/12] WORKDIR /srv/app
+#35 CACHED
+
+#36 [api stage-2  8/12] RUN uv sync --project services/api --locked --no-dev --no-cache
+#36 CACHED
+
+#37 [api stage-2  7/12] COPY services/api/pyproject.toml services/api/uv.lock services/api/
+#37 CACHED
+
+#38 [api stage-2 12/12] RUN useradd --uid 10001 --create-home sueperman     && chmod 755 /srv/app/harness /srv/app/harness/diwali     && mkdir -p /data /backups /srv/app/uploads     && chown -R 10001:10001 /data /backups /srv/app/uploads     && chmod 700 /backups
+#38 CACHED
+
+#39 [api] exporting to image
+#39 exporting layers done
+#39 exporting manifest sha256:3987a3e0054b831d6abb7c7d97c2cca6e1174f7527f7bbc1166cd0814cc400ad 0.1s done
+#39 exporting config sha256:58a0364c251f032d9deb84c53af298da4947982b8e8c91b5da413d1d79b0654c
+#39 exporting config sha256:58a0364c251f032d9deb84c53af298da4947982b8e8c91b5da413d1d79b0654c 0.1s done
+#39 exporting attestation manifest sha256:02121400080160ac2a6ad20bd3565f5e92718098b1b59a24567f9596fbf06b87
+#39 exporting attestation manifest sha256:02121400080160ac2a6ad20bd3565f5e92718098b1b59a24567f9596fbf06b87 0.1s done
+#39 exporting manifest list sha256:b48d2f01f9927be9870a09f7e5fff30509e1ad4227763efe8628962534c922f7 0.1s done
+#39 naming to docker.io/library/sueperman-storage-check-21238-api:latest 0.0s done
+#39 DONE 0.6s
+
+#40 [web] exporting to image
+#40 exporting layers done
+#40 exporting manifest sha256:3254ac2103aa755af7f551a576f8c05ae39d4fcd07fe55f78ce58c7471404e40 0.1s done
+#40 exporting config sha256:473abceb9e347e39fa682b01163f5fa55545ca422ed3c5c7d36555c8a16adc7e 0.1s done
+#40 exporting attestation manifest sha256:fba6dbaf9556dd2a208102b70430f5557c67ad380656b32686a91766e6a6dcb0 0.1s done
+#40 exporting manifest list sha256:fa8290090ef3aba4c0a57623091ee9827b625fd487b547abd6ea9e004efa1e94 0.1s done
+#40 naming to docker.io/library/sueperman-storage-check-21238-web:latest 0.0s done
+#40 DONE 0.5s
+
+#41 [backup] exporting to image
+#41 exporting layers done
+#41 exporting manifest sha256:e9a69484de352dde7aca1782833c2273c7acc999ee50498fae6d6a0243183a8b 0.1s done
+#41 exporting config sha256:b658ba5520174ee71a3f2c64a14d166a71dcba6cbc35feb9d810c16061d1fbd6 0.1s done
+#41 exporting attestation manifest sha256:4d7f9815beb9a1f13f39d72ff5921402bf26fb1ee6e62b21aba07494fa3de56c 0.1s done
+#41 exporting manifest list sha256:8dd4c92c5c2e86ddcc797fb1fa132441cff1cddf74fc238e238a5a6d84064eb1 0.1s done
+#41 naming to docker.io/library/sueperman-storage-check-21238-backup:latest 0.0s done
+#41 DONE 0.7s
+
+#42 [web] resolving provenance for metadata file
+#42 DONE 0.1s
+
+#43 [api] resolving provenance for metadata file
+#43 DONE 0.1s
+
+#44 [backup] resolving provenance for metadata file
+#44 DONE 0.0s
+{"database": "/data/restored.db"}
+
+Running 1 test using 1 worker
+
+  ✓  1 tests/storage.e2e.ts:5:1 › restored approval exports the original draft after persistent Compose recovery (1.9s)
+
+  1 passed (3.5s)
+(node:23194) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+PASS: persistent Compose recreation, WAL backup, exact all-row restore, original unchanged, approval/export and quota/watch/job state, non-root private snapshots, restored browser workflow.

@@ -1,0 +1,17 @@
+{
+  "base": "a8309c41d7936ba9b5966e25d6b1ceb76183d6d3",
+  "source_root": "/Users/nirmalhk7/Documents/DevWorld/sueperman",
+  "verification_root": "/tmp/sueperman-issue7-verify-6c8cvwq3",
+  "files": {
+    "Makefile": "24bf45f7038cd29f7f49f7d593dbdaa76fec12ef87a0f09c396d6e1644ae4269",
+    "apps/web/playwright.config.ts": "34429a4d1b1ec598b35ad5db60b931c23624b9134f3874f97843a09a26616cd8",
+    "apps/web/tests/storage.e2e.ts": "8646b236e87f07f68bf64aeead0c2793082483836ba55822b72e91a17bcb441d",
+    "deploy/README.md": "d56709fb1f1734e2aedbfe6663b9545f84eb513ae3a6303ab4824f8ceceabac2",
+    "deploy/DURABLE_STORAGE.md": "16a46d20f74b05e679beb68d14a9a3679e066d410ca26486b82c9e00b6b282dc",
+    "compose.durable.yaml": "a06625b897274875b26d5ca16ba39cd3b60d468e68e5c031f07fe174b9e0999e",
+    "services/api/Dockerfile": "7fb963f714635f365c425704087a22bc48c64742c5ca0bb12ce978ce79b3bee0",
+    "services/api/app/storage.py": "50458ee58c1d73d38b534cd8e11c43d426f287eb6db8934f215a5a8021da9c82",
+    "services/api/tests/integration/test_storage_recovery.py": "99df48489fb9f606d798bf59710d8b37915c3844754ce34e037a6dd460a04ea9",
+    "scripts/storage_smoke.py": "2ba6549bda0e5cf39a7aeba0695f6bfd8423ada7b19afffffe0cc393aa08be0c"
+  }
+}

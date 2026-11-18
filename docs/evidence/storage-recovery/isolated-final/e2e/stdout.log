@@ -1,0 +1,102 @@
+WEB_URL=http://127.0.0.1:56040 pnpm --dir apps/web e2e
+
+Running 16 tests using 1 worker
+
+  ✓   1 tests/collaboration.e2e.ts:5:1 › offline team board explains exact, excluded and missing-model cases with safe local export (3.9s)
+  ✘   2 tests/collaboration.e2e.ts:46:1 › a newer case run blocks export from an already open approved draft (8.8s)
+  ✓   3 tests/corrections.e2e.ts:3:1 › correct a checked model and renew local review before export (2.7s)
+  ✓   4 tests/diwali.e2e.ts:3:1 › Recovered investigation shows recovery and uncertain-outcome guidance (991ms)
+  ✓   5 tests/diwali.e2e.ts:24:1 › Diwali packet workflow (1.6s)
+  ✓   6 tests/diwali.e2e.ts:54:1 › Diwali error and empty states (1.5s)
+  -   7 tests/p1-live.e2e.ts:7:1 › live image extraction, human confirmation and CPSC recall export
+  -   8 tests/p1-live.e2e.ts:47:1 › live PDF extraction returns identifiers for review
+  -   9 tests/p1-live.e2e.ts:60:1 › live settlement sources stay distinct from personal eligibility and export locally
+  ✓  10 tests/receipt-camera.e2e.ts:20:1 › camera photo is read into reviewable purchases without confirming identifiers (665ms)
+  ✓  11 tests/receipt-camera.e2e.ts:48:1 › camera upload failure permits another photo without starting a purchase check (692ms)
+  ✓  12 tests/stale-packet.e2e.ts:3:1 › withdrawn source verification disables local approval and export (958ms)
+  ✓  13 tests/workflow.e2e.ts:4:1 › five purchases produce evidence-backed recall, safe export and visible negative cases (3.0s)
+  ✓  14 tests/workflow.e2e.ts:112:1 › demo selection stays five purchases after CSV import without deleting imported history (729ms)
+  ✘  15 tests/workflow.e2e.ts:130:1 › decision detail explains selected action and hard-gate evidence (5.9s)
+  ✓  16 tests/workflow.e2e.ts:148:1 › scan identifiers require explicit review before confirmation (1.6s)
+
+
+  1) tests/collaboration.e2e.ts:46:1 › a newer case run blocks export from an already open approved draft
+
+    Error: expect(locator).toHaveText(expected) failed
+
+    Locator: getByTestId('case-status')
+    Expected: "ready_for_review"
+    Timeout: 5000ms
+    Error: element(s) not found
+
+    Call log:
+      - Expect "toHaveText" getByTestId('case-status') with timeout 5000ms
+      - waiting for getByTestId('case-status')
+
+
+      50 |   })).json();
+      51 |   await page.goto(`/collaborations/${started.id}`);
+    > 52 |   await expect(page.getByTestId("case-status")).toHaveText("ready_for_review");
+         |                                                 ^
+      53 |   await page.getByRole("button", { name: "Prepare claim packet" }).click();
+      54 |   await page.getByLabel("I reviewed this draft and understand approval stays local.").check();
+      55 |   await page.getByRole("button", { name: "Approve draft locally" }).click();
+        at /private/tmp/sueperman-issue7-verify-6c8cvwq3/apps/web/tests/collaboration.e2e.ts:52:49
+
+    attachment #1: video (video/webm) ──────────────────────────────────────────────────────────────
+    test-results/collaboration.e2e.ts-a-new-80acd-already-open-approved-draft/video.webm
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: test-results/collaboration.e2e.ts-a-new-80acd-already-open-approved-draft/error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results/collaboration.e2e.ts-a-new-80acd-already-open-approved-draft/trace.zip
+    Usage:
+
+        pnpm exec playwright show-trace test-results/collaboration.e2e.ts-a-new-80acd-already-open-approved-draft/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  2) tests/workflow.e2e.ts:130:1 › decision detail explains selected action and hard-gate evidence ─
+
+    Error: expect(locator).toBeVisible() failed
+
+    Locator: getByText('Run completed', { exact: true })
+    Expected: visible
+    Timeout: 5000ms
+    Error: element(s) not found
+
+    Call log:
+      - Expect "toBeVisible" getByText('Run completed', { exact: true }) with timeout 5000ms
+      - waiting for getByText('Run completed', { exact: true })
+
+
+      134 |   })).json();
+      135 |   await page.goto(`/runs/${started.run_id}`);
+    > 136 |   await expect(page.getByText("Run completed", { exact: true })).toBeVisible();
+          |                                                                  ^
+      137 |   const response = await page.request.get(`http://localhost:8000/api/opportunities?run_id=${started.run_id}`);
+      138 |   const items = await response.json();
+      139 |   const excluded = items.find((item: { status: string }) => item.status === "rejected");
+        at /private/tmp/sueperman-issue7-verify-6c8cvwq3/apps/web/tests/workflow.e2e.ts:136:66
+
+    attachment #1: video (video/webm) ──────────────────────────────────────────────────────────────
+    test-results/workflow.e2e.ts-decision-d-5fc20-tion-and-hard-gate-evidence/video.webm
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: test-results/workflow.e2e.ts-decision-d-5fc20-tion-and-hard-gate-evidence/error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results/workflow.e2e.ts-decision-d-5fc20-tion-and-hard-gate-evidence/trace.zip
+    Usage:
+
+        pnpm exec playwright show-trace test-results/workflow.e2e.ts-decision-d-5fc20-tion-and-hard-gate-evidence/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  2 failed
+    tests/collaboration.e2e.ts:46:1 › a newer case run blocks export from an already open approved draft
+    tests/workflow.e2e.ts:130:1 › decision detail explains selected action and hard-gate evidence ──
+  3 skipped
+  11 passed (38.3s)
+[ELIFECYCLE] Command failed with exit code 1.

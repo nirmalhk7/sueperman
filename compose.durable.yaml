@@ -1,0 +1,42 @@
+services:
+  api:
+    restart: unless-stopped
+    environment:
+      DATABASE_URL: sqlite:////data/${SUEPERMAN_DATABASE_FILE:-sueperman.db}
+      PYTHONPATH: /srv/app/services/api
+  web:
+    restart: unless-stopped
+  gateway:
+    restart: unless-stopped
+  backup:
+    platform: linux/amd64
+    build:
+      context: .
+      dockerfile: services/api/Dockerfile
+    restart: unless-stopped
+    init: true
+    environment:
+      PYTHONPATH: /srv/app/services/api
+    command:
+      - python
+      - -m
+      - app.storage
+      - schedule
+      - --database
+      - /data/${SUEPERMAN_DATABASE_FILE:-sueperman.db}
+      - --directory
+      - /backups
+    volumes:
+      - demo-state:/data
+      - state-backups:/backups
+    depends_on:
+      api:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "python", "-m", "app.storage", "status", "--database", "/data/${SUEPERMAN_DATABASE_FILE:-sueperman.db}", "--directory", "/backups"]
+      interval: 60s
+      timeout: 15s
+      retries: 3
+      start_period: 30s
+volumes:
+  state-backups:

@@ -1,0 +1,29 @@
+{
+  "command": [
+    "make",
+    "storage-test"
+  ],
+  "exit_code": 0,
+  "duration_seconds": 390.4424377499381,
+  "source_digest_before": "30b81597ea1bb4ea1b4812eba71913b5dbe1b0d8dd5aab812e98e4a62bb08765",
+  "source_digest_after": "e651806a2c25bfc4ad5dd22bbded665c699c60491251e74cc84c741ac3cba5ef",
+  "configuration_before": {
+    "compose.production.yaml": "2ff151dfcb47dd1efb692f82f11eb848c9a6fb1db9826a4f6eb5189aace56432",
+    "compose.durable.yaml": "a06625b897274875b26d5ca16ba39cd3b60d468e68e5c031f07fe174b9e0999e",
+    "services/api/Dockerfile": "7fb963f714635f365c425704087a22bc48c64742c5ca0bb12ce978ce79b3bee0",
+    "apps/web/Dockerfile": "26f7481359ee6333da84f4d8931013efd24c085ab5e1878ddc149426b4e5a3ee",
+    "apps/web/playwright.config.ts": "34429a4d1b1ec598b35ad5db60b931c23624b9134f3874f97843a09a26616cd8",
+    ".dockerignore": "8fd8a0dd1e5d4b76d4803a46b666201edac34cdb1f459977f6342370f4bfad87"
+  },
+  "configuration_after": {
+    "compose.production.yaml": "2ff151dfcb47dd1efb692f82f11eb848c9a6fb1db9826a4f6eb5189aace56432",
+    "compose.durable.yaml": "a06625b897274875b26d5ca16ba39cd3b60d468e68e5c031f07fe174b9e0999e",
+    "services/api/Dockerfile": "7fb963f714635f365c425704087a22bc48c64742c5ca0bb12ce978ce79b3bee0",
+    "apps/web/Dockerfile": "26f7481359ee6333da84f4d8931013efd24c085ab5e1878ddc149426b4e5a3ee",
+    "apps/web/playwright.config.ts": "34429a4d1b1ec598b35ad5db60b931c23624b9134f3874f97843a09a26616cd8",
+    ".dockerignore": "8fd8a0dd1e5d4b76d4803a46b666201edac34cdb1f459977f6342370f4bfad87"
+  },
+  "source_unchanged": false,
+  "prior_report": "../final/report.json",
+  "checks_pass": false
+}

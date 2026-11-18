@@ -1,0 +1,18 @@
+ Image sueperman-storage-check-39817-backup Building
+ Image sueperman-storage-check-39817-api Building
+ Image sueperman-storage-check-39817-web Building
+ Image sueperman-storage-check-39817-gateway Building
+target web: failed to receive status: rpc error: code = Unavailable desc = error reading from server: EOF
+
+Traceback (most recent call last):
+  File "/Users/nirmalhk7/Documents/DevWorld/sueperman/scripts/storage_smoke.py", line 128, in <module>
+    main()
+  File "/Users/nirmalhk7/Documents/DevWorld/sueperman/scripts/storage_smoke.py", line 53, in main
+    compose("up", "--build", "--detach")
+  File "/Users/nirmalhk7/Documents/DevWorld/sueperman/scripts/storage_smoke.py", line 28, in compose
+    return subprocess.run([*COMMAND, *args], cwd=ROOT, env=ENV, check=True,
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/private/tmp/sueperman-python/cpython-3.12.13-macos-aarch64-none/lib/python3.12/subprocess.py", line 571, in run
+    raise CalledProcessError(retcode, process.args,
+subprocess.CalledProcessError: Command '['docker', 'compose', '-f', '/Users/nirmalhk7/Documents/DevWorld/sueperman/compose.production.yaml', '-f', '/Users/nirmalhk7/Documents/DevWorld/sueperman/compose.durable.yaml', '-p', 'sueperman-storage-check-39817', 'up', '--build', '--detach']' returned non-zero exit status 1.
+make: *** [storage-test] Error 1

@@ -1,0 +1,139 @@
+{
+  "base": "a8309c41d7936ba9b5966e25d6b1ceb76183d6d3",
+  "verification_root": "/tmp/sueperman-issue7-verify-6c8cvwq3",
+  "snapshot_manifest": "../isolated-snapshot.json",
+  "source_digest_before": "30b81597ea1bb4ea1b4812eba71913b5dbe1b0d8dd5aab812e98e4a62bb08765",
+  "configuration_before": {
+    "compose.production.yaml": "2ff151dfcb47dd1efb692f82f11eb848c9a6fb1db9826a4f6eb5189aace56432",
+    "compose.durable.yaml": "a06625b897274875b26d5ca16ba39cd3b60d468e68e5c031f07fe174b9e0999e",
+    "services/api/Dockerfile": "7fb963f714635f365c425704087a22bc48c64742c5ca0bb12ce978ce79b3bee0",
+    "apps/web/Dockerfile": "26f7481359ee6333da84f4d8931013efd24c085ab5e1878ddc149426b4e5a3ee",
+    "apps/web/playwright.config.ts": "34429a4d1b1ec598b35ad5db60b931c23624b9134f3874f97843a09a26616cd8",
+    "apps/web/next-env.d.ts": "1862ac4bbbc5192d4bf562161df66ea547ed3e67173100656ab606ae9797db2b",
+    ".dockerignore": "8fd8a0dd1e5d4b76d4803a46b666201edac34cdb1f459977f6342370f4bfad87"
+  },
+  "ports": {
+    "API_URL": "http://127.0.0.1:56039",
+    "WEB_URL": "http://127.0.0.1:56040",
+    "CONTAINER_WEB_PORT": "56041",
+    "STORAGE_WEB_PORT": "56042"
+  },
+  "commands": [
+    {
+      "command": [
+        "make",
+        "test"
+      ],
+      "exit_code": 2,
+      "status": "FAIL",
+      "duration_seconds": 556.133160166908,
+      "stdout_path": "/Users/nirmalhk7/Documents/DevWorld/sueperman/docs/evidence/storage-recovery/isolated-final/test/stdout.log",
+      "stderr_path": "/Users/nirmalhk7/Documents/DevWorld/sueperman/docs/evidence/storage-recovery/isolated-final/test/stderr.log"
+    },
+    {
+      "command": [
+        "make",
+        "lint"
+      ],
+      "exit_code": 0,
+      "status": "PASS",
+      "duration_seconds": 28.453052125056274,
+      "stdout_path": "/Users/nirmalhk7/Documents/DevWorld/sueperman/docs/evidence/storage-recovery/isolated-final/lint/stdout.log",
+      "stderr_path": "/Users/nirmalhk7/Documents/DevWorld/sueperman/docs/evidence/storage-recovery/isolated-final/lint/stderr.log"
+    },
+    {
+      "command": [
+        "make",
+        "typecheck"
+      ],
+      "exit_code": 0,
+      "status": "PASS",
+      "duration_seconds": 63.99069204193074,
+      "stdout_path": "/Users/nirmalhk7/Documents/DevWorld/sueperman/docs/evidence/storage-recovery/isolated-final/typecheck/stdout.log",
+      "stderr_path": "/Users/nirmalhk7/Documents/DevWorld/sueperman/docs/evidence/storage-recovery/isolated-final/typecheck/stderr.log"
+    },
+    {
+      "command": [
+        "make",
+        "build"
+      ],
+      "exit_code": 0,
+      "status": "PASS",
+      "duration_seconds": 22.62635166698601,
+      "stdout_path": "/Users/nirmalhk7/Documents/DevWorld/sueperman/docs/evidence/storage-recovery/isolated-final/build/stdout.log",
+      "stderr_path": "/Users/nirmalhk7/Documents/DevWorld/sueperman/docs/evidence/storage-recovery/isolated-final/build/stderr.log"
+    },
+    {
+      "command": [
+        "make",
+        "smoke"
+      ],
+      "exit_code": 0,
+      "status": "PASS",
+      "duration_seconds": 0.27616212505381554,
+      "stdout_path": "/Users/nirmalhk7/Documents/DevWorld/sueperman/docs/evidence/storage-recovery/isolated-final/smoke/stdout.log",
+      "stderr_path": "/Users/nirmalhk7/Documents/DevWorld/sueperman/docs/evidence/storage-recovery/isolated-final/smoke/stderr.log"
+    },
+    {
+      "command": [
+        "make",
+        "e2e"
+      ],
+      "exit_code": 2,
+      "status": "FAIL",
+      "duration_seconds": 39.662942499970086,
+      "stdout_path": "/Users/nirmalhk7/Documents/DevWorld/sueperman/docs/evidence/storage-recovery/isolated-final/e2e/stdout.log",
+      "stderr_path": "/Users/nirmalhk7/Documents/DevWorld/sueperman/docs/evidence/storage-recovery/isolated-final/e2e/stderr.log"
+    },
+    {
+      "command": [
+        "make",
+        "container-test"
+      ],
+      "exit_code": 0,
+      "status": "PASS",
+      "duration_seconds": 297.3983719580574,
+      "stdout_path": "/Users/nirmalhk7/Documents/DevWorld/sueperman/docs/evidence/storage-recovery/isolated-final/container-test/stdout.log",
+      "stderr_path": "/Users/nirmalhk7/Documents/DevWorld/sueperman/docs/evidence/storage-recovery/isolated-final/container-test/stderr.log"
+    },
+    {
+      "command": [
+        "make",
+        "storage-test"
+      ],
+      "exit_code": 0,
+      "status": "PASS",
+      "duration_seconds": 62.155078084091656,
+      "stdout_path": "/Users/nirmalhk7/Documents/DevWorld/sueperman/docs/evidence/storage-recovery/isolated-final/storage-test/stdout.log",
+      "stderr_path": "/Users/nirmalhk7/Documents/DevWorld/sueperman/docs/evidence/storage-recovery/isolated-final/storage-test/stderr.log"
+    }
+  ],
+  "source_digest_after": "30b81597ea1bb4ea1b4812eba71913b5dbe1b0d8dd5aab812e98e4a62bb08765",
+  "configuration_after": {
+    "compose.production.yaml": "2ff151dfcb47dd1efb692f82f11eb848c9a6fb1db9826a4f6eb5189aace56432",
+    "compose.durable.yaml": "a06625b897274875b26d5ca16ba39cd3b60d468e68e5c031f07fe174b9e0999e",
+    "services/api/Dockerfile": "7fb963f714635f365c425704087a22bc48c64742c5ca0bb12ce978ce79b3bee0",
+    "apps/web/Dockerfile": "26f7481359ee6333da84f4d8931013efd24c085ab5e1878ddc149426b4e5a3ee",
+    "apps/web/playwright.config.ts": "34429a4d1b1ec598b35ad5db60b931c23624b9134f3874f97843a09a26616cd8",
+    "apps/web/next-env.d.ts": "1862ac4bbbc5192d4bf562161df66ea547ed3e67173100656ab606ae9797db2b",
+    ".dockerignore": "8fd8a0dd1e5d4b76d4803a46b666201edac34cdb1f459977f6342370f4bfad87"
+  },
+  "source_unchanged": true,
+  "patch_files_match": {
+    "Makefile": true,
+    "apps/web/playwright.config.ts": true,
+    "apps/web/tests/storage.e2e.ts": true,
+    "deploy/README.md": true,
+    "deploy/DURABLE_STORAGE.md": true,
+    "compose.durable.yaml": true,
+    "services/api/Dockerfile": true,
+    "services/api/app/storage.py": true,
+    "services/api/tests/integration/test_storage_recovery.py": true,
+    "scripts/storage_smoke.py": true
+  },
+  "checks_pass": false,
+  "frozen_integrity_findings": [
+    "Changed protected input: docs/v2-status.md",
+    "Changed protected input: services/api/app/api/demo.py"
+  ]
+}

@@ -21,7 +21,9 @@ COPY demo demo
 COPY --chmod=444 harness/diwali/baseline.json harness/diwali/baseline.json
 RUN useradd --uid 10001 --create-home sueperman \
     && chmod 755 /srv/app/harness /srv/app/harness/diwali \
-    && mkdir -p /data /srv/app/uploads && chown -R 10001:10001 /data /srv/app/uploads
+    && mkdir -p /data /backups /srv/app/uploads \
+    && chown -R 10001:10001 /data /backups /srv/app/uploads \
+    && chmod 700 /backups
 USER 10001
 EXPOSE 8080
 CMD ["uvicorn", "app.main:app", "--app-dir", "services/api", "--host", "0.0.0.0", "--port", "8080"]

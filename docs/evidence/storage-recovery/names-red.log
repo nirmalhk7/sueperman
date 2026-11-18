@@ -1,0 +1,94 @@
+F                                                                        [100%]
+=================================== FAILURES ===================================
+_________ test_malformed_generated_name_cannot_disable_backup_schedule _________
+
+populated = (PosixPath('/private/var/folders/k0/w3xrb_d95jn2t7nf2f0s05yr0000gp/T/pytest-of-nirmalhk7/pytest-348/test_malformed_gen...f-Serious-Injury-Sold-on-Amazon\nObserved: 2026-11-13T17:48:00+00:00\nMode: OFFLINE REPLAY of a real published recall')
+tmp_path = PosixPath('/private/var/folders/k0/w3xrb_d95jn2t7nf2f0s05yr0000gp/T/pytest-of-nirmalhk7/pytest-348/test_malformed_generated_name_0')
+
+    def test_malformed_generated_name_cannot_disable_backup_schedule(populated, tmp_path):
+        from datetime import UTC, datetime
+        from app import storage
+        source, _client, _endpoint, _export = populated
+        directory = tmp_path / "backups"
+        directory.mkdir(mode=0o700)
+        invalid = directory / ("snapshot-99999999T999999999999Z-" + "a" * 32)
+        invalid.mkdir(mode=0o700)
+        (invalid / ".owner").write_text(storage.OWNER)
+>       assert cycle(source, directory, datetime(2026, 11, 17, 12, tzinfo=UTC))["state"] == "created"
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+services/api/tests/integration/test_storage_recovery.py:214:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+services/api/tests/integration/test_storage_recovery.py:116: in cycle
+    return implementation(database, directory, now=now)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+services/api/app/storage.py:302: in cycle
+    removed = prune(directory_root, now)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^
+services/api/app/storage.py:245: in prune
+    created = snapshot_time(path.name)
+              ^^^^^^^^^^^^^^^^^^^^^^^^
+services/api/app/storage.py:238: in snapshot_time
+    return datetime.strptime(match.group(1), "%Y%m%dT%H%M%S%fZ").replace(tzinfo=UTC) if match else None
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+/private/tmp/sueperman-python/cpython-3.12.13-macos-aarch64-none/lib/python3.12/_strptime.py:653: in _strptime_datetime
+    tt, fraction, gmtoff_fraction = _strptime(data_string, format)
+                                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+data_string = '99999999T999999999999Z', format = '%Y%m%dT%H%M%S%fZ'
+
+    def _strptime(data_string, format="%a %b %d %H:%M:%S %Y"):
+        """Return a 2-tuple consisting of a time struct and an int containing
+        the number of microseconds based on the input string and the
+        format string."""
+
+        for index, arg in enumerate([data_string, format]):
+            if not isinstance(arg, str):
+                msg = "strptime() argument {} must be str, not {}"
+                raise TypeError(msg.format(index, type(arg)))
+
+        global _TimeRE_cache, _regex_cache
+        with _cache_lock:
+            locale_time = _TimeRE_cache.locale_time
+            if (_getlang() != locale_time.lang or
+                time.tzname != locale_time.tzname or
+                time.daylight != locale_time.daylight):
+                _TimeRE_cache = TimeRE()
+                _regex_cache.clear()
+                locale_time = _TimeRE_cache.locale_time
+            if len(_regex_cache) > _CACHE_MAX_SIZE:
+                _regex_cache.clear()
+            format_regex = _regex_cache.get(format)
+            if not format_regex:
+                try:
+                    format_regex = _TimeRE_cache.compile(format)
+                # KeyError raised when a bad format is found; can be specified as
+                # \\, in which case it was a stray % but with a space after it
+                except KeyError as err:
+                    bad_directive = err.args[0]
+                    if bad_directive == "\\":
+                        bad_directive = "%"
+                    del err
+                    raise ValueError("'%s' is a bad directive in format '%s'" %
+                                        (bad_directive, format)) from None
+                # IndexError only occurs when the format string is "%"
+                except IndexError:
+                    raise ValueError("stray %% in format '%s'" % format) from None
+                _regex_cache[format] = format_regex
+        found = format_regex.match(data_string)
+        if not found:
+>           raise ValueError("time data %r does not match format %r" %
+                             (data_string, format))
+E           ValueError: time data '99999999T999999999999Z' does not match format '%Y%m%dT%H%M%S%fZ'
+
+/private/tmp/sueperman-python/cpython-3.12.13-macos-aarch64-none/lib/python3.12/_strptime.py:432: ValueError
+=============================== warnings summary ===============================
+services/api/.venv/lib/python3.12/site-packages/fastapi/testclient.py:1
+  /Users/nirmalhk7/Documents/DevWorld/sueperman/services/api/.venv/lib/python3.12/site-packages/fastapi/testclient.py:1: StarletteDeprecationWarning: Using `httpx` with `starlette.testclient` is deprecated; install `httpx2` instead.
+    from starlette.testclient import TestClient as TestClient  # noqa
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+=========================== short test summary info ============================
+FAILED services/api/tests/integration/test_storage_recovery.py::test_malformed_generated_name_cannot_disable_backup_schedule
+1 failed, 12 deselected, 1 warning in 0.96s
