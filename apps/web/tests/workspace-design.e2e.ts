@@ -1,5 +1,20 @@
 import { test, expect } from "@playwright/test";
 
+test("workflow preview explains sponsor roles and labels proposed integrations", async ({ page }) => {
+  await page.goto("/");
+  const preview = page.getByRole("region", { name: "How the agent team works" });
+  const panel = preview.getByRole("tabpanel");
+  await expect(panel).toContainText(/Agent37.*runs Scout/);
+  await preview.getByRole("tab", { name: "Skeptic" }).click();
+  await expect(panel).toContainText(/Lyzr.*reviews/);
+  await preview.getByRole("tab", { name: "Builder" }).click();
+  await expect(panel).toContainText(/Lyzr.*builds/);
+  await expect(preview).toContainText(/BAND.*hands off/);
+  await preview.getByText("Proposed sponsor roles", { exact: true }).click();
+  await expect(preview.getByText(/Finch.*review skill/)).toBeVisible();
+  await expect(preview.getByText(/AdaL.*presentation video/)).toBeVisible();
+});
+
 // Catches a disconnected role selector, stale role explanation, or a preview
 // presented as actual sponsor execution. No provider calls needed.
 test("workflow preview explains each selected agent without claiming execution", async ({ page }) => {

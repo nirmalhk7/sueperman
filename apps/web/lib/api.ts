@@ -154,6 +154,7 @@ export interface Packet {
   id: string;
   status: string;
   markdown: string;
+  completed_fields?: Record<string, unknown>;
   mode: string;
   missing_documents: string[];
   contact_or_portal_url: string | null;
@@ -216,4 +217,9 @@ export interface TeamDraft {
   id: string;
   status: string;
   markdown: string;
+}
+
+export interface CaseHistory {
+  revisions: { revision: number; created_at: string }[];
+  snapshots: Collaboration["evidence"];
 }

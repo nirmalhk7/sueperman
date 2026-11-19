@@ -8,6 +8,15 @@ def register(app, factory, settings):
     def health():
         with factory() as s:
             s.execute(text("SELECT 1"))
+        collaboration_available = False
+        if settings.collaboration_live_enabled:
+            from app.collaboration.live import credentials
+
+            try:
+                credentials(settings)
+                collaboration_available = True
+            except ValueError:
+                pass
         return {
             "db": "ok",
             "demo_ready": settings.demo_mode,
@@ -33,6 +42,11 @@ def register(app, factory, settings):
                     "name": "openai",
                     "enabled": settings.openai_enabled,
                     "configured": bool(settings.openai_api_key),
+                },
+                {
+                    "name": "agent_team",
+                    "enabled": settings.collaboration_live_enabled,
+                    "configured": collaboration_available,
                 },
             ],
         }

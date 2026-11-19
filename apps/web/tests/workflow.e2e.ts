@@ -43,6 +43,9 @@ test("imported purchases produce evidence-backed recall, safe export and visible
     fullPage: true,
   });
   await page.getByRole("button", { name: "Prepare claim packet" }).click();
+  const draft = page.getByRole("article", { name: "Remedy draft" });
+  await expect(draft.getByRole("heading", { name: "Verified product facts" })).toBeVisible();
+  await expect(draft.locator("dd").filter({ hasText: "ZHX-PB22" })).toHaveCount(1);
   await expect(
     page.getByRole("button", { name: "Export Markdown" }),
   ).toBeDisabled();
@@ -121,9 +124,9 @@ test("decision detail explains selected action and hard-gate evidence", async ({
   expect(excluded).toBeTruthy();
   await page.goto(`/opportunities/${excluded.id}`);
   await expect(page.getByRole("heading", { name: "Investigation decision" })).toBeVisible();
-  await expect(page.getByText("Selected action: reject_candidate", { exact: true })).toBeVisible();
-  await expect(page.getByText("Hard-gate status: rejected", { exact: true })).toBeVisible();
-  await expect(page.getByText("Decision provider: rules", { exact: true })).toBeVisible();
+  await expect(page.getByText("Next step: Exclude this product", { exact: true })).toBeVisible();
+  await expect(page.getByText("Result: Not affected", { exact: true })).toBeVisible();
+  await expect(page.getByText("Decision source: Official matching rules", { exact: true })).toBeVisible();
 });
 
 test("scan identifiers require explicit review before confirmation", async ({ page }) => {

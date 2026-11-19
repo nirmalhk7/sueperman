@@ -30,10 +30,10 @@ test("live image extraction, human confirmation and CPSC recall export", async (
   const run=await response.json();
   await page.goto(`/runs/${run.run_id}`);
   await expect(page.getByText("Run completed",{exact:true})).toBeVisible({timeout:30000});
-  await expect(page.getByText("recall: cpsc",{exact:true})).toBeVisible();
+  await expect(page.getByText("Recall: CPSC",{exact:true})).toBeVisible();
   await page.getByTestId("opportunity-card").filter({hasText:"Recall matched"}).getByRole("link",{name:"Review details"}).click();
   await expect(page.getByText(/LIVE CPSC lookup/)).toBeVisible();
-  await expect(page.getByText("Selected action: produce_packet",{exact:true})).toBeVisible();
+  await expect(page.getByText("Next step: Prepare a remedy draft",{exact:true})).toBeVisible();
   await page.screenshot({path:info.outputPath("live-recall.png"),fullPage:true});
   await page.getByRole("button",{name:"Prepare claim packet"}).click();
   await page.getByLabel("I reviewed this draft and understand approval stays local.").check();
@@ -65,7 +65,7 @@ test("live settlement sources stay distinct from personal eligibility and export
   const started=await page.request.post("http://localhost:8000/api/runs",{data:{purchase_ids:imported.purchase_ids,mode:"live",idempotency_key:crypto.randomUUID()}});
   const run=await started.json();
   await page.goto(`/runs/${run.run_id}`);
-  await expect(page.getByText(/Run (completed|partial)/,{exact:true})).toBeVisible({timeout:60000});
+  await expect(page.getByText(/Run completed|Check finished with limited results/,{exact:true})).toBeVisible({timeout:60000});
   const card=page.getByTestId("opportunity-card").filter({hasText:"Kirkbride"});
   await expect(card.getByText("LIVE verified settlement sources",{exact:true})).toBeVisible();
   await card.getByRole("link",{name:"Review details"}).click();

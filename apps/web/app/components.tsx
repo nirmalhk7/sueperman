@@ -15,12 +15,13 @@ import {
   type Run,
 } from "@/lib/api";
 import { TeamStart } from "./collaborations/team";
-import { opportunityLabel, sourceLabel } from "@/lib/labels";
+import { opportunityLabel, readableLabel, sourceLabel } from "@/lib/labels";
 import { DiwaliAgentTimeline } from "@/components/diwali-agent-timeline";
 import { AgentWorkbench } from "@/components/agent-workbench";
 import { DeletePurchase } from "@/components/delete-purchase";
+import { IdentifierReview } from "@/components/identifier-review";
 
-export function Opportunities({ items }: { items: Opportunity[] }) {
+export function Opportunities({ items, emptyMessage = "Run a check to see source-backed opportunities." }: { items: Opportunity[]; emptyMessage?: string }) {
   items = items.filter(item => !item.demo && !item.simulated && item.mode === "live");
   return (
     <section className="section" id="opportunities">
@@ -51,7 +52,7 @@ export function Opportunities({ items }: { items: Opportunity[] }) {
         </div>
       ) : (
         <div className="panel empty">
-          Run a check to see source-backed opportunities.
+          {emptyMessage}
         </div>
       )}
     </section>
@@ -61,7 +62,7 @@ export function Opportunities({ items }: { items: Opportunity[] }) {
 export function RunResults({ id }: { id: string }) {
   const [run, setRun] = useState<Run | null>(null);
   const [events, setEvents] = useState<Audit[]>([]);
-  const [items, setItems] = useState<Opportunity[]>([]);
+  const [items, setItems] = useState<Opportunity[] | null>(null);
   const [error, setError] = useState("");
   const [messages, setMessages] = useState<DiwaliMessage[]>([]);
   const [timelineError, setTimelineError] = useState("");
@@ -120,26 +121,29 @@ export function RunResults({ id }: { id: string }) {
           <section className="section">
             <div className="section-head">
               <h2>
-                {run.status === "completed"
-                  ? "Run completed"
-                  : `Run ${run.status}`}
+                {run.status === "completed" ? "Run completed"
+                  : run.status === "partial" ? "Check finished with limited results"
+                  : run.status === "failed" ? "Check couldn’t finish"
+                  : run.status === "queued" ? "Waiting to check purchases"
+                  : "Checking purchases"}
               </h2>
               <span className="small mono">
-                {id.slice(0, 8)} · {run.status}
+                Check {id.slice(0, 8)}
               </span>
             </div>
             <div className="providers">
               {Object.entries(run.provider_modes).map(([k, v]) => (
                 <span key={k}>
-                  {k}: {v}
+                  {readableLabel(k)}: {v === "cpsc" ? "CPSC" : v === "cpsc_only_fallback" ? "Official CPSC sources only" : readableLabel(v)}
                 </span>
               ))}
             </div>
             {run.warnings.map((w) => (
               <div className="notice" key={w}>
-                {w}
+                {w === "RUN_INTERRUPTED_OR_UNAVAILABLE" ? "The check was interrupted or a required service was unavailable." : w}
               </div>
             ))}
+            {["failed", "partial"].includes(run.status) && <p><Link href="/#purchases">Return to purchases</Link> to start a new check.</p>}
             {(run.job?.recoveries ?? 0) > 0 && (
               <p className="notice">Queued work recovered after restart.</p>
             )}
@@ -160,7 +164,12 @@ export function RunResults({ id }: { id: string }) {
             )}
           </section>
           <DiwaliAgentTimeline run={run} messages={messages} error={timelineError} />
-          <Opportunities items={items} />
+          <Opportunities items={items ?? []} emptyMessage={
+            run.status === "failed" ? "This check didn’t produce results."
+            : items === null ? "Results will appear here when the check finishes."
+            : run.status === "partial" ? "No opportunities were found in the evidence available for this check."
+            : "This check found no opportunities."
+          } />
           <section className="section" id="activity">
             <h2>Activity</h2>
             <div className="panel">
@@ -171,9 +180,9 @@ export function RunResults({ id }: { id: string }) {
                       {String(e.seq).padStart(2, "0")}
                     </span>
                     <div>
-                      <strong>{e.stage.replaceAll("_", " ")}</strong>
+                      <strong>{readableLabel(e.stage.toLowerCase())}</strong>
                       <div className="small">
-                        {e.provider} · {e.outcome}
+                        {readableLabel(e.provider)} · {e.outcome === "ok" ? "Done" : readableLabel(e.outcome)}
                       </div>
                     </div>
                     <time>{new Date(e.timestamp).toLocaleTimeString()}</time>
@@ -189,63 +198,24 @@ export function RunResults({ id }: { id: string }) {
   );
 }
 
-function IdentifierReview({ product, onConfirmed, correction = false }: { product: Product; onConfirmed: () => Promise<void>; correction?: boolean }) {
-  const [checked, setChecked] = useState(false);
-  const [busy, setBusy] = useState(false);
-  const [error, setError] = useState("");
-  async function confirm(form: FormData) {
-    if (!checked || busy) return;
-    setBusy(true);
-    try {
-      await post(`/products/${product.id}/${correction ? "corrections" : "confirm-identifiers"}`, {
-        confirmed: true,
-        brand: String(form.get("brand") || "").trim() || null,
-        model_number: String(form.get("model_number") || "").trim(),
-        upc: String(form.get("upc") || "").trim() || null,
-      });
-      await onConfirmed();
-    } catch (e) {
-      setError((e as Error).message);
-    } finally {
-      setBusy(false);
-    }
-  }
-  return (
-    <form action={confirm}>
-      {correction && <p>Current identifiers: {product.product.brand || "Unknown brand"} · {product.product.model_number || "Unknown model"} · {product.product.upc || "Unknown UPC"}. Saving requires a new investigation and local review.</p>}
-      <label>Brand (verify)
-        <input name="brand" maxLength={100} defaultValue={product.product.brand || ""} />
-      </label>
-      <label>Model number
-        <input name="model_number" required maxLength={100} defaultValue={product.product.model_number || product.product.suggested_identifiers?.model_number || ""} />
-      </label>
-      <label>UPC (optional)
-        <input name="upc" pattern="[0-9]{8,14}" defaultValue={product.product.upc || product.product.suggested_identifiers?.upc || ""} />
-      </label>
-      <label className="check">
-        <input type="checkbox" checked={checked} onChange={e => setChecked(e.target.checked)} />
-        I checked these identifiers against my receipt or product.
-      </label>
-      <button disabled={!checked || busy}>{correction ? "Save correction" : "Confirm identifiers"}</button>
-      {error && <p role="alert">{error}</p>}
-    </form>
-  );
-}
-
 export function Dashboard() {
   const [correcting, setCorrecting] = useState("");
   const [correctionMessage, setCorrectionMessage] = useState("");
   const router = useRouter();
-  const [products, setProducts] = useState<Product[]>([]);
+  const [loadedProducts, setProducts] = useState<Product[] | null>(null);
+  const [purchasesUnavailable, setPurchasesUnavailable] = useState(false);
+  const products = loadedProducts ?? [];
   const [lastRun, setLastRun] = useState("");
   const [health, setHealth] = useState<Health | null>(null);
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState("");
   const [uploadMessage, setUploadMessage] = useState("");
+  const [importNotice, setImportNotice] = useState("");
   const [reimport, setReimport] = useState<{ file: File; token: string } | null>(null);
   const [confirmReimport, setConfirmReimport] = useState(false);
   async function refresh() {
     setProducts((await api<Product[]>("/products")).filter(p => !p.demo));
+    setPurchasesUnavailable(false);
   }
   useEffect(() => {
     void api<Product[]>("/products")
@@ -253,7 +223,7 @@ export function Dashboard() {
         setProducts(p.filter(product => !product.demo));
         setLastRun(localStorage.getItem("sueperman-last-run") || "");
       })
-      .catch((e) => setError(e.message));
+      .catch((e) => { setPurchasesUnavailable(true); setError(e.message); });
     void api<Health>("/health")
       .then(setHealth)
       .catch(() => {});
@@ -262,6 +232,7 @@ export function Dashboard() {
     setBusy(true);
     setError("");
     setCorrectionMessage("");
+    setImportNotice("");
     setReimport(null); setConfirmReimport(false);
     setUploadMessage(file.type.startsWith("image/") || file.type === "application/pdf"
       ? "Reading receipt…" : "Importing purchases…");
@@ -269,8 +240,11 @@ export function Dashboard() {
       const form = new FormData();
       form.append("file", file);
       if (token) form.append("reimport_confirmation", token);
-      await api<Imported>("/uploads/purchases", { method: "POST", body: form });
+      const imported = await api<Imported>("/uploads/purchases", { method: "POST", body: form });
       await refresh();
+      if (imported.parse_warnings?.includes("Existing receipt import reused; no additional model request.")) {
+        setImportNotice("We used your existing receipt. No new purchases were added.");
+      }
     } catch (e) {
       setError((e as Error).message);
       if (e instanceof ApiError && e.details.code === "REIMPORT_CONFIRMATION_REQUIRED" && e.details.reimport_token) {
@@ -298,6 +272,12 @@ export function Dashboard() {
       setBusy(false);
     }
   }
+  const photo = health?.providers.find(provider => provider.name === "openai_receipts");
+  const gemini = health?.providers.find(provider => provider.name === "gemini");
+  const photoProvider = photo?.enabled ? photo : gemini;
+  const photoUnavailable = !!photoProvider && (!photoProvider.enabled || !photoProvider.configured);
+  const agentTeam = health?.providers.find(provider => provider.name === "agent_team");
+  const teamUnavailable = !!agentTeam && (!agentTeam.enabled || !agentTeam.configured);
   return (
     <>
       <section className="hero">
@@ -327,10 +307,12 @@ export function Dashboard() {
         <div className="section-head">
           <h2>
             My purchases{" "}
-            <span className="small">/ {products.length} items</span>
+            {loadedProducts && <span className="small">/ {products.length} {products.length === 1 ? "item" : "items"}</span>}
           </h2>
           <span className="small">CSV · Receipt photo · PDF · Up to 10MB</span>
         </div>
+        {!loadedProducts && !purchasesUnavailable && <p role="status">Loading purchases…</p>}
+        {purchasesUnavailable && <p>Purchases couldn’t load. Reload the page to try again.</p>}
         <div
           className="upload"
           onDragOver={(e) => e.preventDefault()}
@@ -373,15 +355,17 @@ export function Dashboard() {
               type="file"
               accept="image/jpeg,image/png"
               capture="environment"
-              disabled={busy}
+              disabled={busy || photoUnavailable}
               onChange={(e) => {
                 const f = e.target.files?.[0];
                 e.target.value = "";
                 if (f) void upload(f);
               }}
             />
+            {photoUnavailable && <p className="small">Photo reading unavailable. You can still upload a CSV.</p>}
           </div>
           {uploadMessage && <p role="status">{uploadMessage}</p>}
+          {importNotice && <p role="status">{importNotice}</p>}
           {reimport && <div role="group" aria-label="Confirm fresh import">
             <p>This file contains previously deleted purchases. Importing again recreates them. Receipt files will be read again and normal usage limits apply.</p>
             <label><input type="checkbox" checked={confirmReimport} onChange={event => setConfirmReimport(event.target.checked)} /> I want to import this previously deleted file again</label>
@@ -410,7 +394,7 @@ export function Dashboard() {
                       <span className="small">
                         {p.product.brand} · {p.product.merchant}
                       </span>
-                      <TeamStart productId={p.id} />
+                      <TeamStart productId={p.id} unavailable={teamUnavailable} />
                       <DeletePurchase purchaseId={p.purchase_id} onDeleted={async () => {
                         localStorage.removeItem("sueperman-last-run"); setLastRun("");
                         await refresh(); setCorrectionMessage("Purchase and associated local records deleted.");
@@ -457,7 +441,13 @@ export function Dashboard() {
           ))}
         </div>
       </details>
-      {lastRun && <RunResults id={lastRun} />}
+      {lastRun ? <RunResults id={lastRun} /> : <>
+        <Opportunities items={[]} />
+        <section className="section" id="activity">
+          <h2>Activity</h2>
+          <p className="panel empty">No activity yet. Your purchase checks will appear here.</p>
+        </section>
+      </>}
     </>
   );
 }

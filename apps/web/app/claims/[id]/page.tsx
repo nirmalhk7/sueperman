@@ -1,6 +1,7 @@
 "use client";
 import { useCallback, useEffect, useState } from "react";
 import { EvidenceReadiness } from "@/components/p1-controls";
+import { RemedyDraft } from "@/components/remedy-draft";
 import Link from "next/link";
 import { useParams } from "next/navigation";
 import { API, api, post, type Packet } from "@/lib/api";
@@ -80,9 +81,7 @@ export default function Page() {
           responsibility.
         </p>
       </div>
-      <div className="panel">
-        <pre>{p.markdown}</pre>
-      </div>
+      <RemedyDraft markdown={p.markdown} facts={p.completed_fields} />
       {p.kind !== "settlement" && <EvidenceReadiness packetId={id} onChanged={readinessChanged} onPending={setReadinessBusy} />}
       <section className="section">
         <h2>Evidence still needed</h2>

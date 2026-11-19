@@ -1,16 +1,19 @@
 "use client";
 import { useCallback, useEffect, useState } from "react";
 import { SourceMonitor } from "@/components/p1-controls";
+import { IdentifierReview } from "@/components/identifier-review";
 import { useParams, useRouter } from "next/navigation";
 import Link from "next/link";
 import { api, post, type Detail, type Packet } from "@/lib/api";
-import { opportunityLabel, sourceLabel } from "@/lib/labels";
+import { decisionLabel, opportunityLabel, readableLabel, sourceLabel } from "@/lib/labels";
 export default function Page() {
   const { id } = useParams<{ id: string }>();
   const router = useRouter();
   const [d, setD] = useState<Detail | null>(null);
   const [error, setError] = useState("");
   const [busy, setBusy] = useState(false);
+  const [correcting, setCorrecting] = useState(false);
+  const [corrected, setCorrected] = useState(false);
   const monitorChanged = useCallback(async () => {
     setD(await api<Detail>(`/opportunities/${id}`));
   }, [id]);
@@ -39,7 +42,7 @@ export default function Page() {
       <Link className="back" href="/#opportunities">
         Back to opportunities
       </Link>
-      {d.stale && <p role="alert">{d.stale_reason === "related_history_removed" ? "Related investigation history was deleted. These findings require a fresh check and approval." : "Purchase corrected. These results describe the prior revision."} <Link href="/">Check my purchases again.</Link></p>}
+      {(d.stale || corrected) && <p role="alert">{d.stale_reason === "related_history_removed" ? "Related investigation history was deleted. These findings require a fresh check and approval." : "Purchase corrected. These results describe the prior revision."} <Link href="/">Check my purchases again.</Link></p>}
       <div className="section">
         <span className={`pill ${d.simulated ? "simulated" : d.status}`}>
           {opportunityLabel(d.status, d.simulated)}
@@ -83,8 +86,15 @@ export default function Page() {
               : "Official evidence excludes this product"}
           </div>
         )}
-        {d.status === "needs_review" && !d.product.product.model_number && (
-          <div className="notice">Missing model number</div>
+        {d.kind === "recall" && d.status === "needs_review" && !d.product.product.model_number && !d.stale && !corrected && (
+          <section className="notice" aria-label="Missing model number">
+            <strong>Missing model number</strong>
+            <p>Check the model number on your product or receipt so we can compare it with the recall notice.</p>
+            {correcting ? <IdentifierReview product={d.product} correction onConfirmed={async () => {
+              setCorrected(true);
+              setCorrecting(false);
+            }} /> : <button type="button" onClick={() => setCorrecting(true)}>Correct model number</button>}
+          </section>
         )}
         <div className="split section">
           <section className="panel">
@@ -143,7 +153,7 @@ export default function Page() {
               <tbody>
                 {d.assessment.hard_conditions.map((c) => (
                   <tr key={c.name}>
-                    <td>{c.name}</td>
+                    <td>{readableLabel(c.name)}</td>
                     <td className="mono">{JSON.stringify(c.expected)}</td>
                     <td className="mono">
                       {c.observed === null
@@ -166,12 +176,12 @@ export default function Page() {
         {d.assessment.decision_raw_summary && (
           <section className="section panel">
             <h2>Investigation decision</h2>
-            <p>Selected action: {d.assessment.decision_raw_summary.choice}</p>
-            <p>Decision provider: {d.assessment.decision_raw_summary.mode}</p>
-            <p>Hard-gate status: {d.status}</p>
-            <p>Missing conditions: {d.assessment.missing_fields.join(", ") || "None"}</p>
+            <p>Next step: {decisionLabel(d.assessment.decision_raw_summary.choice)}</p>
+            <p>Decision source: {d.assessment.decision_raw_summary.mode === "rules" ? "Official matching rules" : readableLabel(d.assessment.decision_raw_summary.mode)}</p>
+            <p>Result: {opportunityLabel(d.status, d.simulated)}</p>
+            <p>Missing information: {d.assessment.missing_fields.map(readableLabel).join(", ") || "None"}</p>
             {d.assessment.decision_raw_summary.proposed_choice && (
-              <p>Model proposed: {d.assessment.decision_raw_summary.proposed_choice}</p>
+              <p>Model suggested: {decisionLabel(d.assessment.decision_raw_summary.proposed_choice)}</p>
             )}
             <p>{d.assessment.decision_raw_summary.overridden
               ? "Guardrail override: model proposal contradicted hard eligibility gates."

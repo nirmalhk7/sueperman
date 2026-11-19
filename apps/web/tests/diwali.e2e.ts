@@ -11,7 +11,7 @@ test("Recovered investigation shows recovery and uncertain-outcome guidance", as
     await route.fulfill({ json: body });
   });
   await page.goto("/runs/recovery-case");
-  await expect(page.getByRole("heading", { name: "Run partial", exact: true })).toBeVisible();
+  await expect(page.getByRole("heading", { name: "Check finished with limited results", exact: true })).toBeVisible();
   await expect(page.getByText("Queued work recovered after restart.", { exact: true })).toBeVisible();
   await expect(page.getByText("Execution interrupted; external outcome may be unknown. Start a new run.", { exact: true })).toBeVisible();
   await expect(page.getByRole("button", { name: /approve|export/i })).toHaveCount(0);
@@ -48,6 +48,6 @@ test("Diwali error and empty states", async ({ page }) => {
   await page.route("**/agent-messages*", route => route.fulfill({ status: 503, json: { message: "Timeline unavailable" } }));
   await page.reload();
   await expect(page.getByRole("alert").filter({ hasText: "Timeline unavailable" })).toBeVisible();
-  await expect(page.getByRole("heading", { name: "Run partial" })).toBeVisible();
+  await expect(page.getByRole("heading", { name: "Check finished with limited results" })).toBeVisible();
   await expect(page.getByRole("button", { name: /recorded|replay|fallback/i })).toHaveCount(0);
 });

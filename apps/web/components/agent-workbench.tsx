@@ -8,11 +8,18 @@ const roles = [
   { name: "Builder", title: "Make it actionable.", verb: "Explain", description: "Turn the finding and challenge into a clear case board. Ask for the next missing fact, or explain the next step for local review.", detail: "Finding + challenge = next step", mark: "build" },
 ] as const;
 
+const sponsorRoles = [
+  { tool: "Agent37", use: "runs Scout’s official recall lookup." },
+  { tool: "Lyzr", use: "reviews the evidence and tests the proposed match." },
+  { tool: "Lyzr", use: "builds the case summary from the finding and challenge." },
+] as const;
+
 export function AgentWorkbench() {
   const [selected, setSelected] = useState(0);
   const buttons = useRef<(HTMLButtonElement | null)[]>([]);
   const id = useId();
   const role = roles[selected];
+  const sponsor = sponsorRoles[selected];
   return (
     <section className="agent-workbench" aria-label="How the agent team works">
       <div className="workbench-top"><span>One case. Three perspectives.</span><span className="preview-label">How it works</span></div>
@@ -45,8 +52,16 @@ export function AgentWorkbench() {
         </div>
         <div className="agent-stage-copy"><h2>{role.title}</h2><p>{role.description}</p></div>
         <div className="workbench-equation"><span className="signal-mark" aria-hidden="true" />{role.detail}</div>
+        <p className="workbench-sponsor"><strong>{sponsor.tool}</strong> {sponsor.use}</p>
       </div>
-      <div className="workbench-foot"><span>Evidence first. Your approval, always.</span><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" aria-hidden="true"><path d="m5 12 4 4L19 6" /></svg></div>
+      <div className="workbench-foot">
+        <div><strong>BAND</strong> hands off tasks and results between agents.</div>
+        <details>
+          <summary>Proposed sponsor roles</summary>
+          <div><strong>Finch</strong> could deliver a reusable review skill for Skeptic.</div>
+          <div><strong>AdaL</strong> could run an independent review and produce the presentation video.</div>
+        </details>
+      </div>
     </section>
   );
 }
