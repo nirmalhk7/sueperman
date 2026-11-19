@@ -28,7 +28,8 @@ def response(request):
         context = json.loads(payload["message"])
         task = context["task"]
         output = ({"review_note": "Compare the exact identifier with the supplied notice.",
-            "evidence_refs": task["source_refs"], "requested_fields": [], "uncertainty": False}
+            "evidence_refs": task["source_refs"], "requested_fields": [],
+            "uncertainty": context["product"].get("model_number") != "ZHX-PB22"}
             if payload["agent_id"] == "reviewer" else {"schema_version": 1,
             **{k: task[k] for k in ("case_id", "task_id", "revision")}, "provider": "lyzr", "mode": "live",
             **context["validated_review"]})

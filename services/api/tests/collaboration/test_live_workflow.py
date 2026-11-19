@@ -12,7 +12,8 @@ from app.main import create_app
 
 
 @pytest.fixture
-def live_client(tmp_path, monkeypatch):
+def live_client(tmp_path, monkeypatch, request):
+    abstain_on_exact = getattr(request, "param", False)
     try:
         from app.collaboration import live
     except ImportError:
@@ -48,8 +49,12 @@ def live_client(tmp_path, monkeypatch):
         body = json.loads(request.content)
         message = json.loads(body["message"])
         if body["agent_id"] == "reviewer":
+            model = message["product"].get("model_number")
+            # On a later revision, the reviewer needs provenance for the newly supplied identifier.
+            unconfirmed_followup = message["task"]["revision"] > 2 and not message.get("model_number_confirmed_by_user")
             output = {"review_note": "Compare the exact model with the supplied official notice.",
-                "requested_fields": [], "evidence_refs": message["task"]["source_refs"], "uncertainty": False}
+                "requested_fields": [], "evidence_refs": message["task"]["source_refs"],
+                "uncertainty": model != "ZHX-PB22" or abstain_on_exact or unconfirmed_followup}
         else:
             task = message["task"]
             output = {"schema_version": 1, "task_id": task["task_id"], "case_id": task["case_id"],
@@ -103,10 +108,21 @@ def test_live_exact_case_persists_three_roles_and_exports_only_after_approval(li
 def test_live_exclusion_and_missing_fact_never_grant_export(live_client, model, status):
     client, _, _ = live_client
     run = start(client, model)
-    assert run["status"] == status
+    assert run["status"] == status, run
     assert client.post(f"/api/collaborations/{run['id']}/export").status_code == 409
     if not model:
         assert run["board"]["question_field"] == "model_number"
+    else:
+        assert "ZHX-PB23" in run["board"]["challenge"]
+        assert "ZHX-PB22" in run["board"]["challenge"]
+
+
+@pytest.mark.parametrize("live_client", [True], indirect=True)
+def test_live_exact_case_still_requires_review_when_skeptic_abstains(live_client):
+    client, _, _ = live_client
+    run = start(client)
+    assert run["status"] == "partial"
+    assert client.post(f"/api/collaborations/{run['id']}/export").status_code == 409
 
 
 def test_live_scout_failure_is_partial_without_a_recorded_match(live_client):
@@ -132,6 +148,7 @@ def test_changed_official_evidence_revokes_live_case_export(live_client):
 def test_live_answer_opens_new_revision_with_confirmed_fact(live_client):
     client, _, _ = live_client
     initial = start(client, "")
+    assert initial["status"] == "needs_information", initial
     response = client.post(f"/api/collaborations/{initial['id']}/answers", json={
         "revision": initial["revision"], "field": "model_number", "value": "ZHX-PB22",
         "confirmed": True, "idempotency_key": "confirmed-model"})

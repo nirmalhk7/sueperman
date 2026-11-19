@@ -77,7 +77,11 @@ def board_for(product, recall, challenge, advice):
         if "model_number" in false else "Supported exclusion: " + ", ".join(false) if false else
         "Unresolved source conditions: " + ", ".join(missing) if missing else
         "Exact identifiers satisfy the supported official conditions.",
-        "review_note": advice.review_note, "missing_information": missing,
+        "review_note": (
+            "Skeptic abstained. The official model check determines the next step."
+            if advice.uncertainty else advice.review_note
+        ),
+        "missing_information": missing,
         "question_field": question,
         "question": f"What is the {question.replace('_', ' ')} printed on your product or record?" if question else None,
         "decision": challenge.status, "conditions": [c.model_dump(mode="json") for c in challenge.conditions]}
@@ -114,8 +118,22 @@ async def execute(factory, run_id, settings):
                     assert recall is not None and challenge is not None
                     advice = await lyzr.review(task, {"product": roles.public_facts(product),
                         "evidence": recall.model_dump(mode="json"),
-                        "conditions": [c.model_dump(mode="json") for c in challenge.conditions]})
-                    if advice.uncertainty:
+                        "conditions": [c.model_dump(mode="json") for c in challenge.conditions],
+                        "model_number_confirmed_by_user": "model_number" in case.payload.get("answers", {}),
+                        "review_guidance": (
+                            "When model_number_confirmed_by_user is true, use the supplied product model number "
+                            "as the user's answer for this revision. Flag uncertainty only for an unresolved "
+                            "question about the supplied evidence or match conditions. Remedy requirements "
+                            "and personal eligibility are outside this review."
+                        )})
+                    unresolved = [(c.name, c.status) for c in challenge.conditions if c.status != "true"]
+                    # An abstention cannot authorize a draft. A supported model check
+                    # can still exclude a mismatch or ask the user for a missing model.
+                    model_only_outcome = bool(recall.models) and (
+                        (challenge.status == "rejected" and unresolved == [("model_number", "false")])
+                        or (challenge.status == "needs_review" and unresolved == [("model_number", "unknown")])
+                    )
+                    if advice.uncertainty and not model_only_outcome:
                         raise ValueError("Reviewer requires manual source review")
                     review = reviewed_result(task, challenge, recall)
                     return review
